@@ -3,7 +3,6 @@ package org.tweetyproject.arg.peaf.examples;
 import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 public class PEAFExample {

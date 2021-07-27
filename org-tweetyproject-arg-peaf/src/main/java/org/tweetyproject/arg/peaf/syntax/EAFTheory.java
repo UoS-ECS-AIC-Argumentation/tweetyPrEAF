@@ -37,9 +37,10 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
     }
 
 
-    public void addArgument(int identifier) {
+    public EArgument addArgument(int identifier) {
         EArgument argument = this.createArgument(Integer.toString(identifier));
         this.addArgument(argument);
+        return argument;
     }
 
     protected EAttack createAttack(String name, Set<EArgument> froms, Set<EArgument> tos) {

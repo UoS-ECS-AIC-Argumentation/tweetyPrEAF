@@ -42,9 +42,10 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport, PAttack> {
         return attack;
     }
 
-    public void addArgument(int identifier) {
+    public EArgument addArgument(int identifier) {
         EArgument argument = this.createArgument(Integer.toString(identifier));
         this.addArgument(argument);
+        return argument;
     }
 
     public void addSupport(int[] fromIndices, int[] toIndices, double cp) {

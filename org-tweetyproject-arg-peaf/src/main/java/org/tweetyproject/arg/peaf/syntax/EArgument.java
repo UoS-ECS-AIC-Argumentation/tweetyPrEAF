@@ -4,7 +4,7 @@ package org.tweetyproject.arg.peaf.syntax;
 import java.util.*;
 
 public class EArgument {
-    private final String name;
+    private String name;
     private final Set<EAttack> attacks;
     private final Set<EAttack> attackedBy;
 
@@ -92,5 +92,9 @@ public class EArgument {
 
     public Set<EAttack> getAttackedBy() {
         return attackedBy;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
