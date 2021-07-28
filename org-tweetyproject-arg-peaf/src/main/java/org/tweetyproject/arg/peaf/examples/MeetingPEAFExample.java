@@ -3,8 +3,10 @@ package org.tweetyproject.arg.peaf.examples;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
+import org.tweetyproject.arg.peaf.writer.EdgeListWriter;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 public class MeetingPEAFExample {
@@ -42,8 +44,15 @@ public class MeetingPEAFExample {
         args.get(5).setName("a");
         args.get(6).setName("c");
 
+        EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/0.peaf", peafTheory);
+
+        AtomicInteger i = new AtomicInteger();
         peafTheory.induceAll((Consumer<InducibleEAF>) ind -> {
+            int n = i.getAndIncrement();
             System.out.println(ind);
+            String probability = String.format("%.04f", ind.getInducePro());
+            probability = probability.replace(".", "_");
+            EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/"+ n + "" + "_" + probability + ".eaf", ind.toNewEAFTheory());
 
         });
 

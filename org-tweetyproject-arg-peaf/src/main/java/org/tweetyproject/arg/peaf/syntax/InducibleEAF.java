@@ -37,6 +37,21 @@ public class InducibleEAF {
         return pInside;
     }
 
+    public double getInducePro() {
+        return inducePro;
+    }
+
+    public EAFTheory toNewEAFTheory() {
+        EAFTheory eafTheory = new EAFTheory();
+        for (PSupport support : supports) {
+            eafTheory.addSupport(support);
+        }
+        for (EArgument argument : arguments) {
+            eafTheory.addArgument(argument);
+        }
+        return eafTheory;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("InducibleEAF{");

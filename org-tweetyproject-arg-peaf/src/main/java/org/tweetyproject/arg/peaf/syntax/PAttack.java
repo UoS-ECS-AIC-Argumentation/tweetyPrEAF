@@ -19,4 +19,7 @@ public class PAttack extends EAttack {
                     '}';
         }
 
+    public double getConditionalProbability() {
+        return conditionalProbability;
+    }
 }

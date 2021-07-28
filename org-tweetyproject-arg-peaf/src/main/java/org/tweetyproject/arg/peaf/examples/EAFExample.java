@@ -1,6 +1,7 @@
 package org.tweetyproject.arg.peaf.examples;
 
 import org.tweetyproject.arg.peaf.syntax.EAFTheory;
+import org.tweetyproject.arg.peaf.writer.EdgeListWriter;
 
 public class EAFExample {
 
@@ -27,5 +28,7 @@ public class EAFExample {
         eafTheory.addAttack(new int[]{2}, new int[]{6});
 
         eafTheory.prettyPrint();
+
+        EdgeListWriter.write("eaf.txt", eafTheory);
     }
 }
