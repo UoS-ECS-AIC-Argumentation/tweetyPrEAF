@@ -10,6 +10,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 public class MeetingPEAFExample {
+    static double total = 0;
+
     public static void main(String[] s) {
         int numOfArgs = 7;
 
@@ -47,14 +49,17 @@ public class MeetingPEAFExample {
         EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/0.peaf", peafTheory);
 
         AtomicInteger i = new AtomicInteger();
+
+        total = 0;
         peafTheory.induceAll((Consumer<InducibleEAF>) ind -> {
             int n = i.getAndIncrement();
             System.out.println(ind);
             String probability = String.format("%.04f", ind.getInducePro());
             probability = probability.replace(".", "_");
             EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/"+ n + "" + "_" + probability + ".eaf", ind.toNewEAFTheory());
-
+            total += ind.getInducePro();
         });
+        System.out.println("Total probability: " + total);
 
     }
 }
