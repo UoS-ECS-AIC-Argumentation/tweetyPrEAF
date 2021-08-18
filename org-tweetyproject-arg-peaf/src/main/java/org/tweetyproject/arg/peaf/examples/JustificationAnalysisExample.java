@@ -36,8 +36,6 @@ public class JustificationAnalysisExample
         peafTheory.addAttack(new int[]{1}, new int[]{5}, 1.0);
         peafTheory.addAttack(new int[]{1}, new int[]{6}, 1.0);
 
-
-
         List<EArgument> args = peafTheory.getArguments();
         args.get(0).setName("eta");
         args.get(1).setName("b");
@@ -45,7 +43,6 @@ public class JustificationAnalysisExample
         args.get(3).setName("e");
         args.get(4).setName("f");
         args.get(5).setName("a");
-
 
 
         args.get(6).setName("c");

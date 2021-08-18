@@ -64,7 +64,6 @@ public class JustificationAnalysis {
 
             }
 
-
         });
 
         return prob.get();
