@@ -1,5 +1,6 @@
 package org.tweetyproject.arg.peaf.examples;
 
+import org.tweetyproject.arg.peaf.inducers.AllPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
@@ -49,9 +50,9 @@ public class MeetingPEAFExample {
         EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/0.peaf", peafTheory);
 
         AtomicInteger i = new AtomicInteger();
-
+        AllPEAFInducer inducer = new AllPEAFInducer(peafTheory);
         total = 0;
-        peafTheory.induceAll((Consumer<InducibleEAF>) ind -> {
+        inducer.induce((Consumer<InducibleEAF>) ind -> {
             int n = i.getAndIncrement();
             System.out.println(ind);
             String probability = String.format("%.04f", ind.getInducePro());

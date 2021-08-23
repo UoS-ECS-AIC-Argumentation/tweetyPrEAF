@@ -3,6 +3,7 @@ package org.tweetyproject.arg.peaf.examples;
 import org.tweetyproject.arg.dung.reasoner.SimplePreferredReasoner;
 import org.tweetyproject.arg.peaf.analysis.JustificationAnalysis;
 import org.tweetyproject.arg.peaf.inducers.AllPEAFInducer;
+import org.tweetyproject.arg.peaf.inducers.SomePEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 
@@ -10,8 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class JustificationAnalysisExample
-{
+public class ApproximateJustificationAnalysisExample {
     public static void main(String[] s) {
         int numOfArgs = 7;
         PEAFTheory peafTheory = new PEAFTheory();
@@ -45,13 +45,14 @@ public class JustificationAnalysisExample
 //        args.get(6).setName("c");
 
         Set<EArgument> query = new HashSet<>();
+//        query.add(args.get(0));
         query.add(args.get(0));
         query.add(args.get(1));
-//        query.add(args.get(6));
 
-        AllPEAFInducer inducer = new AllPEAFInducer(peafTheory);
-        double probabilisticJustification = JustificationAnalysis.computeJustificationOf(query, inducer, new SimplePreferredReasoner());
+
+        double probabilisticJustification = JustificationAnalysis.approximateJustificationOf(query, peafTheory, new SimplePreferredReasoner(), 0.1);
         System.out.println("Probabilistic justification: " + probabilisticJustification);
     }
+
 
 }
