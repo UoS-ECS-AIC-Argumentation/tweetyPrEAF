@@ -6,9 +6,7 @@ import org.tweetyproject.arg.dung.reasoner.AbstractExtensionReasoner;
 import org.tweetyproject.arg.dung.semantics.Extension;
 import org.tweetyproject.arg.dung.syntax.Argument;
 import org.tweetyproject.arg.dung.syntax.DungTheory;
-import org.tweetyproject.arg.peaf.inducers.AbstractPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.AllPEAFInducer;
-import org.tweetyproject.arg.peaf.inducers.PEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.SomePEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EAFTheory;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
@@ -38,9 +36,9 @@ public class JustificationAnalysis {
                 N[0] = N[0] + 1.0;
                 p_i[0] = (M[0] + 2) / (N[0] + 4);
                 metric[0] = ((4.0 * p_i[0] * (1.0 - p_i[0])) / Math.pow(errorLevel, 2)) - 4.0;
-                System.out.println(inducibleEAF);
-                System.out.println("Simulation step: " + i[0] + " M: " + M[0] + " - N: " + N[0] + " metric: " + metric[0]);
-                System.out.println("Contribution was: " + contribution);
+//                System.out.println(inducibleEAF);
+//                System.out.println("Simulation step: " + i[0] + " M: " + M[0] + " - N: " + N[0] + " metric: " + metric[0]);
+//                System.out.println("Contribution was: " + contribution);
                 i[0] += 1;
             }
         };
@@ -69,6 +67,7 @@ public class JustificationAnalysis {
             // If args is in EAFTheory and if X is in an extension of EAFTheory
             // then induce probability can be considered.
             EAFTheory eafTheory = ind.toNewEAFTheory();
+            eafTheory.prettyPrint();
             if (eafTheory.getArguments().containsAll(args)) {
                 // If the X is in an extension of IEAF
 

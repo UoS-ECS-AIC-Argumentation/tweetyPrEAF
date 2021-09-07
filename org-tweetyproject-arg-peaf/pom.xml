@@ -40,5 +40,10 @@
             <artifactId>math</artifactId>
             <version>1.19-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.graphstream</groupId>
+            <artifactId>gs-algo</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
 </project>

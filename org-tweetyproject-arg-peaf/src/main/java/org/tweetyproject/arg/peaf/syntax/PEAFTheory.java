@@ -1,8 +1,7 @@
 package org.tweetyproject.arg.peaf.syntax;
 
 import java.util.*;
-import java.util.function.Consumer;
-
+import java.util.concurrent.ThreadLocalRandom;
 
 public class PEAFTheory extends AbstractEAFTheory<PSupport, PAttack> {
 
@@ -15,7 +14,6 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport, PAttack> {
             this.addArgument(i);
         }
     }
-
 
     private PSupport createSupport(String name, Set<EArgument> froms, Set<EArgument> tos, double cp) {
         PSupport support = new PSupport(name, froms, tos, cp);
@@ -66,4 +64,20 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport, PAttack> {
         this.addAttack(attack);
     }
 
+    public Set<EArgument> getRandomArguments(Random random) {
+        int nTimes = random.nextInt( this.getArguments().size());
+        return getRandomArguments(random, nTimes);
+    }
+
+    public Set<EArgument> getRandomArguments(Random random, int nTimes) {
+        List<EArgument> randomList = new ArrayList<>(this.getArguments());
+        Set<EArgument> set = new HashSet<>();
+
+        for (int i = 0; i < nTimes; i++) {
+            Collections.shuffle(randomList, random);
+            set.add(randomList.get(0));
+            randomList.remove(0);
+        }
+        return set;
+    }
 }
