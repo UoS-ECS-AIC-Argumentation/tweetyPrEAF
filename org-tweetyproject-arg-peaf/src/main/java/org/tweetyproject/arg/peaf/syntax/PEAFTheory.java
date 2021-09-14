@@ -1,7 +1,6 @@
 package org.tweetyproject.arg.peaf.syntax;
 
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class PEAFTheory extends AbstractEAFTheory<PSupport, PAttack> {
 
@@ -80,4 +79,6 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport, PAttack> {
         }
         return set;
     }
+
+
 }

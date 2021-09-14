@@ -1,7 +1,7 @@
-package org.tweetyproject.arg.peaf.evaluation;
+package org.tweetyproject.arg.peaf.evaluation.daf;
 
 public enum GraphType {
-    WATTS("watts"), RANDOM("random"), BARABASI("barabasi"), FULLY_CONNECTED("fully");
+    WATTS("watts"), RANDOM("random"), BARABASI("barabasi");
 
     private final String text;
 

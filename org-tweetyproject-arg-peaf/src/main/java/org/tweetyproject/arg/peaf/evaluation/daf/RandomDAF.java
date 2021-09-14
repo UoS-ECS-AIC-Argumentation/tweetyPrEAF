@@ -1,4 +1,4 @@
-package org.tweetyproject.arg.peaf.evaluation;
+package org.tweetyproject.arg.peaf.evaluation.daf;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.algorithm.generator.Generator;
@@ -9,8 +9,8 @@ import org.graphstream.graph.implementations.MultiGraph;
  * Adapted from Federico Cerutti's Java version AFBenchGen2
  * https://sourceforge.net/projects/afbenchgen/
  */
-public class RandomPEAF extends SyntheticPEAF {
-    public RandomPEAF(int noArguments, double probability) {
+public class RandomDAF extends SyntheticDAF {
+    public RandomDAF(int noArguments, double probability) {
         super(GraphType.RANDOM, noArguments);
 
         this.validateProbabilities(probability);

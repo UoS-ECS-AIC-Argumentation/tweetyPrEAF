@@ -1,4 +1,4 @@
-package org.tweetyproject.arg.peaf.evaluation;
+package org.tweetyproject.arg.peaf.evaluation.daf;
 
 import org.graphstream.algorithm.Toolkit;
 import org.graphstream.algorithm.generator.BarabasiAlbertGenerator;
@@ -13,11 +13,13 @@ import org.graphstream.graph.implementations.MultiGraph;
  * Adapted from Federico Cerutti's Java version AFBenchGen2
  * https://sourceforge.net/projects/afbenchgen/
  */
-public class BarabasiAlbertPEAF extends SyntheticPEAF {
-    public BarabasiAlbertPEAF(int noArguments, double probabilityCycle) {
+public class BarabasiAlbertDAF extends SyntheticDAF {
+    public BarabasiAlbertDAF(int noArguments, double probabilityCycle) {
         super(GraphType.BARABASI, noArguments);
 
         this.validateProbabilities(probabilityCycle);
+
+
 
         BaseGenerator generator = new BarabasiAlbertGenerator();
         Graph graph = new MultiGraph("");

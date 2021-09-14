@@ -1,4 +1,4 @@
-package org.tweetyproject.arg.peaf.evaluation;
+package org.tweetyproject.arg.peaf.evaluation.daf;
 
 import org.graphstream.algorithm.Toolkit;
 import org.graphstream.algorithm.generator.BaseGenerator;
@@ -12,8 +12,8 @@ import org.graphstream.graph.implementations.MultiGraph;
  * Adapted from Federico Cerutti's Java version AFBenchGen2
  * https://sourceforge.net/projects/afbenchgen/
  */
-public class WattsStrogatzPEAF extends SyntheticPEAF {
-    public WattsStrogatzPEAF(int noArguments, int baseDegree, double beta, double probabilityCycle) {
+public class WattsStrogatzDAF extends SyntheticDAF {
+    public WattsStrogatzDAF(int noArguments, int baseDegree, double beta, double probabilityCycle) {
         super(GraphType.WATTS, noArguments);
         this.validateProbabilities(probabilityCycle);
 

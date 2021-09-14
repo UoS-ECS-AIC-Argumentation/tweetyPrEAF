@@ -81,4 +81,8 @@ public abstract class AbstractEAFTheory<S, A>{
 
         System.out.println("\n");
     }
+
+    public int getNumberOfNodes() {
+        return arguments.size();
+    }
 }

@@ -1,25 +1,30 @@
-package org.tweetyproject.arg.peaf.evaluation;
+package org.tweetyproject.arg.peaf.evaluation.daf;
 
 import org.graphstream.algorithm.TarjanStronglyConnectedComponents;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
-import org.tweetyproject.arg.peaf.syntax.EArgument;
-import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
-
-import java.util.concurrent.ThreadLocalRandom;
+import org.tweetyproject.arg.dung.syntax.Argument;
+import org.tweetyproject.arg.dung.syntax.DungTheory;
 
 /**
  * Adapted from Federico Cerutti's Java version AFBenchGen2
  * https://sourceforge.net/projects/afbenchgen/
  */
-public abstract class SyntheticPEAF extends PEAFTheory {
+public abstract class SyntheticDAF extends DungTheory {
     private final GraphType graphType;
-
-    public SyntheticPEAF(GraphType graphType, int noArguments) {
-        super(noArguments);
+    private final Argument[] arguments;
+    public SyntheticDAF(GraphType graphType, int noArguments) {
         this.graphType = graphType;
         this.validateNoArgs(noArguments);
+
+        arguments = new Argument[noArguments];
+
+        for (int i = 0; i < noArguments; i++) {
+            Argument arg = new Argument("" + i);
+            arguments[i] = arg;
+            this.add(arg);
+        }
     }
 
     protected void validateNoArgs(int noArguments) {
@@ -35,28 +40,15 @@ public abstract class SyntheticPEAF extends PEAFTheory {
     }
 
     protected void addEdges(Graph graph) {
-        // This is important.
-        this.addSupport(new int[]{}, new int[]{0}, 1.0);
-
         for (Edge edge : graph.getEdgeSet()) {
+            int fromIndex = edge.getNode0().getIndex();
+            int toIndex = edge.getNode1().getIndex();
 
-            double random = ThreadLocalRandom.current().nextDouble();
-            double linkProbability = ThreadLocalRandom.current().nextDouble();
+            Argument from = arguments[fromIndex];
+            Argument to = arguments[toIndex];
 
-            int[] fromIndices = {edge.getNode0().getIndex()};
-            int[] toIndices = {edge.getNode1().getIndex()};
-
-            if (random >= 0.1) {
-                this.addSupport(fromIndices, toIndices, linkProbability);
-            }
-            else {
-                // FIXME: This makes attacks to eta ignored, there can be a better way
-                if (edge.getNode1().getIndex() != 0) {
-                    this.addAttack(fromIndices, toIndices, linkProbability);
-                }
-            }
+            this.addAttack(from, to);
         }
-
     }
 
     protected int computeStronglyConnectedComponents(Graph graph) {
