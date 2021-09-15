@@ -7,6 +7,7 @@ import org.tweetyproject.arg.dung.syntax.DungTheory;
 import org.tweetyproject.arg.peaf.evaluation.converters.EAFToPEAFConverter;
 import org.tweetyproject.arg.peaf.evaluation.converters.EtaToAllConverter;
 import org.tweetyproject.arg.peaf.syntax.EAFTheory;
+import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 
 public class EAFToPEAFConverterTest {
 
@@ -32,6 +33,11 @@ public class EAFToPEAFConverterTest {
         eafTheory.prettyPrint();
         Assert.assertEquals(3, eafTheory.getNumberOfNodes());
 
-        EAFToPEAFConverter.convert(eafTheory, 0.5);
+        PEAFTheory peafTheory = EAFToPEAFConverter.convert(eafTheory, 0.5);
+
+        peafTheory.prettyPrint();
+
+        peafTheory = EAFToPEAFConverter.convert(eafTheory, 5, 5, 10, 1);
+        peafTheory.prettyPrint();
     }
 }

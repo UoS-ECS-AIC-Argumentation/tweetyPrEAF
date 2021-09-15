@@ -67,7 +67,7 @@ public class JustificationAnalysis {
             // If args is in EAFTheory and if X is in an extension of EAFTheory
             // then induce probability can be considered.
             EAFTheory eafTheory = ind.toNewEAFTheory();
-            eafTheory.prettyPrint();
+            //  eafTheory.prettyPrint();
             if (eafTheory.getArguments().containsAll(args)) {
                 // If the X is in an extension of IEAF
 

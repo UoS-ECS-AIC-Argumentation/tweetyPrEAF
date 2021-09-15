@@ -21,6 +21,9 @@ public class EAFToPEAFConverter {
             argumentIndexMap.put(argument, i);
         }
 
+        // This is important for making inducers work properly.
+        peafTheory.addSupport(new int[]{}, new int[]{0}, 1.0);
+
         for (ESupport support : eafTheory.getSupports()) {
             int[] fromIndices = getIndices(argumentIndexMap, support.getFroms());
             int[] toIndices = getIndices(argumentIndexMap, support.getTos());
