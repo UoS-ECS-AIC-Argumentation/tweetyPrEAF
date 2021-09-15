@@ -1,13 +1,16 @@
-package org.tweetyproject.arg.peaf.writer;
+package org.tweetyproject.arg.peaf.io;
 
+import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
+import org.tweetyproject.commons.util.Pair;
 
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.function.Consumer;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
@@ -15,9 +18,48 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class EdgeListReader {
+    private static final String QUERY_LINE = "# Query: ";
 
     public static PEAFTheory readPEAF(String filePath) throws IOException {
         return EdgeListReader.readPEAF(filePath, false);
+    }
+
+    public static Pair<PEAFTheory, Set<EArgument>> readPEAFWithQuery(String filePath, boolean printLines) throws IOException {
+        // FIXME: We assume first line is the query line commented as in an EdgeList comment with #
+        FileInputStream fs= new FileInputStream(filePath);
+        BufferedReader br = new BufferedReader(new InputStreamReader(fs));
+        String firstLine = br.readLine();
+        if (printLines) {
+            System.out.println(firstLine);
+        }
+        Set<String> stringQueryArgs = new HashSet<>();
+        if (firstLine.startsWith(QUERY_LINE)) {
+            String tokens = firstLine.substring(QUERY_LINE.length(), firstLine.length());
+            StringTokenizer tokenizer = new StringTokenizer(tokens, " ");
+
+            while(tokenizer.hasMoreTokens()) {
+                String token = tokenizer.nextToken();
+                stringQueryArgs.add(token);
+            }
+        }
+        else {
+            br.close();
+            fs.close();
+            throw new RuntimeException("File (" + filePath + ") does not contain query line.");
+        }
+        br.close();
+        fs.close();
+
+        PEAFTheory peafTheory = readPEAF(filePath, printLines);
+        Set<EArgument> eArguments = new HashSet<>();
+
+        for (String stringQueryArg : stringQueryArgs) {
+            // FIXME: Queries only are allowed within integer indices format if query part, for example
+            // FIXME: # Query: 1 0 9 4
+            eArguments.add(peafTheory.getArguments().get((Integer.parseInt(stringQueryArg))));
+        }
+
+        return new Pair<>(peafTheory, eArguments);
     }
 
     public static PEAFTheory readPEAF(String filePath, boolean printLines) throws IOException {
@@ -62,6 +104,9 @@ public class EdgeListReader {
 
         // Number of arguments include zero (as eta), therefore plus one here
         PEAFTheory peaf = new PEAFTheory(maxArgumentNo[0] + 1);
+
+        // This is important for making inducers work properly.
+        peaf.addSupport(new int[]{}, new int[]{0}, 1.0);
 
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
             lines.flatMap(line -> m.reset(line).results())

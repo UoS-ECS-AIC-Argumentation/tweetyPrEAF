@@ -1,13 +1,12 @@
-package org.tweetyproject.arg.peaf.examples;
+package org.tweetyproject.arg.peaf.evaluation;
 
 import org.tweetyproject.arg.dung.reasoner.SimplePreferredReasoner;
 import org.tweetyproject.arg.peaf.analysis.JustificationAnalysis;
-import org.tweetyproject.arg.peaf.inducers.AbstractPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.AllPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
-import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
-import org.tweetyproject.arg.peaf.writer.EdgeListReader;
+import org.tweetyproject.arg.peaf.io.EdgeListReader;
+import org.tweetyproject.commons.util.Pair;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -19,12 +18,10 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Set;
-import java.util.function.Consumer;
 
 public class RunEvaluationExamples {
     public static void evaluate(String evaluationFolderPath) throws IOException {
         // This is important to make sure generated queries are same across approximate and exact justification runs
-        Random random = new Random(9999);
 
         Path evaluateFolder = Paths.get(evaluationFolderPath);
 
@@ -78,12 +75,14 @@ public class RunEvaluationExamples {
                 for (Integer repetitionFileName : repetitionFileNames) {
                     String repetitionFilePath = Paths.get(nodeSizePath.toString(), ("" + repetitionFileName + ".peaf")).toString();
 //                    System.out.println("Running: " + repetitionFilePath );
-                    PEAFTheory peafTheory = EdgeListReader.readPEAF(repetitionFilePath);
+                    Pair<PEAFTheory, Set<EArgument>> pair = EdgeListReader.readPEAFWithQuery(repetitionFilePath, false);
+                    PEAFTheory peafTheory = pair.getFirst();
+                    Set<EArgument> query = pair.getSecond();
 //                    peafTheory.prettyPrint();
                     long startTime = System.nanoTime();
 
 
-                    Set<EArgument> query = peafTheory.getRandomArguments(random, 1);
+
                     // AllInducer
                     System.out.println(query.toString());
 

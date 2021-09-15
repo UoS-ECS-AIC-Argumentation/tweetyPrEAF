@@ -65,6 +65,7 @@ public class JustificationAnalysis {
         inducer.induce((Consumer<InducibleEAF>) ind -> {
             // If args is in EAFTheory and if X is in an extension of EAFTheory
             // then induce probability can be considered.
+//            System.out.println(ind);
             EAFTheory eafTheory = ind.toNewEAFTheory();
             //  eafTheory.prettyPrint();
             if (eafTheory.getArguments().containsAll(args)) {

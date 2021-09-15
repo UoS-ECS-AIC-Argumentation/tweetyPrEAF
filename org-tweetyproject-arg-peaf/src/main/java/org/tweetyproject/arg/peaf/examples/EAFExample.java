@@ -1,7 +1,7 @@
 package org.tweetyproject.arg.peaf.examples;
 
 import org.tweetyproject.arg.peaf.syntax.EAFTheory;
-import org.tweetyproject.arg.peaf.writer.EdgeListWriter;
+import org.tweetyproject.arg.peaf.io.EdgeListWriter;
 
 public class EAFExample {
 
