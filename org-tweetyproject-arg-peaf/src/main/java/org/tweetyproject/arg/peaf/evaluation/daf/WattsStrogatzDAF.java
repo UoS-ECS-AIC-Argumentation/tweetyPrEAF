@@ -23,17 +23,14 @@ public class WattsStrogatzDAF extends SyntheticDAF {
         Graph graph = new MultiGraph("");
         gen.addSink(graph);
         gen.begin();
-        while (gen.nextEvents())
-        {
+        while (gen.nextEvents()) {
 
         }
         gen.end();
 
-        while (this.computeStronglyConnectedComponents(graph) >= noArguments * (1.00 - probabilityCycle))
-        {
+        while (this.computeStronglyConnectedComponents(graph) >= noArguments * (1.00 - probabilityCycle)) {
             Edge ex = Toolkit.randomEdge(graph);
-            if (this.edgeBetweenNodes(graph, ex.getNode1(), ex.getNode0()))
-            {
+            if (this.edgeBetweenNodes(graph, ex.getNode1(), ex.getNode0())) {
                 continue;
             }
 
@@ -43,6 +40,5 @@ public class WattsStrogatzDAF extends SyntheticDAF {
 
         this.addEdges(graph);
     }
-
 
 }

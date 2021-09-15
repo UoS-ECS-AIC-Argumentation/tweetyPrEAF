@@ -64,7 +64,7 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport, PAttack> {
     }
 
     public Set<EArgument> getRandomArguments(Random random) {
-        int nTimes = random.nextInt( this.getArguments().size());
+        int nTimes = random.nextInt(this.getArguments().size());
         return getRandomArguments(random, nTimes);
     }
 

@@ -123,7 +123,7 @@ public class AllPEAFInducer extends AbstractPEAFInducer {
             //          expandable[sr.to.id] = {:supports => [sr.id], :pro => (1 - sr.cp)}
             //        end
             //      end
-            if (!foundNotIn && (foundNewSup || indu.getNewArguments().isEmpty()) ) {
+            if (!foundNotIn && (foundNewSup || indu.getNewArguments().isEmpty())) {
                 if (expandable.containsKey(sr.getTos())) {
                     Map<String, Object> map = expandable.get(sr.getTos());
 
@@ -132,8 +132,7 @@ public class AllPEAFInducer extends AbstractPEAFInducer {
 
                     double probability = (double) map.get("pro");
                     map.replace("pro", probability * (1.0 - sr.getConditionalProbability()));
-                }
-                else {
+                } else {
                     Map<String, Object> map = new HashMap<>();
                     List<PSupport> supports = new ArrayList<>();
                     supports.add(sr);

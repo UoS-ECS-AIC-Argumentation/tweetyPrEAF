@@ -10,8 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class JustificationAnalysisExample
-{
+public class JustificationAnalysisExample {
     public static void main(String[] s) {
         int numOfArgs = 7;
         PEAFTheory peafTheory = new PEAFTheory();
@@ -27,7 +26,7 @@ public class JustificationAnalysisExample
         peafTheory.addSupport(new int[]{0}, new int[]{3}, 0.9);
         peafTheory.addSupport(new int[]{0}, new int[]{4}, 0.3);
         peafTheory.addSupport(new int[]{3}, new int[]{5}, 0.5);
-        peafTheory.addSupport(new int[]{3,4}, new int[]{6}, 0.9);
+        peafTheory.addSupport(new int[]{3, 4}, new int[]{6}, 0.9);
         peafTheory.addAttack(new int[]{5}, new int[]{2}, 1.0);
         peafTheory.addAttack(new int[]{5}, new int[]{1}, 1.0);
         peafTheory.addAttack(new int[]{1}, new int[]{5}, 1.0);

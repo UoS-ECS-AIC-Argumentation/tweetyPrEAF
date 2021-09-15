@@ -14,7 +14,7 @@ public class LiThesisPage21EAFExample {
         eafTheory.addSupport(new int[]{0}, new int[]{2});
         eafTheory.addSupport(new int[]{0}, new int[]{3});
         eafTheory.addSupport(new int[]{0}, new int[]{4});
-        eafTheory.addSupport(new int[]{3,4}, new int[]{7});
+        eafTheory.addSupport(new int[]{3, 4}, new int[]{7});
         eafTheory.addSupport(new int[]{1}, new int[]{5});
         eafTheory.addSupport(new int[]{5}, new int[]{8});
         eafTheory.addSupport(new int[]{2}, new int[]{6});

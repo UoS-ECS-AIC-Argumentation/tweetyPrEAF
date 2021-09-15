@@ -101,15 +101,15 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
             System.out.println("> Stop " + a);
         }
 
-        for(Iterator<Set<EArgument>> it = Answer.iterator(); it.hasNext();) {
+        for (Iterator<Set<EArgument>> it = Answer.iterator(); it.hasNext(); ) {
             Set<EArgument> AS = it.next();
-            if(!AS.contains(eta)){
+            if (!AS.contains(eta)) {
                 it.remove();
             }
 
 //            // Does answer has a duplicate or a superset of AS
 //
-            for(Iterator<Set<EArgument>> it2 = Answer.iterator(); it.hasNext();) {
+            for (Iterator<Set<EArgument>> it2 = Answer.iterator(); it.hasNext(); ) {
                 Set<EArgument> AS_PRIME = it.next();
                 if (AS_PRIME.containsAll(AS)) {
                     it2.remove();
@@ -134,7 +134,7 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
 //                    Set<Pair<Set<EArgument>, EArgument>> newVisited = new HashSet<>(visited);
                     visited.add(pair);
 
-                    if (i >= B.size()){
+                    if (i >= B.size()) {
                         B.add(new HashSet<>());
                     }
                     Set<EArgument> b = B.get(i);
@@ -159,7 +159,7 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
     public DungTheory convertToDAFNaively() {
         // This method is using Algorithm 1 from Oren et. al. 2010 "Moving Between Argumentation Frameworks"
         Set<Set<EArgument>> dungArguments = new HashSet<>(); // Line 1
-        Set<Pair<Set<EArgument>, Set<EArgument>>> dungAttacks =  new HashSet<>(); // Line 2
+        Set<Pair<Set<EArgument>, Set<EArgument>>> dungAttacks = new HashSet<>(); // Line 2
         SetTools<EArgument> setTools = new SetTools<>();
 
         // Line 3 - 7
@@ -195,9 +195,9 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
         DungTheory dungTheory = new DungTheory();
         for (Set<EArgument> dungArgument : dungArguments) {
             String nameOfArgument = dungArgument.stream()
-                                                .map(EArgument::getName)
-                                                .sorted()
-                                                .collect(Collectors.joining("_"));
+                    .map(EArgument::getName)
+                    .sorted()
+                    .collect(Collectors.joining("_"));
             Argument argument = new Argument(nameOfArgument);
             mapping.put(nameOfArgument, argument);
             dungTheory.add(argument);
@@ -250,7 +250,6 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
                     break;
                 }
             }
-
 
 
             isSelfSupporting = isSelfSupporting && supports;

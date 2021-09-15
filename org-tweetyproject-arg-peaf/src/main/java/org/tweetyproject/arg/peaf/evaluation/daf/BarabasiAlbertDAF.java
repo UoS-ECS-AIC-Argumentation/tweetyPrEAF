@@ -20,10 +20,9 @@ public class BarabasiAlbertDAF extends SyntheticDAF {
         this.validateProbabilities(probabilityCycle);
 
 
-
         BaseGenerator generator = new BarabasiAlbertGenerator();
         Graph graph = new MultiGraph("");
-        generator.setDirectedEdges(true,true);
+        generator.setDirectedEdges(true, true);
         generator.addSink(graph);
 
         generator.begin();
@@ -32,10 +31,9 @@ public class BarabasiAlbertDAF extends SyntheticDAF {
         } while (graph.getNodeCount() < noArguments);
         generator.end();
 
-        while (this.computeStronglyConnectedComponents(graph) >= noArguments*(1.00 - probabilityCycle))
-        {
+        while (this.computeStronglyConnectedComponents(graph) >= noArguments * (1.00 - probabilityCycle)) {
             Edge ex = Toolkit.randomEdge(graph);
-            if (this.edgeBetweenNodes(graph, ex.getNode1(), ex.getNode0())){
+            if (this.edgeBetweenNodes(graph, ex.getNode1(), ex.getNode0())) {
                 continue;
             }
 

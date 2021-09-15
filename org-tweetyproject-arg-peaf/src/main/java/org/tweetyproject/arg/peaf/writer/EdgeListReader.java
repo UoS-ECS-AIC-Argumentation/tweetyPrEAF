@@ -79,11 +79,9 @@ public class EdgeListReader {
 
                             if (color.equals("green")) {
                                 peaf.addSupport(fromIndices, toIndices, probability);
-                            }
-                            else if (color.equals("red")) {
+                            } else if (color.equals("red")) {
                                 peaf.addAttack(fromIndices, toIndices, probability);
-                            }
-                            else {
+                            } else {
                                 System.out.println("The edge category must be 'green' or 'red'.");
                             }
 

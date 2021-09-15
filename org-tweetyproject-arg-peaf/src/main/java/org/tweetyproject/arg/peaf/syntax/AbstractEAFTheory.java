@@ -2,7 +2,7 @@ package org.tweetyproject.arg.peaf.syntax;
 
 import java.util.*;
 
-public abstract class AbstractEAFTheory<S, A>{
+public abstract class AbstractEAFTheory<S, A> {
 
     protected EArgument eta;
 

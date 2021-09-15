@@ -53,6 +53,7 @@ public class EAFToPEAFConverter {
 
     /**
      * Generates a PEAF from an EAF where all relations have the same probability
+     *
      * @param eafTheory
      * @param probability
      * @return
@@ -67,6 +68,7 @@ public class EAFToPEAFConverter {
      * `supp` is the probability of each support relation.
      * `att` is the probability of each attack relation.
      * `Beta` is the Beta distribution.
+     *
      * @param eafTheory
      * @param alphaSupp
      * @param betaSupp

@@ -27,7 +27,7 @@ public class ApproximateJustificationAnalysisExample {
         peafTheory.addSupport(new int[]{0}, new int[]{3}, 0.9);
         peafTheory.addSupport(new int[]{0}, new int[]{4}, 0.3);
         peafTheory.addSupport(new int[]{3}, new int[]{5}, 0.5);
-        peafTheory.addSupport(new int[]{3,4}, new int[]{6}, 0.9);
+        peafTheory.addSupport(new int[]{3, 4}, new int[]{6}, 0.9);
         peafTheory.addAttack(new int[]{5}, new int[]{2}, 1.0);
         peafTheory.addAttack(new int[]{5}, new int[]{1}, 1.0);
         peafTheory.addAttack(new int[]{1}, new int[]{5}, 1.0);

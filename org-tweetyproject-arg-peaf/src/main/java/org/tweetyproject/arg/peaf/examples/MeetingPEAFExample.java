@@ -29,7 +29,7 @@ public class MeetingPEAFExample {
         peafTheory.addSupport(new int[]{0}, new int[]{3}, 0.9);
         peafTheory.addSupport(new int[]{0}, new int[]{4}, 0.3);
         peafTheory.addSupport(new int[]{3}, new int[]{5}, 0.5);
-        peafTheory.addSupport(new int[]{3,4}, new int[]{6}, 0.9);
+        peafTheory.addSupport(new int[]{3, 4}, new int[]{6}, 0.9);
 
         peafTheory.addAttack(new int[]{5}, new int[]{2}, 1.0);
         peafTheory.addAttack(new int[]{5}, new int[]{1}, 1.0);
@@ -57,7 +57,7 @@ public class MeetingPEAFExample {
             System.out.println(ind);
             String probability = String.format("%.04f", ind.getInducePro());
             probability = probability.replace(".", "_");
-            EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/"+ n + "" + "_" + probability + ".eaf", ind.toNewEAFTheory());
+            EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/" + n + "" + "_" + probability + ".eaf", ind.toNewEAFTheory());
             total += ind.getInducePro();
         });
         System.out.println("Total probability: " + total);

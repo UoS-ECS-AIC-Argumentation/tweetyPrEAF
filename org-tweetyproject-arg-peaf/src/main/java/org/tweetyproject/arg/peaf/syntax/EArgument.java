@@ -26,8 +26,7 @@ public class EArgument {
     public void addAttack(EAttack attack) {
         if (attack.getFroms().contains(this)) {
             attacks.add(attack);
-        }
-        else {
+        } else {
             throw new RuntimeException("Attack is not from this argument.");
         }
     }
@@ -35,8 +34,7 @@ public class EArgument {
     public void addAttackedBy(EAttack attack) {
         if (attack.getTos().contains(this)) {
             attackedBy.add(attack);
-        }
-        else {
+        } else {
             throw new RuntimeException("Attack is not to this argument.");
         }
     }

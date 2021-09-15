@@ -52,7 +52,7 @@ public class EtaToTreeConverter extends DAFToEAFConverter {
             s = alphaIndex;
         }
 
-        if(etaFullyConnected) {
+        if (etaFullyConnected) {
             // All other arguments are connected
             for (int i = 1; i < eafTheory.getNumberOfNodes(); i++) {
                 eafTheory.addSupport(new int[]{0}, new int[]{i});

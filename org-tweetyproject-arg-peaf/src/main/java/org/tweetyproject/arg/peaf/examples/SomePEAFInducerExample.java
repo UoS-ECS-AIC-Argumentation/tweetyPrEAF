@@ -38,13 +38,13 @@ public class SomePEAFInducerExample {
         AtomicInteger i = new AtomicInteger();
 
 
-         Consumer<InducibleEAF> consumer = new Consumer<InducibleEAF>() {
-             @Override
-             public void accept(InducibleEAF inducibleEAF) {
-                 int n = i.getAndIncrement();
-                 System.out.println(inducibleEAF);
-             }
-         };
+        Consumer<InducibleEAF> consumer = new Consumer<InducibleEAF>() {
+            @Override
+            public void accept(InducibleEAF inducibleEAF) {
+                int n = i.getAndIncrement();
+                System.out.println(inducibleEAF);
+            }
+        };
 
         System.out.println("Simulate:");
         for (int j = 0; j < 100; j++) {

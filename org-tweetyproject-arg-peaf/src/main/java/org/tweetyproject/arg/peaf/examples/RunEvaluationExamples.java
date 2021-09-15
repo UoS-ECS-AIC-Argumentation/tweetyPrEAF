@@ -29,7 +29,7 @@ public class RunEvaluationExamples {
         Path evaluateFolder = Paths.get(evaluationFolderPath);
 
         if (Files.notExists(evaluateFolder)) {
-            throw new RuntimeException("The given path '" + evaluateFolder +"' does not exist.");
+            throw new RuntimeException("The given path '" + evaluateFolder + "' does not exist.");
         }
 
         PrintWriter writer = new PrintWriter(Paths.get(evaluationFolderPath.toString(), "results.txt").toString());
@@ -56,12 +56,13 @@ public class RunEvaluationExamples {
             System.out.println("Node sizes: " + Arrays.toString(nodeSizes));
 
             for (Integer nodeSize : nodeSizes) {
-                Path nodeSizePath = Paths.get(graphTypePath.toString(), ""+nodeSize);
+                Path nodeSizePath = Paths.get(graphTypePath.toString(), "" + nodeSize);
                 System.out.println("Node size path: " + nodeSizePath);
-                File[] repetitionFiles =  nodeSizePath.toFile().listFiles(new FilenameFilter() {
-                    public boolean accept(File dir, String filename)
-                    { return filename.endsWith(".peaf"); }
-                } );
+                File[] repetitionFiles = nodeSizePath.toFile().listFiles(new FilenameFilter() {
+                    public boolean accept(File dir, String filename) {
+                        return filename.endsWith(".peaf");
+                    }
+                });
 
                 if (repetitionFiles.length == 0) {
                     throw new RuntimeException("There are not any peaf files in this path: " + nodeSizePath);
@@ -94,7 +95,7 @@ public class RunEvaluationExamples {
                     long estimatedTime = System.nanoTime() - startTime;
                     String output = "[RESULT] " + repetitionFilePath + ": " + estimatedTime + " justification: " + justification;
                     System.out.println(output);
-                    writer.println(graphType+","+nodeSize+"," + repetitionFileName + ","+estimatedTime + "," + justification);
+                    writer.println(graphType + "," + nodeSize + "," + repetitionFileName + "," + estimatedTime + "," + justification);
 
 //                    break;
                 }

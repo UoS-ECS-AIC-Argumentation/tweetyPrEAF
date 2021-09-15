@@ -20,8 +20,7 @@ public abstract class DAFToEAFConverter {
             int fromIndex;
             if (indices.containsKey(from)) {
                 fromIndex = indices.get(from);
-            }
-            else {
+            } else {
                 eafTheory.addArgument(lastIndex);
                 indices.put(from, lastIndex);
                 fromIndex = lastIndex;
@@ -32,8 +31,7 @@ public abstract class DAFToEAFConverter {
             int toIndex;
             if (indices.containsKey(to)) {
                 toIndex = indices.get(to);
-            }
-            else {
+            } else {
                 eafTheory.addArgument(lastIndex);
                 indices.put(to, lastIndex);
                 toIndex = lastIndex;

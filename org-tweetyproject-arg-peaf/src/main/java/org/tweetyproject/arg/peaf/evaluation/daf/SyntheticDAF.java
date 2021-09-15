@@ -14,6 +14,7 @@ import org.tweetyproject.arg.dung.syntax.DungTheory;
 public abstract class SyntheticDAF extends DungTheory {
     private final GraphType graphType;
     private final Argument[] arguments;
+
     public SyntheticDAF(GraphType graphType, int noArguments) {
         this.graphType = graphType;
         this.validateNoArgs(noArguments);
@@ -56,19 +57,15 @@ public abstract class SyntheticDAF extends DungTheory {
         cc.init(graph);
         cc.compute();
         int max = 0;
-        for (Node n : graph.getNodeSet())
-        {
+        for (Node n : graph.getNodeSet()) {
             if ((Integer) n.getAttribute(cc.getSCCIndexAttribute()) > max)
                 max = n.getAttribute(cc.getSCCIndexAttribute());
         }
         return max;
     }
 
-
-    protected boolean edgeBetweenNodes(Graph graph, Node source, Node target)
-    {
-        for (Edge e : graph.getEdgeSet())
-        {
+    protected boolean edgeBetweenNodes(Graph graph, Node source, Node target) {
+        for (Edge e : graph.getEdgeSet()) {
             if (e.getNode0().equals(source) && e.getNode1().equals(target))
                 return true;
         }

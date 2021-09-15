@@ -11,7 +11,6 @@ public class EasyPEAFExample {
         PEAFTheory peafTheory = new PEAFTheory(2);
 
 
-
         peafTheory.addSupport(new int[]{}, new int[]{0}, 1.0);
         peafTheory.addSupport(new int[]{0}, new int[]{1}, 0.3);
 

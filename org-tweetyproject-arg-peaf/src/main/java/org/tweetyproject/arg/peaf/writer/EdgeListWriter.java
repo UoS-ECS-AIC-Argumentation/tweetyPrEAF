@@ -16,7 +16,7 @@ public class EdgeListWriter {
 
             for (PSupport o : peafTheory.getSupports()) {
                 StringBuilder builder = getStringBuilder(o.getFroms(), o.getTos());
-                builder.append(" {'color': 'green', 'weight': "+ o.getConditionalProbability() +"  }");
+                builder.append(" {'color': 'green', 'weight': " + o.getConditionalProbability() + "  }");
                 writer.write(builder.toString());
                 writer.write(System.lineSeparator());
             }
@@ -24,7 +24,7 @@ public class EdgeListWriter {
 
             for (PAttack o : peafTheory.getAttacks()) {
                 StringBuilder builder = getStringBuilder(o.getFroms(), o.getTos());
-                builder.append(" {'color': 'red', 'weight': "+ o.getConditionalProbability() +"  }");
+                builder.append(" {'color': 'red', 'weight': " + o.getConditionalProbability() + "  }");
                 writer.write(builder.toString());
                 writer.write(System.lineSeparator());
             }

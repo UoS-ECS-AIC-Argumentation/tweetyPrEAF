@@ -1,7 +1,6 @@
 package org.tweetyproject.arg.peaf.analysis;
 
 
-
 import org.tweetyproject.arg.dung.reasoner.AbstractExtensionReasoner;
 import org.tweetyproject.arg.dung.semantics.Extension;
 import org.tweetyproject.arg.dung.syntax.Argument;
@@ -83,8 +82,7 @@ public class JustificationAnalysis {
                             // Must contain all subArgsNames from an extension
                             String[] subArgsNames = mainArgName.split("_");
                             Collections.addAll(subArgsNamesInExtension, subArgsNames);
-                        }
-                        else {
+                        } else {
                             subArgsNamesInExtension.add(mainArgName);
                         }
                     }
@@ -96,7 +94,6 @@ public class JustificationAnalysis {
                 }
 
 
-
             }
 
         });
@@ -104,7 +101,7 @@ public class JustificationAnalysis {
         return prob.get();
     }
 
-    public static  <T extends AbstractExtensionReasoner> double computeJustificationOfASingleEAF(Set<EArgument> args, InducibleEAF inducibleEAF, T extensionReasoner) {
+    public static <T extends AbstractExtensionReasoner> double computeJustificationOfASingleEAF(Set<EArgument> args, InducibleEAF inducibleEAF, T extensionReasoner) {
 
         EAFTheory eafTheory = inducibleEAF.toNewEAFTheory();
 
@@ -129,8 +126,7 @@ public class JustificationAnalysis {
                         // Must contain all subArgsNames from an extension
                         String[] subArgsNames = mainArgName.split("_");
                         Collections.addAll(subArgsNamesInExtension, subArgsNames);
-                    }
-                    else {
+                    } else {
                         subArgsNamesInExtension.add(mainArgName);
                     }
                 }
