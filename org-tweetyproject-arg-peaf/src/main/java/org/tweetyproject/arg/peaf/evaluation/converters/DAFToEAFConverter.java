@@ -1,5 +1,6 @@
 package org.tweetyproject.arg.peaf.evaluation.converters;
 
+import org.tweetyproject.arg.dung.syntax.Argument;
 import org.tweetyproject.arg.dung.syntax.Attack;
 import org.tweetyproject.arg.dung.syntax.DungTheory;
 import org.tweetyproject.arg.peaf.syntax.EAFTheory;
@@ -15,28 +16,19 @@ public abstract class DAFToEAFConverter {
         // This ignores the nodes that are not connected in a DungTheory
         Map<String, Integer> indices = new HashMap<>();
         int lastIndex = 1; // because eta is already added
+
+        for (Argument node : dungTheory.getNodes()) {
+            indices.put(node.getName(), lastIndex);
+            eafTheory.addArgument(lastIndex);
+            lastIndex++;
+        }
+
         for (Attack attack : dungTheory.getAttacks()) {
             String from = attack.getAttacker().getName();
-            int fromIndex;
-            if (indices.containsKey(from)) {
-                fromIndex = indices.get(from);
-            } else {
-                eafTheory.addArgument(lastIndex);
-                indices.put(from, lastIndex);
-                fromIndex = lastIndex;
-                lastIndex++;
-            }
-
             String to = attack.getAttacked().getName();
-            int toIndex;
-            if (indices.containsKey(to)) {
-                toIndex = indices.get(to);
-            } else {
-                eafTheory.addArgument(lastIndex);
-                indices.put(to, lastIndex);
-                toIndex = lastIndex;
-                lastIndex++;
-            }
+
+            int fromIndex = indices.get(from);
+            int toIndex = indices.get(to);
 
             eafTheory.addAttack(new int[]{fromIndex}, new int[]{toIndex});
         }

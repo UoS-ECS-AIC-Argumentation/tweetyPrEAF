@@ -87,7 +87,7 @@ public class EtaToAllConverterTest {
 
             System.out.println("Query is: " + query);
             AllPEAFInducer inducer = new AllPEAFInducer(peafTheory);
-            double probabilisticJustification = JustificationAnalysis.computeJustificationOf(query, inducer, new SimplePreferredReasoner());
+            double probabilisticJustification = JustificationAnalysis.compute(query, inducer, new SimplePreferredReasoner());
             System.out.println("Probabilistic justification: " + probabilisticJustification);
         }
 

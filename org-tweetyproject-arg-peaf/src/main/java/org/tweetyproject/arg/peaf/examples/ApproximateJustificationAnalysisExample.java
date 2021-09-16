@@ -3,9 +3,10 @@ package org.tweetyproject.arg.peaf.examples;
 import org.tweetyproject.arg.dung.reasoner.SimplePreferredReasoner;
 import org.tweetyproject.arg.peaf.analysis.JustificationAnalysis;
 import org.tweetyproject.arg.peaf.inducers.AllPEAFInducer;
-import org.tweetyproject.arg.peaf.inducers.SomePEAFInducer;
+import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
+import org.tweetyproject.commons.util.Pair;
 
 import java.util.HashSet;
 import java.util.List;
@@ -50,8 +51,14 @@ public class ApproximateJustificationAnalysisExample {
         query.add(args.get(1));
 
 
-        double probabilisticJustification = JustificationAnalysis.approximateJustificationOf(query, peafTheory, new SimplePreferredReasoner(), 0.1);
-        System.out.println("Probabilistic justification: " + probabilisticJustification);
+        Pair<Double, Double> pair = JustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
+        System.out.println("Probabilistic justification: " + pair.getFirst());
+        System.out.println("Trials: " + pair.getSecond());
+
+
+//        AllPEAFInducer inducer = new AllPEAFInducer(peafTheory);
+//        double probabilisticJustification = JustificationAnalysis.compute(query, inducer, new SimplePreferredReasoner());
+//        System.out.println("Probabilistic justification: " + probabilisticJustification);
     }
 
 

@@ -1,6 +1,7 @@
 package org.tweetyproject.arg.peaf.syntax;
 
 
+import com.google.common.collect.Sets;
 import org.tweetyproject.arg.dung.syntax.Argument;
 import org.tweetyproject.arg.dung.syntax.DungTheory;
 import org.tweetyproject.commons.util.Pair;
@@ -222,7 +223,6 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
     }
 
     public boolean checkIsSelfSupporting(Set<EArgument> A) {
-        SetTools<EArgument> setTools = new SetTools<>();
         // Check if the subset is self-supporting (Line 4, if A is self-supporting)
         // A set of arguments A is self-supporting if and only if for all a in A, A e-supports a
         boolean isSelfSupporting = true;
@@ -240,7 +240,9 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
             A_copy.remove(a);
 
             boolean supports = false;
-            for (Set<EArgument> T : setTools.subsets(A_copy)) {
+
+
+            for (Set<EArgument> T : Sets.powerSet(A_copy)) {
                 for (EArgument x : T) {
                     if (a.isSupportedBy(x)) {
                         supports = true;

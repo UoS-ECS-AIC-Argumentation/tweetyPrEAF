@@ -2,7 +2,6 @@ package org.tweetyproject.arg.peaf.evaluation;
 
 import org.tweetyproject.arg.dung.reasoner.SimplePreferredReasoner;
 import org.tweetyproject.arg.peaf.analysis.JustificationAnalysis;
-import org.tweetyproject.arg.peaf.inducers.AllPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 import org.tweetyproject.arg.peaf.io.EdgeListReader;
@@ -16,7 +15,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.Set;
 
 public class RunEvaluationExamples {
@@ -30,7 +28,7 @@ public class RunEvaluationExamples {
         }
 
         PrintWriter writer = new PrintWriter(Paths.get(evaluationFolderPath.toString(), "results.txt").toString());
-        writer.println("type,noNodes,repetition,time,justification");
+        writer.println("type,noNodes,repetition,time,justification,peafNodes");
 
         String[] graphTypes = evaluateFolder.toFile().list((dir, name) -> new File(dir, name).isDirectory());
 
@@ -85,16 +83,18 @@ public class RunEvaluationExamples {
 
                     // AllInducer
                     System.out.println(query.toString());
-
-                    double justification = JustificationAnalysis.computeJustificationOf(query, new AllPEAFInducer(peafTheory), new SimplePreferredReasoner());
+//                    double justification = JustificationAnalysis.compute(query, new AllPEAFInducer(peafTheory), new SimplePreferredReasoner());
 
                     // SomeInducer
-//                    double justification = JustificationAnalysis.approximateJustificationOf(query, peafTheory, new SimplePreferredReasoner(), 0.5);
+                    Pair<Double, Double> p = JustificationAnalysis.computeApproxOf(query, peafTheory, new SimplePreferredReasoner(), 0.2);
+                    double justification = p.getFirst();
+                    double N = p.getSecond();
+
 
                     long estimatedTime = System.nanoTime() - startTime;
                     String output = "[RESULT] " + repetitionFilePath + ": " + estimatedTime + " justification: " + justification;
                     System.out.println(output);
-                    writer.println(graphType + "," + nodeSize + "," + repetitionFileName + "," + estimatedTime + "," + justification);
+                    writer.println(graphType + "," + nodeSize + "," + repetitionFileName + "," + estimatedTime + "," + justification + "," + peafTheory.getNumberOfNodes());
 
 //                    break;
                 }

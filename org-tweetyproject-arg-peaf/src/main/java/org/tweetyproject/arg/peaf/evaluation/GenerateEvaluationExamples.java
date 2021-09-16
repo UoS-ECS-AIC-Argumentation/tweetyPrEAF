@@ -5,7 +5,7 @@ import org.tweetyproject.arg.dung.reasoner.SimplePreferredReasoner;
 import org.tweetyproject.arg.dung.semantics.Extension;
 import org.tweetyproject.arg.dung.syntax.Argument;
 import org.tweetyproject.arg.peaf.evaluation.converters.EAFToPEAFConverter;
-import org.tweetyproject.arg.peaf.evaluation.converters.EtaToAllConverter;
+import org.tweetyproject.arg.peaf.evaluation.converters.EtaToTreeConverter;
 import org.tweetyproject.arg.peaf.evaluation.daf.*;
 import org.tweetyproject.arg.peaf.io.EdgeListWriter;
 import org.tweetyproject.arg.peaf.syntax.EAFTheory;
@@ -22,9 +22,9 @@ public class GenerateEvaluationExamples {
     public static void main(String[] args) throws IOException {
         long startTime = System.nanoTime();
 
-        int minNumberOfNodes = 5;
-        int maxNumberOfNodes = 20;
-        int nodeStepSize = 10;
+        int minNumberOfNodes = 10;
+        int maxNumberOfNodes = 11;
+        int nodeStepSize = 1;
         int repetition = 10;
         double someProbability = 0.5;
 
@@ -74,8 +74,8 @@ public class GenerateEvaluationExamples {
                             throw new IllegalStateException("Unexpected value: " + graph);
                     }
 
-                    EtaToAllConverter eafConverter = new EtaToAllConverter();
-                    EAFTheory eafTheory = eafConverter.convert(daf);
+                    EtaToTreeConverter eafConverter = new EtaToTreeConverter();
+                    EAFTheory eafTheory = eafConverter.convert(daf, true, 1.0);
                     PEAFTheory peaf = EAFToPEAFConverter.convert(eafTheory, 10, 2, 2, 10);
 
 
@@ -89,11 +89,25 @@ public class GenerateEvaluationExamples {
                     }
 
                     if (queryExtension != null) {
+                        if (queryExtension.isEmpty()) {
+                            j = j - 1;
+                            continue;
+                        }
                         Set<EArgument> query = new HashSet<>();
                         for (Argument argument : queryExtension) {
                             System.out.println("Arg: "+argument.getName());
                             // Important: Plus one here because DAF arguments are in range of [0, n], EAF args [1, n + 1]
-                            query.add(peaf.getArguments().get(Integer.parseInt(argument.getName())));
+                            try {
+                                query.add(peaf.getArguments().get(Integer.parseInt(argument.getName()) + 1));
+                            } catch (IndexOutOfBoundsException exception) {
+                                System.out.println();
+                                System.out.println();
+                                System.out.println(daf.prettyPrint());
+                                System.err.println(exception.getMessage());
+                                peaf.prettyPrint();
+                                throw new RuntimeException();
+                            }
+
                         }
 
                         Path peafFile = Paths.get(nodeFolder.toString(), "" + j + ".peaf");

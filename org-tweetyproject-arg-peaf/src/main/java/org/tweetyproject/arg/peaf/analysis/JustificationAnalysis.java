@@ -11,6 +11,7 @@ import org.tweetyproject.arg.peaf.syntax.EAFTheory;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
+import org.tweetyproject.commons.util.Pair;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,7 +20,7 @@ import java.util.function.Consumer;
 
 public class JustificationAnalysis {
 
-    public static <T extends AbstractExtensionReasoner> double approximateJustificationOf(Set<EArgument> args, PEAFTheory peafTheory, T extensionReasoner, double errorLevel) {
+    public static <T extends AbstractExtensionReasoner> Pair<Double, Double> computeApproxOf(Set<EArgument> args, PEAFTheory peafTheory, T extensionReasoner, double errorLevel) {
 
         final double[] M = {0};
         final double[] N = {0};
@@ -47,13 +48,13 @@ public class JustificationAnalysis {
             SomePEAFInducer inducer = new SomePEAFInducer(peafTheory);
             inducer.induce(consumer);
 
-
         } while (N[0] <= metric[0]);
-        return M[0] / N[0];
+        return new Pair<Double, Double>(M[0] / N[0], N[0]);
     }
 
-    public static <T extends AbstractExtensionReasoner> double computeJustificationOf(Set<EArgument> args, AllPEAFInducer inducer, T extensionReasoner) {
+    public static <T extends AbstractExtensionReasoner> double compute(Set<EArgument> args, AllPEAFInducer inducer, T extensionReasoner) {
         AtomicReference<Double> prob = new AtomicReference<>((double) 0);
+//        AtomicReference<Double> count = new AtomicReference<>((double) 0);
 
         Set<String> queryStringArgs = new HashSet<>();
 
@@ -68,6 +69,7 @@ public class JustificationAnalysis {
 //            System.out.println(ind);
             EAFTheory eafTheory = ind.toNewEAFTheory();
             //  eafTheory.prettyPrint();
+//            count.updateAndGet(c -> c + 1.0);
             if (eafTheory.getArguments().containsAll(args)) {
                 // If the X is in an extension of IEAF
 
@@ -91,6 +93,8 @@ public class JustificationAnalysis {
 
                     if (subArgsNamesInExtension.containsAll(queryStringArgs) && !extension.isEmpty()) {
                         prob.updateAndGet(v -> (v + ind.getInducePro()));
+                        // The number of times
+                        break;
                     }
                 }
 
@@ -99,6 +103,7 @@ public class JustificationAnalysis {
 
         });
 
+//        return prob.get() / count.get();
         return prob.get();
     }
 

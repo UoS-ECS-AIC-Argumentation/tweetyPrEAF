@@ -56,7 +56,14 @@ public class EdgeListReader {
         for (String stringQueryArg : stringQueryArgs) {
             // FIXME: Queries only are allowed within integer indices format if query part, for example
             // FIXME: # Query: 1 0 9 4
-            eArguments.add(peafTheory.getArguments().get((Integer.parseInt(stringQueryArg))));
+            try {
+                eArguments.add(peafTheory.getArguments().get((Integer.parseInt(stringQueryArg))));
+            } catch (IndexOutOfBoundsException exception) {
+                peafTheory.prettyPrint();
+
+                throw exception;
+            }
+
         }
 
         return new Pair<>(peafTheory, eArguments);
