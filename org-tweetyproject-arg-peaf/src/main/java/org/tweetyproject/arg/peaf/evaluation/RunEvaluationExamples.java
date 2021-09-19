@@ -1,7 +1,7 @@
 package org.tweetyproject.arg.peaf.evaluation;
 
-import org.tweetyproject.arg.dung.reasoner.SimplePreferredReasoner;
 import org.tweetyproject.arg.peaf.analysis.JustificationAnalysis;
+import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 import org.tweetyproject.arg.peaf.io.EdgeListReader;
@@ -83,10 +83,10 @@ public class RunEvaluationExamples {
 
                     // AllInducer
                     System.out.println(query.toString());
-//                    double justification = JustificationAnalysis.compute(query, new AllPEAFInducer(peafTheory), new SimplePreferredReasoner());
+//                    double justification = JustificationAnalysis.compute(query, new AllPEAFInducer(peafTheory), new PreferredReasoner());
 
                     // SomeInducer
-                    Pair<Double, Double> p = JustificationAnalysis.computeApproxOf(query, peafTheory, new SimplePreferredReasoner(), 0.2);
+                    Pair<Double, Double> p = JustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.01);
                     double justification = p.getFirst();
                     double N = p.getSecond();
 

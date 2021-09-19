@@ -108,10 +108,10 @@ public class EdgeListWriter {
         }
 
 
-        for (PAttack o : peafTheory.getAttacks()) {
+        for (EAttack o : peafTheory.getAttacks()) {
             StringBuilder builder = getStringBuilder(o.getFroms(), o.getTos());
             if (builder != null) {
-                builder.append(" {'color': 'red', 'weight': " + o.getConditionalProbability() + "  }");
+                builder.append(" {'color': 'red'  }");
                 writer.write(builder.toString());
                 writer.write(System.lineSeparator());
             }

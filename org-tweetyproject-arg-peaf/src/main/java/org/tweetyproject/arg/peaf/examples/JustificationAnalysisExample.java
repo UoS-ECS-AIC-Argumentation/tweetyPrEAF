@@ -1,8 +1,7 @@
 package org.tweetyproject.arg.peaf.examples;
 
-import org.tweetyproject.arg.dung.reasoner.SimplePreferredReasoner;
 import org.tweetyproject.arg.peaf.analysis.JustificationAnalysis;
-import org.tweetyproject.arg.peaf.inducers.AllPEAFInducer;
+import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
@@ -28,10 +27,10 @@ public class JustificationAnalysisExample {
         peafTheory.addSupport(new int[]{0}, new int[]{4}, 0.3);
         peafTheory.addSupport(new int[]{3}, new int[]{5}, 0.5);
         peafTheory.addSupport(new int[]{3, 4}, new int[]{6}, 0.9);
-        peafTheory.addAttack(new int[]{5}, new int[]{2}, 1.0);
-        peafTheory.addAttack(new int[]{5}, new int[]{1}, 1.0);
-        peafTheory.addAttack(new int[]{1}, new int[]{5}, 1.0);
-        peafTheory.addAttack(new int[]{1}, new int[]{6}, 1.0);
+        peafTheory.addAttack(new int[]{5}, new int[]{2});
+        peafTheory.addAttack(new int[]{5}, new int[]{1});
+        peafTheory.addAttack(new int[]{1}, new int[]{5});
+        peafTheory.addAttack(new int[]{1}, new int[]{6});
 
         List<EArgument> args = peafTheory.getArguments();
 //        args.get(0).setName("eta");
@@ -45,11 +44,11 @@ public class JustificationAnalysisExample {
 //        args.get(6).setName("c");
 
         Set<EArgument> query = new HashSet<>();
-        query.add(args.get(0));
+//        query.add(args.get(0));
         query.add(args.get(1));
-//        query.add(args.get(6));
+        query.add(args.get(6));
 
-        AllPEAFInducer inducer = new AllPEAFInducer(peafTheory);
+        ExactPEAFInducer inducer = new ExactPEAFInducer(peafTheory);
         double probabilisticJustification = JustificationAnalysis.compute(query, inducer, new PreferredReasoner());
         System.out.println("Probabilistic justification: " + probabilisticJustification);
 

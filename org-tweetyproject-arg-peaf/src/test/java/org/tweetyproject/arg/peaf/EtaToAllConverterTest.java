@@ -9,7 +9,7 @@ import org.tweetyproject.arg.dung.syntax.DungTheory;
 import org.tweetyproject.arg.peaf.analysis.JustificationAnalysis;
 import org.tweetyproject.arg.peaf.evaluation.converters.EAFToPEAFConverter;
 import org.tweetyproject.arg.peaf.evaluation.converters.EtaToAllConverter;
-import org.tweetyproject.arg.peaf.inducers.AllPEAFInducer;
+import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EAFTheory;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
@@ -75,7 +75,7 @@ public class EtaToAllConverterTest {
         Assert.assertEquals(3, eafTheory.getNumberOfNodes());
 
 
-        PEAFTheory peafTheory = EAFToPEAFConverter.convert(eafTheory, 10, 2, 2, 10);
+        PEAFTheory peafTheory = EAFToPEAFConverter.convert(eafTheory, 10, 2);
         peafTheory.prettyPrint();
 
         if (queryExtension != null) {
@@ -86,7 +86,7 @@ public class EtaToAllConverterTest {
             }
 
             System.out.println("Query is: " + query);
-            AllPEAFInducer inducer = new AllPEAFInducer(peafTheory);
+            ExactPEAFInducer inducer = new ExactPEAFInducer(peafTheory);
             double probabilisticJustification = JustificationAnalysis.compute(query, inducer, new SimplePreferredReasoner());
             System.out.println("Probabilistic justification: " + probabilisticJustification);
         }

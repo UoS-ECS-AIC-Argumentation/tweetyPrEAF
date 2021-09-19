@@ -1,6 +1,6 @@
 package org.tweetyproject.arg.peaf.examples;
 
-import org.tweetyproject.arg.peaf.inducers.AllPEAFInducer;
+import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
@@ -31,10 +31,10 @@ public class MeetingPEAFExample {
         peafTheory.addSupport(new int[]{3}, new int[]{5}, 0.5);
         peafTheory.addSupport(new int[]{3, 4}, new int[]{6}, 0.9);
 
-        peafTheory.addAttack(new int[]{5}, new int[]{2}, 1.0);
-        peafTheory.addAttack(new int[]{5}, new int[]{1}, 1.0);
-        peafTheory.addAttack(new int[]{1}, new int[]{5}, 1.0);
-        peafTheory.addAttack(new int[]{1}, new int[]{6}, 1.0);
+        peafTheory.addAttack(new int[]{5}, new int[]{2});
+        peafTheory.addAttack(new int[]{5}, new int[]{1});
+        peafTheory.addAttack(new int[]{1}, new int[]{5});
+        peafTheory.addAttack(new int[]{1}, new int[]{6});
 
         peafTheory.prettyPrint();
 
@@ -50,7 +50,7 @@ public class MeetingPEAFExample {
         EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/0.peaf", peafTheory);
 
         AtomicInteger i = new AtomicInteger();
-        AllPEAFInducer inducer = new AllPEAFInducer(peafTheory);
+        ExactPEAFInducer inducer = new ExactPEAFInducer(peafTheory);
         total = 0;
         inducer.induce((Consumer<InducibleEAF>) ind -> {
             int n = i.getAndIncrement();

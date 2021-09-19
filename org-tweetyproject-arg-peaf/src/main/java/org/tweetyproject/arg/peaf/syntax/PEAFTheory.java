@@ -2,7 +2,7 @@ package org.tweetyproject.arg.peaf.syntax;
 
 import java.util.*;
 
-public class PEAFTheory extends AbstractEAFTheory<PSupport, PAttack> {
+public class PEAFTheory extends AbstractEAFTheory<PSupport, EAttack> {
 
     public PEAFTheory() {
 
@@ -25,11 +25,11 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport, PAttack> {
         return support;
     }
 
-    protected PAttack createAttack(String name, Set<EArgument> froms, Set<EArgument> tos, double cp) {
+    protected EAttack createAttack(String name, Set<EArgument> froms, Set<EArgument> tos) {
         if (tos.contains(eta)) {
             throw new RuntimeException("Argument eta can't be attacked.");
         }
-        PAttack attack = new PAttack(name, froms, tos, cp);
+        EAttack attack = new EAttack(name, froms, tos);
         for (EArgument from : froms) {
             from.addAttack(attack);
         }
@@ -39,10 +39,15 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport, PAttack> {
         return attack;
     }
 
+
     public EArgument addArgument(int identifier) {
         EArgument argument = this.createArgument(Integer.toString(identifier));
         this.addArgument(argument);
         return argument;
+    }
+
+    public void addSupport(int fromIndex, int toIndex, double cp) {
+        this.addSupport(new int[]{fromIndex}, new int[]{toIndex}, cp);
     }
 
     public void addSupport(int[] fromIndices, int[] toIndices, double cp) {
@@ -54,13 +59,17 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport, PAttack> {
         this.addSupport(support);
     }
 
-    public void addAttack(int[] fromIndices, int[] toIndices, double cp) {
+    public void addAttack(int[] fromIndices, int[] toIndices) {
         Set<EArgument> froms = createEmptyArgSet(fromIndices);
         Set<EArgument> tos = createEmptyArgSet(toIndices);
 
-        int identifier = supports.size();
-        PAttack attack = this.createAttack(Integer.toString(identifier), froms, tos, cp);
+        int identifier = attacks.size();
+        EAttack attack = this.createAttack(Integer.toString(identifier), froms, tos);
         this.addAttack(attack);
+    }
+
+    public void addAttack(int fromIndex, int toIndex) {
+        this.addAttack(new int[]{fromIndex}, new int[]{toIndex});
     }
 
     public Set<EArgument> getRandomArguments(Random random) {
@@ -79,6 +88,5 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport, PAttack> {
         }
         return set;
     }
-
 
 }

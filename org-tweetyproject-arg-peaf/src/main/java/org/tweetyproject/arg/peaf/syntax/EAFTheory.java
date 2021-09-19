@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
 
+
+
     public EAFTheory() {
     }
 
@@ -161,10 +163,9 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
         // This method is using Algorithm 1 from Oren et. al. 2010 "Moving Between Argumentation Frameworks"
         Set<Set<EArgument>> dungArguments = new HashSet<>(); // Line 1
         Set<Pair<Set<EArgument>, Set<EArgument>>> dungAttacks = new HashSet<>(); // Line 2
-        SetTools<EArgument> setTools = new SetTools<>();
 
         // Line 3 - 7
-        for (Set<EArgument> A : setTools.subsets(this.getArguments())) {
+        for (Set<EArgument> A : Sets.powerSet(this.getArgumentsAsSet())) {
             boolean isSelfSupporting = checkIsSelfSupporting(A);
 
             if (A.size() > 0 && isSelfSupporting) {
@@ -283,6 +284,6 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
             i++;
         }
 
-        System.out.println("\n");
+
     }
 }

@@ -72,13 +72,23 @@ public class EdgeListReader {
     public static PEAFTheory readPEAF(String filePath, boolean printLines) throws IOException {
         // FIXME: This regex pattern requires the json attachment to be in same order as the writer
         // FIXME: This can be avoided by having a proper JSON parser for the last part of each line
-        Matcher m = Pattern.compile("(.+) (.+) +.*'color' *: *'(.+)' *, *'weight' *: *(.+) *}").matcher("");
+        Matcher m = Pattern.compile("(.+) (.+) +.*'color' *: *'(.+)' *(?:(?:, *'weight' *: *(.+) *})|(?:}))").matcher("");
+
+        // This can match the following:
+        // 0 1 {'color': 'green',          'weight': 0.8148851406241553  }
+        // 0 2 {'color': 'green', 'weight': 0.9428105506184434  }
+        // 0 3 {'color': 'green', 'weight':           0.8569966496275188  }
+        // 1 2 {'color': 'red'}
+        // 1 6 {'color': 'red'}
+        // 1 7 {'color': 'red'}
 
         // First pass to learn how many arguments available
         // FIXME: This can be avoided by loading PEAF dynamically
         final int[] maxArgumentNo = {0};
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
-            lines.flatMap(line -> m.reset(line).results())
+            lines.flatMap(line -> {
+                        return m.reset(line).results();
+                    })
                     .forEach(new Consumer<MatchResult>() {
                         @Override
                         public void accept(MatchResult matchResult) {
@@ -123,16 +133,16 @@ public class EdgeListReader {
                             String fromIndicesString = matchResult.group(1);
                             String toIndicesString = matchResult.group(2);
                             String color = matchResult.group(3);
-                            double probability = Double.parseDouble(matchResult.group(4));
 
                             // FIXME: only supports PEAFs with index names for the time being
                             int[] fromIndices = EdgeListReader.parseIndices(fromIndicesString);
                             int[] toIndices = EdgeListReader.parseIndices(toIndicesString);
 
                             if (color.equals("green")) {
+                                double probability = Double.parseDouble(matchResult.group(4));
                                 peaf.addSupport(fromIndices, toIndices, probability);
                             } else if (color.equals("red")) {
-                                peaf.addAttack(fromIndices, toIndices, probability);
+                                peaf.addAttack(fromIndices, toIndices);
                             } else {
                                 System.out.println("The edge category must be 'green' or 'red'.");
                             }

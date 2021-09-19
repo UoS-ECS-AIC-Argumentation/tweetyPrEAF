@@ -1,6 +1,6 @@
 package org.tweetyproject.arg.peaf.examples;
 
-import org.tweetyproject.arg.peaf.inducers.AllPEAFInducer;
+import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 
@@ -16,7 +16,7 @@ public class EasyPEAFExample {
 
 
         peafTheory.prettyPrint();
-        AllPEAFInducer inducer = new AllPEAFInducer(peafTheory);
+        ExactPEAFInducer inducer = new ExactPEAFInducer(peafTheory);
 
         inducer.induce((Consumer<InducibleEAF>) ind -> {
             System.out.println(ind);

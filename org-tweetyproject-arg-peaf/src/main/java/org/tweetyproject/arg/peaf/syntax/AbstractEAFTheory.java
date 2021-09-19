@@ -1,10 +1,14 @@
 package org.tweetyproject.arg.peaf.syntax;
 
+import com.google.common.collect.Sets;
+
 import java.util.*;
 
 public abstract class AbstractEAFTheory<S, A> {
 
     protected EArgument eta;
+    protected Set<EArgument> argumentsSet = Sets.newHashSet();
+
 
     protected ArrayList<EArgument> arguments = new ArrayList<>();
     protected ArrayList<S> supports = new ArrayList<>();
@@ -15,7 +19,9 @@ public abstract class AbstractEAFTheory<S, A> {
             eta = argument;
         }
         arguments.add(argument);
+        argumentsSet.add(argument);
     }
+
 
     protected boolean addAttack(A attack) {
         return attacks.add(attack);
@@ -41,6 +47,10 @@ public abstract class AbstractEAFTheory<S, A> {
         EArgument argument = this.createArgument(Integer.toString(identifier));
         this.addArgument(argument);
         return argument;
+    }
+
+    public Set<EArgument> getArgumentsAsSet() {
+        return this.argumentsSet;
     }
 
     public ArrayList<EArgument> getArguments() {

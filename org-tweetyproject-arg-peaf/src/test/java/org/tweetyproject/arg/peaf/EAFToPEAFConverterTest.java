@@ -37,7 +37,7 @@ public class EAFToPEAFConverterTest {
 
         peafTheory.prettyPrint();
 
-        peafTheory = EAFToPEAFConverter.convert(eafTheory, 5, 5, 10, 1);
+        peafTheory = EAFToPEAFConverter.convert(eafTheory, 5, 5);
         peafTheory.prettyPrint();
     }
 }

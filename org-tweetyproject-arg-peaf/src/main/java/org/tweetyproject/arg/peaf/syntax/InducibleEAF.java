@@ -1,37 +1,45 @@
 package org.tweetyproject.arg.peaf.syntax;
 
+import com.google.common.collect.Lists;
+
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class InducibleEAF {
-    private final List<EArgument> arguments;
-    private final List<PSupport> supports;
-    private final List<EArgument> newArguments;
-    private final double pInside;
-    private final double inducePro;
+    public final Set<EArgument> arguments;
+    public final Set<PSupport> supports;
+    public final Set<EAttack> attacks;
+    public final Set<EArgument> newArguments;
+    public final double pInside;
+    public final double inducePro;
 
-    public InducibleEAF(List<EArgument> arguments,
-                        List<PSupport> supports,
-                        List<EArgument> newArguments,
+    public InducibleEAF(Set<EArgument> arguments,
+                        Set<PSupport> supports,
+                        Set<EAttack> attacks,
+                        Set<EArgument> newArguments,
                         double pInside, double inducePro) {
 
         this.arguments = arguments;
         this.supports = supports;
+        this.attacks = attacks;
         this.newArguments = newArguments;
         this.pInside = pInside;
         this.inducePro = inducePro;
     }
 
-    public List<EArgument> getArguments() {
+    public Set<EArgument> getArguments() {
         return arguments;
     }
 
-    public List<PSupport> getSupports() {
+    public Set<PSupport> getSupports() {
         return supports;
     }
 
-    public List<EArgument> getNewArguments() {
+    public Set<EArgument> getNewArguments() {
         return newArguments;
     }
+
 
     public double getpInside() {
         return pInside;
@@ -46,8 +54,14 @@ public class InducibleEAF {
         for (PSupport support : supports) {
             eafTheory.addSupport(support);
         }
-        for (EArgument argument : arguments) {
+        List<EArgument> sorted = Lists.newArrayList(arguments);
+        sorted.sort(Comparator.comparing(EArgument::getName));
+        for (EArgument argument : sorted) {
             eafTheory.addArgument(argument);
+        }
+
+        for (EAttack attack : attacks) {
+            eafTheory.addAttack(attack);
         }
         return eafTheory;
     }
@@ -68,7 +82,17 @@ public class InducibleEAF {
         i = 0;
         for (PSupport support : supports) {
             builder.append(support.getName());
-            if (i != arguments.size() - 1) {
+            if (i != supports.size() - 1) {
+                builder.append(",");
+            }
+            i++;
+        }
+
+        builder.append("], attacks=[");
+        i = 0;
+        for (EAttack attack : attacks) {
+            builder.append(attack.getName());
+            if (i != attacks.size() - 1) {
                 builder.append(",");
             }
             i++;

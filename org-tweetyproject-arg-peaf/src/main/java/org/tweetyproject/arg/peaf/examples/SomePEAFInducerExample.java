@@ -1,6 +1,5 @@
 package org.tweetyproject.arg.peaf.examples;
 
-import org.tweetyproject.arg.peaf.inducers.SomePEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 import org.tweetyproject.arg.peaf.io.EdgeListWriter;
@@ -28,8 +27,8 @@ public class SomePEAFInducerExample {
         peafTheory.addSupport(new int[]{3}, new int[]{6}, 0.6);
         peafTheory.addSupport(new int[]{5, 4}, new int[]{7}, 0.4);
 
-        peafTheory.addAttack(new int[]{5}, new int[]{4}, 0.5);
-        peafTheory.addAttack(new int[]{2}, new int[]{6}, 0.4);
+        peafTheory.addAttack(new int[]{5}, new int[]{4});
+        peafTheory.addAttack(new int[]{2}, new int[]{6});
 
         peafTheory.prettyPrint();
 
@@ -46,12 +45,6 @@ public class SomePEAFInducerExample {
             }
         };
 
-        System.out.println("Simulate:");
-        for (int j = 0; j < 100; j++) {
-            SomePEAFInducer inducer = new SomePEAFInducer(peafTheory);
-            System.out.println("Iteration number (" + j + ")");
-            inducer.induce(consumer);
-        }
 
 
     }

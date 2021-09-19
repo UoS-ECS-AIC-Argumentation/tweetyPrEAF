@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public class EAFToPEAFConverter {
 
-    public static PEAFTheory convert(EAFTheory eafTheory, Supplier<Double> supportSupplier, Supplier<Double> attackSupplier) {
+    public static PEAFTheory convert(EAFTheory eafTheory, Supplier<Double> supportSupplier) {
         PEAFTheory peafTheory = new PEAFTheory();
 
         Map<EArgument, Integer> argumentIndexMap = new HashMap<>();
@@ -34,7 +34,7 @@ public class EAFToPEAFConverter {
         for (EAttack attack : eafTheory.getAttacks()) {
             int[] fromIndices = getIndices(argumentIndexMap, attack.getFroms());
             int[] toIndices = getIndices(argumentIndexMap, attack.getTos());
-            peafTheory.addAttack(fromIndices, toIndices, attackSupplier.get());
+            peafTheory.addAttack(fromIndices, toIndices);
         }
 
         return peafTheory;
@@ -60,7 +60,7 @@ public class EAFToPEAFConverter {
      */
     public static PEAFTheory convert(EAFTheory eafTheory, double probability) {
         Supplier<Double> supplier = () -> probability;
-        return EAFToPEAFConverter.convert(eafTheory, supplier, supplier);
+        return EAFToPEAFConverter.convert(eafTheory, supplier);
     }
 
     /**
@@ -72,11 +72,9 @@ public class EAFToPEAFConverter {
      * @param eafTheory
      * @param alphaSupp
      * @param betaSupp
-     * @param alphaAtt
-     * @param betaAtt
      * @return
      */
-    public static PEAFTheory convert(EAFTheory eafTheory, int alphaSupp, int betaSupp, int alphaAtt, int betaAtt) {
+    public static PEAFTheory convert(EAFTheory eafTheory, int alphaSupp, int betaSupp) {
         class BetaSupplier implements Supplier<Double> {
             private final BetaDistributionImpl betaDistribution;
 
@@ -96,8 +94,7 @@ public class EAFToPEAFConverter {
         }
 
         Supplier<Double> supplierSupp = new BetaSupplier(alphaSupp, betaSupp);
-        Supplier<Double> supplierAtt = new BetaSupplier(alphaAtt, betaAtt);
 
-        return EAFToPEAFConverter.convert(eafTheory, supplierSupp, supplierAtt);
+        return EAFToPEAFConverter.convert(eafTheory, supplierSupp);
     }
 }

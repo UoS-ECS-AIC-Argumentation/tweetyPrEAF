@@ -48,7 +48,7 @@ public class EdgeListWriterTest {
         Assert.assertEquals(3, eafTheory.getNumberOfNodes());
 
 
-        PEAFTheory peafTheory = EAFToPEAFConverter.convert(eafTheory, 10, 2, 2, 10);
+        PEAFTheory peafTheory = EAFToPEAFConverter.convert(eafTheory, 10, 2);
         peafTheory.prettyPrint();
 
         if (queryExtension != null) {

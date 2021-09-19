@@ -5,6 +5,7 @@ import org.tweetyproject.arg.dung.reasoner.SimplePreferredReasoner;
 import org.tweetyproject.arg.dung.semantics.Extension;
 import org.tweetyproject.arg.dung.syntax.Argument;
 import org.tweetyproject.arg.peaf.evaluation.converters.EAFToPEAFConverter;
+import org.tweetyproject.arg.peaf.evaluation.converters.EtaToAllConverter;
 import org.tweetyproject.arg.peaf.evaluation.converters.EtaToTreeConverter;
 import org.tweetyproject.arg.peaf.evaluation.daf.*;
 import org.tweetyproject.arg.peaf.io.EdgeListWriter;
@@ -22,7 +23,7 @@ public class GenerateEvaluationExamples {
     public static void main(String[] args) throws IOException {
         long startTime = System.nanoTime();
 
-        int minNumberOfNodes = 10;
+        int minNumberOfNodes = 5;
         int maxNumberOfNodes = 11;
         int nodeStepSize = 1;
         int repetition = 10;
@@ -74,9 +75,13 @@ public class GenerateEvaluationExamples {
                             throw new IllegalStateException("Unexpected value: " + graph);
                     }
 
-                    EtaToTreeConverter eafConverter = new EtaToTreeConverter();
-                    EAFTheory eafTheory = eafConverter.convert(daf, true, 1.0);
-                    PEAFTheory peaf = EAFToPEAFConverter.convert(eafTheory, 10, 2, 2, 10);
+                    EtaToAllConverter eafConverter = new EtaToAllConverter();
+                    EAFTheory eafTheory = eafConverter.convert(daf);
+
+//                    EtaToTreeConverter eafConverter = new EtaToTreeConverter();
+//                    EAFTheory eafTheory = eafConverter.convert(daf, true, 1.0);
+
+                    PEAFTheory peaf = EAFToPEAFConverter.convert(eafTheory, 10, 2);
 
 
                     System.out.println("DAF:");

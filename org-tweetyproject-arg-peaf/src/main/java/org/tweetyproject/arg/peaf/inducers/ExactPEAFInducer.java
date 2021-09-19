@@ -1,21 +1,24 @@
 package org.tweetyproject.arg.peaf.inducers;
 
-import org.tweetyproject.arg.peaf.syntax.EArgument;
-import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
-import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
-import org.tweetyproject.arg.peaf.syntax.PSupport;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import org.tweetyproject.arg.dung.syntax.Attack;
+import org.tweetyproject.arg.peaf.syntax.*;
 
 import java.util.*;
 import java.util.function.Consumer;
 
-public class AllPEAFInducer extends AbstractPEAFInducer {
+public class ExactPEAFInducer extends AbstractPEAFInducer {
 
-    public AllPEAFInducer(PEAFTheory peafTheory) {
+    public ExactPEAFInducer(PEAFTheory peafTheory) {
         super(peafTheory);
     }
 
     public void induce(Consumer<InducibleEAF> consumer) {
-        InducibleEAF f = new InducibleEAF(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 1.0, 1.0);
+        InducibleEAF f = new InducibleEAF(Sets.newHashSet(),
+                                          Sets.newHashSet(),
+                                          Sets.newHashSet(),
+                                          Sets.newHashSet(), 1.0, 1.0);
 
         // Store inducible that need to expand
         List<InducibleEAF> expansion = new ArrayList<>();
@@ -24,6 +27,8 @@ public class AllPEAFInducer extends AbstractPEAFInducer {
         while (!expansion.isEmpty()) {
 
             InducibleEAF toExpand = expansion.remove(0);
+            // Before accepting explore all the attacks and add these links (traverse all the tree)
+            addAttackLinks(toExpand);
             consumer.accept(toExpand);
 
             Map<Set<EArgument>, Map<String, Object>> expandingArgs = expand(toExpand);
@@ -79,10 +84,31 @@ public class AllPEAFInducer extends AbstractPEAFInducer {
                 }
 
                 double induceP = pInside * pOutside;
-                InducibleEAF indu = new InducibleEAF(args, supports, newArgs, pInside, induceP);
+                InducibleEAF indu = new InducibleEAF(Sets.newHashSet(args), Sets.newHashSet(supports), Sets.newHashSet(), Sets.newHashSet(newArgs), pInside, induceP);
                 expansion.add(indu);
             }
 
+        }
+    }
+
+    public static void addAttackLinks(InducibleEAF toExpand) {
+        List<EArgument> newArgs = Lists.newArrayList(toExpand.getArguments());
+        Set<EArgument> explored = Sets.newHashSet();
+        while (!newArgs.isEmpty()) {
+            List<EArgument> nextArgs = Lists.newArrayList();
+            for (EArgument newArg : newArgs) {
+                for (EAttack attack : newArg.getAttacks()) {
+
+                    if (!explored.contains(newArg)) {
+                        toExpand.attacks.add(attack);
+                        nextArgs.addAll(attack.getTos());
+                        explored.add(newArg);
+                    }
+                }
+            }
+            newArgs.clear();
+            newArgs.addAll(nextArgs);
+            toExpand.arguments.addAll(nextArgs);
         }
     }
 
