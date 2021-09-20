@@ -5,6 +5,7 @@ import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
+import org.tweetyproject.commons.util.Pair;
 
 import java.util.HashSet;
 import java.util.List;
@@ -49,8 +50,8 @@ public class JustificationAnalysisExample {
         query.add(args.get(6));
 
         ExactPEAFInducer inducer = new ExactPEAFInducer(peafTheory);
-        double probabilisticJustification = JustificationAnalysis.compute(query, inducer, new PreferredReasoner());
-        System.out.println("Probabilistic justification: " + probabilisticJustification);
+        Pair<Double, Double> probabilisticJustification = JustificationAnalysis.compute(query, inducer, new PreferredReasoner());
+        System.out.println("Probabilistic justification: " + probabilisticJustification.getFirst());
 
 
     }

@@ -23,10 +23,10 @@ public class GenerateEvaluationExamples {
     public static void main(String[] args) throws IOException {
         long startTime = System.nanoTime();
 
-        int minNumberOfNodes = 5;
-        int maxNumberOfNodes = 11;
+        int minNumberOfNodes = 3;
+        int maxNumberOfNodes = 6;
         int nodeStepSize = 1;
-        int repetition = 10;
+        int repetition = 100;
         double someProbability = 0.5;
 
         // Create evaluation folder

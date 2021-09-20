@@ -13,6 +13,7 @@ import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EAFTheory;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
+import org.tweetyproject.commons.util.Pair;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -87,8 +88,8 @@ public class EtaToAllConverterTest {
 
             System.out.println("Query is: " + query);
             ExactPEAFInducer inducer = new ExactPEAFInducer(peafTheory);
-            double probabilisticJustification = JustificationAnalysis.compute(query, inducer, new SimplePreferredReasoner());
-            System.out.println("Probabilistic justification: " + probabilisticJustification);
+            Pair<Double, Double> probabilisticJustification = JustificationAnalysis.compute(query, inducer, new SimplePreferredReasoner());
+            System.out.println("Probabilistic justification: " + probabilisticJustification.getFirst());
         }
 
     }

@@ -74,8 +74,8 @@ public class EdgeListReaderTest {
         peafTheory1.prettyPrint();
         System.out.println("From file query: " + query);
 
-        double justification = JustificationAnalysis.compute(query, new ExactPEAFInducer(peafTheory), new SimplePreferredReasoner());
-        System.out.println("Justification is: " + justification);
+        Pair<Double, Double> justification = JustificationAnalysis.compute(query, new ExactPEAFInducer(peafTheory), new SimplePreferredReasoner());
+        System.out.println("Justification is: " + justification.getFirst());
     }
 
     @Test
@@ -90,7 +90,7 @@ public class EdgeListReaderTest {
         peafTheory.prettyPrint();
         System.out.println("From file query: " + query);
 
-        double justification = JustificationAnalysis.compute(query, new ExactPEAFInducer(peafTheory), new SimplePreferredReasoner());
-        System.out.println("Justification is: " + justification);
+        Pair<Double, Double> justification = JustificationAnalysis.compute(query, new ExactPEAFInducer(peafTheory), new SimplePreferredReasoner());
+        System.out.println("Justification is: " + justification.getFirst());
     }
 }

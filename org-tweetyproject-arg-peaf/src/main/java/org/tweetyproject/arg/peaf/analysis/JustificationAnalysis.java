@@ -26,32 +26,15 @@ public class JustificationAnalysis {
         final double[] N = {0};
         final double[] metric = {0};
         final double[] p_i = {0};
-        final int[] i = {0};
-
-        final double[] foundPro = {0};
-        final double[] totalPro = {0};
 
         Consumer<InducibleEAF> consumer = new Consumer<InducibleEAF>() {
             @Override
             public void accept(InducibleEAF inducibleEAF) {
                 double contribution = JustificationAnalysis.computeJustificationOfASingleEAF(args, inducibleEAF, extensionReasoner);
-                foundPro[0] = foundPro[0] + (contribution * inducibleEAF.getInducePro());
-                totalPro[0] = totalPro[0] + inducibleEAF.getInducePro();
-
                 M[0] = M[0] + contribution;
                 N[0] = N[0] + 1.0;
                 p_i[0] = (M[0] + 2) / (N[0] + 4);
                 metric[0] = ((4.0 * p_i[0] * (1.0 - p_i[0])) / Math.pow(errorLevel, 2)) - 4.0;
-                if (contribution > 0) {
-//                    System.out.println("Contributed: " + inducibleEAF);
-                }
-                else {
-//                    System.out.println(inducibleEAF);
-                }
-
-//                System.out.println("Simulation step: " + i[0] + " M: " + M[0] + " - N: " + N[0] + " metric: " + metric[0]);
-//                System.out.println("Contribution was: " + contribution);
-                i[0] += 1;
             }
         };
 
@@ -62,18 +45,15 @@ public class JustificationAnalysis {
 
         } while (N[0] <= metric[0]);
         return new Pair<Double, Double>(M[0] / N[0], N[0]);
-//        return new Pair<Double, Double>(foundPro[0] / totalPro[0], N[0]);
     }
 
-    public static <T extends AbstractExtensionReasoner> double compute(Set<EArgument> args, ExactPEAFInducer inducer, T extensionReasoner) {
+    public static <T extends AbstractExtensionReasoner>  Pair<Double, Double> compute(Set<EArgument> args, ExactPEAFInducer inducer, T extensionReasoner) {
         return compute(args, inducer, extensionReasoner, false, false);
     }
 
-    public static <T extends AbstractExtensionReasoner> double compute(Set<EArgument> args, ExactPEAFInducer inducer, T extensionReasoner, boolean printDAF, boolean printEAF) {
+    public static <T extends AbstractExtensionReasoner>  Pair<Double, Double> compute(Set<EArgument> args, ExactPEAFInducer inducer, T extensionReasoner, boolean printDAF, boolean printEAF) {
         AtomicReference<Double> prob = new AtomicReference<>((double) 0);
-//        AtomicReference<Double> count = new AtomicReference<>((double) 0);
-//        AtomicReference<Double> found = new AtomicReference<>((double) 0);
-
+        AtomicReference<Double> N = new AtomicReference<>((double) 0);
         Set<String> queryStringArgs = new HashSet<>();
 
         for (EArgument arg : args) {
@@ -85,6 +65,8 @@ public class JustificationAnalysis {
             // If args is in EAFTheory and if X is in an extension of EAFTheory
             // then induce probability can be considered.
 
+            N.updateAndGet(v -> v + 1);
+
             EAFTheory eafTheory = ind.toNewEAFTheory();
 
             if (printEAF) {
@@ -93,8 +75,8 @@ public class JustificationAnalysis {
                 eafTheory.prettyPrint();
             }
             //  eafTheory.prettyPrint();
-//            count.updateAndGet(c -> c + 1.0);
-            if (eafTheory.getArguments().containsAll(args)) {
+            //  count.updateAndGet(c -> c + 1.0);
+            if (eafTheory.getArgumentsSet().containsAll(args)) {
                 // If the X is in an extension of IEAF
 
                 DungTheory dungTheory = eafTheory.convertToDAFNaively();
@@ -140,9 +122,7 @@ public class JustificationAnalysis {
 
         });
 
-//        return prob.get() / count.get();
-        return prob.get();
-//        return found.get();
+        return new Pair<Double, Double>(prob.get(), N.get());
     }
 
     public static <T extends AbstractExtensionReasoner> double computeJustificationOfASingleEAF(Set<EArgument> args, InducibleEAF inducibleEAF, T extensionReasoner) {
@@ -155,7 +135,7 @@ public class JustificationAnalysis {
             queryStringArgs.add(arg.getName());
         }
 //        eafTheory.prettyPrint();
-        if (eafTheory.getArguments().containsAll(args)) {
+        if (eafTheory.getArgumentsSet().containsAll(args)) {
             // If the X is in an extension of IEAF
 
             DungTheory dungTheory = eafTheory.convertToDAFNaively();

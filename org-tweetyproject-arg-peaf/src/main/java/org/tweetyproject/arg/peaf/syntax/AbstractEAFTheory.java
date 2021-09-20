@@ -57,6 +57,8 @@ public abstract class AbstractEAFTheory<S, A> {
         return arguments;
     }
 
+    public Set<EArgument> getArgumentsSet() { return argumentsSet; }
+
     public ArrayList<S> getSupports() {
         return supports;
     }

@@ -50,11 +50,11 @@ public class ApproximateJustificationAnalysisExample {
 
 
         ExactPEAFInducer inducer = new ExactPEAFInducer(peafTheory);
-        double probabilisticJustification = JustificationAnalysis.compute(query, inducer, new PreferredReasoner());
+        Pair<Double, Double> p = JustificationAnalysis.compute(query, inducer, new PreferredReasoner());
 
 
         Pair<Double, Double> pair = JustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.01);
-        System.out.println("Exact Probabilistic justification: " + probabilisticJustification);
+        System.out.println("Exact Probabilistic justification: " + p.getFirst());
         System.out.println("Some Probabilistic justification: " + pair.getFirst());
         System.out.println("Trials: " + pair.getSecond());
 
