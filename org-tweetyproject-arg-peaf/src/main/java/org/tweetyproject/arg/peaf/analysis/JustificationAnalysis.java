@@ -1,12 +1,13 @@
 package org.tweetyproject.arg.peaf.analysis;
 
 
+import com.google.common.collect.Sets;
 import org.tweetyproject.arg.dung.reasoner.AbstractExtensionReasoner;
 import org.tweetyproject.arg.dung.semantics.Extension;
 import org.tweetyproject.arg.dung.syntax.Argument;
 import org.tweetyproject.arg.dung.syntax.DungTheory;
 import org.tweetyproject.arg.peaf.inducers.ApproxPEAFInducer;
-import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
+import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EAFTheory;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
@@ -47,11 +48,11 @@ public class JustificationAnalysis {
         return new Pair<Double, Double>(M[0] / N[0], N[0]);
     }
 
-    public static <T extends AbstractExtensionReasoner>  Pair<Double, Double> compute(Set<EArgument> args, ExactPEAFInducer inducer, T extensionReasoner) {
+    public static <T extends AbstractExtensionReasoner>  Pair<Double, Double> compute(Set<EArgument> args, LiExactPEAFInducer inducer, T extensionReasoner) {
         return compute(args, inducer, extensionReasoner, false, false);
     }
 
-    public static <T extends AbstractExtensionReasoner>  Pair<Double, Double> compute(Set<EArgument> args, ExactPEAFInducer inducer, T extensionReasoner, boolean printDAF, boolean printEAF) {
+    public static <T extends AbstractExtensionReasoner>  Pair<Double, Double> compute(Set<EArgument> args, LiExactPEAFInducer inducer, T extensionReasoner, boolean printDAF, boolean printEAF) {
         AtomicReference<Double> prob = new AtomicReference<>((double) 0);
         AtomicReference<Double> N = new AtomicReference<>((double) 0);
         Set<String> queryStringArgs = new HashSet<>();
@@ -61,11 +62,23 @@ public class JustificationAnalysis {
         }
 
         AtomicInteger i = new AtomicInteger();
+
+
+        Set<InducibleEAF> iEAFS = Sets.newHashSet();
+
         inducer.induce((Consumer<InducibleEAF>) ind -> {
             // If args is in EAFTheory and if X is in an extension of EAFTheory
             // then induce probability can be considered.
-
+//            System.out.println(i.getAndIncrement() + " -" + ind);
             N.updateAndGet(v -> v + 1);
+
+            if (iEAFS.contains(ind)) {
+                return;
+            }
+            else {
+                iEAFS.add(ind);
+//                System.out.println(ind);
+            }
 
             EAFTheory eafTheory = ind.toNewEAFTheory();
 
@@ -74,7 +87,8 @@ public class JustificationAnalysis {
                 System.out.println(ind);
                 eafTheory.prettyPrint();
             }
-            //  eafTheory.prettyPrint();
+
+//              eafTheory.prettyPrint();
             //  count.updateAndGet(c -> c + 1.0);
             if (eafTheory.getArgumentsSet().containsAll(args)) {
                 // If the X is in an extension of IEAF
@@ -90,6 +104,9 @@ public class JustificationAnalysis {
 
                 for (Extension extension : extensionCollection) {
                     Set<String> subArgsNamesInExtension = new HashSet<>();
+                    if (printDAF) {
+                        System.out.println("Extension: " + extension);
+                    }
 
                     for (Argument argument : extension) {
                         String mainArgName = argument.getName();
@@ -110,10 +127,11 @@ public class JustificationAnalysis {
                             System.out.println("Extension: " + extension);
                             System.out.println("Contribution: " + prob.get());
                         }
-                        prob.updateAndGet(v -> (v + ind.getInducePro()));
-                        // The number of times
+//                        System.out.println(ind.getInducePro());
 
-                        break;
+                        prob.updateAndGet(v -> (v + ind.getInducePro()));
+
+                        return;
                     }
                 }
 
@@ -121,6 +139,7 @@ public class JustificationAnalysis {
             }
 
         });
+
 
         return new Pair<Double, Double>(prob.get(), N.get());
     }

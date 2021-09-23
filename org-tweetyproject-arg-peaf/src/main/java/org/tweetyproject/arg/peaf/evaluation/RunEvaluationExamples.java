@@ -1,23 +1,5 @@
 package org.tweetyproject.arg.peaf.evaluation;
 
-import org.tweetyproject.arg.peaf.analysis.JustificationAnalysis;
-import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
-import org.tweetyproject.arg.peaf.syntax.EArgument;
-import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
-import org.tweetyproject.arg.peaf.io.EdgeListReader;
-import org.tweetyproject.commons.util.Pair;
-
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Set;
-
 public class RunEvaluationExamples {
 //    public static void evaluate(String evaluationFolderPath) throws IOException {
 //        /* - Inputs */

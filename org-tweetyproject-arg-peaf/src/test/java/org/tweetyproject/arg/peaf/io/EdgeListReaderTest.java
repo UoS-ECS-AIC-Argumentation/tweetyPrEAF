@@ -9,7 +9,7 @@ import org.tweetyproject.arg.dung.syntax.DungTheory;
 import org.tweetyproject.arg.peaf.analysis.JustificationAnalysis;
 import org.tweetyproject.arg.peaf.evaluation.converters.EAFToPEAFConverter;
 import org.tweetyproject.arg.peaf.evaluation.converters.EtaToAllConverter;
-import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
+import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EAFTheory;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
@@ -74,7 +74,7 @@ public class EdgeListReaderTest {
         peafTheory1.prettyPrint();
         System.out.println("From file query: " + query);
 
-        Pair<Double, Double> justification = JustificationAnalysis.compute(query, new ExactPEAFInducer(peafTheory), new SimplePreferredReasoner());
+        Pair<Double, Double> justification = JustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new SimplePreferredReasoner());
         System.out.println("Justification is: " + justification.getFirst());
     }
 
@@ -90,7 +90,7 @@ public class EdgeListReaderTest {
         peafTheory.prettyPrint();
         System.out.println("From file query: " + query);
 
-        Pair<Double, Double> justification = JustificationAnalysis.compute(query, new ExactPEAFInducer(peafTheory), new SimplePreferredReasoner());
+        Pair<Double, Double> justification = JustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new SimplePreferredReasoner());
         System.out.println("Justification is: " + justification.getFirst());
     }
 }

@@ -1,10 +1,14 @@
 package org.tweetyproject.arg.peaf.syntax;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import org.jfree.util.ArrayUtilities;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
 
 public class InducibleEAF {
     public final Set<EArgument> arguments;
@@ -46,23 +50,33 @@ public class InducibleEAF {
     }
 
     public double getInducePro() {
-        return inducePro;
+        return Math.exp(inducePro);
     }
 
     public EAFTheory toNewEAFTheory() {
         EAFTheory eafTheory = new EAFTheory();
+        Set<EArgument> arguments = Sets.newHashSet();
+
         for (PSupport support : supports) {
             eafTheory.addSupport(support);
-        }
-        List<EArgument> sorted = Lists.newArrayList(arguments);
-        sorted.sort(Comparator.comparing(EArgument::getName));
-        for (EArgument argument : sorted) {
-            eafTheory.addArgument(argument);
+            arguments.addAll(support.getTos());
+            arguments.addAll(support.getFroms());
         }
 
         for (EAttack attack : attacks) {
             eafTheory.addAttack(attack);
+            arguments.addAll(attack.getTos());
+            arguments.addAll(attack.getFroms());
         }
+
+        List<EArgument> argsSorted = Lists.newArrayList();
+        argsSorted.addAll(arguments);
+        argsSorted.sort(Comparator.comparing(EArgument::getName));
+
+        for (EArgument argument : argsSorted) {
+            eafTheory.addArgument(argument);
+        }
+
         return eafTheory;
     }
 
@@ -98,10 +112,33 @@ public class InducibleEAF {
             i++;
         }
         builder.append("] induce probability=");
-        builder.append(inducePro);
-        builder.append("}");
+        builder.append(Math.exp(inducePro));
+        builder.append("}: " + super.toString());
 
 
         return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        InducibleEAF that = (InducibleEAF) o;
+        return arguments.containsAll(that.arguments)
+                && supports.containsAll(that.supports)
+                && attacks.containsAll(that.attacks)
+                && that.arguments.containsAll(arguments)
+                && that.supports.containsAll(supports)
+                && that.attacks.containsAll(attacks);
+    }
+
+    @Override
+    public int hashCode() {
+        List<String> all = Lists.newArrayList();
+        all.addAll(arguments.stream().map(EArgument::getName).toList());
+        all.addAll(supports.stream().map(PSupport::getName).toList());
+        all.addAll(attacks.stream().map(EAttack::getName).toList());
+
+        return Objects.hash(all.toArray());
     }
 }

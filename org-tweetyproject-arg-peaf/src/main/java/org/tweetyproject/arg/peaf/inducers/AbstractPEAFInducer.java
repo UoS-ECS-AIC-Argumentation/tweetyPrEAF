@@ -19,4 +19,8 @@ public abstract class AbstractPEAFInducer implements PEAFInducer {
             n--;
         }
     }
+
+    public PEAFTheory getPeafTheory() {
+        return peafTheory;
+    }
 }

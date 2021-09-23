@@ -26,8 +26,11 @@ public class GenerateEvaluationExamples {
         int minNumberOfNodes = 3;
         int maxNumberOfNodes = 6;
         int nodeStepSize = 1;
-        int repetition = 100;
+        int repetition = 10;
         double someProbability = 0.5;
+//        String etaConnectionMode = "etaToAll";
+        String etaConnectionMode = "etaToTree";
+
 
         // Create evaluation folder
         Path folder = Paths.get("./evaluation");
@@ -75,13 +78,21 @@ public class GenerateEvaluationExamples {
                             throw new IllegalStateException("Unexpected value: " + graph);
                     }
 
-                    EtaToAllConverter eafConverter = new EtaToAllConverter();
-                    EAFTheory eafTheory = eafConverter.convert(daf);
+                    EAFTheory eafTheory;
+                    if (etaConnectionMode.equalsIgnoreCase("etaToAll")) {
+                        EtaToAllConverter eafConverter = new EtaToAllConverter();
+                        eafTheory = eafConverter.convert(daf);
+                    } else if (etaConnectionMode.equalsIgnoreCase("etaToTree")) {
+                        EtaToTreeConverter eafConverter = new EtaToTreeConverter();
+                        eafTheory = eafConverter.convert(daf, true, 1.0);
+                    }
+                    else {
+                        throw new RuntimeException("Given etaConnectionMode '" +
+                                etaConnectionMode +"' is not implemented.");
+                    }
 
-//                    EtaToTreeConverter eafConverter = new EtaToTreeConverter();
-//                    EAFTheory eafTheory = eafConverter.convert(daf, true, 1.0);
 
-                    PEAFTheory peaf = EAFToPEAFConverter.convert(eafTheory, 10, 2);
+                    PEAFTheory peaf = EAFToPEAFConverter.convert(eafTheory, 1, 1);
 
 
                     System.out.println("DAF:");

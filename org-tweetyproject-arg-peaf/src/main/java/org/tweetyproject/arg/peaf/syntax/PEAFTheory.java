@@ -72,21 +72,4 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport, EAttack> {
         this.addAttack(new int[]{fromIndex}, new int[]{toIndex});
     }
 
-    public Set<EArgument> getRandomArguments(Random random) {
-        int nTimes = random.nextInt(this.getArguments().size());
-        return getRandomArguments(random, nTimes);
-    }
-
-    public Set<EArgument> getRandomArguments(Random random, int nTimes) {
-        List<EArgument> randomList = new ArrayList<>(this.getArguments());
-        Set<EArgument> set = new HashSet<>();
-
-        for (int i = 0; i < nTimes; i++) {
-            Collections.shuffle(randomList, random);
-            set.add(randomList.get(0));
-            randomList.remove(0);
-        }
-        return set;
-    }
-
 }

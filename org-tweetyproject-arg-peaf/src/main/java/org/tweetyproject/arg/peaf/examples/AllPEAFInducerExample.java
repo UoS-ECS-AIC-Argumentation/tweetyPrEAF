@@ -1,9 +1,8 @@
 package org.tweetyproject.arg.peaf.examples;
 
-import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
+import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
-import org.tweetyproject.arg.peaf.io.EdgeListWriter;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
@@ -33,15 +32,15 @@ public class AllPEAFInducerExample {
 
         peafTheory.prettyPrint();
 
-        EdgeListWriter.write("peaf.networkx", peafTheory);
+//        EdgeListWriter.write("peaf.networkx", peafTheory);
 
         AtomicInteger i = new AtomicInteger();
-        ExactPEAFInducer inducer = new ExactPEAFInducer(peafTheory);
+        LiExactPEAFInducer inducer = new LiExactPEAFInducer(peafTheory);
 
         inducer.induce((Consumer<InducibleEAF>) ind -> {
             int n = i.getAndIncrement();
             System.out.println(ind);
-            EdgeListWriter.write("eaf" + n + ".networkx", ind.toNewEAFTheory());
+//            EdgeListWriter.write("eaf" + n + ".networkx", ind.toNewEAFTheory());
 
         });
 

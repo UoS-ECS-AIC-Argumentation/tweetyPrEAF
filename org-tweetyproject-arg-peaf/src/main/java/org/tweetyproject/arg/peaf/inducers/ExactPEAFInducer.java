@@ -2,174 +2,109 @@ package org.tweetyproject.arg.peaf.inducers;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import org.tweetyproject.arg.dung.syntax.Attack;
 import org.tweetyproject.arg.peaf.syntax.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+import java.util.Stack;
 import java.util.function.Consumer;
 
-public class ExactPEAFInducer extends AbstractPEAFInducer {
+public class ExactPEAFInducer extends AbstractPEAFInducer{
+    class EAF_F {
+        Set<EArgument> eArguments;
+        Set<ESupport> eSupports;
+        Set<EArgument> newEArguments;
+        double pi;
+
+        public EAF_F(Set<EArgument> eArguments,
+                     Set<ESupport> eSupports,
+                     Set<EArgument> newEArguments, double pi) {
+            this.eArguments = eArguments;
+            this.eSupports = eSupports;
+            this.newEArguments = newEArguments;
+            this.pi = pi;
+        }
+
+        public InducibleEAF convertToInducible() {
+            List<PSupport> supportList = Lists.newArrayList();
+            for (ESupport eSupport : eSupports) {
+                supportList.add((PSupport) eSupport);
+            }
+
+            InducibleEAF inducibleEAF = new InducibleEAF(Sets.newHashSet(eArguments),
+                    Sets.newHashSet(supportList),
+                    Sets.newHashSet(),
+                    Sets.newHashSet(),
+                    0, Math.log(this.pi));
+
+
+            LiExactPEAFInducer.addAttackLinks(inducibleEAF);
+
+            return inducibleEAF;
+        }
+
+        public EAF_F copy() {
+            return new EAF_F(Sets.newHashSet(this.eArguments), Sets.newHashSet(this.eSupports), Sets.newHashSet(this.newEArguments), this.pi);
+        }
+    }
 
     public ExactPEAFInducer(PEAFTheory peafTheory) {
         super(peafTheory);
     }
 
+    @Override
     public void induce(Consumer<InducibleEAF> consumer) {
-        InducibleEAF f = new InducibleEAF(Sets.newHashSet(),
-                                          Sets.newHashSet(),
-                                          Sets.newHashSet(),
-                                          Sets.newHashSet(), 1.0, 1.0);
+        Stack<EAF_F> stack = new Stack<>();
 
-        // Store inducible that need to expand
-        List<InducibleEAF> expansion = new ArrayList<>();
-        expansion.add(f);
+        // eta is added, Algorithm 8 Line 2 EAF_F <- {eta}, {}, {}
+        stack.push(new EAF_F(Sets.newHashSet(), Sets.newHashSet(peafTheory.getSupports().get(0)), Sets.newHashSet(peafTheory.getArguments().get(0)), 1.0));
 
-        while (!expansion.isEmpty()) {
+        while (!stack.isEmpty()) {
+            EAF_F eaf = stack.pop();
 
-            InducibleEAF toExpand = expansion.remove(0);
-            // Before accepting explore all the attacks and add these links (traverse all the tree)
-            addAttackLinks(toExpand);
-            consumer.accept(toExpand);
+            double po = 1.0;
 
-            Map<Set<EArgument>, Map<String, Object>> expandingArgs = expand(toExpand);
-
-            if (expandingArgs.isEmpty()) {
-                continue;
+            // line 3, page 80
+            for (PSupport support : peafTheory.getSupports()) {
+                // all the support that are not in iEAF
+                if (!eaf.eSupports.contains(support)) {
+                    po *= (1 - support.getConditionalProbability());
+                }
             }
 
-            int noCombinations = 1 << expandingArgs.size();
+            System.out.println("po: " + po);
+            double npi = eaf.pi;
+            System.out.println("eaf pi (before): " + eaf.pi);
+            eaf.pi = eaf.pi * po;
+            System.out.println("eaf pi (after): " + eaf.pi);
 
-            for (int i = 1; i < noCombinations; i++) {
-                List<EArgument> newArgs = new ArrayList<>();
-                List<PSupport> supports = new ArrayList<>();
 
-                double pInside = toExpand.getpInside();
-                int n = i;
+            Set<ESupport> expandingSupports = Sets.newHashSet();
+            for (EArgument newEArgument : eaf.newEArguments) {
+                expandingSupports.addAll(newEArgument.getSupports());
+            }
 
-                for (Map.Entry<Set<EArgument>, Map<String, Object>> entry : expandingArgs.entrySet()) {
-                    Set<EArgument> argIds = entry.getKey();
-                    Map<String, Object> map = entry.getValue();
+            eaf.eArguments.addAll(eaf.newEArguments);
+            eaf.newEArguments.clear();
 
-                    if ((n & 1) == 1) {
-                        newArgs.addAll(argIds);
-                        supports.addAll((Collection<? extends PSupport>) map.get("supports"));
-                        pInside *= 1.0 - (double) map.get("pro");
-                    }
-                    n = n >> 1;
+            consumer.accept(eaf.convertToInducible());
+
+            for (Set<ESupport> eSupports : Sets.powerSet(expandingSupports)) {
+
+                EAF_F eaf_c = eaf.copy();
+                for (ESupport eSupport : eSupports) {
+
+                    eaf_c.eSupports.add(eSupport);
+                    eaf_c.newEArguments.addAll(eSupport.getTos());
+                    npi *= ((PSupport)  eSupport).getConditionalProbability();
                 }
-                List<EArgument> args = new ArrayList<>();
-                args.addAll(toExpand.getArguments());
-                args.addAll(newArgs);
-                supports.addAll(toExpand.getSupports());
-
-                double pOutside = 1.0;
-
-                for (PSupport sr : this.peafTheory.getSupports()) {
-                    if (supports.contains(sr)) {
-                        continue;
-                    }
-
-                    EArgument notIn = null;
-
-                    for (EArgument fa : sr.getFroms()) {
-                        if (!args.contains(fa)) {
-                            notIn = fa;
-                            break;
-                        }
-                    }
-
-                    if (notIn == null) {
-                        pOutside *= (1.0 - sr.getConditionalProbability());
-                    }
+                if (!eSupports.isEmpty()) {
+                    eaf_c.pi = npi;
+                    stack.push(eaf_c);
                 }
-
-                double induceP = pInside * pOutside;
-                InducibleEAF indu = new InducibleEAF(Sets.newHashSet(args), Sets.newHashSet(supports), Sets.newHashSet(), Sets.newHashSet(newArgs), pInside, induceP);
-                expansion.add(indu);
             }
 
         }
     }
 
-    public static void addAttackLinks(InducibleEAF toExpand) {
-        List<EArgument> newArgs = Lists.newArrayList(toExpand.getArguments());
-        Set<EArgument> explored = Sets.newHashSet();
-        while (!newArgs.isEmpty()) {
-            List<EArgument> nextArgs = Lists.newArrayList();
-            for (EArgument newArg : newArgs) {
-                for (EAttack attack : newArg.getAttacks()) {
-
-                    if (!explored.contains(newArg)) {
-                        toExpand.attacks.add(attack);
-                        nextArgs.addAll(attack.getTos());
-                        explored.add(newArg);
-                    }
-                }
-            }
-            newArgs.clear();
-            newArgs.addAll(nextArgs);
-            toExpand.arguments.addAll(nextArgs);
-        }
-    }
-
-    private Map<Set<EArgument>, Map<String, Object>> expand(InducibleEAF indu) {
-        Map<Set<EArgument>, Map<String, Object>> expandable = new HashMap<>();
-
-        for (PSupport sr : this.peafTheory.getSupports()) {
-
-            // next if indu.supports.include?(sr.id)
-            if (indu.getSupports().contains(sr)) {
-                continue;
-            }
-
-            boolean foundNotIn = false;
-            boolean foundNewSup = false;
-
-
-            //  sr.from.each { |fa|
-            //        found_not_in = true if !indu.arguments.include?(fa.id)
-            //        break if found_not_in
-            //        found_new_sup = true if indu.new_args.include?(fa.id)
-            //  }
-            for (EArgument fa : sr.getFroms()) {
-                if (!indu.getArguments().contains(fa)) {
-                    foundNotIn = true;
-                    break;
-                }
-                if (indu.getNewArguments().contains(fa)) {
-                    foundNewSup = true;
-                }
-            }
-
-            //if !found_not_in and (found_new_sup or indu.new_args.empty?)
-            //        if expandable.has_key?(sr.to.id)
-            //          expandable[sr.to.id][:supports].push(sr.id)
-            //          expandable[sr.to.id][:pro] *= (1 - sr.cp)
-            //        else
-            //          expandable[sr.to.id] = {:supports => [sr.id], :pro => (1 - sr.cp)}
-            //        end
-            //      end
-            if (!foundNotIn && (foundNewSup || indu.getNewArguments().isEmpty())) {
-                if (expandable.containsKey(sr.getTos())) {
-                    Map<String, Object> map = expandable.get(sr.getTos());
-
-                    List<PSupport> supports = (List<PSupport>) map.get("supports");
-                    supports.add(sr);
-
-                    double probability = (double) map.get("pro");
-                    map.replace("pro", probability * (1.0 - sr.getConditionalProbability()));
-                } else {
-                    Map<String, Object> map = new HashMap<>();
-                    List<PSupport> supports = new ArrayList<>();
-                    supports.add(sr);
-                    map.put("supports", supports);
-                    map.put("pro", 1.0 - sr.getConditionalProbability());
-                    expandable.put(sr.getTos(), map);
-                }
-
-            }
-
-        }
-        return expandable;
-    }
 }

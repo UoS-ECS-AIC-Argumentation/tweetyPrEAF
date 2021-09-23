@@ -1,10 +1,9 @@
 package org.tweetyproject.arg.peaf.examples;
 
-import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
+import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
-import org.tweetyproject.arg.peaf.io.EdgeListWriter;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -47,17 +46,17 @@ public class MeetingPEAFExample {
         args.get(5).setName("a");
         args.get(6).setName("c");
 
-        EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/0.peaf", peafTheory);
+//        EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/0.peaf", peafTheory);
 
         AtomicInteger i = new AtomicInteger();
-        ExactPEAFInducer inducer = new ExactPEAFInducer(peafTheory);
+        LiExactPEAFInducer inducer = new LiExactPEAFInducer(peafTheory);
         total = 0;
         inducer.induce((Consumer<InducibleEAF>) ind -> {
             int n = i.getAndIncrement();
             System.out.println(ind);
             String probability = String.format("%.04f", ind.getInducePro());
             probability = probability.replace(".", "_");
-            EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/" + n + "" + "_" + probability + ".eaf", ind.toNewEAFTheory());
+//            EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/" + n + "" + "_" + probability + ".eaf", ind.toNewEAFTheory());
             total += ind.getInducePro();
         });
         System.out.println("Total probability: " + total);

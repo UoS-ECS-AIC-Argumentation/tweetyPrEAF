@@ -1,8 +1,7 @@
 package org.tweetyproject.arg.peaf.evaluation;
 
-import org.tweetyproject.arg.peaf.analysis.ExperimentalAnalysis;
 import org.tweetyproject.arg.peaf.analysis.JustificationAnalysis;
-import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
+import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.io.EdgeListReader;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
@@ -25,15 +24,17 @@ public class ParallelRunEvaluationExamples {
     public static void evaluate(String evaluationFolderPath) throws IOException, InterruptedException {
         /* - Inputs */
         // The inducer name
-        String inducer = "approx_exp";
-//        String inducer = "exact_exp";
-//        String inducer = "approx";
-//        String inducer = "exact";
 
-        double errorLevel = 0.01;
+        String inducer = "approx"; // Approximate Solution with JustificationAnalysis (Single PEAF -> to many EAF to many DAF)
+//        String inducer = "exact"; // Exact Solution with JustificationAnalysis (Single PEAF -> to many EAF to many DAF)
+
+        int sizeLimiter = Integer.MAX_VALUE;
+
+        double errorLevel = 0.1;
+        int nThreads = 1;
         /* End Inputs */
 
-        ExecutorService threadPoolExecutor = Executors.newFixedThreadPool(7);
+        ExecutorService threadPoolExecutor = Executors.newFixedThreadPool(nThreads);
         ReentrantLock lock = new ReentrantLock();
 
         // This is important to make sure generated queries are same across approximate and exact justification runs
@@ -69,6 +70,11 @@ public class ParallelRunEvaluationExamples {
             System.out.println("Node sizes: " + Arrays.toString(nodeSizes));
 
             for (Integer nodeSize : nodeSizes) {
+
+                if (nodeSize > sizeLimiter) {
+                    break;
+                }
+
                 Path nodeSizePath = Paths.get(graphTypePath.toString(), "" + nodeSize);
                 System.out.println("Node size path: " + nodeSizePath);
                 File[] repetitionFiles = nodeSizePath.toFile().listFiles(new FilenameFilter() {
@@ -89,7 +95,13 @@ public class ParallelRunEvaluationExamples {
                 System.out.println(Arrays.toString(repetitionFileNames));
 
                 for (Integer repetitionFileName : repetitionFileNames) {
-                    submitTask(inducer, writer, graphType, nodeSize, nodeSizePath, repetitionFileName, threadPoolExecutor, lock, errorLevel);
+                    if (nThreads != 1 ) {
+                        submitTask(inducer, writer, graphType, nodeSize, nodeSizePath, repetitionFileName, threadPoolExecutor, lock, errorLevel);
+                    }
+                    else {
+                        extracted(nodeSizePath, repetitionFileName, lock, inducer, errorLevel, writer, graphType, nodeSize);
+                    }
+
                 }
             }
         }
@@ -108,80 +120,77 @@ public class ParallelRunEvaluationExamples {
         threadPoolExecutor.submit(new Runnable() {
             @Override
             public void run() {
-                String repetitionFilePath = Paths.get(nodeSizePath.toString(), ("" + repetitionFileName + ".peaf")).toString();
-
-                lock.lock();
-                try{
-                    System.out.println("Started: " + repetitionFilePath);
-                } finally {
-                    lock.unlock();
-                }
-
-
-                Pair<PEAFTheory, Set<EArgument>> pair = null;
-                try {
-                    pair = EdgeListReader.readPEAFWithQuery(repetitionFilePath, false);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                PEAFTheory peafTheory = pair.getFirst();
-                Set<EArgument> query = pair.getSecond();
-                long startTime = System.currentTimeMillis();
-
-
-                // AllInducer
-                lock.lock();
-                try{
-                    System.out.println(query.toString());
-                } finally {
-                    lock.unlock();
-                }
-
-                Pair<Double, Double> result;
-
-                if (inducer.equalsIgnoreCase("exact")) {
-                    result = JustificationAnalysis.compute(query, new ExactPEAFInducer(peafTheory), new PreferredReasoner());
-
-                }
-                else if (inducer.equalsIgnoreCase("exact_exp")) {
-                    ExperimentalAnalysis analysis = new ExperimentalAnalysis(peafTheory, query, new PreferredReasoner());
-                    result = analysis.compute();
-                }
-                else if (inducer.equalsIgnoreCase("approx")) {
-                    result = JustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), errorLevel);
-                }
-                else if (inducer.equalsIgnoreCase("approx_exp")) {
-                    ExperimentalAnalysis analysis = new ExperimentalAnalysis(peafTheory, query, new PreferredReasoner());
-                    result = analysis.computeApprox(errorLevel);
-                }
-                else {
-                    throw new RuntimeException("The given inducer named as '" + inducer + "' does not exist.");
-                }
-                double justification = result.getFirst();
-                double iterations = result.getSecond();
-
-
-                long estimatedTime = System.currentTimeMillis()- startTime;
-
-                lock.lock();
-                try{
-                    String output = "[RESULT] " + repetitionFilePath + ": " + estimatedTime + " justification: " + justification + " iter: " + iterations + " ind: " + inducer;
-                    System.out.println(output);
-                    writer.write(graphType + "," +
-                            nodeSize + "," +
-                            repetitionFileName + "," +
-                            estimatedTime + "," +
-                            justification + "," +
-                            peafTheory.getNumberOfNodes() + "," +
-                            iterations + "\n");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    lock.unlock();
-                }
+                extracted(nodeSizePath, repetitionFileName, lock, inducer, errorLevel, writer, graphType, nodeSize);
 
             }
         });
+    }
+
+    private static void extracted(Path nodeSizePath, Integer repetitionFileName, ReentrantLock lock, String inducer, double errorLevel, BufferedWriter writer, String graphType, Integer nodeSize) {
+        String repetitionFilePath = Paths.get(nodeSizePath.toString(), ("" + repetitionFileName + ".peaf")).toString();
+
+        lock.lock();
+        try{
+            System.out.println("Started: " + repetitionFilePath);
+        } finally {
+            lock.unlock();
+        }
+
+
+        Pair<PEAFTheory, Set<EArgument>> pair = null;
+        try {
+            pair = EdgeListReader.readPEAFWithQuery(repetitionFilePath, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        PEAFTheory peafTheory = pair.getFirst();
+//        peafTheory.prettyPrint();
+        Set<EArgument> query = pair.getSecond();
+        long startTime = System.currentTimeMillis();
+
+
+        // AllInducer
+        lock.lock();
+        try{
+            System.out.println(query.toString());
+        } finally {
+            lock.unlock();
+        }
+
+        Pair<Double, Double> result;
+
+        if (inducer.equalsIgnoreCase("exact")) {
+            result = JustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner());
+
+        }
+        else if (inducer.equalsIgnoreCase("approx")) {
+            result = JustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), errorLevel);
+        }
+        else {
+            throw new RuntimeException("The given inducer named as '" + inducer + "' does not exist.");
+        }
+        double justification = result.getFirst();
+        double iterations = result.getSecond();
+
+
+        long estimatedTime = System.currentTimeMillis()- startTime;
+
+        lock.lock();
+        try{
+            String output = "[RESULT] " + repetitionFilePath + ": " + estimatedTime + " justification: " + justification + " iter: " + iterations + " ind: " + inducer;
+            System.out.println(output);
+            writer.write(graphType + "," +
+                    nodeSize + "," +
+                    repetitionFileName + "," +
+                    estimatedTime + "," +
+                    justification + "," +
+                    peafTheory.getNumberOfNodes() + "," +
+                    iterations + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            lock.unlock();
+        }
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
