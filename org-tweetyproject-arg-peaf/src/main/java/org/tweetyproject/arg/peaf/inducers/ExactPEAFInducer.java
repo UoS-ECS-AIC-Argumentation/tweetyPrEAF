@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.tweetyproject.arg.peaf.syntax.*;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -57,7 +58,8 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
         Stack<EAF_F> stack = new Stack<>();
 
         // eta is added, Algorithm 8 Line 2 EAF_F <- {eta}, {}, {}
-        stack.push(new EAF_F(Sets.newHashSet(), Sets.newHashSet(peafTheory.getSupports().get(0)), Sets.newHashSet(peafTheory.getArguments().get(0)), 1.0));
+
+        stack.push(new EAF_F(Sets.newHashSet(), Sets.newHashSet(peafTheory.getSupports().get(0)), Sets.newHashSet(peafTheory.getEta()), 1.0));
 
         while (!stack.isEmpty()) {
             EAF_F eaf = stack.pop();
@@ -65,19 +67,50 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
             double po = 1.0;
 
             // line 3, page 80
-            for (PSupport support : peafTheory.getSupports()) {
-                // all the support that are not in iEAF
-                if (!eaf.eSupports.contains(support)) {
-                    po *= (1 - support.getConditionalProbability());
+            // FIXME: This query can be improved by reducing this set at each iteration
+            // FIXME: This can be done by storing NAS inside iEAF object
+//            System.out.println();
+
+            Set<PSupport> supportsLeft = Sets.newHashSet(peafTheory.getSupports());
+            supportsLeft.removeAll(eaf.eSupports);
+            Set<EArgument> args = Sets.newHashSet();
+            args.addAll(eaf.eArguments);
+            args.addAll(eaf.newEArguments);
+
+            for (PSupport support : supportsLeft) {
+                if (support.getName().equals("0") && eaf.eArguments.size() == 1) {
+                    continue;
                 }
+
+                EArgument notIn = null;
+
+                for (EArgument from : support.getFroms()) {
+                    // R_S - R_S^F
+                    if (!args.contains(from) ) {
+                        notIn = from;
+                        break;
+                    }
+                }
+
+                if (notIn == null) {
+                    po *= (1.0 - support.getConditionalProbability());
+                }
+//                System.out.println(support);
+//                System.out.println("Not in: " + notIn);
+//                System.out.println("EAF Args: " + eaf.eArguments);
+//                System.out.println("po is: " + po);
+
             }
 
-            System.out.println("po: " + po);
-            double npi = eaf.pi;
-            System.out.println("eaf pi (before): " + eaf.pi);
-            eaf.pi = eaf.pi * po;
-            System.out.println("eaf pi (after): " + eaf.pi);
 
+
+//            System.out.println("po: " + po);
+            double npi = eaf.pi;
+
+//            System.out.println("eaf pi (before): " + eaf.pi);
+            eaf.pi = eaf.pi * po;
+
+//            System.out.println("eaf pi (after): " + eaf.pi);
 
             Set<ESupport> expandingSupports = Sets.newHashSet();
             for (EArgument newEArgument : eaf.newEArguments) {
@@ -89,17 +122,20 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
 
             consumer.accept(eaf.convertToInducible());
 
+
             for (Set<ESupport> eSupports : Sets.powerSet(expandingSupports)) {
 
                 EAF_F eaf_c = eaf.copy();
+                double xpi = npi;
                 for (ESupport eSupport : eSupports) {
-
                     eaf_c.eSupports.add(eSupport);
                     eaf_c.newEArguments.addAll(eSupport.getTos());
-                    npi *= ((PSupport)  eSupport).getConditionalProbability();
+                    xpi *= ((PSupport) eSupport).getConditionalProbability();
                 }
+
                 if (!eSupports.isEmpty()) {
-                    eaf_c.pi = npi;
+                    eaf_c.pi = xpi;
+//                    System.out.println(eSupports);
                     stack.push(eaf_c);
                 }
             }

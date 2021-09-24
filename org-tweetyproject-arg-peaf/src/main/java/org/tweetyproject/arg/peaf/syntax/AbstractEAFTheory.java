@@ -97,4 +97,8 @@ public abstract class AbstractEAFTheory<S, A> {
     public int getNumberOfNodes() {
         return arguments.size();
     }
+
+    public EArgument getEta() {
+        return eta;
+    }
 }

@@ -71,10 +71,10 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.3.2</version>
-        <configuration>
-          <source>12</source>
-          <target>12</target>
-        </configuration>
+          <configuration>
+              <source>15</source>
+              <target>15</target>
+          </configuration>
       </plugin>
       <!-- Generate jar containing the sources of the project: -->
       <plugin>
