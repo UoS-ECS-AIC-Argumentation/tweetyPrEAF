@@ -77,7 +77,7 @@ public class EdgeListWriter {
         }
     }
 
-    private static StringBuilder getStringBuilder(Set<EArgument> froms, Set<EArgument> tos) {
+    public static StringBuilder getStringBuilder(Set<EArgument> froms, Set<EArgument> tos, String fromToDelimiter) {
         StringBuilder builder = new StringBuilder();
         StringJoiner joiner = new StringJoiner("-");
         for (EArgument from : froms) {
@@ -88,13 +88,17 @@ public class EdgeListWriter {
             return null;
         }
         builder.append(joiner);
-        builder.append(" ");
+        builder.append(fromToDelimiter);
         joiner = new StringJoiner("-");
         for (EArgument from : tos) {
             joiner.add(from.getName());
         }
         builder.append(joiner);
         return builder;
+    }
+
+    public static StringBuilder getStringBuilder(Set<EArgument> froms, Set<EArgument> tos) {
+        return EdgeListWriter.getStringBuilder(froms, tos, " ");
     }
 
     private static void write(PEAFTheory peafTheory, FileWriter writer) throws IOException {

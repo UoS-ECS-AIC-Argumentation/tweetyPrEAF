@@ -1,6 +1,6 @@
 package org.tweetyproject.arg.peaf.evaluation;
 
-import org.tweetyproject.arg.peaf.analysis.JustificationAnalysis;
+import org.tweetyproject.arg.peaf.analysis.OldJustificationAnalysis;
 import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.io.EdgeListReader;
@@ -160,11 +160,11 @@ public class ParallelRunEvaluationExamples {
         Pair<Double, Double> result;
 
         if (inducer.equalsIgnoreCase("exact")) {
-            result = JustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner());
+            result = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner());
 
         }
         else if (inducer.equalsIgnoreCase("approx")) {
-            result = JustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), errorLevel);
+            result = OldJustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), errorLevel);
         }
         else {
             throw new RuntimeException("The given inducer named as '" + inducer + "' does not exist.");

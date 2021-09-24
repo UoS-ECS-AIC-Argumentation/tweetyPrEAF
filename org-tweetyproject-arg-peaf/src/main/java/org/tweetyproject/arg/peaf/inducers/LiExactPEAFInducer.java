@@ -83,7 +83,7 @@ public class LiExactPEAFInducer extends AbstractPEAFInducer {
 
                     if (notIn == null) {
                         pOutside += Math.log(1.0 - sr.getConditionalProbability());
-                        System.out.println(Math.exp(pOutside));
+//                        System.out.println(Math.exp(pOutside));
                     }
                 }
 

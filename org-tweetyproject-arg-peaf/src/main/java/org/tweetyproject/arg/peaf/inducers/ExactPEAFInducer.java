@@ -11,6 +11,14 @@ import java.util.Stack;
 import java.util.function.Consumer;
 
 public class ExactPEAFInducer extends AbstractPEAFInducer{
+
+    private final boolean INTERNAL_DEBUG_MESSAGES = false;
+    private void debugPrint(Object message) {
+        if (INTERNAL_DEBUG_MESSAGES) {
+            System.out.println(message);
+        }
+    }
+
     class EAF_F {
         Set<EArgument> eArguments;
         Set<ESupport> eSupports;
@@ -58,7 +66,6 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
         Stack<EAF_F> stack = new Stack<>();
 
         // eta is added, Algorithm 8 Line 2 EAF_F <- {eta}, {}, {}
-
         stack.push(new EAF_F(Sets.newHashSet(), Sets.newHashSet(peafTheory.getSupports().get(0)), Sets.newHashSet(peafTheory.getEta()), 1.0));
 
         while (!stack.isEmpty()) {
@@ -95,24 +102,22 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
                 if (notIn == null) {
                     po *= (1.0 - support.getConditionalProbability());
                 }
-//                System.out.println(support);
-//                System.out.println("Not in: " + notIn);
-//                System.out.println("EAF Args: " + eaf.eArguments);
-//                System.out.println("po is: " + po);
 
+                debugPrint(support);
+                debugPrint("Not in: " + notIn);
+                debugPrint("EAF Args: " + eaf.eArguments);
+                debugPrint("po is: " + po);
             }
 
-
-
-//            System.out.println("po: " + po);
+            debugPrint("po: " + po);
             double npi = eaf.pi;
 
-//            System.out.println("eaf pi (before): " + eaf.pi);
+            debugPrint("eaf pi (before): " + eaf.pi);
             eaf.pi = eaf.pi * po;
 
-//            System.out.println("eaf pi (after): " + eaf.pi);
-
+            debugPrint("eaf pi (after): " + eaf.pi);
             Set<ESupport> expandingSupports = Sets.newHashSet();
+            debugPrint(" New arguments: " + eaf.newEArguments);
             for (EArgument newEArgument : eaf.newEArguments) {
                 expandingSupports.addAll(newEArgument.getSupports());
             }
@@ -135,7 +140,7 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
 
                 if (!eSupports.isEmpty()) {
                     eaf_c.pi = xpi;
-//                    System.out.println(eSupports);
+                    debugPrint(eSupports);
                     stack.push(eaf_c);
                 }
             }

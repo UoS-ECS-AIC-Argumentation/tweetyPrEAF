@@ -1,5 +1,7 @@
 package org.tweetyproject.arg.peaf.syntax;
 
+import org.tweetyproject.arg.peaf.io.EdgeListWriter;
+
 import java.util.*;
 
 public class PEAFTheory extends AbstractEAFTheory<PSupport, EAttack> {
@@ -70,6 +72,23 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport, EAttack> {
 
     public void addAttack(int fromIndex, int toIndex) {
         this.addAttack(new int[]{fromIndex}, new int[]{toIndex});
+    }
+
+    public String getASCIITree() {
+        StringBuilder builder = new StringBuilder();
+        for (PSupport support : supports) {
+            StringBuilder builder1 = EdgeListWriter.getStringBuilder(support.getFroms(), support.getTos(), " -> ");
+            if (builder1 != null) {
+                builder.append(builder1);
+                builder.append("\n");
+            }
+        }
+
+        return builder.toString();
+    }
+
+    public void printASCIITree() {
+        System.out.println(this.getASCIITree());
     }
 
 }

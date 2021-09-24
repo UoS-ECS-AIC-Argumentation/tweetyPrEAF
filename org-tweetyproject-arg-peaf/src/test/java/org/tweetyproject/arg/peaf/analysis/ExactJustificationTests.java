@@ -24,7 +24,7 @@ public class ExactJustificationTests {
         EArgument a1 = peafTheory.getArguments().get(1);
         Set<EArgument> query = Sets.newHashSet(a1);
 
-        Pair<Double, Double> p = JustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner());
+        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner());
 
         Assert.assertEquals("Argument #1 is queried.", 0.9, p.getFirst(), 0.001);
     }
@@ -41,7 +41,7 @@ public class ExactJustificationTests {
         EArgument a = peafTheory.getArguments().get(2);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> p = JustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
+        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
 
         peafTheory.prettyPrint();
 
@@ -59,7 +59,7 @@ public class ExactJustificationTests {
         EArgument a = peafTheory.getArguments().get(2);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> p = JustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, false);
+        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, false);
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0, p.getFirst(), 0.0001);
     }
@@ -77,7 +77,7 @@ public class ExactJustificationTests {
         EArgument a = peafTheory.getArguments().get(3);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> p = JustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
+        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
 
         Assert.assertEquals("Attacked argument #3 is queried.", 0.080, p.getFirst(), 0.01);
     }
@@ -95,7 +95,7 @@ public class ExactJustificationTests {
         EArgument a = peafTheory.getArguments().get(2);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> p = JustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, false);
+        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, false);
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p.getFirst(), 0.01);
     }
@@ -114,7 +114,7 @@ public class ExactJustificationTests {
         EArgument a = peafTheory.getArguments().get(2);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> p = JustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
+        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0.891, p.getFirst(), 0.01);
     }
@@ -136,7 +136,7 @@ public class ExactJustificationTests {
         EArgument a = peafTheory.getArguments().get(4);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> p = JustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
+        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
 
         Assert.assertEquals("Attacked argument #4 is queried.", 0.0081, p.getFirst(), 0.0001);
     }
@@ -156,7 +156,7 @@ public class ExactJustificationTests {
 
         System.out.println("PEAF:");
         peafTheory.prettyPrint();
-        Pair<Double, Double> p = JustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
+        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p.getFirst(), 0.01);
     }
@@ -182,7 +182,7 @@ public class ExactJustificationTests {
 
         System.out.println("PEAF:");
         peafTheory.prettyPrint();
-        Pair<Double, Double> p = JustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
+        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
 
         Assert.assertEquals("Attacked argument #2 is queried.", 1.0, p.getFirst(), 0.01);
     }

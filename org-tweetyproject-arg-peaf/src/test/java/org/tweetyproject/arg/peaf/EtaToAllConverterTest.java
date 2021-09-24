@@ -6,7 +6,7 @@ import org.tweetyproject.arg.dung.reasoner.SimplePreferredReasoner;
 import org.tweetyproject.arg.dung.semantics.Extension;
 import org.tweetyproject.arg.dung.syntax.Argument;
 import org.tweetyproject.arg.dung.syntax.DungTheory;
-import org.tweetyproject.arg.peaf.analysis.JustificationAnalysis;
+import org.tweetyproject.arg.peaf.analysis.OldJustificationAnalysis;
 import org.tweetyproject.arg.peaf.evaluation.converters.EAFToPEAFConverter;
 import org.tweetyproject.arg.peaf.evaluation.converters.EtaToAllConverter;
 import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
@@ -88,7 +88,7 @@ public class EtaToAllConverterTest {
 
             System.out.println("Query is: " + query);
             LiExactPEAFInducer inducer = new LiExactPEAFInducer(peafTheory);
-            Pair<Double, Double> probabilisticJustification = JustificationAnalysis.compute(query, inducer, new SimplePreferredReasoner());
+            Pair<Double, Double> probabilisticJustification = OldJustificationAnalysis.compute(query, inducer, new SimplePreferredReasoner());
             System.out.println("Probabilistic justification: " + probabilisticJustification.getFirst());
         }
 

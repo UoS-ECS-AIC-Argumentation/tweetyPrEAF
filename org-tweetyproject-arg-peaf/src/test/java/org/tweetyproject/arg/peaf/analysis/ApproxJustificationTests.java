@@ -23,7 +23,7 @@ public class ApproxJustificationTests {
         EArgument a1 = peafTheory.getArguments().get(1);
         Set<EArgument> query = Sets.newHashSet(a1);
 
-        Pair<Double, Double> p = JustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
+        Pair<Double, Double> p = OldJustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
         System.out.println("Justification: " + p.getFirst());
         Assert.assertEquals("Argument #1 is queried.", 0.9, p.getFirst(), 0.005);
     }
@@ -39,7 +39,7 @@ public class ApproxJustificationTests {
         EArgument a = peafTheory.getArguments().get(2);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> p = JustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
+        Pair<Double, Double> p = OldJustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
         System.out.println("Justification: " + p.getFirst());
         Assert.assertEquals("Argument #1 is queried.", 0.9, p.getFirst(), 0.005);
     }
@@ -55,7 +55,7 @@ public class ApproxJustificationTests {
         EArgument a = peafTheory.getArguments().get(2);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> p = JustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
+        Pair<Double, Double> p = OldJustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
         System.out.println("Justification: " + p.getFirst());
         Assert.assertEquals("Attacked argument #2 is queried.", 0, p.getFirst(), 0.0005);
     }
@@ -73,7 +73,7 @@ public class ApproxJustificationTests {
         EArgument a = peafTheory.getArguments().get(3);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> pair = JustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
+        Pair<Double, Double> pair = OldJustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
         double p = pair.getFirst();
 
         Assert.assertEquals("Attacked argument #3 is queried.", 0.080, p, 0.01);
@@ -92,7 +92,7 @@ public class ApproxJustificationTests {
         EArgument a = peafTheory.getArguments().get(2);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> pair = JustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
+        Pair<Double, Double> pair = OldJustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
         double p = pair.getFirst();
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p, 0.01);
@@ -112,7 +112,7 @@ public class ApproxJustificationTests {
         EArgument a = peafTheory.getArguments().get(2);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> pair = JustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
+        Pair<Double, Double> pair = OldJustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
         double p = pair.getFirst();
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0.891, p, 0.01);
@@ -135,7 +135,7 @@ public class ApproxJustificationTests {
         EArgument a = peafTheory.getArguments().get(4);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> pair = JustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.001);
+        Pair<Double, Double> pair = OldJustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.001);
         double p = pair.getFirst();
 
         Assert.assertEquals("Attacked argument #4 is queried.", 0.0081, p, 0.001);
@@ -156,7 +156,7 @@ public class ApproxJustificationTests {
 
         System.out.println("PEAF:");
         peafTheory.prettyPrint();
-        Pair<Double, Double> pair = JustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
+        Pair<Double, Double> pair = OldJustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.005);
         double p = pair.getFirst();
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p, 0.01);
