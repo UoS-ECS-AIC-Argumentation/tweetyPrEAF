@@ -1,6 +1,9 @@
 package org.tweetyproject.arg.peaf.evaluation;
 
-import org.tweetyproject.arg.peaf.analysis.OldJustificationAnalysis;
+import org.tweetyproject.arg.peaf.analysis.AnalysisResult;
+import org.tweetyproject.arg.peaf.analysis.ApproxAnalysis;
+import org.tweetyproject.arg.peaf.analysis.ExactAnalysis;
+import org.tweetyproject.arg.peaf.analysis.JustificationAnalysis;
 import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.io.EdgeListReader;
@@ -157,20 +160,24 @@ public class ParallelRunEvaluationExamples {
             lock.unlock();
         }
 
-        Pair<Double, Double> result;
+
+        JustificationAnalysis analysis;
 
         if (inducer.equalsIgnoreCase("exact")) {
-            result = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner());
+            analysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
 
         }
         else if (inducer.equalsIgnoreCase("approx")) {
-            result = OldJustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), errorLevel);
+            analysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), errorLevel);
         }
         else {
             throw new RuntimeException("The given inducer named as '" + inducer + "' does not exist.");
         }
-        double justification = result.getFirst();
-        double iterations = result.getSecond();
+
+        AnalysisResult result = analysis.query(query);
+
+        double justification = result.getProbability();
+        double iterations = result.getNoIterations();
 
 
         long estimatedTime = System.currentTimeMillis()- startTime;

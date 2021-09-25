@@ -1,6 +1,7 @@
 package org.tweetyproject.arg.peaf.examples;
 
-import org.tweetyproject.arg.peaf.analysis.OldJustificationAnalysis;
+import org.tweetyproject.arg.peaf.analysis.AnalysisResult;
+import org.tweetyproject.arg.peaf.analysis.ExactAnalysis;
 import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
@@ -49,9 +50,9 @@ public class JustificationAnalysisExample {
         query.add(args.get(1));
         query.add(args.get(6));
 
-        LiExactPEAFInducer inducer = new LiExactPEAFInducer(peafTheory);
-        Pair<Double, Double> probabilisticJustification = OldJustificationAnalysis.compute(query, inducer, new PreferredReasoner());
-        System.out.println("Probabilistic justification: " + probabilisticJustification.getFirst());
+        ExactAnalysis analysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
+        AnalysisResult result = analysis.query(query);
+        result.print();
 
 
     }

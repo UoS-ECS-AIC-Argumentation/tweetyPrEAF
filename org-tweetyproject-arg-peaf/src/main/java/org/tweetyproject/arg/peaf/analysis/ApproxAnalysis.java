@@ -8,12 +8,12 @@ import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 import java.util.Set;
 
 
-public class ApproxAnalysis<T extends AbstractExtensionReasoner> extends AbstractAnalysis <T>  {
+public class ApproxAnalysis extends AbstractAnalysis  {
 
     private final double errorLevel;
 
-    public ApproxAnalysis(PEAFTheory peafTheory, T extensionReasoner, double errorLevel) {
-        super(peafTheory, extensionReasoner);
+    public ApproxAnalysis(PEAFTheory peafTheory, AbstractExtensionReasoner extensionReasoner, double errorLevel) {
+        super(peafTheory, extensionReasoner, AnalysisType.APPROX);
         this.errorLevel = errorLevel;
     }
 
@@ -24,11 +24,13 @@ public class ApproxAnalysis<T extends AbstractExtensionReasoner> extends Abstrac
         final double[] metric = {0.0};
         final double[] p_i = {0.0};
         final long[] i = {0};
+        final double[] total = {0.0};
 
         do {
             ApproxPEAFInducer approxPEAFInducer = new ApproxPEAFInducer(this.peafTheory);
             approxPEAFInducer.induce(iEAF -> {
                 double contribution = computeContributionOfAniEAF(args, iEAF);
+                total[0] += contribution;
                 M[0] = M[0] + contribution;
                 N[0] = N[0] + 1.0;
                 i[0] += 1;
@@ -38,6 +40,6 @@ public class ApproxAnalysis<T extends AbstractExtensionReasoner> extends Abstrac
         } while (N[0] <= metric[0]);
 
 
-        return new AnalysisResult(M[0] / N[0], i[0]);
+        return this.createResult(M[0] / N[0], i[0], total[0]);
     }
 }

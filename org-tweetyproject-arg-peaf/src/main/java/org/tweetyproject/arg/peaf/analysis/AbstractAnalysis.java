@@ -11,14 +11,20 @@ import org.tweetyproject.arg.peaf.syntax.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public abstract class AbstractAnalysis <T extends AbstractExtensionReasoner> implements JustificationAnalysis {
+public abstract class AbstractAnalysis  implements JustificationAnalysis {
 
     protected final PEAFTheory peafTheory;
-    private final T extensionReasoner;
+    private final AbstractExtensionReasoner extensionReasoner;
+    protected final AnalysisType analysisType;
 
-    public AbstractAnalysis(PEAFTheory peafTheory, T extensionReasoner) {
+    public AbstractAnalysis(PEAFTheory peafTheory, AbstractExtensionReasoner extensionReasoner, AnalysisType analysisType) {
         this.peafTheory = peafTheory;
         this.extensionReasoner = extensionReasoner;
+        this.analysisType = analysisType;
+    }
+
+    protected AnalysisResult createResult(double probability, long noIterations, double totalProbability) {
+        return new AnalysisResult(probability, noIterations, this.analysisType, totalProbability);
     }
 
     protected double computeContributionOfAniEAF(Set<EArgument> args, InducibleEAF inducibleEAF) {

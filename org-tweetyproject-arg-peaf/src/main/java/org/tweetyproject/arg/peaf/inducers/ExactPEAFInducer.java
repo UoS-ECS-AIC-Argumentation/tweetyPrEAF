@@ -76,7 +76,6 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
             // line 3, page 80
             // FIXME: This query can be improved by reducing this set at each iteration
             // FIXME: This can be done by storing NAS inside iEAF object
-//            System.out.println();
 
             Set<PSupport> supportsLeft = Sets.newHashSet(peafTheory.getSupports());
             supportsLeft.removeAll(eaf.eSupports);
@@ -118,6 +117,7 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
             debugPrint("eaf pi (after): " + eaf.pi);
             Set<ESupport> expandingSupports = Sets.newHashSet();
             debugPrint(" New arguments: " + eaf.newEArguments);
+            
             for (EArgument newEArgument : eaf.newEArguments) {
                 expandingSupports.addAll(newEArgument.getSupports());
             }
@@ -141,6 +141,7 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
                 if (!eSupports.isEmpty()) {
                     eaf_c.pi = xpi;
                     debugPrint(eSupports);
+                    debugPrint(">>>> NOT COMPLETE: " + eaf_c.convertToInducible());
                     stack.push(eaf_c);
                 }
             }

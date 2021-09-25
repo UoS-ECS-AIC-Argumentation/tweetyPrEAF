@@ -1,6 +1,9 @@
 package org.tweetyproject.arg.peaf.examples;
 
-import org.tweetyproject.arg.peaf.analysis.OldJustificationAnalysis;
+import org.tweetyproject.arg.peaf.analysis.AnalysisResult;
+import org.tweetyproject.arg.peaf.analysis.ApproxAnalysis;
+import org.tweetyproject.arg.peaf.analysis.ExactAnalysis;
+import org.tweetyproject.arg.peaf.inducers.ApproxPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
@@ -33,32 +36,18 @@ public class ApproximateJustificationAnalysisExample {
         peafTheory.addAttack(new int[]{1}, new int[]{6});
 
         List<EArgument> args = peafTheory.getArguments();
-//        args.get(0).setName("eta");
-//        args.get(1).setName("b");
-//        args.get(2).setName("d");
-//        args.get(3).setName("e");
-//        args.get(4).setName("f");
-//        args.get(5).setName("a");
-//
-//
-//        args.get(6).setName("c");
-
         Set<EArgument> query = new HashSet<>();
-//        query.add(args.get(0));
         query.add(args.get(0));
-//        query.add(args.get(2));
 
 
-        LiExactPEAFInducer inducer = new LiExactPEAFInducer(peafTheory);
-        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, inducer, new PreferredReasoner());
 
+        ExactAnalysis analysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
+        AnalysisResult result = analysis.query(query);
+        result.print();
 
-        Pair<Double, Double> pair = OldJustificationAnalysis.computeApproxOf(query, peafTheory, new PreferredReasoner(), 0.01);
-        System.out.println("Exact Probabilistic justification: " + p.getFirst());
-        System.out.println("Some Probabilistic justification: " + pair.getFirst());
-        System.out.println("Trials: " + pair.getSecond());
-
-
+        ApproxAnalysis analysis2 = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.1);
+        AnalysisResult result2 = analysis2.query(query);
+        result2.print();
 
     }
 

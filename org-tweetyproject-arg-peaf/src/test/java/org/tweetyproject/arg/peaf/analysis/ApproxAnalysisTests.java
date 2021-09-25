@@ -3,15 +3,17 @@ package org.tweetyproject.arg.peaf.analysis;
 import com.google.common.collect.Sets;
 import org.junit.Assert;
 import org.junit.Test;
-import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
+import org.tweetyproject.arg.peaf.io.EdgeListReader;
+import org.tweetyproject.arg.peaf.syntax.CyclicException;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 import org.tweetyproject.commons.util.Pair;
 
+import java.io.IOException;
 import java.util.Set;
 
-public class ExactJustificationTests {
+public class ApproxAnalysisTests {
 
     @Test
     public void computeSimple() {
@@ -24,14 +26,17 @@ public class ExactJustificationTests {
         EArgument a1 = peafTheory.getArguments().get(1);
         Set<EArgument> query = Sets.newHashSet(a1);
 
-        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner());
+        ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.005);
+        AnalysisResult result = approxAnalysis.query(query);
+        double p = result.getProbability();
+        result.print();
 
-        Assert.assertEquals("Argument #1 is queried.", 0.9, p.getFirst(), 0.001);
+
+        Assert.assertEquals("Argument #1 is queried.", 0.9, p, 0.005);
     }
 
-
     @Test
-    public void computeSimpleAttack() {
+    public void computeAttack() {
         PEAFTheory peafTheory = new PEAFTheory(3);
 
         peafTheory.addSupport(new int[]{}, new int[]{0}, 1.0);
@@ -41,11 +46,13 @@ public class ExactJustificationTests {
         EArgument a = peafTheory.getArguments().get(2);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
+        ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.005);
+        AnalysisResult result = approxAnalysis.query(query);
+        double p = result.getProbability();
+        result.print();
 
-        peafTheory.prettyPrint();
 
-        Assert.assertEquals("Argument #2 is queried.", 0.9, p.getFirst(), 0.001);
+        Assert.assertEquals("Argument #1 is queried.", 0.9, p, 0.005);
     }
 
     @Test
@@ -59,9 +66,13 @@ public class ExactJustificationTests {
         EArgument a = peafTheory.getArguments().get(2);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, false);
+        ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.005);
+        AnalysisResult result = approxAnalysis.query(query);
+        double p = result.getProbability();
+        result.print();
 
-        Assert.assertEquals("Attacked argument #2 is queried.", 0, p.getFirst(), 0.0001);
+
+        Assert.assertEquals("Attacked argument #2 is queried.", 0, p, 0.0005);
     }
 
     @Test
@@ -77,9 +88,13 @@ public class ExactJustificationTests {
         EArgument a = peafTheory.getArguments().get(3);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
+        ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.005);
+        AnalysisResult result = approxAnalysis.query(query);
+        double p = result.getProbability();
+        result.print();
 
-        Assert.assertEquals("Attacked argument #3 is queried.", 0.080, p.getFirst(), 0.01);
+
+        Assert.assertEquals("Attacked argument #3 is queried.", 0.080, p, 0.01);
     }
 
     @Test
@@ -95,9 +110,13 @@ public class ExactJustificationTests {
         EArgument a = peafTheory.getArguments().get(2);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, false);
+        ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.005);
+        AnalysisResult result = approxAnalysis.query(query);
+        double p = result.getProbability();
+        result.print();
 
-        Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p.getFirst(), 0.01);
+
+        Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p, 0.01);
     }
 
     @Test
@@ -114,9 +133,17 @@ public class ExactJustificationTests {
         EArgument a = peafTheory.getArguments().get(2);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
+        ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.005);
+        AnalysisResult result = approxAnalysis.query(query);
+        double p = result.getProbability();
+        result.print();
 
-        Assert.assertEquals("Attacked argument #2 is queried.", 0.891, p.getFirst(), 0.01);
+        ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
+        AnalysisResult result2 = exactAnalysis.query(query);
+        double p2 = result2.getProbability();
+        result2.print();
+
+        Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p, 0.01);
     }
 
     @Test
@@ -136,12 +163,16 @@ public class ExactJustificationTests {
         EArgument a = peafTheory.getArguments().get(4);
         Set<EArgument> query = Sets.newHashSet(a);
 
-        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
+        ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.001);
+        AnalysisResult result = approxAnalysis.query(query);
+        double p = result.getProbability();
+        result.print();
 
-        Assert.assertEquals("Attacked argument #4 is queried.", 0.0081, p.getFirst(), 0.0001);
+
+        Assert.assertEquals("Attacked argument #4 is queried.", 0.0081, p, 0.001);
     }
 
-    @Test
+    @Test(expected = CyclicException.class)
     public void computeSupportCycle() {
         PEAFTheory peafTheory = new PEAFTheory(3);
 
@@ -155,36 +186,29 @@ public class ExactJustificationTests {
         Set<EArgument> query = Sets.newHashSet(a);
 
         System.out.println("PEAF:");
-        peafTheory.prettyPrint();
-        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
+        ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.005);
+        AnalysisResult result = approxAnalysis.query(query);
+        double p = result.getProbability();
+        result.print();
 
-        Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p.getFirst(), 0.01);
+
+        Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p, 0.01);
     }
 
-
     @Test
-    public void computeAttackSquare() {
-        PEAFTheory peafTheory = new PEAFTheory(5);
+    public void computeWatts5_1() throws IOException {
+        System.out.println("\nReading with EdgeListReader:");
+        Pair<PEAFTheory, Set<EArgument>> pair = EdgeListReader.readPEAFWithQuery("./src/main/resources/watts_5_1.peaf", true);
 
-        peafTheory.addSupport(new int[]{}, new int[]{0}, 1.0);
-        peafTheory.addSupport(0, 1, 1.0);
-        peafTheory.addSupport(0, 2, 1.0);
-        peafTheory.addSupport(0, 3, 1.0);
-        peafTheory.addSupport(0, 4, 1.0);
+        PEAFTheory peafTheory = pair.getFirst();
+        Set<EArgument> query = pair.getSecond();
 
-        peafTheory.addAttack(1, 2);
-        peafTheory.addAttack(2, 3);
-        peafTheory.addAttack(3, 4);
-        peafTheory.addAttack(4, 1);
+        ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.001);
+        AnalysisResult result = approxAnalysis.query(query);
+        double p = result.getProbability();
+        result.print();
 
-        EArgument a = peafTheory.getArguments().get(4);
-        Set<EArgument> query = Sets.newHashSet(a);
-
-        System.out.println("PEAF:");
-        peafTheory.prettyPrint();
-        Pair<Double, Double> p = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new PreferredReasoner(), true, true);
-
-        Assert.assertEquals("Attacked argument #2 is queried.", 1.0, p.getFirst(), 0.01);
+        Assert.assertEquals("Attacked arguments #2 #4 are queried.", 0.047, p, 0.01);
     }
 
 

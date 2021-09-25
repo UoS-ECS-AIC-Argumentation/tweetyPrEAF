@@ -6,10 +6,13 @@ import org.tweetyproject.arg.dung.reasoner.SimplePreferredReasoner;
 import org.tweetyproject.arg.dung.semantics.Extension;
 import org.tweetyproject.arg.dung.syntax.Argument;
 import org.tweetyproject.arg.dung.syntax.DungTheory;
-import org.tweetyproject.arg.peaf.analysis.OldJustificationAnalysis;
+import org.tweetyproject.arg.peaf.analysis.AnalysisResult;
+import org.tweetyproject.arg.peaf.analysis.ApproxAnalysis;
+import org.tweetyproject.arg.peaf.analysis.ExactAnalysis;
 import org.tweetyproject.arg.peaf.evaluation.converters.EAFToPEAFConverter;
 import org.tweetyproject.arg.peaf.evaluation.converters.EtaToAllConverter;
 import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
+import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.syntax.EAFTheory;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
@@ -74,8 +77,11 @@ public class EdgeListReaderTest {
         peafTheory1.prettyPrint();
         System.out.println("From file query: " + query);
 
-        Pair<Double, Double> justification = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new SimplePreferredReasoner());
-        System.out.println("Justification is: " + justification.getFirst());
+        ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
+        AnalysisResult result = exactAnalysis.query(query);
+        double p = result.getProbability();
+        result.print();
+
     }
 
     @Test
@@ -90,7 +96,12 @@ public class EdgeListReaderTest {
         peafTheory.prettyPrint();
         System.out.println("From file query: " + query);
 
-        Pair<Double, Double> justification = OldJustificationAnalysis.compute(query, new LiExactPEAFInducer(peafTheory), new SimplePreferredReasoner());
-        System.out.println("Justification is: " + justification.getFirst());
+
+
+
+        ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
+        AnalysisResult result = exactAnalysis.query(query);
+        double p = result.getProbability();
+        result.print();
     }
 }

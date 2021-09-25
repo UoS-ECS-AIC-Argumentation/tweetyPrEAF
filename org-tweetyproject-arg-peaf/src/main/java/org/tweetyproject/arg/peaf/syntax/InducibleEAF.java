@@ -113,7 +113,7 @@ public class InducibleEAF {
         }
         builder.append("] induce probability=");
         builder.append(Math.exp(inducePro));
-        builder.append("}: " + super.toString());
+        builder.append("}");
 
 
         return builder.toString();

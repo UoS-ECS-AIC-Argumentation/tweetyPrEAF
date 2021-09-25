@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.tweetyproject.arg.peaf.syntax.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -23,32 +24,25 @@ public abstract class AbstractPEAFInducer implements PEAFInducer {
     }
 
     private boolean isSupportLinksCyclic() {
-        boolean isCyclic = false;
+        // Adapted from https://www.geeksforgeeks.org/detect-cycle-in-a-graph/
+        // Mark all the vertices as not visited and
+        // not part of recursion stack
 
-        Set<EArgument> visited = Sets.newHashSet();
-        // iterative DFS to find a cyclic in the support links
-        Stack<EArgument> stack = new Stack<EArgument>();
-        stack.push(this.peafTheory.getEta());
-        while(!stack.isEmpty()) {
-            EArgument node = stack.pop();
-
-            if (!visited.contains(node)) {
-                visited.add(node);
-
-                for (ESupport support : node.getSupports()) {
-                    for (EArgument to : support.getTos()) {
-                        stack.push(to);
-                    }
-                }
-            }
-            else {
-                isCyclic = true;
-                break;
-            }
+        Map<EArgument, Boolean> visited = Maps.newHashMap();
+        Map<EArgument, Boolean>  recStack = Maps.newHashMap();
+        for (EArgument argument : peafTheory.getArguments()) {
+            visited.put(argument, false);
+            recStack.put(argument, false);
         }
 
+        // Call the recursive helper function to
+        // detect cycle in different DFS trees
+        for (EArgument arg : this.peafTheory.getArguments()) {
+            if (isCyclicUtil(arg, visited, recStack))
+                return true;
+        }
 
-        return isCyclic;
+        return false;
     }
 
     public void induceNTimes(Consumer<InducibleEAF> consumer, int n) {
@@ -60,5 +54,33 @@ public abstract class AbstractPEAFInducer implements PEAFInducer {
 
     public PEAFTheory getPeafTheory() {
         return peafTheory;
+    }
+
+    // This function is a variation of DFSUtil() in
+    // https://www.geeksforgeeks.org/archives/18212
+    private boolean isCyclicUtil(EArgument arg, Map<EArgument, Boolean> visited,
+                                 Map<EArgument, Boolean> recStack)
+    {
+        // Mark the current node as visited and
+        // part of recursion stack
+        if (recStack.get(arg))
+            return true;
+
+        if (visited.get(arg))
+            return false;
+
+        visited.put(arg, true);
+        recStack.put(arg, true);
+        Set<ESupport> set = arg.getSupports();
+
+        for (ESupport c: set)
+            for (EArgument to : c.getTos()) {
+                if (isCyclicUtil(to, visited, recStack))
+                    return true;
+            }
+
+        recStack.put(arg, false);
+
+        return false;
     }
 }
