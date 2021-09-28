@@ -23,6 +23,7 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
         Set<EArgument> eArguments;
         Set<ESupport> eSupports;
         Set<EArgument> newEArguments;
+        List<EAF_F> createdFrom = Lists.newArrayList();
         double pi;
 
         public EAF_F(Set<EArgument> eArguments,
@@ -53,7 +54,9 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
         }
 
         public EAF_F copy() {
-            return new EAF_F(Sets.newHashSet(this.eArguments), Sets.newHashSet(this.eSupports), Sets.newHashSet(this.newEArguments), this.pi);
+            EAF_F i = new EAF_F(Sets.newHashSet(this.eArguments), Sets.newHashSet(this.eSupports), Sets.newHashSet(this.newEArguments), this.pi);
+            i.createdFrom.add(this);
+            return i;
         }
     }
 
@@ -117,7 +120,7 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
             debugPrint("eaf pi (after): " + eaf.pi);
             Set<ESupport> expandingSupports = Sets.newHashSet();
             debugPrint(" New arguments: " + eaf.newEArguments);
-            
+
             for (EArgument newEArgument : eaf.newEArguments) {
                 expandingSupports.addAll(newEArgument.getSupports());
             }
@@ -125,8 +128,19 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
             eaf.eArguments.addAll(eaf.newEArguments);
             eaf.newEArguments.clear();
 
+//            consumer.accept(eaf.convertToInducible());
+
             consumer.accept(eaf.convertToInducible());
 
+//            for (EAF_F eaf_f : eaf.createdFrom) {
+//                System.out.println(" > " + eaf_f.convertToInducible());
+//            }
+            debugPrint(eaf.convertToInducible());
+
+
+//            System.out.println("--------------------------------");
+//            System.out.println("EXPANDING SUPPORTS:");
+//            System.out.println(expandingSupports);
 
             for (Set<ESupport> eSupports : Sets.powerSet(expandingSupports)) {
 
@@ -134,15 +148,30 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
                 double xpi = npi;
                 for (ESupport eSupport : eSupports) {
                     eaf_c.eSupports.add(eSupport);
-                    eaf_c.newEArguments.addAll(eSupport.getTos());
+
+                    // This is to eliminate visiting same nodes again
+                    for (EArgument to : eSupport.getTos()) {
+                        if (!eaf_c.eArguments.contains(to)) {
+                            eaf_c.newEArguments.add(to);
+                        }
+                    }
+
                     xpi *= ((PSupport) eSupport).getConditionalProbability();
                 }
 
                 if (!eSupports.isEmpty()) {
                     eaf_c.pi = xpi;
                     debugPrint(eSupports);
-                    debugPrint(">>>> NOT COMPLETE: " + eaf_c.convertToInducible());
+//                    debugPrint(">>>> NOT COMPLETE: " + eaf_c.convertToInducible());
+//                    System.out.println();
+//                    System.out.println("Created from:");
+//                    System.out.println(eSupports);
+//                    for (EAF_F eaf_f : eaf.createdFrom) {
+//                        System.out.println(" > " + eaf_f.convertToInducible());
+//                    }
+
                     stack.push(eaf_c);
+
                 }
             }
 

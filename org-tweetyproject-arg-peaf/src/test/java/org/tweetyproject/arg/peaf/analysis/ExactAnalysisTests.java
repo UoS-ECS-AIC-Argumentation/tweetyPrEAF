@@ -277,4 +277,94 @@ public class ExactAnalysisTests {
         Assert.assertEquals("Attacked arguments #1 #3 are queried.", 0.522, p, 0.01);
     }
 
+    @Test
+    public void computeTree() {
+        PEAFTheory peafTheory = new PEAFTheory(4);
+
+        peafTheory.addSupport(new int[]{}, new int[]{0}, 1.0);
+        peafTheory.addSupport(0, 1, 1.0);
+        peafTheory.addSupport(1, 2, 1.0);
+        peafTheory.addSupport(1, 3, 1.0);
+
+
+        peafTheory.addAttack(2, 3);
+
+
+        EArgument a = peafTheory.getArguments().get(2);
+        Set<EArgument> query = Sets.newHashSet(a);
+
+        System.out.println("PEAF:");
+        peafTheory.prettyPrint();
+        ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
+        AnalysisResult result = exactAnalysis.query(query);
+        double p = result.getProbability();
+
+        exactAnalysis.saveEAFs();
+        result.print();
+
+        Assert.assertEquals("Attacked argument #2 is queried.", 1.0, p, 0.01);
+    }
+
+
+    @Test
+    public void computeTree2() {
+        PEAFTheory peafTheory = new PEAFTheory(5);
+
+        peafTheory.addSupport(new int[]{}, new int[]{0}, 1.0);
+        peafTheory.addSupport(0, 1, 1.0);
+        peafTheory.addSupport(0, 4, 1.0);
+        peafTheory.addSupport(4, 1, 1.0);
+        peafTheory.addSupport(4, 2, 1.0);
+
+        peafTheory.addAttack(2, 3);
+        peafTheory.addAttack(1, 2);
+
+        EArgument a = peafTheory.getArguments().get(1);
+        Set<EArgument> query = Sets.newHashSet(a);
+        System.out.println("Query: " + query);
+
+        System.out.println("PEAF:");
+        peafTheory.prettyPrint();
+        ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
+        AnalysisResult result = exactAnalysis.query(query);
+        double p = result.getProbability();
+
+        exactAnalysis.saveEAFs();
+        result.print();
+
+        Assert.assertEquals("Attacked argument #3 is queried.", 1.0, p, 0.01);
+    }
+
+
+    @Test
+    public void testDuplication() {
+        PEAFTheory peafTheory = new PEAFTheory(4);
+
+        peafTheory.addSupport(new int[]{}, new int[]{0}, 1.0);
+        peafTheory.addSupport(0, 1, 1.0);
+        peafTheory.addSupport(0, 2, 1.0);
+        peafTheory.addSupport(0, 3, 1.0);
+        peafTheory.addSupport(1, 2, 1.0);
+        peafTheory.addSupport(3, 1, 1.0);
+        peafTheory.addSupport(3, 2, 1.0);
+
+        //    0  --> 3
+        //  /   \  /
+        // 1 -> 2
+
+        EArgument a = peafTheory.getArguments().get(1);
+        Set<EArgument> query = Sets.newHashSet(a);
+        System.out.println("Query: " + query);
+
+        System.out.println("PEAF:");
+        peafTheory.prettyPrint();
+        ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
+        AnalysisResult result = exactAnalysis.query(query);
+        double p = result.getProbability();
+
+        exactAnalysis.saveEAFs();
+        result.print();
+
+        Assert.assertEquals("Attacked argument #3 is queried.", 1.0, p, 0.01);
+    }
 }

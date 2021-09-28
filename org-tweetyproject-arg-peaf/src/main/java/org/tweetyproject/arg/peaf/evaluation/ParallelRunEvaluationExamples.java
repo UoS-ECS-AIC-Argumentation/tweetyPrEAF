@@ -1,10 +1,6 @@
 package org.tweetyproject.arg.peaf.evaluation;
 
-import org.tweetyproject.arg.peaf.analysis.AnalysisResult;
-import org.tweetyproject.arg.peaf.analysis.ApproxAnalysis;
-import org.tweetyproject.arg.peaf.analysis.ExactAnalysis;
-import org.tweetyproject.arg.peaf.analysis.JustificationAnalysis;
-import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
+import org.tweetyproject.arg.peaf.analysis.*;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.io.EdgeListReader;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
@@ -28,18 +24,20 @@ public class ParallelRunEvaluationExamples {
         /* - Inputs */
         // The inducer name
 
-        String inducer = "approx"; // Approximate Solution with JustificationAnalysis (Single PEAF -> to many EAF to many DAF)
-//        String inducer = "exact"; // Exact Solution with JustificationAnalysis (Single PEAF -> to many EAF to many DAF)
+        String inducer = "approx"; // Approximate Solution
+//      String inducer = "exact"; // Exact Solution
+//      String inducer = "con_exact"; // Concurrent Exact Solution
+//      String inducer = "con_approx"; // Concurrent Approximate Solution
 
-        int sizeLimiter = Integer.MAX_VALUE;
+//        int sizeLimiter = Integer.MAX_VALUE;
+        int sizeLimiter = 6;
 
-        double errorLevel = 0.1;
+        double errorLevel = 0.01;
         int nThreads = 1;
         /* End Inputs */
 
         ExecutorService threadPoolExecutor = Executors.newFixedThreadPool(nThreads);
         ReentrantLock lock = new ReentrantLock();
-
         // This is important to make sure generated queries are same across approximate and exact justification runs
         Path evaluateFolder = Paths.get(evaluationFolderPath);
 
@@ -160,17 +158,17 @@ public class ParallelRunEvaluationExamples {
             lock.unlock();
         }
 
-
         JustificationAnalysis analysis;
 
         if (inducer.equalsIgnoreCase("exact")) {
             analysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
-
-        }
-        else if (inducer.equalsIgnoreCase("approx")) {
+        } else if (inducer.equalsIgnoreCase("con_exact")) {
+            analysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
+        } else if (inducer.equalsIgnoreCase("approx")) {
             analysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), errorLevel);
-        }
-        else {
+        } else if (inducer.equalsIgnoreCase("con_approx")) {
+            analysis = new ConcurrentApproxAnalysis(peafTheory, new PreferredReasoner(), errorLevel);
+        } else {
             throw new RuntimeException("The given inducer named as '" + inducer + "' does not exist.");
         }
 
@@ -178,7 +176,6 @@ public class ParallelRunEvaluationExamples {
 
         double justification = result.getProbability();
         double iterations = result.getNoIterations();
-
 
         long estimatedTime = System.currentTimeMillis()- startTime;
 

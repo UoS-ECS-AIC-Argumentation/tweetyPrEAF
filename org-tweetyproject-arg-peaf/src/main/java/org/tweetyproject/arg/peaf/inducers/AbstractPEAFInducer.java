@@ -73,12 +73,12 @@ public abstract class AbstractPEAFInducer implements PEAFInducer {
         recStack.put(arg, true);
         Set<ESupport> set = arg.getSupports();
 
-        for (ESupport c: set)
+        for (ESupport c : set) {
             for (EArgument to : c.getTos()) {
                 if (isCyclicUtil(to, visited, recStack))
                     return true;
             }
-
+        }
         recStack.put(arg, false);
 
         return false;

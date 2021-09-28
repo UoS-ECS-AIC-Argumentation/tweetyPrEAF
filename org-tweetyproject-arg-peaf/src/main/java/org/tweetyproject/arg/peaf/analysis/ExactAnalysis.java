@@ -27,7 +27,7 @@ public class ExactAnalysis extends AbstractAnalysis {
         exactPEAFInducer.induce(iEAF -> {
             double contribution = computeContributionOfAniEAF(args, iEAF);
             p[0] += contribution * iEAF.getInducePro();
-            total[0] += contribution;
+            total[0] += iEAF.getInducePro();
             i[0] += 1;
         });
 
@@ -35,14 +35,14 @@ public class ExactAnalysis extends AbstractAnalysis {
     }
 
     public void saveEAFs () {
-        final long[] i = {0};
-        ExactPEAFInducer exactPEAFInducer = new ExactPEAFInducer(this.peafTheory);
-        exactPEAFInducer.induce(iEAF -> {
-            System.out.println(iEAF);
-//            String probability = String.format("%.04f", iEAF.getInducePro());
-//            probability = probability.replace(".", "_");
-//            EdgeListWriter.write("/home/tdgunes/Projects/DrawPrEAF/input/"  + this.analysisType.toString() + "_" + i[0] + "" + "_" + probability + ".eaf", iEAF.toNewEAFTheory());
-//            i[0] += 1;
-        });
+//        final long[] i = {0};
+//        ExactPEAFInducer exactPEAFInducer = new ExactPEAFInducer(this.peafTheory);
+//        exactPEAFInducer.induce(iEAF -> {
+//            System.out.println(iEAF);
+////            String probability = String.format("%.04f", iEAF.getInducePro());
+////            probability = probability.replace(".", "_");
+////            EdgeListWriter.write("/home/tdgunes/Projects/DrawPrEAF/input/"  + this.analysisType.toString() + "_" + i[0] + "" + "_" + probability + ".eaf", iEAF.toNewEAFTheory());
+////            i[0] += 1;
+//        });
     }
 }

@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class InducibleEAF {
     public final Set<EArgument> arguments;
@@ -57,16 +59,22 @@ public class InducibleEAF {
         EAFTheory eafTheory = new EAFTheory();
         Set<EArgument> arguments = Sets.newHashSet();
 
+        arguments.addAll(this.arguments);
+
         for (PSupport support : supports) {
             eafTheory.addSupport(support);
-            arguments.addAll(support.getTos());
-            arguments.addAll(support.getFroms());
+//            arguments.addAll(support.getTos().stream().filter(this.arguments::contains).collect(Collectors.toSet()));
+//            arguments.addAll(support.getFroms().stream().filter(this.arguments::contains).collect(Collectors.toSet()));
+//            arguments.addAll(support.getTos());
+//            arguments.addAll(support.getFroms());
         }
 
         for (EAttack attack : attacks) {
             eafTheory.addAttack(attack);
-            arguments.addAll(attack.getTos());
-            arguments.addAll(attack.getFroms());
+//            arguments.addAll(attack.getTos().stream().filter(this.arguments::contains).collect(Collectors.toSet()));
+//            arguments.addAll(attack.getFroms().stream().filter(this.arguments::contains).collect(Collectors.toSet()));
+//            arguments.addAll(attack.getTos());
+//            arguments.addAll(attack.getFroms());
         }
 
         List<EArgument> argsSorted = Lists.newArrayList();
@@ -85,7 +93,12 @@ public class InducibleEAF {
         StringBuilder builder = new StringBuilder("InducibleEAF{");
         builder.append("arguments=[");
         int i = 0;
-        for (EArgument argument : arguments) {
+
+        List<EArgument> sortedArgs = Lists.newArrayList();
+        sortedArgs.addAll(this.arguments);
+        sortedArgs.sort(Comparator.comparing(EArgument::getName));
+
+        for (EArgument argument : sortedArgs) {
             builder.append(argument.getName());
             if (i != arguments.size() - 1) {
                 builder.append(",");
@@ -94,7 +107,12 @@ public class InducibleEAF {
         }
         builder.append("], supports=[");
         i = 0;
-        for (PSupport support : supports) {
+
+        List<PSupport> sortedSupports = Lists.newArrayList();
+        sortedSupports.addAll(this.supports);
+        sortedSupports.sort(Comparator.comparing(PSupport::getName));
+
+        for (PSupport support : sortedSupports) {
             builder.append(support.getName());
             if (i != supports.size() - 1) {
                 builder.append(",");
@@ -102,9 +120,13 @@ public class InducibleEAF {
             i++;
         }
 
+        List<EAttack> sortedAttacks = Lists.newArrayList();
+        sortedAttacks.addAll(this.attacks);
+        sortedAttacks.sort(Comparator.comparing(EAttack::getName));
+
         builder.append("], attacks=[");
         i = 0;
-        for (EAttack attack : attacks) {
+        for (EAttack attack : sortedAttacks) {
             builder.append(attack.getName());
             if (i != attacks.size() - 1) {
                 builder.append(",");

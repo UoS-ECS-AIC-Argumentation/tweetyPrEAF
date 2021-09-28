@@ -24,7 +24,7 @@ public class GenerateEvaluationExamples {
         long startTime = System.nanoTime();
 
         int minNumberOfNodes = 3;
-        int maxNumberOfNodes = 6;
+        int maxNumberOfNodes = 15;
         int nodeStepSize = 1;
         int repetition = 10;
         double someProbability = 0.5;

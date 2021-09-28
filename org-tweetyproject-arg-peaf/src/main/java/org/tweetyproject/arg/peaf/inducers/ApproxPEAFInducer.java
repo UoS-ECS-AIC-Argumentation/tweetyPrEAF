@@ -91,13 +91,14 @@ public class ApproxPEAFInducer extends AbstractPEAFInducer {
             for (ESupport eSupport : expandingSupports) {
                 double r = ThreadLocalRandom.current().nextDouble();
                 if (r <= ((PSupport) eSupport).getConditionalProbability()) {
-//                    eaf_c.eArguments.addAll(eSupport.getTos());
-//                    System.out.println("r is smaller");
-//                    System.out.println(eSupport);
-//                    System.out.println(eSupport.getTos());
-//                    System.out.println();
                     eaf_c.eSupports.add(eSupport);
-                    eaf_c.newEArguments.addAll(eSupport.getTos());
+
+                    // This is to eliminate visiting same nodes again
+                    for (EArgument to : eSupport.getTos()) {
+                        if (!eaf_c.eArguments.contains(to)) {
+                            eaf_c.newEArguments.add(to);
+                        }
+                    }
                 }
             }
 
