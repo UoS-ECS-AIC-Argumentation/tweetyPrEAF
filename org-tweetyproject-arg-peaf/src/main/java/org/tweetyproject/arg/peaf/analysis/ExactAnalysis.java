@@ -35,14 +35,11 @@ public class ExactAnalysis extends AbstractAnalysis {
     }
 
     public void saveEAFs () {
-//        final long[] i = {0};
-//        ExactPEAFInducer exactPEAFInducer = new ExactPEAFInducer(this.peafTheory);
-//        exactPEAFInducer.induce(iEAF -> {
-//            System.out.println(iEAF);
-////            String probability = String.format("%.04f", iEAF.getInducePro());
-////            probability = probability.replace(".", "_");
-////            EdgeListWriter.write("/home/tdgunes/Projects/DrawPrEAF/input/"  + this.analysisType.toString() + "_" + i[0] + "" + "_" + probability + ".eaf", iEAF.toNewEAFTheory());
-////            i[0] += 1;
-//        });
+        final long[] i = {0};
+        ExactPEAFInducer exactPEAFInducer = new ExactPEAFInducer(this.peafTheory);
+        exactPEAFInducer.induce(iEAF -> {
+            System.out.println(iEAF);
+
+        });
     }
 }

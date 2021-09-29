@@ -24,15 +24,15 @@ public class ParallelRunEvaluationExamples {
         /* - Inputs */
         // The inducer name
 
-        String inducer = "approx"; // Approximate Solution
+//        String inducer = "approx"; // Approximate Solution
 //      String inducer = "exact"; // Exact Solution
 //      String inducer = "con_exact"; // Concurrent Exact Solution
-//      String inducer = "con_approx"; // Concurrent Approximate Solution
+        String inducer = "con_approx"; // Concurrent Approximate Solution
 
 //        int sizeLimiter = Integer.MAX_VALUE;
-        int sizeLimiter = 6;
+        int sizeLimiter = 15;
 
-        double errorLevel = 0.01;
+        double errorLevel = 0.005;
         int nThreads = 1;
         /* End Inputs */
 

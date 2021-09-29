@@ -24,9 +24,9 @@ public class GenerateEvaluationExamples {
         long startTime = System.nanoTime();
 
         int minNumberOfNodes = 3;
-        int maxNumberOfNodes = 15;
+        int maxNumberOfNodes = 9;
         int nodeStepSize = 1;
-        int repetition = 10;
+        int repetition = 100;
         double someProbability = 0.5;
 //        String etaConnectionMode = "etaToAll";
         String etaConnectionMode = "etaToTree";
@@ -84,7 +84,7 @@ public class GenerateEvaluationExamples {
                         eafTheory = eafConverter.convert(daf);
                     } else if (etaConnectionMode.equalsIgnoreCase("etaToTree")) {
                         EtaToTreeConverter eafConverter = new EtaToTreeConverter();
-                        eafTheory = eafConverter.convert(daf, true, 1.0);
+                        eafTheory = eafConverter.convert(daf, true, 0.5);
                     }
                     else {
                         throw new RuntimeException("Given etaConnectionMode '" +

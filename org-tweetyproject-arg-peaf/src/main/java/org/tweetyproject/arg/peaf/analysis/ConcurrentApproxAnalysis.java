@@ -20,7 +20,6 @@ public class ConcurrentApproxAnalysis extends AbstractAnalysis{
     private final double errorLevel;
     private final ExecutorService executorService;
     private final int noThreads;
-    private final static int GROUP_SIZE = 100;
 
     public ConcurrentApproxAnalysis(PEAFTheory peafTheory, AbstractExtensionReasoner extensionReasoner, double errorLevel) {
         this(peafTheory, extensionReasoner,errorLevel, Runtime.getRuntime().availableProcessors() - 1);

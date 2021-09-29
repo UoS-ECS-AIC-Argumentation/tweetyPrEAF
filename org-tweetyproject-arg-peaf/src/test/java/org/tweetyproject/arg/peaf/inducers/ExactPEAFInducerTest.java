@@ -2,7 +2,6 @@ package org.tweetyproject.arg.peaf.inducers;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.tweetyproject.arg.peaf.syntax.CyclicException;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 
 public class ExactPEAFInducerTest {

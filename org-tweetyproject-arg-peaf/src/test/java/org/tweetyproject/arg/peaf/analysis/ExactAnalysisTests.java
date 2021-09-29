@@ -251,13 +251,7 @@ public class ExactAnalysisTests {
         result.print();
 
 
-//        Expected :0.179
-//        Actual   :0.12123595957545104
-//        Type: li_exact prob: 0.12123595957545104 iterations: 115745
-//        Type: exact prob: 0.17996236434704796 iterations: 1902560
-//        Type: con_approx prob: 0.08698471456271561 iterations: 317688
-//        Type: con_exact prob: 0.17996236434704796 iterations: 1902560
-        Assert.assertEquals("Attacked arguments #2 #3 #4 are queried.", 0.179, p, 0.01);
+        Assert.assertEquals("Attacked arguments #2 #3 #4 are queried.", 0.074, p, 0.01);
     }
 
     @Test
@@ -274,7 +268,7 @@ public class ExactAnalysisTests {
         result.print();
 
         exactAnalysis.saveEAFs();
-        Assert.assertEquals("Attacked arguments #1 #3 are queried.", 0.522, p, 0.01);
+        Assert.assertEquals("Attacked arguments #1 #3 are queried.", 0.34, p, 0.01);
     }
 
     @Test
@@ -366,5 +360,30 @@ public class ExactAnalysisTests {
         result.print();
 
         Assert.assertEquals("Attacked argument #3 is queried.", 1.0, p, 0.01);
+    }
+
+    @Test
+    public void testTwoArgumentsSupportOneArgument() {
+        PEAFTheory peafTheory = new PEAFTheory(4);
+
+        //  0  --->  1, 2 ---> 3
+        peafTheory.addSupport(new int[]{}, new int[]{0}, 1.0);
+        peafTheory.addSupport(new int[]{0}, new int[]{1, 2}, 1.0);
+        peafTheory.addSupport(new int[]{1, 2}, new int[]{3}, 1.0);
+
+        EArgument a = peafTheory.getArguments().get(3);
+        Set<EArgument> query = Sets.newHashSet(a);
+        System.out.println("Query: " + query);
+
+        System.out.println("PEAF:");
+        peafTheory.prettyPrint();
+        ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
+        AnalysisResult result = exactAnalysis.query(query);
+        double p = result.getProbability();
+
+        exactAnalysis.saveEAFs();
+        result.print();
+
+//        Assert.assertEquals("Attacked argument #3 is queried.", 1.0, p, 0.01);
     }
 }

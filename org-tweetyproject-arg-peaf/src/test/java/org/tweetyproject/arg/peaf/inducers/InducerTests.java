@@ -34,9 +34,6 @@ public class InducerTests {
             @Override
             public void accept(InducibleEAF inducibleEAF) {
                 System.out.println(inducibleEAF);
-
-//                EAFTheory eafTheory = inducibleEAF.toNewEAFTheory();
-//                eafTheory.prettyPrint();
             }
         });
 

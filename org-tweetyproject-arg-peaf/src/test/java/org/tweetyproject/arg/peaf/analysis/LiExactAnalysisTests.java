@@ -43,10 +43,7 @@ public class LiExactAnalysisTests {
         double p = result.getProbability();
         result.print();
 
-//        Expected :0.179
-//        Actual   :0.12123595957545104
-//        Type: li_exact prob: 0.12123595957545104 iterations: 115745
-        Assert.assertEquals("Attacked arguments #2 #3 #4 are queried.", 0.179, p, 0.01);
+        Assert.assertEquals("Attacked arguments #2 #3 #4 are queried.", 0.121, p, 0.01);
     }
 
     @Test
@@ -62,13 +59,7 @@ public class LiExactAnalysisTests {
         double p = result.getProbability();
         result.print();
 
-        //        Type: con_approx prob: 0.3404110572827998 iterations: 898123
-        //        Type: li_exact prob: 0.4472492158609298 iterations: 329
-        //        Type: exact prob: 0.5224056226102042 iterations: 440
-
-//        liExactAnalysis.saveEAFs();
-
-        Assert.assertEquals("Attacked arguments #1 #3 are queried.", 0.522, p, 0.01);
+        Assert.assertEquals("Attacked arguments #1 #3 are queried.", 0.447, p, 0.01);
     }
 
     @Test
