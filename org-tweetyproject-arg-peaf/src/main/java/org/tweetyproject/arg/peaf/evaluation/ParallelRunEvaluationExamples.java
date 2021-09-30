@@ -26,11 +26,11 @@ public class ParallelRunEvaluationExamples {
 
 //        String inducer = "approx"; // Approximate Solution
 //      String inducer = "exact"; // Exact Solution
-//      String inducer = "con_exact"; // Concurrent Exact Solution
-        String inducer = "con_approx"; // Concurrent Approximate Solution
+        String inducer = "con_exact"; // Concurrent Exact Solution
+//        String inducer = "con_approx"; // Concurrent Approximate Solution
 
 //        int sizeLimiter = Integer.MAX_VALUE;
-        int sizeLimiter = 15;
+        int sizeLimiter = 8;
 
         double errorLevel = 0.005;
         int nThreads = 1;
@@ -48,7 +48,7 @@ public class ParallelRunEvaluationExamples {
         String filePath = Paths.get(evaluationFolderPath.toString(), "results_" + inducer + ".txt").toString();
         System.out.println("Results will be saved in: " + filePath);
         BufferedWriter writer = new BufferedWriter( new FileWriter(filePath));
-        writer.write("type,dafNodes,repetition,time,justification,peafNodes,iteration\n");
+        writer.write("type,dafNodes,repetition,time,justification,peafNodes,iteration,attacks,supports\n");
 
         String[] graphTypes = evaluateFolder.toFile().list((dir, name) -> new File(dir, name).isDirectory());
 
@@ -96,10 +96,9 @@ public class ParallelRunEvaluationExamples {
                 System.out.println(Arrays.toString(repetitionFileNames));
 
                 for (Integer repetitionFileName : repetitionFileNames) {
-                    if (nThreads != 1 ) {
+                    if (nThreads != 1) {
                         submitTask(inducer, writer, graphType, nodeSize, nodeSizePath, repetitionFileName, threadPoolExecutor, lock, errorLevel);
-                    }
-                    else {
+                    } else {
                         extracted(nodeSizePath, repetitionFileName, lock, inducer, errorLevel, writer, graphType, nodeSize);
                     }
 
@@ -107,9 +106,12 @@ public class ParallelRunEvaluationExamples {
             }
         }
 
+        System.out.println("Shutting down..");
+
         try {
             threadPoolExecutor.shutdown();
         } finally {
+            System.out.println("Awaiting termination...");
             threadPoolExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
         }
 
@@ -163,7 +165,7 @@ public class ParallelRunEvaluationExamples {
         if (inducer.equalsIgnoreCase("exact")) {
             analysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         } else if (inducer.equalsIgnoreCase("con_exact")) {
-            analysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
+            analysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner(), 4);
         } else if (inducer.equalsIgnoreCase("approx")) {
             analysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), errorLevel);
         } else if (inducer.equalsIgnoreCase("con_approx")) {
@@ -189,7 +191,9 @@ public class ParallelRunEvaluationExamples {
                     estimatedTime + "," +
                     justification + "," +
                     peafTheory.getNumberOfNodes() + "," +
-                    iterations + "\n");
+                    iterations + "," +
+                    peafTheory.getAttacks().size() + "," +
+                    peafTheory.getSupports().size() + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

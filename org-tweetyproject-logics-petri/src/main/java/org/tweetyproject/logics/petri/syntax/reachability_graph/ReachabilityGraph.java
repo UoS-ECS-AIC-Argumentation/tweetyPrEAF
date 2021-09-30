@@ -132,7 +132,7 @@ public class ReachabilityGraph implements Graph<Marking>, BeliefBase {
 		Optional<MarkingEdge> edge_o = edges.stream().filter( e -> {
 			return e.getNodeA().equals(a) && e.getNodeB().equals(b);
 		}).findAny();
-		if(edge_o.isEmpty()) {
+		if (!edge_o.isPresent()) {
 			return null;
 		}
 		return edge_o.get();

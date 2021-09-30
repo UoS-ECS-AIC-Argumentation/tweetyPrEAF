@@ -2,7 +2,6 @@ package org.tweetyproject.arg.peaf.analysis;
 
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.AtomicDouble;
-import org.checkerframework.checker.units.qual.A;
 import org.tweetyproject.arg.dung.reasoner.AbstractExtensionReasoner;
 import org.tweetyproject.arg.peaf.inducers.ApproxPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
@@ -20,16 +19,23 @@ public class ConcurrentApproxAnalysis extends AbstractAnalysis{
     private final double errorLevel;
     private final ExecutorService executorService;
     private final int noThreads;
+    private final int batchSize;
 
     public ConcurrentApproxAnalysis(PEAFTheory peafTheory, AbstractExtensionReasoner extensionReasoner, double errorLevel) {
-        this(peafTheory, extensionReasoner,errorLevel, Runtime.getRuntime().availableProcessors() - 1);
+        this(peafTheory, extensionReasoner, errorLevel, Runtime.getRuntime().availableProcessors() - 1);
     }
 
     public ConcurrentApproxAnalysis(PEAFTheory peafTheory, AbstractExtensionReasoner extensionReasoner, double errorLevel, int noThreads) {
+        this(peafTheory, extensionReasoner, errorLevel, noThreads, noThreads * 2);
+    }
+
+    public ConcurrentApproxAnalysis(PEAFTheory peafTheory, AbstractExtensionReasoner extensionReasoner, double errorLevel, int noThreads, int batchSize) {
         super(peafTheory, extensionReasoner, AnalysisType.CONCURRENT_APPROX);
         this.errorLevel = errorLevel;
         this.executorService = Executors.newFixedThreadPool(noThreads);
         this.noThreads = noThreads;
+        // This is to reduce the effect of one thread stalling all the batch (increasing too much would create unnecessary iterations)
+        this.batchSize = batchSize;
     }
 
     @Override
@@ -44,7 +50,7 @@ public class ConcurrentApproxAnalysis extends AbstractAnalysis{
         final double[] p_i = {0.0};
         final long[] i = {0};
         AtomicDouble total = new AtomicDouble();
-        AtomicInteger poolAvailability = new AtomicInteger(noThreads);
+        AtomicInteger poolAvailability = new AtomicInteger(this.batchSize);
         List<Future<Double>> futures = Lists.newArrayList();
 
 
@@ -69,28 +75,28 @@ public class ConcurrentApproxAnalysis extends AbstractAnalysis{
                 futures.add(future);
             }
 
+            // Make sure all the batch is completed.
             ListIterator<Future<Double>> iter = futures.listIterator();
-
             while(iter.hasNext()) {
                 Future<Double> future = iter.next();
-                if (future.isDone()) {
-                    double contribution = 0;
-                    try {
-                        contribution = future.get();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
-                    M[0] = M[0] + contribution;
-                    N[0] = N[0] + 1.0;
-                    i[0] += 1;
-                    p_i[0] = (M[0] + 2) / (N[0] + 4);
-                    metric[0] = ((4.0 * p_i[0] * (1.0 - p_i[0])) / Math.pow(errorLevel, 2)) - 4.0;
 
-                    poolAvailability.incrementAndGet();
-                    iter.remove();
+                double contribution = 0;
+                try {
+                    // future.get() stalls the main thread
+                    contribution = future.get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
                 }
+                M[0] = M[0] + contribution;
+                N[0] = N[0] + 1.0;
+                i[0] += 1;
+                p_i[0] = (M[0] + 2) / (N[0] + 4);
+                metric[0] = ((4.0 * p_i[0] * (1.0 - p_i[0])) / Math.pow(errorLevel, 2)) - 4.0;
+
+                poolAvailability.incrementAndGet();
+                iter.remove();
             }
 
         } while (N[0] <= metric[0]);
