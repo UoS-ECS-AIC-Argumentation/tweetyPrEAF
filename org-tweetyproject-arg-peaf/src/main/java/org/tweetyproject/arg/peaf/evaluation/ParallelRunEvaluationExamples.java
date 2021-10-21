@@ -2,7 +2,7 @@ package org.tweetyproject.arg.peaf.evaluation;
 
 import org.tweetyproject.arg.peaf.analysis.*;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
-import org.tweetyproject.arg.peaf.io.EdgeListReader;
+import org.tweetyproject.arg.peaf.io.preaf.EdgeListReader;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 import org.tweetyproject.commons.util.Pair;

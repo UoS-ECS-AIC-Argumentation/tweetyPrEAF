@@ -2,7 +2,7 @@ package org.tweetyproject.arg.peaf.examples;
 
 import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
-import org.tweetyproject.arg.peaf.io.EdgeListWriter;
+import org.tweetyproject.arg.peaf.io.preaf.EdgeListWriter;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;

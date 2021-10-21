@@ -1,4 +1,4 @@
-package org.tweetyproject.arg.peaf.io;
+package org.tweetyproject.arg.peaf.io.preaf;
 
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
@@ -26,7 +26,7 @@ public class EdgeListReader {
 
     public static Pair<PEAFTheory, Set<EArgument>> readPEAFWithQuery(String filePath, boolean printLines) throws IOException {
         // FIXME: We assume first line is the query line commented as in an EdgeList comment with #
-        FileInputStream fs= new FileInputStream(filePath);
+        FileInputStream fs = new FileInputStream(filePath);
         BufferedReader br = new BufferedReader(new InputStreamReader(fs));
         String firstLine = br.readLine();
         if (printLines) {
@@ -37,12 +37,11 @@ public class EdgeListReader {
             String tokens = firstLine.substring(QUERY_LINE.length(), firstLine.length());
             StringTokenizer tokenizer = new StringTokenizer(tokens, " ");
 
-            while(tokenizer.hasMoreTokens()) {
+            while (tokenizer.hasMoreTokens()) {
                 String token = tokenizer.nextToken();
                 stringQueryArgs.add(token);
             }
-        }
-        else {
+        } else {
             br.close();
             fs.close();
             throw new RuntimeException("File (" + filePath + ") does not contain query line.");

@@ -1,5 +1,6 @@
 package org.tweetyproject.arg.peaf.syntax;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -33,6 +34,13 @@ public class EAttack {
         return "EAtt{" + name +
                 ", froms=" + froms +
                 ", tos=" + tos +
+                '}';
+    }
+
+    public String namedToString(Map<EArgument, String> names) {
+        return "EAtt{" + name +
+                ", froms=" + NamedPEAFTheory.giveNames(names, froms) +
+                ", tos=" + NamedPEAFTheory.giveNames(names, tos) +
                 '}';
     }
 

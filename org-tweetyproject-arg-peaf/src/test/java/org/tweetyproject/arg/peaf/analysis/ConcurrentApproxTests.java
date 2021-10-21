@@ -4,7 +4,7 @@ import com.google.common.collect.Sets;
 import org.junit.Assert;
 import org.junit.Test;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
-import org.tweetyproject.arg.peaf.io.EdgeListReader;
+import org.tweetyproject.arg.peaf.io.preaf.EdgeListReader;
 import org.tweetyproject.arg.peaf.syntax.CyclicException;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;

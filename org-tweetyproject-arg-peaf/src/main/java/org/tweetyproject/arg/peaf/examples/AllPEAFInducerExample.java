@@ -1,7 +1,7 @@
 package org.tweetyproject.arg.peaf.examples;
 
 import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
-import org.tweetyproject.arg.peaf.io.EdgeListWriter;
+import org.tweetyproject.arg.peaf.io.preaf.EdgeListWriter;
 import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 

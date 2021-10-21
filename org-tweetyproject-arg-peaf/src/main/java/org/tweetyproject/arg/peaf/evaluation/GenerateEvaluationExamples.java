@@ -8,7 +8,7 @@ import org.tweetyproject.arg.peaf.evaluation.converters.EAFToPEAFConverter;
 import org.tweetyproject.arg.peaf.evaluation.converters.EtaToAllConverter;
 import org.tweetyproject.arg.peaf.evaluation.converters.EtaToTreeConverter;
 import org.tweetyproject.arg.peaf.evaluation.daf.*;
-import org.tweetyproject.arg.peaf.io.EdgeListWriter;
+import org.tweetyproject.arg.peaf.io.preaf.EdgeListWriter;
 import org.tweetyproject.arg.peaf.syntax.EAFTheory;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;

@@ -1,6 +1,6 @@
 package org.tweetyproject.arg.peaf.syntax;
 
-import org.tweetyproject.arg.peaf.io.EdgeListWriter;
+import org.tweetyproject.arg.peaf.io.preaf.EdgeListWriter;
 
 import java.util.*;
 

@@ -3,7 +3,6 @@ package org.tweetyproject.arg.peaf.analysis;
 
 import org.tweetyproject.arg.dung.reasoner.AbstractExtensionReasoner;
 import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
-import org.tweetyproject.arg.peaf.io.EdgeListWriter;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 

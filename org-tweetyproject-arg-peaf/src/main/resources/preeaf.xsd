@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="PrEEAF" type="PrEEAFType">
+        <xs:key name="PK_Argument">
+            <xs:selector xpath="Argument"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+        <xs:key name="PK_Support">
+            <xs:selector xpath="Support"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+        <xs:key name="PK_Attack">
+            <xs:selector xpath="Attack"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+    </xs:element>
+
+    <xs:complexType name="PrEEAFType">
+        <xs:choice maxOccurs="unbounded">
+            <xs:element ref="Argument"/>
+            <xs:element ref="Support"/>
+            <xs:element ref="Attack"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="ArgumentType">
+        <xs:sequence minOccurs="0">
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+
+    <xs:complexType name="ArgumentGroup">
+        <xs:complexContent>
+            <xs:extension base="ArgumentType">
+                <xs:attribute name="refids" type="xs:IDREFS"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Element">
+        <xs:complexContent>
+            <xs:extension base="ArgumentType">
+                <xs:attribute name="refid" type="xs:IDREF"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="Argument" type="ArgumentType"/>
+
+    <xs:element name="Support">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Froms" type="ArgumentGroup" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="To" type="Element" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="probability" type="xs:double"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Attack">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="From" type="Element" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="To" type="Element" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="probability" type="xs:double"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
+

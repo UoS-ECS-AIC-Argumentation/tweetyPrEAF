@@ -6,7 +6,7 @@ import org.tweetyproject.arg.dung.syntax.Argument;
 import org.tweetyproject.arg.dung.syntax.DungTheory;
 import org.tweetyproject.arg.peaf.evaluation.converters.EtaToTreeConverter;
 import org.tweetyproject.arg.peaf.syntax.EAFTheory;
-import org.tweetyproject.arg.peaf.io.EdgeListWriter;
+import org.tweetyproject.arg.peaf.io.preaf.EdgeListWriter;
 
 public class EtaToTreeConverterTest {
 

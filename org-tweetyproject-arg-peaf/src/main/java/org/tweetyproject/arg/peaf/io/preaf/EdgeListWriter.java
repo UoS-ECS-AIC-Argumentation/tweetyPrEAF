@@ -1,4 +1,4 @@
-package org.tweetyproject.arg.peaf.io;
+package org.tweetyproject.arg.peaf.io.preaf;
 
 import org.tweetyproject.arg.peaf.syntax.*;
 
@@ -32,8 +32,7 @@ public class EdgeListWriter {
             for (EArgument argument : query) {
                 if (first) {
                     first = false;
-                }
-                else {
+                } else {
                     writer.write(" ");
                 }
                 writer.write(argument.getName());
