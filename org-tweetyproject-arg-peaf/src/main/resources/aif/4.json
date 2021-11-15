@@ -1,0 +1,122 @@
+{
+  "nodes": [
+    {
+      "nodeID": "234",
+      "text": "The object is red.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:08:09"
+    },
+    {
+      "nodeID": "235",
+      "text": "The object looks red.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:08:09"
+    },
+    {
+      "nodeID": "236",
+      "text": "Things which look red are normally red.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:08:09"
+    },
+    {
+      "nodeID": "237",
+      "text": "The object is illuminated by a red light.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:08:09"
+    },
+    {
+      "nodeID": "238",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2012-02-17 16:08:09"
+    },
+    {
+      "nodeID": "239",
+      "text": "CA",
+      "type": "CA",
+      "timestamp": "2012-02-17 16:08:09"
+    }
+  ],
+  "edges": [
+    {
+      "edgeID": "233",
+      "fromID": "238",
+      "toID": "234",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "234",
+      "fromID": "235",
+      "toID": "238",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "235",
+      "fromID": "236",
+      "toID": "238",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "236",
+      "fromID": "239",
+      "toID": "238",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "237",
+      "fromID": "237",
+      "toID": "239",
+      "formEdgeID": null
+    }
+  ],
+  "locutions": [
+    {
+      "nodeID": "234",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:41:44",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "235",
+      "personID": "1",
+      "timestamp": "2015-09-23 14:41:44",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "236",
+      "personID": "1",
+      "timestamp": "2015-09-23 14:41:44",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "237",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:41:44",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "238",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:41:44",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "239",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:41:44",
+      "start": null,
+      "end": null,
+      "source": null
+    }
+  ]
+}
