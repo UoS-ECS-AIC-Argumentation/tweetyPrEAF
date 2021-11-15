@@ -1,0 +1,96 @@
+{
+  "nodes": [
+    {
+      "nodeID": "247",
+      "text": "Tweety can fly.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:08:40"
+    },
+    {
+      "nodeID": "248",
+      "text": "Tweety is a bird.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:08:40"
+    },
+    {
+      "nodeID": "249",
+      "text": "Birds normally fly.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:08:40"
+    },
+    {
+      "nodeID": "250",
+      "text": "Tweety is an abnormal bird.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:08:40"
+    },
+    {
+      "nodeID": "251",
+      "text": "Tweety is a penguin.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:08:40"
+    },
+    {
+      "nodeID": "252",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2012-02-17 16:08:40"
+    },
+    {
+      "nodeID": "253",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2012-02-17 16:08:40"
+    },
+    {
+      "nodeID": "254",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2012-02-17 16:08:40"
+    }
+  ],
+  "edges": [
+    {
+      "edgeID": "1",
+      "fromID": "252",
+      "toID": "250",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "2",
+      "fromID": "251",
+      "toID": "252",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "3",
+      "fromID": "253",
+      "toID": "247",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "4",
+      "fromID": "248",
+      "toID": "253",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5",
+      "fromID": "249",
+      "toID": "253",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "6",
+      "fromID": "254",
+      "toID": "253",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "7",
+      "fromID": "250",
+      "toID": "254",
+      "formEdgeID": null
+    }
+  ]
+}

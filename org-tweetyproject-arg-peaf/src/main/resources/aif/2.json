@@ -1,0 +1,2072 @@
+{
+  "nodes": [
+    {
+      "nodeID": "170",
+      "text": "The accused is punishable by up to 8 years in prison.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "171",
+      "text": "Inflicting grevious bodily harm is punishable by up to 8 years in prison.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "172",
+      "text": "The accused inflicted grevious bodily harm upon the victim.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "173",
+      "text": "Section 302 of the Dutch Civil Code",
+      "type": "I",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "174",
+      "text": "The victim has several broken ribs, with complications.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "175",
+      "text": "The accused claims not to have been involved in the fight.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "176",
+      "text": "Several broken ribs is not grevious bodily harm.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "177",
+      "text": "10 pub customers testified they saw the accused fighting.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "178",
+      "text": "Case 1",
+      "type": "I",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "179",
+      "text": "Several broken ribs with complications is serious bodily harm.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "180",
+      "text": "Case 2",
+      "type": "I",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "181",
+      "text": "Case 2 is more on point than Case 1.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "182",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "183",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "184",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "185",
+      "text": "CA",
+      "type": "CA",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "186",
+      "text": "CA",
+      "type": "CA",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "187",
+      "text": "CA",
+      "type": "CA",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "188",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "189",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "190",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2012-02-17 16:06:19"
+    },
+    {
+      "nodeID": "6158",
+      "text": "null",
+      "type": "I",
+      "timestamp": "2012-04-13 12:54:43"
+    },
+    {
+      "nodeID": "6159",
+      "text": "I’m just trying this",
+      "type": "I",
+      "timestamp": "2012-04-13 12:54:43"
+    },
+    {
+      "nodeID": "6160",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2012-04-13 12:54:43"
+    },
+    {
+      "nodeID": "6161",
+      "text": "http:\/\/argublogging.com\/ says \"null\"",
+      "type": "L",
+      "timestamp": "2012-04-13 12:54:43"
+    },
+    {
+      "nodeID": "6162",
+      "text": "Publishing_null_username",
+      "type": "YA",
+      "timestamp": "2012-04-13 12:54:44",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "6163",
+      "text": "ArguBlog Agree_urlhttp:\/\/argublogging.tumblr.com\/post\/21019772855\/",
+      "type": "TA",
+      "timestamp": "2012-04-13 12:54:44",
+      "scheme": "ArguBlog Agree",
+      "schemeID": "68"
+    },
+    {
+      "nodeID": "6164",
+      "text": "http:\/\/argublogging.tumblr.com\/post\/21019772855\/ says \"I’m just trying this\"",
+      "type": "L",
+      "timestamp": "2012-04-13 12:54:44"
+    },
+    {
+      "nodeID": "6165",
+      "text": "Publishing_http:\/\/argublogging.tumblr.com\/post\/21019772855\/",
+      "type": "YA",
+      "timestamp": "2012-04-13 12:54:44",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "6166",
+      "text": "Publishing_s_http:\/\/argublogging.tumblr.com\/post\/21019772855\/",
+      "type": "YA",
+      "timestamp": "2012-04-13 12:54:44"
+    },
+    {
+      "nodeID": "6167",
+      "text": "Testing this.",
+      "type": "I",
+      "timestamp": "2012-04-13 18:36:50"
+    },
+    {
+      "nodeID": "6168",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2012-04-13 18:36:50"
+    },
+    {
+      "nodeID": "6169",
+      "text": "http:\/\/www.argublogging.com\/ says \"null\"",
+      "type": "L",
+      "timestamp": "2012-04-13 18:36:50"
+    },
+    {
+      "nodeID": "6170",
+      "text": "Publishing_null_username",
+      "type": "YA",
+      "timestamp": "2012-04-13 18:36:50",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "6171",
+      "text": "ArguBlog Agree_urlhttp:\/\/argublogging.tumblr.com\/post\/21031061302\/",
+      "type": "TA",
+      "timestamp": "2012-04-13 18:36:51",
+      "scheme": "ArguBlog Agree",
+      "schemeID": "68"
+    },
+    {
+      "nodeID": "6172",
+      "text": "http:\/\/argublogging.tumblr.com\/post\/21031061302\/ says \"Testing this.\"",
+      "type": "L",
+      "timestamp": "2012-04-13 18:36:51"
+    },
+    {
+      "nodeID": "6173",
+      "text": "Publishing_http:\/\/argublogging.tumblr.com\/post\/21031061302\/",
+      "type": "YA",
+      "timestamp": "2012-04-13 18:36:51",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "6174",
+      "text": "Publishing_s_http:\/\/argublogging.tumblr.com\/post\/21031061302\/",
+      "type": "YA",
+      "timestamp": "2012-04-13 18:36:51"
+    },
+    {
+      "nodeID": "6175",
+      "text": "I don’t know what’s going on here.",
+      "type": "I",
+      "timestamp": "2012-04-13 18:37:36"
+    },
+    {
+      "nodeID": "6176",
+      "text": "CA",
+      "type": "CA",
+      "timestamp": "2012-04-13 18:37:36"
+    },
+    {
+      "nodeID": "6177",
+      "text": "ArguBlog Disagree_urlhttp:\/\/argublogging.tumblr.com\/post\/21031096056\/",
+      "type": "TA",
+      "timestamp": "2012-04-13 18:37:37",
+      "scheme": "ArguBlog Disagree",
+      "schemeID": "69"
+    },
+    {
+      "nodeID": "6178",
+      "text": "http:\/\/argublogging.tumblr.com\/post\/21031096056\/ says \"I don’t know what’s going on here.\"",
+      "type": "L",
+      "timestamp": "2012-04-13 18:37:37"
+    },
+    {
+      "nodeID": "6179",
+      "text": "Publishing_http:\/\/argublogging.tumblr.com\/post\/21031096056\/",
+      "type": "YA",
+      "timestamp": "2012-04-13 18:37:37",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "6180",
+      "text": "Publishing_s_http:\/\/argublogging.tumblr.com\/post\/21031096056\/",
+      "type": "YA",
+      "timestamp": "2012-04-13 18:37:37"
+    },
+    {
+      "nodeID": "6864",
+      "text": "All premises supporting the conclusion appear to be well-founded and\/or unchallenged. All attacks upon the conclusion or supports appear to be succesfully challenged themselves.",
+      "type": "I",
+      "timestamp": "2012-05-29 12:19:10"
+    },
+    {
+      "nodeID": "6865",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2012-05-29 12:19:10"
+    },
+    {
+      "nodeID": "6866",
+      "text": "ArguBlog Agree_urlhttp:\/\/argublogging.tumblr.com\/post\/23991634772\/",
+      "type": "TA",
+      "timestamp": "2012-05-29 12:19:11",
+      "scheme": "ArguBlog Agree",
+      "schemeID": "68"
+    },
+    {
+      "nodeID": "6867",
+      "text": "http:\/\/argublogging.tumblr.com\/post\/23991634772\/ says \"All premises supporting the conclusion appear to be well-founded and\/or unchallenged. All attacks upon the conclusion or supports appear to be succesfully challenged themselves.\"",
+      "type": "L",
+      "timestamp": "2012-05-29 12:19:11"
+    },
+    {
+      "nodeID": "6868",
+      "text": "Publishing_http:\/\/argublogging.tumblr.com\/post\/23991634772\/",
+      "type": "YA",
+      "timestamp": "2012-05-29 12:19:11",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "6869",
+      "text": "Publishing_s_http:\/\/argublogging.tumblr.com\/post\/23991634772\/",
+      "type": "YA",
+      "timestamp": "2012-05-29 12:19:11"
+    },
+    {
+      "nodeID": "25028",
+      "text": "journey already only 4 hours",
+      "type": "I",
+      "timestamp": "2013-11-01 11:01:24"
+    },
+    {
+      "nodeID": "25029",
+      "text": "CA",
+      "type": "CA",
+      "timestamp": "2013-11-01 11:01:24"
+    },
+    {
+      "nodeID": "25030",
+      "text": "http:\/\/www.bbc.co.uk\/news\/uk-24766765 says \"null\"",
+      "type": "L",
+      "timestamp": "2013-11-01 11:01:24"
+    },
+    {
+      "nodeID": "25031",
+      "text": "Publishing_null_a.pease@dundee.ac.uk",
+      "type": "YA",
+      "timestamp": "2013-11-01 11:01:24",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "25032",
+      "text": "ArguBlog Disagree_urlhttp:\/\/argutest.tumblr.com\/post\/65683800582\/",
+      "type": "TA",
+      "timestamp": "2013-11-01 11:01:25",
+      "scheme": "ArguBlog Disagree",
+      "schemeID": "69"
+    },
+    {
+      "nodeID": "25033",
+      "text": "http:\/\/argutest.tumblr.com\/post\/65683800582\/ says \"journey already only 4 hours\"",
+      "type": "L",
+      "timestamp": "2013-11-01 11:01:25"
+    },
+    {
+      "nodeID": "25034",
+      "text": "Publishing_http:\/\/argutest.tumblr.com\/post\/65683800582\/",
+      "type": "YA",
+      "timestamp": "2013-11-01 11:01:25",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "25035",
+      "text": "Publishing_s_http:\/\/argutest.tumblr.com\/post\/65683800582\/",
+      "type": "YA",
+      "timestamp": "2013-11-01 11:01:25"
+    },
+    {
+      "nodeID": "25036",
+      "text": "most journies Edinburgh to London take longer than 4 hours",
+      "type": "I",
+      "timestamp": "2013-11-01 11:03:21"
+    },
+    {
+      "nodeID": "25037",
+      "text": "CA",
+      "type": "CA",
+      "timestamp": "2013-11-01 11:03:21"
+    },
+    {
+      "nodeID": "25038",
+      "text": "ArguBlog Disagree_urlhttp:\/\/argublogging.tumblr.com\/post\/65683874913\/",
+      "type": "TA",
+      "timestamp": "2013-11-01 11:03:22",
+      "scheme": "ArguBlog Disagree",
+      "schemeID": "69"
+    },
+    {
+      "nodeID": "25039",
+      "text": "http:\/\/argublogging.tumblr.com\/post\/65683874913\/ says \"most journies Edinburgh to London take longer than 4 hours\"",
+      "type": "L",
+      "timestamp": "2013-11-01 11:03:22"
+    },
+    {
+      "nodeID": "25040",
+      "text": "Publishing_http:\/\/argublogging.tumblr.com\/post\/65683874913\/",
+      "type": "YA",
+      "timestamp": "2013-11-01 11:03:22",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "25041",
+      "text": "Publishing_s_http:\/\/argublogging.tumblr.com\/post\/65683874913\/",
+      "type": "YA",
+      "timestamp": "2013-11-01 11:03:22"
+    },
+    {
+      "nodeID": "33645",
+      "text": "zvfdfsdfasdasd",
+      "type": "I",
+      "timestamp": "2014-07-15 21:35:39"
+    },
+    {
+      "nodeID": "33646",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2014-07-15 21:35:40"
+    },
+    {
+      "nodeID": "33647",
+      "text": "http:\/\/www.washingtonpost.com\/opinions\/michael-gerson-conservatives-can-do-better-than-a-do-it-yourself-philosophy\/2014\/05\/29\/2ce4c4a0-e695-11e3-a86b-362fd5443d19_story.html?tid=pm_opinions_pop says \"null\"",
+      "type": "L",
+      "timestamp": "2014-07-15 21:35:40"
+    },
+    {
+      "nodeID": "33648",
+      "text": "Publishing_null_username",
+      "type": "YA",
+      "timestamp": "2014-07-15 21:35:40",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "33649",
+      "text": "ArguBlog Agree_urlhttp:\/\/argublogging.tumblr.com\/post\/91877767861\/",
+      "type": "TA",
+      "timestamp": "2014-07-15 21:35:41",
+      "scheme": "ArguBlog Agree",
+      "schemeID": "68"
+    },
+    {
+      "nodeID": "33650",
+      "text": "http:\/\/argublogging.tumblr.com\/post\/91877767861\/ says \"zvfdfsdfasdasd\"",
+      "type": "L",
+      "timestamp": "2014-07-15 21:35:41"
+    },
+    {
+      "nodeID": "33651",
+      "text": "Publishing_http:\/\/argublogging.tumblr.com\/post\/91877767861\/",
+      "type": "YA",
+      "timestamp": "2014-07-15 21:35:41",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "33652",
+      "text": "Publishing_s_http:\/\/argublogging.tumblr.com\/post\/91877767861\/",
+      "type": "YA",
+      "timestamp": "2014-07-15 21:35:41"
+    },
+    {
+      "nodeID": "35018",
+      "text": "Argentina shows payment intentions",
+      "type": "I",
+      "timestamp": "2014-08-20 18:14:41"
+    },
+    {
+      "nodeID": "35019",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2014-08-20 18:14:41"
+    },
+    {
+      "nodeID": "35020",
+      "text": "http:\/\/www.wantinews.com\/news-8773322-Argentine-government-will-pay-to-the-Bondholders-through-a-local-account.html says \"null\"",
+      "type": "L",
+      "timestamp": "2014-08-20 18:14:41"
+    },
+    {
+      "nodeID": "35021",
+      "text": "Publishing_null_username",
+      "type": "YA",
+      "timestamp": "2014-08-20 18:14:41",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "35022",
+      "text": "ArguBlog Agree_urlhttp:\/\/argublogging.tumblr.com\/post\/95293214421\/",
+      "type": "TA",
+      "timestamp": "2014-08-20 18:14:42",
+      "scheme": "ArguBlog Agree",
+      "schemeID": "68"
+    },
+    {
+      "nodeID": "35023",
+      "text": "http:\/\/argublogging.tumblr.com\/post\/95293214421\/ says \"Argentina shows payment intentions\"",
+      "type": "L",
+      "timestamp": "2014-08-20 18:14:42"
+    },
+    {
+      "nodeID": "35024",
+      "text": "Publishing_http:\/\/argublogging.tumblr.com\/post\/95293214421\/",
+      "type": "YA",
+      "timestamp": "2014-08-20 18:14:42",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "35025",
+      "text": "Publishing_s_http:\/\/argublogging.tumblr.com\/post\/95293214421\/",
+      "type": "YA",
+      "timestamp": "2014-08-20 18:14:42"
+    },
+    {
+      "nodeID": "35328",
+      "text": "no reason.",
+      "type": "I",
+      "timestamp": "2014-08-26 08:25:22"
+    },
+    {
+      "nodeID": "35329",
+      "text": "CA",
+      "type": "CA",
+      "timestamp": "2014-08-26 08:25:22"
+    },
+    {
+      "nodeID": "35330",
+      "text": "ArguBlog Disagree_urlhttp:\/\/argublogging.tumblr.com\/post\/95807755621\/",
+      "type": "TA",
+      "timestamp": "2014-08-26 08:25:24",
+      "scheme": "ArguBlog Disagree",
+      "schemeID": "69"
+    },
+    {
+      "nodeID": "35331",
+      "text": "http:\/\/argublogging.tumblr.com\/post\/95807755621\/ says \"no reason.\"",
+      "type": "L",
+      "timestamp": "2014-08-26 08:25:24"
+    },
+    {
+      "nodeID": "35332",
+      "text": "Publishing_http:\/\/argublogging.tumblr.com\/post\/95807755621\/",
+      "type": "YA",
+      "timestamp": "2014-08-26 08:25:24",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "35333",
+      "text": "Publishing_s_http:\/\/argublogging.tumblr.com\/post\/95807755621\/",
+      "type": "YA",
+      "timestamp": "2014-08-26 08:25:25"
+    },
+    {
+      "nodeID": "38395",
+      "text": "asdfsadf",
+      "type": "I",
+      "timestamp": "2014-10-25 12:29:20"
+    },
+    {
+      "nodeID": "38396",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2014-10-25 12:29:20"
+    },
+    {
+      "nodeID": "38397",
+      "text": "http:\/\/argublogging.com\/ says \"null\"",
+      "type": "L",
+      "timestamp": "2014-10-25 12:29:21"
+    },
+    {
+      "nodeID": "38398",
+      "text": "Publishing_null_username",
+      "type": "YA",
+      "timestamp": "2014-10-25 12:29:21",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "38399",
+      "text": "ArguBlog Agree_urlhttp:\/\/argublogging.tumblr.com\/post\/100902043566\/",
+      "type": "TA",
+      "timestamp": "2014-10-25 12:29:21",
+      "scheme": "ArguBlog Agree",
+      "schemeID": "68"
+    },
+    {
+      "nodeID": "38400",
+      "text": "http:\/\/argublogging.tumblr.com\/post\/100902043566\/ says \"asdfsadf\"",
+      "type": "L",
+      "timestamp": "2014-10-25 12:29:21"
+    },
+    {
+      "nodeID": "38401",
+      "text": "Publishing_http:\/\/argublogging.tumblr.com\/post\/100902043566\/",
+      "type": "YA",
+      "timestamp": "2014-10-25 12:29:21",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "38402",
+      "text": "Publishing_s_http:\/\/argublogging.tumblr.com\/post\/100902043566\/",
+      "type": "YA",
+      "timestamp": "2014-10-25 12:29:22"
+    },
+    {
+      "nodeID": "38403",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2014-10-25 12:29:32"
+    },
+    {
+      "nodeID": "38404",
+      "text": "http:\/\/argublogging.com\/ says \"null\"",
+      "type": "L",
+      "timestamp": "2014-10-25 12:29:32"
+    },
+    {
+      "nodeID": "38405",
+      "text": "Publishing_null_username",
+      "type": "YA",
+      "timestamp": "2014-10-25 12:29:32",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "38406",
+      "text": "ArguBlog Agree_urlhttp:\/\/argublogging.tumblr.com\/post\/100902050901\/",
+      "type": "TA",
+      "timestamp": "2014-10-25 12:29:33",
+      "scheme": "ArguBlog Agree",
+      "schemeID": "68"
+    },
+    {
+      "nodeID": "38407",
+      "text": "http:\/\/argublogging.tumblr.com\/post\/100902050901\/ says \"asdfsadf\"",
+      "type": "L",
+      "timestamp": "2014-10-25 12:29:33"
+    },
+    {
+      "nodeID": "38408",
+      "text": "Publishing_http:\/\/argublogging.tumblr.com\/post\/100902050901\/",
+      "type": "YA",
+      "timestamp": "2014-10-25 12:29:33",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "38409",
+      "text": "Publishing_s_http:\/\/argublogging.tumblr.com\/post\/100902050901\/",
+      "type": "YA",
+      "timestamp": "2014-10-25 12:29:33"
+    },
+    {
+      "nodeID": "38419",
+      "text": "sdfsadfsa",
+      "type": "I",
+      "timestamp": "2014-10-25 12:55:39"
+    },
+    {
+      "nodeID": "38420",
+      "text": "CA",
+      "type": "CA",
+      "timestamp": "2014-10-25 12:55:39"
+    },
+    {
+      "nodeID": "38421",
+      "text": "se:\/\/myfavor\/ says \"null\"",
+      "type": "L",
+      "timestamp": "2014-10-25 12:55:39"
+    },
+    {
+      "nodeID": "38422",
+      "text": "Publishing_null_username",
+      "type": "YA",
+      "timestamp": "2014-10-25 12:55:39",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "38423",
+      "text": "ArguBlog Disagree_urlhttp:\/\/argublogging.tumblr.com\/post\/100903125021\/",
+      "type": "TA",
+      "timestamp": "2014-10-25 12:55:40",
+      "scheme": "ArguBlog Disagree",
+      "schemeID": "69"
+    },
+    {
+      "nodeID": "38424",
+      "text": "http:\/\/argublogging.tumblr.com\/post\/100903125021\/ says \"sdfsadfsa\"",
+      "type": "L",
+      "timestamp": "2014-10-25 12:55:40"
+    },
+    {
+      "nodeID": "38425",
+      "text": "Publishing_http:\/\/argublogging.tumblr.com\/post\/100903125021\/",
+      "type": "YA",
+      "timestamp": "2014-10-25 12:55:40",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "38426",
+      "text": "Publishing_s_http:\/\/argublogging.tumblr.com\/post\/100903125021\/",
+      "type": "YA",
+      "timestamp": "2014-10-25 12:55:40"
+    },
+    {
+      "nodeID": "61631",
+      "text": "I have designed it",
+      "type": "I",
+      "timestamp": "2015-03-14 16:39:02"
+    },
+    {
+      "nodeID": "61632",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2015-03-14 16:39:03"
+    },
+    {
+      "nodeID": "61633",
+      "text": "http:\/\/arg-rewards-scheme.blogspot.com\/ says \"null\"",
+      "type": "L",
+      "timestamp": "2015-03-14 16:39:03"
+    },
+    {
+      "nodeID": "61634",
+      "text": "Publishing_null_ashdharan@ncsu.edu",
+      "type": "YA",
+      "timestamp": "2015-03-14 16:39:03",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "61635",
+      "text": "ArguBlog Agree_urlhttp:\/\/arg-rewards-scheme.blogspot.com\/2015\/03\/i-have-designed-it.html",
+      "type": "TA",
+      "timestamp": "2015-03-14 16:39:04",
+      "scheme": "ArguBlog Agree",
+      "schemeID": "68"
+    },
+    {
+      "nodeID": "61636",
+      "text": "http:\/\/arg-rewards-scheme.blogspot.com\/2015\/03\/i-have-designed-it.html says \"I have designed it\"",
+      "type": "L",
+      "timestamp": "2015-03-14 16:39:04"
+    },
+    {
+      "nodeID": "61637",
+      "text": "Publishing_http:\/\/arg-rewards-scheme.blogspot.com\/2015\/03\/i-have-designed-it.html",
+      "type": "YA",
+      "timestamp": "2015-03-14 16:39:04",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "61638",
+      "text": "Publishing_s_http:\/\/arg-rewards-scheme.blogspot.com\/2015\/03\/i-have-designed-it.html",
+      "type": "YA",
+      "timestamp": "2015-03-14 16:39:04"
+    },
+    {
+      "nodeID": "61723",
+      "text": "this works.",
+      "type": "I",
+      "timestamp": "2015-03-15 03:10:20"
+    },
+    {
+      "nodeID": "61724",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2015-03-15 03:10:20"
+    },
+    {
+      "nodeID": "61725",
+      "text": "ArguBlog Agree_urlhttp:\/\/nirav-argtest.blogspot.com\/2015\/03\/works.html",
+      "type": "TA",
+      "timestamp": "2015-03-15 03:10:21",
+      "scheme": "ArguBlog Agree",
+      "schemeID": "68"
+    },
+    {
+      "nodeID": "61726",
+      "text": "http:\/\/nirav-argtest.blogspot.com\/2015\/03\/works.html says \"this works.\"",
+      "type": "L",
+      "timestamp": "2015-03-15 03:10:21"
+    },
+    {
+      "nodeID": "61727",
+      "text": "Publishing_http:\/\/nirav-argtest.blogspot.com\/2015\/03\/works.html",
+      "type": "YA",
+      "timestamp": "2015-03-15 03:10:21",
+      "scheme": "Publishing",
+      "schemeID": "70"
+    },
+    {
+      "nodeID": "61728",
+      "text": "Publishing_s_http:\/\/nirav-argtest.blogspot.com\/2015\/03\/works.html",
+      "type": "YA",
+      "timestamp": "2015-03-15 03:10:21"
+    }
+  ],
+  "edges": [
+    {
+      "edgeID": "171",
+      "fromID": "182",
+      "toID": "170",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "172",
+      "fromID": "171",
+      "toID": "182",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "173",
+      "fromID": "172",
+      "toID": "182",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "174",
+      "fromID": "183",
+      "toID": "171",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "175",
+      "fromID": "173",
+      "toID": "183",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "176",
+      "fromID": "184",
+      "toID": "172",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "177",
+      "fromID": "174",
+      "toID": "184",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "178",
+      "fromID": "185",
+      "toID": "172",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "179",
+      "fromID": "175",
+      "toID": "185",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "180",
+      "fromID": "186",
+      "toID": "172",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "181",
+      "fromID": "176",
+      "toID": "186",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "182",
+      "fromID": "187",
+      "toID": "175",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "183",
+      "fromID": "177",
+      "toID": "187",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "184",
+      "fromID": "188",
+      "toID": "176",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "185",
+      "fromID": "178",
+      "toID": "188",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "186",
+      "fromID": "181",
+      "toID": "188",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "187",
+      "fromID": "189",
+      "toID": "176",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "188",
+      "fromID": "179",
+      "toID": "189",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "189",
+      "fromID": "190",
+      "toID": "179",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "190",
+      "fromID": "180",
+      "toID": "190",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5896",
+      "fromID": "6159",
+      "toID": "6160",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5897",
+      "fromID": "6160",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5898",
+      "fromID": "6161",
+      "toID": "6162",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5899",
+      "fromID": "6162",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5900",
+      "fromID": "6164",
+      "toID": "6163",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5901",
+      "fromID": "6164",
+      "toID": "6165",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5902",
+      "fromID": "6163",
+      "toID": "6161",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5903",
+      "fromID": "6165",
+      "toID": "6159",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5904",
+      "fromID": "6163",
+      "toID": "6166",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5905",
+      "fromID": "6166",
+      "toID": "6160",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5906",
+      "fromID": "6167",
+      "toID": "6168",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5907",
+      "fromID": "6168",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5908",
+      "fromID": "6169",
+      "toID": "6170",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5909",
+      "fromID": "6170",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5910",
+      "fromID": "6172",
+      "toID": "6171",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5911",
+      "fromID": "6172",
+      "toID": "6173",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5912",
+      "fromID": "6171",
+      "toID": "6169",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5913",
+      "fromID": "6173",
+      "toID": "6167",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5914",
+      "fromID": "6171",
+      "toID": "6174",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5915",
+      "fromID": "6174",
+      "toID": "6168",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5916",
+      "fromID": "6175",
+      "toID": "6176",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5917",
+      "fromID": "6176",
+      "toID": "6167",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5918",
+      "fromID": "6178",
+      "toID": "6177",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5919",
+      "fromID": "6178",
+      "toID": "6179",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5920",
+      "fromID": "6177",
+      "toID": "6172",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5921",
+      "fromID": "6179",
+      "toID": "6175",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5922",
+      "fromID": "6177",
+      "toID": "6180",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "5923",
+      "fromID": "6180",
+      "toID": "6176",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "6919",
+      "fromID": "6864",
+      "toID": "6865",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "6920",
+      "fromID": "6865",
+      "toID": "6175",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "6921",
+      "fromID": "6867",
+      "toID": "6866",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "6922",
+      "fromID": "6867",
+      "toID": "6868",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "6923",
+      "fromID": "6866",
+      "toID": "6178",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "6924",
+      "fromID": "6868",
+      "toID": "6864",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "6925",
+      "fromID": "6866",
+      "toID": "6869",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "6926",
+      "fromID": "6869",
+      "toID": "6865",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25058",
+      "fromID": "25028",
+      "toID": "25029",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25059",
+      "fromID": "25029",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25060",
+      "fromID": "25030",
+      "toID": "25031",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25061",
+      "fromID": "25031",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25062",
+      "fromID": "25033",
+      "toID": "25032",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25063",
+      "fromID": "25033",
+      "toID": "25034",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25064",
+      "fromID": "25032",
+      "toID": "25030",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25065",
+      "fromID": "25034",
+      "toID": "25028",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25066",
+      "fromID": "25032",
+      "toID": "25035",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25067",
+      "fromID": "25035",
+      "toID": "25029",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25068",
+      "fromID": "25036",
+      "toID": "25037",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25069",
+      "fromID": "25037",
+      "toID": "25028",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25070",
+      "fromID": "25039",
+      "toID": "25038",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25071",
+      "fromID": "25039",
+      "toID": "25040",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25072",
+      "fromID": "25038",
+      "toID": "25033",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25073",
+      "fromID": "25040",
+      "toID": "25036",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25074",
+      "fromID": "25038",
+      "toID": "25041",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "25075",
+      "fromID": "25041",
+      "toID": "25037",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "43772",
+      "fromID": "33645",
+      "toID": "33646",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "43773",
+      "fromID": "33646",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "43774",
+      "fromID": "33647",
+      "toID": "33648",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "43775",
+      "fromID": "33648",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "43776",
+      "fromID": "33650",
+      "toID": "33649",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "43777",
+      "fromID": "33650",
+      "toID": "33651",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "43778",
+      "fromID": "33649",
+      "toID": "33647",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "43779",
+      "fromID": "33651",
+      "toID": "33645",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "43780",
+      "fromID": "33649",
+      "toID": "33652",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "43781",
+      "fromID": "33652",
+      "toID": "33646",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "46897",
+      "fromID": "35018",
+      "toID": "35019",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "46898",
+      "fromID": "35019",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "46899",
+      "fromID": "35020",
+      "toID": "35021",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "46900",
+      "fromID": "35021",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "46901",
+      "fromID": "35023",
+      "toID": "35022",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "46902",
+      "fromID": "35023",
+      "toID": "35024",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "46903",
+      "fromID": "35022",
+      "toID": "35020",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "46904",
+      "fromID": "35024",
+      "toID": "35018",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "46905",
+      "fromID": "35022",
+      "toID": "35025",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "46906",
+      "fromID": "35025",
+      "toID": "35019",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "47475",
+      "fromID": "35328",
+      "toID": "35329",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "47476",
+      "fromID": "35329",
+      "toID": "35018",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "47477",
+      "fromID": "35331",
+      "toID": "35330",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "47478",
+      "fromID": "35331",
+      "toID": "35332",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "47479",
+      "fromID": "35330",
+      "toID": "35023",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "47480",
+      "fromID": "35332",
+      "toID": "35328",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "47481",
+      "fromID": "35330",
+      "toID": "35333",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "47482",
+      "fromID": "35333",
+      "toID": "35329",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52146",
+      "fromID": "38395",
+      "toID": "38396",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52147",
+      "fromID": "38396",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52148",
+      "fromID": "38397",
+      "toID": "38398",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52149",
+      "fromID": "38398",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52150",
+      "fromID": "38400",
+      "toID": "38399",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52151",
+      "fromID": "38400",
+      "toID": "38401",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52152",
+      "fromID": "38399",
+      "toID": "38397",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52153",
+      "fromID": "38401",
+      "toID": "38395",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52154",
+      "fromID": "38399",
+      "toID": "38402",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52155",
+      "fromID": "38402",
+      "toID": "38396",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52156",
+      "fromID": "38395",
+      "toID": "38403",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52157",
+      "fromID": "38403",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52158",
+      "fromID": "38404",
+      "toID": "38405",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52159",
+      "fromID": "38405",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52160",
+      "fromID": "38407",
+      "toID": "38406",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52161",
+      "fromID": "38407",
+      "toID": "38408",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52162",
+      "fromID": "38406",
+      "toID": "38404",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52163",
+      "fromID": "38408",
+      "toID": "38395",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52164",
+      "fromID": "38406",
+      "toID": "38409",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52165",
+      "fromID": "38409",
+      "toID": "38403",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52176",
+      "fromID": "38419",
+      "toID": "38420",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52177",
+      "fromID": "38420",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52178",
+      "fromID": "38421",
+      "toID": "38422",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52179",
+      "fromID": "38422",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52180",
+      "fromID": "38424",
+      "toID": "38423",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52181",
+      "fromID": "38424",
+      "toID": "38425",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52182",
+      "fromID": "38423",
+      "toID": "38421",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52183",
+      "fromID": "38425",
+      "toID": "38419",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52184",
+      "fromID": "38423",
+      "toID": "38426",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "52185",
+      "fromID": "38426",
+      "toID": "38420",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85777",
+      "fromID": "61631",
+      "toID": "61632",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85778",
+      "fromID": "61632",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85779",
+      "fromID": "61633",
+      "toID": "61634",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85780",
+      "fromID": "61634",
+      "toID": "6158",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85781",
+      "fromID": "61636",
+      "toID": "61635",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85782",
+      "fromID": "61636",
+      "toID": "61637",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85783",
+      "fromID": "61635",
+      "toID": "61633",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85784",
+      "fromID": "61637",
+      "toID": "61631",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85785",
+      "fromID": "61635",
+      "toID": "61638",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85786",
+      "fromID": "61638",
+      "toID": "61632",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85897",
+      "fromID": "61723",
+      "toID": "61724",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85898",
+      "fromID": "61724",
+      "toID": "61631",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85899",
+      "fromID": "61726",
+      "toID": "61725",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85900",
+      "fromID": "61726",
+      "toID": "61727",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85901",
+      "fromID": "61725",
+      "toID": "61636",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85902",
+      "fromID": "61727",
+      "toID": "61723",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85903",
+      "fromID": "61725",
+      "toID": "61728",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "85904",
+      "fromID": "61728",
+      "toID": "61724",
+      "formEdgeID": null
+    }
+  ],
+  "locutions": [
+    {
+      "nodeID": "6161",
+      "personID": "56",
+      "timestamp": "2012-04-13 12:54:44",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argublogging.com\/"
+    },
+    {
+      "nodeID": "6164",
+      "personID": "57",
+      "timestamp": "2012-04-13 12:54:45",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argublogging.tumblr.com\/post\/21019772855\/"
+    },
+    {
+      "nodeID": "6169",
+      "personID": "58",
+      "timestamp": "2012-04-13 18:36:50",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/www.argublogging.com\/"
+    },
+    {
+      "nodeID": "6172",
+      "personID": "59",
+      "timestamp": "2012-04-13 18:36:51",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argublogging.tumblr.com\/post\/21031061302\/"
+    },
+    {
+      "nodeID": "6178",
+      "personID": "60",
+      "timestamp": "2012-04-13 18:37:37",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argublogging.tumblr.com\/post\/21031096056\/"
+    },
+    {
+      "nodeID": "6867",
+      "personID": "82",
+      "timestamp": "2012-05-29 12:19:11",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argublogging.tumblr.com\/post\/23991634772\/"
+    },
+    {
+      "nodeID": "25030",
+      "personID": "368",
+      "timestamp": "2013-11-01 11:01:24",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/www.bbc.co.uk\/news\/uk-24766765"
+    },
+    {
+      "nodeID": "25033",
+      "personID": "369",
+      "timestamp": "2013-11-01 11:01:25",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argutest.tumblr.com\/post\/65683800582\/"
+    },
+    {
+      "nodeID": "25039",
+      "personID": "370",
+      "timestamp": "2013-11-01 11:03:22",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argublogging.tumblr.com\/post\/65683874913\/"
+    },
+    {
+      "nodeID": "33647",
+      "personID": "476",
+      "timestamp": "2014-07-15 21:35:41",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/www.washingtonpost.com\/opinions\/michael-gerson-conservatives-can-do-better-than-a-do-it-yourself-philosophy\/2014\/05\/29\/2ce4c4a0-e695-11e3-a86b-362fd5443d19_story.html?tid=pm_opinions_pop"
+    },
+    {
+      "nodeID": "33650",
+      "personID": "477",
+      "timestamp": "2014-07-15 21:35:42",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argublogging.tumblr.com\/post\/91877767861\/"
+    },
+    {
+      "nodeID": "35020",
+      "personID": "486",
+      "timestamp": "2014-08-20 18:14:41",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/www.wantinews.com\/news-8773322-Argentine-government-will-pay-to-the-Bondholders-through-a-local-account.html"
+    },
+    {
+      "nodeID": "35023",
+      "personID": "487",
+      "timestamp": "2014-08-20 18:14:42",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argublogging.tumblr.com\/post\/95293214421\/"
+    },
+    {
+      "nodeID": "35331",
+      "personID": "491",
+      "timestamp": "2014-08-26 08:25:27",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argublogging.tumblr.com\/post\/95807755621\/"
+    },
+    {
+      "nodeID": "38397",
+      "personID": "535",
+      "timestamp": "2014-10-25 12:29:21",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argublogging.com\/"
+    },
+    {
+      "nodeID": "38400",
+      "personID": "536",
+      "timestamp": "2014-10-25 12:29:22",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argublogging.tumblr.com\/post\/100902043566\/"
+    },
+    {
+      "nodeID": "38404",
+      "personID": "537",
+      "timestamp": "2014-10-25 12:29:33",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argublogging.com\/"
+    },
+    {
+      "nodeID": "38407",
+      "personID": "538",
+      "timestamp": "2014-10-25 12:29:33",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argublogging.tumblr.com\/post\/100902050901\/"
+    },
+    {
+      "nodeID": "38421",
+      "personID": "541",
+      "timestamp": "2014-10-25 12:55:40",
+      "start": null,
+      "end": null,
+      "source": "se:\/\/myfavor\/"
+    },
+    {
+      "nodeID": "38424",
+      "personID": "542",
+      "timestamp": "2014-10-25 12:55:40",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/argublogging.tumblr.com\/post\/100903125021\/"
+    },
+    {
+      "nodeID": "61633",
+      "personID": "740",
+      "timestamp": "2015-03-14 16:39:03",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/arg-rewards-scheme.blogspot.com\/"
+    },
+    {
+      "nodeID": "61636",
+      "personID": "741",
+      "timestamp": "2015-03-14 16:39:04",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/arg-rewards-scheme.blogspot.com\/2015\/03\/i-have-designed-it.html"
+    },
+    {
+      "nodeID": "61726",
+      "personID": "758",
+      "timestamp": "2015-03-15 03:10:21",
+      "start": null,
+      "end": null,
+      "source": "http:\/\/nirav-argtest.blogspot.com\/2015\/03\/works.html"
+    },
+    {
+      "nodeID": "170",
+      "personID": "1",
+      "timestamp": "2015-09-23 14:32:47",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "171",
+      "personID": "1",
+      "timestamp": "2015-09-23 14:32:47",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "172",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:32:47",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "173",
+      "personID": "1",
+      "timestamp": "2015-09-23 14:32:47",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "174",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:32:47",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "175",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:32:47",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "176",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:32:47",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "177",
+      "personID": "1",
+      "timestamp": "2015-09-23 14:32:47",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "178",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:32:47",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "179",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:32:47",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "180",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:32:47",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "181",
+      "personID": "1",
+      "timestamp": "2015-09-23 14:33:43",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "182",
+      "personID": "1",
+      "timestamp": "2015-09-23 14:33:43",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "183",
+      "personID": "1",
+      "timestamp": "2015-09-23 14:33:43",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "184",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:33:43",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "185",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:33:43",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "186",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:33:43",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "187",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:33:43",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "188",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:33:43",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "189",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:33:43",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "190",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:33:43",
+      "start": null,
+      "end": null,
+      "source": null
+    }
+  ]
+}
