@@ -9,7 +9,8 @@ import java.util.Set;
 
 public class NamedPEAFTheory extends PEAFTheory {
 
-    private Map<EArgument, String> names = Maps.newHashMap();
+    private Map<EArgument, String> namesMap = Maps.newHashMap();
+    private Map<String, EArgument> reverseNamesMap = Maps.newHashMap();
 
     public static Set<String> giveNames(Map<EArgument, String> names, Set<EArgument> args) {
         Set<String> argumentNames = Sets.newHashSet();
@@ -19,17 +20,23 @@ public class NamedPEAFTheory extends PEAFTheory {
         return argumentNames;
     }
 
+    public EArgument getArgument(String name) {
+        return reverseNamesMap.get(name);
+    }
+
     public EArgument addArgument(int identifier, String name) {
         EArgument argument = super.addArgument(identifier);
-        names.put(argument, name);
+        namesMap.put(argument, name);
+        reverseNamesMap.put(name, argument);
         return argument;
     }
 
     public void prettyPrint() {
+        System.out.println("NamedPEAF:");
         System.out.println("-- Arguments --");
         int i = 0;
         for (EArgument argument : this.getArguments()) {
-            System.out.println(i + ". " + names.get(argument));
+            System.out.println(i + ". " + namesMap.get(argument));
             i++;
         }
 
@@ -37,7 +44,7 @@ public class NamedPEAFTheory extends PEAFTheory {
         System.out.println("-- Supports --");
         i = 0;
         for (PSupport support : this.getSupports()) {
-            System.out.println(i + ". " + support.namedToString(names));
+            System.out.println(i + ". " + support.namedToString(namesMap));
             i++;
         }
 
@@ -45,7 +52,7 @@ public class NamedPEAFTheory extends PEAFTheory {
         System.out.println("-- Attacks --");
         i = 0;
         for (EAttack attack : this.getAttacks()) {
-            System.out.println(i + ". " + attack.namedToString(names));
+            System.out.println(i + ". " + attack.namedToString(namesMap));
             i++;
         }
 

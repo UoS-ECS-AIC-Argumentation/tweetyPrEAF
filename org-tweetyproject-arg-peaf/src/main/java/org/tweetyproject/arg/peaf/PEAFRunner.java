@@ -11,7 +11,7 @@ import org.tweetyproject.commons.util.Pair;
 import java.io.IOException;
 import java.util.Set;
 
-public class Runner {
+public class PEAFRunner {
     public static void main(String[] args) throws IOException {
         System.out.println("Working Directory: " + System.getProperty("user.dir"));
 

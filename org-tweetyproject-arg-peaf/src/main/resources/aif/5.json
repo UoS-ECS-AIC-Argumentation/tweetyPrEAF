@@ -1,0 +1,143 @@
+{
+  "nodes": [
+    {
+      "nodeID": "240",
+      "text": "The press need not keep quiet about Simon Jones' private life.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:08:32"
+    },
+    {
+      "nodeID": "241",
+      "text": "Simon Jones is a Member of Parliament.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:08:32"
+    },
+    {
+      "nodeID": "242",
+      "text": "The press need not keep quiet the private life of Members of Parliament.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:08:32"
+    },
+    {
+      "nodeID": "243",
+      "text": "Simon Jones just resigned from the House of Commons.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:08:32"
+    },
+    {
+      "nodeID": "244",
+      "text": "Persons who resign from the House of Commons are no longer Members of Parliament.",
+      "type": "I",
+      "timestamp": "2012-02-17 16:08:32"
+    },
+    {
+      "nodeID": "245",
+      "text": "RA",
+      "type": "RA",
+      "timestamp": "2012-02-17 16:08:32",
+      "probability": "0.5"
+    },
+    {
+      "nodeID": "246",
+      "text": "CA",
+      "type": "CA",
+      "timestamp": "2012-02-17 16:08:32"
+    }
+  ],
+  "edges": [
+    {
+      "edgeID": "238",
+      "fromID": "245",
+      "toID": "240",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "239",
+      "fromID": "241",
+      "toID": "245",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "240",
+      "fromID": "242",
+      "toID": "245",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "241",
+      "fromID": "246",
+      "toID": "241",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "242",
+      "fromID": "243",
+      "toID": "246",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "243",
+      "fromID": "244",
+      "toID": "246",
+      "formEdgeID": null
+    }
+  ],
+  "locutions": [
+    {
+      "nodeID": "240",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:41:44",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "241",
+      "personID": "1",
+      "timestamp": "2015-09-23 14:41:44",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "242",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:41:44",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "243",
+      "personID": "1",
+      "timestamp": "2015-09-23 14:42:52",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "244",
+      "personID": "1",
+      "timestamp": "2015-09-23 14:42:52",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "245",
+      "personID": "1219",
+      "timestamp": "2015-09-23 14:42:52",
+      "start": null,
+      "end": null,
+      "source": null
+    },
+    {
+      "nodeID": "246",
+      "personID": "1",
+      "timestamp": "2015-09-23 14:42:52",
+      "start": null,
+      "end": null,
+      "source": null
+    }
+  ]
+}
