@@ -22,9 +22,10 @@ public class AIFtoPEEAFConverter {
 
         peeafTheory.addArgument("eta", "eta");
 
+        // I-nodes is for arguments
         for (Map.Entry<String, AIFNode> entry : aifTheory.iNodeMap.entrySet()) {
             String nodeID = entry.getKey();
-            AIFNode node = entry.getValue();
+            // AIFNode node = entry.getValue();
             // FIXME: node.probability is not considered here for iNodes
             peeafTheory.addArgument(nodeID, nodeID);
         }
@@ -51,7 +52,6 @@ public class AIFtoPEEAFConverter {
             // CA node is for attacks
             else if (node.nodeType == AIFNodeType.CA) {
                 for (AIFNode to : node.getTos()) {
-                    String[] fromIdentifiers = new String[node.getFroms().size()];
                     for (AIFNode from : node.getFroms()) {
                         peeafTheory.addAttack("" + attackCount, from.nodeID, to.nodeID, node.probability);
                         attackCount++;
