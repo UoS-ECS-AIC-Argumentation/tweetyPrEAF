@@ -25,11 +25,11 @@ public class AIFRunner {
     public static void main(String[] args) throws IOException {
         System.out.println("Working Directory: " + System.getProperty("user.dir"));
         Options options = new Options();
-        Option input = new Option("i", "input", true, "AIF file path");
+        Option input = new Option("i", "input", true, "AIF file path (required)");
         input.setRequired(true);
         options.addOption(input);
 
-        Option queryOption = new Option("q", "query", true, "Query file path");
+        Option queryOption = new Option("q", "query", true, "Query file path (required)");
         queryOption.setRequired(true);
         options.addOption(queryOption);
 
