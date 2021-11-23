@@ -30,7 +30,7 @@ public class AIFReader {
         for (AIFJSONNode aifjsonNode : aifJSON.nodes) {
             AIFNodeType type = AIFNodeType.get(aifjsonNode.type);
             if (type == null) {
-                if (AIFNodeType.isIllocutionaryOrDialogueNode(aifjsonNode.type)) {
+                if (AIFNodeType.isAnIgnoredNodeType(aifjsonNode.type)) {
                     // Ignore illocutionary nodes
                     illocutionaryNodeIDs.add(aifjsonNode.nodeID);
                     continue;
@@ -42,10 +42,11 @@ public class AIFReader {
                 throw new RuntimeException("The node ID: " + aifjsonNode.nodeID + " is a duplicate." + "\n in " + pathString);
             }
 
-            // Assume the probability is zero if the field does not exists in JSON
+            // FIXME: Assume the probability is 0.5 if the field does not exists in JSON.
+            // FIXME: The probabilities will be changed with categorical data.
             double probability = aifjsonNode.probability;
             if (probability == 0.0) {
-                probability = 1.0;
+                probability = 0.5;
             }
 
             AIFNode aifNode = new AIFNode(aifjsonNode.nodeID, type, aifjsonNode.text, probability);

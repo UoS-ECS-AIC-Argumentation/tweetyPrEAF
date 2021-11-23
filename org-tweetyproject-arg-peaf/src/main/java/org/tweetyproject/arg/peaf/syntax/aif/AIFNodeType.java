@@ -20,20 +20,20 @@ public enum AIFNodeType {
     }
 
     // Table 1, also details the types and sub-types https://aclanthology.org/W17-5114.pdf
-    // MA("MA") // MA node is for reframe
-    private static final Set<String> illocutionaryAndDialogueNodeTypes = Sets.newHashSet("L", "YA", "TA");
-    public static boolean isIllocutionaryOrDialogueNode(String name) {
+    // MA("MA") // MA node is for reframe (again this is for dialogues)
+    private static final Set<String> ignoredNodeTypes = Sets.newHashSet("L", "YA", "TA", "MA");
+    public static boolean isAnIgnoredNodeType(String type) {
         // Based on the sections and Figure 3 retrieved from here:
         // https://books.google.com/books?hl=en&lr=&id=U5rWx0Kh4vMC&oi=fnd&pg=PA311&dq=aif+dialogic+argumentation&ots=KvG2SgCksa&sig=sPX0nlXCTR0S4SdTIhlWzVWPXfs
         // http://www.simonwells.org/assets/papers/reed_2008_aif.plus.pdf
         // Upper ontology of AIF+ to AIF
         // TA Nodes: Transition Application (Describing a dialogue)
         // L("L"), // L: Locution node
-        // YA("YA") // YA: Illocutionary Application (YA-) nodes∂
+        // YA("YA") // YA: Illocutionary Application (YA-) nodes
         // TA("TA"), // TA: Transition Application
         // Interesting slides:
         // https://www.academia.edu/download/48353941/Building_arguments_with_argumentation_th20160827-16862-1jyyooc.pdf
-        return illocutionaryAndDialogueNodeTypes.contains(name);
+        return ignoredNodeTypes.contains(type);
     }
 
     @Override
