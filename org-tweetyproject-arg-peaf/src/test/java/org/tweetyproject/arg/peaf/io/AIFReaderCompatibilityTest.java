@@ -6,6 +6,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.tweetyproject.arg.peaf.io.aif.AIFReader;
+import org.tweetyproject.arg.peaf.io.aif.AIFtoPEEAFConverter;
+import org.tweetyproject.arg.peaf.io.preeaf.PEEAFToPEAFConverter;
+import org.tweetyproject.arg.peaf.syntax.NamedPEAFTheory;
+import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
+import org.tweetyproject.arg.peaf.syntax.PEEAFTheory;
 import org.tweetyproject.arg.peaf.syntax.aif.AIFTheory;
 
 import java.io.File;
@@ -52,8 +57,15 @@ public class AIFReaderCompatibilityTest {
         if (absolutePath.equals("")){
             return;
         }
+        System.out.println("Testing the file: " + absolutePath);
         AIFReader reader = new AIFReader(this.absolutePath);
         AIFTheory theory = reader.read();
+        AIFtoPEEAFConverter converter = new AIFtoPEEAFConverter();
+        PEEAFTheory peeafTheory = converter.convert(theory);
+        peeafTheory.prettyPrint();
+        PEEAFToPEAFConverter converter2 = new PEEAFToPEAFConverter();
+        NamedPEAFTheory peafTheory = converter2.convert(peeafTheory);
+        peafTheory.prettyPrint();
     }
 
 }

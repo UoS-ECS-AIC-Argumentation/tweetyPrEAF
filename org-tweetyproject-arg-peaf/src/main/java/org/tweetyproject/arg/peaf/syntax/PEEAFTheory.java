@@ -168,6 +168,10 @@ public class PEEAFTheory {
     }
 
     private Argument checkAndGetArgument(String identifier) {
+        Object obj = this.identifierElementMap.get(identifier);
+        if (!(obj instanceof Argument)) {
+            throw new RuntimeException("The given argument `"+ obj +"` is not instance of Argument.");
+        }
         Argument to = (Argument) this.identifierElementMap.get(identifier);
         if (to == null) {
             throw new RuntimeException("The argument with id=`" + identifier + "` was not found.");

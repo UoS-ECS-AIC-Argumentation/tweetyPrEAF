@@ -26,5 +26,15 @@ public class AIFNode {
     public Set<AIFNode> getTos() {
         return tos;
     }
+
+    @Override
+    public String toString() {
+        return "AIFNode{" +
+                "id='" + nodeID + '\'' +
+                ", type=" + nodeType +
+                ", text='" + text + '\'' +
+                ", prob=" + probability +
+                '}';
+    }
 }
 

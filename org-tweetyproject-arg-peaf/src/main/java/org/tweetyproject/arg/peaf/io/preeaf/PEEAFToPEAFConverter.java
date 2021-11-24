@@ -13,8 +13,11 @@ public class PEEAFToPEAFConverter {
 
     public NamedPEAFTheory convert(PEEAFTheory peeafTheory) {
         // Li's Thesis Page 105 - Algorithm 11
-
         NamedPEAFTheory peafTheory = new NamedPEAFTheory();
+
+        if (peeafTheory.getArguments().size() == 0) {
+            return peafTheory;
+        }
 
         // V4R map
         Map<PEEAFTheory.Element, Integer> virtualMap = Maps.newHashMap();

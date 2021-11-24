@@ -88,7 +88,7 @@ public class AIFReader {
                 fromNode.getTos().add(toNode);
                 toNode.getFroms().add(fromNode);
             } else {
-                throw new RuntimeException("The edge id: " + edge.edgeID + " is not supported by tweetyPrEAF since, toID: " + toID + " fromID: " +
+                System.err.println("Warning: The edge id: " + edge.edgeID + " is not supported by tweetyPrEAF since, toID: " + toID + " fromID: " +
                         fromID + " fromType: " + fromNode.nodeType.toString() + " toType: " + toNode.nodeType.toString() + "\n in " + pathString);
             }
         }

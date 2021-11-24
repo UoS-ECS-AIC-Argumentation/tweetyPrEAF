@@ -19,8 +19,14 @@ public class AIFtoPEEAFConverter {
 
     public PEEAFTheory convert(AIFTheory aifTheory) {
         PEEAFTheory peeafTheory = new PEEAFTheory();
-
         peeafTheory.addArgument("eta", "eta");
+
+        if (aifTheory.nodeMap.size() == 0
+                && aifTheory.sNodeMap.size() == 0
+                && aifTheory.iNodeMap.size() == 0) {
+            System.err.println("Warning: Given aifTheory is empty.");
+            return peeafTheory;
+        }
 
         // I-nodes is for arguments
         for (Map.Entry<String, AIFNode> entry : aifTheory.iNodeMap.entrySet()) {
@@ -39,6 +45,10 @@ public class AIFtoPEEAFConverter {
 
             if (node.nodeType == AIFNodeType.RA) {
                 for (AIFNode to : node.getTos()) {
+                    if (node.getFroms().size() == 0) {
+                        throw new RuntimeException("The I-node that originates this RA node (`" + node + "`) does not exist.");
+                    }
+
                     String[] fromIdentifiers = new String[node.getFroms().size()];
                     int i = 0;
                     for (AIFNode from : node.getFroms()) {
