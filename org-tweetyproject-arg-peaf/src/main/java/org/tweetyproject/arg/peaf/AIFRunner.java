@@ -6,13 +6,12 @@ import com.google.gson.stream.JsonReader;
 import org.apache.commons.cli.*;
 import org.tweetyproject.arg.peaf.analysis.*;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
-import org.tweetyproject.arg.peaf.io.aif.AIFReader;
+import org.tweetyproject.arg.peaf.io.aif.AIFCISReader;
 import org.tweetyproject.arg.peaf.io.aif.AIFtoPEEAFConverter;
 import org.tweetyproject.arg.peaf.io.aif.Query;
 import org.tweetyproject.arg.peaf.io.preeaf.PEEAFToPEAFConverter;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.NamedPEAFTheory;
-import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 import org.tweetyproject.arg.peaf.syntax.PEEAFTheory;
 import org.tweetyproject.arg.peaf.syntax.aif.AIFTheory;
 
@@ -58,7 +57,7 @@ public class AIFRunner {
         String inputFilePath = cmd.getOptionValue("input");
         String queryFilePath = cmd.getOptionValue("query");
 
-        AIFReader reader = new AIFReader(inputFilePath);
+        AIFCISReader reader = new AIFCISReader(inputFilePath);
         AIFTheory aifTheory = reader.read();
         AIFtoPEEAFConverter aifConverter = new AIFtoPEEAFConverter();
         PEEAFTheory peeafTheory = aifConverter.convert(aifTheory);

@@ -10,11 +10,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Set;
 
-public class AIFReader {
+/**
+ * AIFCISReader can also read .cis files, since the field names in edges is the only
+ * difference. This is handled by GSON's alternative argument in @SerializedName.
+ */
+public class AIFCISReader {
     private final String pathString;
     private static final ClassLoader loader = PEEAFTheoryReader.class.getClassLoader();
 
-    public AIFReader(String pathString) {
+    public AIFCISReader(String pathString) {
         this.pathString = pathString;
     }
 
@@ -102,7 +106,7 @@ public class AIFReader {
 
     public static void main(String[] args) throws FileNotFoundException {
         System.out.println("Working Directory: " + System.getProperty("user.dir"));
-        AIFReader reader = new AIFReader(loader.getResource("aif/5.json").getPath());
+        AIFCISReader reader = new AIFCISReader(loader.getResource("aif/5.json").getPath());
         AIFTheory aifTheory = reader.read();
         System.out.println(aifTheory.toString());
     }

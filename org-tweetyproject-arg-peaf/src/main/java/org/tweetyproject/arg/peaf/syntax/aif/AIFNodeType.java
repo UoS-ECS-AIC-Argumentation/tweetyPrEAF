@@ -8,8 +8,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public enum AIFNodeType {
-    RA("RA"), // RA Node (is a S node)
-    CA("CA"), // CA Node (is a S node)
+    RA("RA"), // RA Node (is a S node) (considered as a support link)
+    CA("CA"), // CA Node (is a S node) (considered as a attack link)
     I("I");  // Information Node
 
     private static final Map<String, AIFNodeType> ENUM_MAP;

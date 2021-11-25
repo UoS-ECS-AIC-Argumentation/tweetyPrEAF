@@ -16,6 +16,10 @@ public class PEEAFTheory {
         Element(String identifier) {
             this.identifier = identifier;
         }
+
+        public String getIdentifier() {
+            return identifier;
+        }
     }
 
     public class Argument extends Element {

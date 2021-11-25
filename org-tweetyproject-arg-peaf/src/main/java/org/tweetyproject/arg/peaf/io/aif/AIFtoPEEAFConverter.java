@@ -3,7 +3,6 @@ package org.tweetyproject.arg.peaf.io.aif;
 import com.google.common.collect.Sets;
 import org.tweetyproject.arg.peaf.io.preeaf.PEEAFTheoryReader;
 import org.tweetyproject.arg.peaf.io.preeaf.PEEAFToPEAFConverter;
-import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 import org.tweetyproject.arg.peaf.syntax.PEEAFTheory;
 import org.tweetyproject.arg.peaf.syntax.aif.AIFNode;
@@ -31,9 +30,11 @@ public class AIFtoPEEAFConverter {
         // I-nodes is for arguments
         for (Map.Entry<String, AIFNode> entry : aifTheory.iNodeMap.entrySet()) {
             String nodeID = entry.getKey();
-            // AIFNode node = entry.getValue();
+            AIFNode node = entry.getValue();
             // FIXME: node.probability is not considered here for iNodes
-            peeafTheory.addArgument(nodeID, nodeID);
+            // FIXME: some preprocessing (perhaps not necessary)
+            String text = node.text.replaceAll("\\r|\\n", "");
+            peeafTheory.addArgument(nodeID, text);
         }
 
         int supportCount = 0;
@@ -94,14 +95,14 @@ public class AIFtoPEEAFConverter {
             throw new RuntimeException("There is not a node that does not receive any attack in this AIF.");
         }
 
-        peeafTheory.addSupport(""+supportCount, new String[]{"eta"}, argument.getName(), 1.0);
+        peeafTheory.addSupport(""+supportCount, new String[]{"eta"}, argument.getIdentifier(), 1.0);
 
         return peeafTheory;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
         System.out.println("Working Directory: " + System.getProperty("user.dir"));
-        AIFReader reader = new AIFReader(loader.getResource("aif/5.json").getPath());
+        AIFCISReader reader = new AIFCISReader(loader.getResource("aif/5.json").getPath());
         AIFTheory aifTheory = reader.read();
         AIFtoPEEAFConverter aifConverter = new AIFtoPEEAFConverter();
         PEEAFTheory peeafTheory = aifConverter.convert(aifTheory);

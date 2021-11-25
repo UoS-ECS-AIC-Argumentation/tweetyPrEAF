@@ -5,12 +5,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.tweetyproject.arg.peaf.io.aif.AIFReader;
+import org.tweetyproject.arg.peaf.io.aif.AIFCISReader;
 import org.tweetyproject.arg.peaf.io.aif.AIFtoPEEAFConverter;
 import org.tweetyproject.arg.peaf.io.preeaf.PEEAFToPEAFConverter;
-import org.tweetyproject.arg.peaf.syntax.NamedPEAFTheory;
-import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
-import org.tweetyproject.arg.peaf.syntax.PEEAFTheory;
+import org.tweetyproject.arg.peaf.syntax.*;
 import org.tweetyproject.arg.peaf.syntax.aif.AIFTheory;
 
 import java.io.File;
@@ -23,13 +21,13 @@ import java.util.Collection;
 
 
 @RunWith(Parameterized.class)
-public class AIFReaderCompatibilityTest {
+public class AIFCISReaderCompatibilityTest {
 
     @Parameters
     public static Collection<Object[]> getFiles() {
         Collection<Object[]> params = Lists.newArrayList();
         params.add(new Object[]{""});
-        Path rootDirectory = Paths.get("/Users/tdgunes/temp/aif_downloader/downloads");
+        Path rootDirectory = Paths.get("/Users/tdgunes/Projects/AIFDirectory/json/");
         File[] aifs = rootDirectory.toFile().listFiles(new FilenameFilter() {
             public boolean accept(File dir, String filename) {
                 return filename.endsWith(".json.gz");
@@ -48,7 +46,7 @@ public class AIFReaderCompatibilityTest {
 
     private String absolutePath;
 
-    public AIFReaderCompatibilityTest(String absolutePath) {
+    public AIFCISReaderCompatibilityTest(String absolutePath) {
         this.absolutePath = absolutePath;
     }
 
@@ -58,14 +56,15 @@ public class AIFReaderCompatibilityTest {
             return;
         }
         System.out.println("Testing the file: " + absolutePath);
-        AIFReader reader = new AIFReader(this.absolutePath);
+        AIFCISReader reader = new AIFCISReader(this.absolutePath);
         AIFTheory theory = reader.read();
         AIFtoPEEAFConverter converter = new AIFtoPEEAFConverter();
         PEEAFTheory peeafTheory = converter.convert(theory);
         peeafTheory.prettyPrint();
         PEEAFToPEAFConverter converter2 = new PEEAFToPEAFConverter();
         NamedPEAFTheory peafTheory = converter2.convert(peeafTheory);
-        peafTheory.prettyPrint();
+
+
     }
 
 }
