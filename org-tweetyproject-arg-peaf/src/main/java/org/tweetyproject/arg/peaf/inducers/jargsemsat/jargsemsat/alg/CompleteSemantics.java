@@ -1,29 +1,18 @@
 package org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.alg;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.Vector;
-
 import org.sat4j.core.VecInt;
 import org.sat4j.minisat.SolverFactory;
 import org.sat4j.specs.ContradictionException;
 import org.sat4j.specs.IProblem;
 import org.sat4j.specs.ISolver;
 import org.sat4j.specs.TimeoutException;
+import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.*;
 
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.DungAF;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.Encoding;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.Labelling;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.OrClause;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.SATFormulae;
+import java.io.*;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
 public class CompleteSemantics {
 

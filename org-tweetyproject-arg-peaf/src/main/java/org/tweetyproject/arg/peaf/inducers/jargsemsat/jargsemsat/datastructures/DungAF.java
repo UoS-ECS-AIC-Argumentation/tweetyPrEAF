@@ -24,22 +24,13 @@
 
 package org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures;
 
+import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.alg.*;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.Vector;
-
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.alg.CompleteSemantics;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.alg.GroundedSemantics;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.alg.PreferredSemantics;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.alg.SemiStableSemantics;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.alg.StableSemantics;
+import java.util.*;
 
 public class DungAF
 {

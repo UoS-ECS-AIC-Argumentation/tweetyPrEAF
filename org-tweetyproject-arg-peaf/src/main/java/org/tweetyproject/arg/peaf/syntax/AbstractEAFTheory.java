@@ -2,7 +2,9 @@ package org.tweetyproject.arg.peaf.syntax;
 
 import com.google.common.collect.Sets;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class AbstractEAFTheory<S, A> {
 

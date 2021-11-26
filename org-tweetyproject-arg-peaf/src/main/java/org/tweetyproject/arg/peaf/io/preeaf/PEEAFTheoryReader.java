@@ -1,7 +1,6 @@
 package org.tweetyproject.arg.peaf.io.preeaf;
 
 import org.tweetyproject.arg.peaf.syntax.NamedPEAFTheory;
-import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 import org.tweetyproject.arg.peaf.syntax.PEEAFTheory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

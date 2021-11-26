@@ -2,13 +2,10 @@ package org.tweetyproject.arg.peaf.inducers;
 
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import org.tweetyproject.arg.peaf.syntax.*;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 import java.util.function.Consumer;
 
 public abstract class AbstractPEAFInducer implements PEAFInducer {

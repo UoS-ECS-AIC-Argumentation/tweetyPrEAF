@@ -1,8 +1,8 @@
 package org.tweetyproject.arg.peaf.evaluation.daf;
 
-import org.graphstream.graph.Graph;
 import org.graphstream.algorithm.generator.Generator;
 import org.graphstream.algorithm.generator.RandomGenerator;
+import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.MultiGraph;
 
 /**

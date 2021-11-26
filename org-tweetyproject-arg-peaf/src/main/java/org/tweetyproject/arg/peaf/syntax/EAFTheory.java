@@ -5,7 +5,6 @@ import com.google.common.collect.Sets;
 import org.tweetyproject.arg.dung.syntax.Argument;
 import org.tweetyproject.arg.dung.syntax.DungTheory;
 import org.tweetyproject.commons.util.Pair;
-import org.tweetyproject.commons.util.SetTools;
 
 import java.util.*;
 import java.util.stream.Collectors;

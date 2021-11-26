@@ -1,29 +1,17 @@
 package org.tweetyproject.arg.peaf;
 
-import com.google.common.collect.Sets;
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 import org.apache.commons.cli.*;
-import org.tweetyproject.arg.peaf.analysis.*;
 import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
-import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.io.aif.AIFCISReader;
 import org.tweetyproject.arg.peaf.io.aif.AIFtoPEEAFConverter;
-import org.tweetyproject.arg.peaf.io.aif.Query;
 import org.tweetyproject.arg.peaf.io.preaf.EdgeListWriter;
 import org.tweetyproject.arg.peaf.io.preeaf.PEEAFToPEAFConverter;
-import org.tweetyproject.arg.peaf.syntax.EArgument;
-import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.NamedPEAFTheory;
 import org.tweetyproject.arg.peaf.syntax.PEEAFTheory;
 import org.tweetyproject.arg.peaf.syntax.aif.AIFTheory;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 
 public class AIFInducerRunner {
     public static void main(String[] args) throws IOException {

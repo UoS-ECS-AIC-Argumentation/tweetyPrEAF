@@ -1,13 +1,9 @@
 package org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.alg;
 
+import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.*;
+
 import java.util.Iterator;
 import java.util.Vector;
-
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.DungAF;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.Encoding;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.Labelling;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.OrClause;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.SATFormulae;
 
 public class StableSemantics extends CompleteSemantics {
 	public static boolean extensions(Vector<Labelling> ret, DungAF af, Encoding enc, String arg, boolean firstonly) {

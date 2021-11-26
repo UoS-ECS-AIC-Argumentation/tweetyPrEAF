@@ -24,16 +24,14 @@
 
 package org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.alg;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Iterator;
-// import java.util.Vector;
-
-import java.util.Vector;
-
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.DungAF;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.Encoding;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.Labelling;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Vector;
 
 public class ProboMain {
 

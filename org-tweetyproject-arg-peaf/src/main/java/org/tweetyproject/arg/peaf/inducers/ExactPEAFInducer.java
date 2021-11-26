@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.tweetyproject.arg.peaf.syntax.*;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;

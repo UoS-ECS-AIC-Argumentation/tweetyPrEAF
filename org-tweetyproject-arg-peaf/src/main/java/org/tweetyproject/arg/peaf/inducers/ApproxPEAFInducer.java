@@ -4,7 +4,9 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.tweetyproject.arg.peaf.syntax.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+import java.util.Stack;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 

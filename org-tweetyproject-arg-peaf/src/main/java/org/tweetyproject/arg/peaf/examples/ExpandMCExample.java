@@ -2,10 +2,7 @@ package org.tweetyproject.arg.peaf.examples;
 
 import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
-import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
-
-import java.util.function.Consumer;
 
 public class ExpandMCExample {
     public static void main(String[] args) {

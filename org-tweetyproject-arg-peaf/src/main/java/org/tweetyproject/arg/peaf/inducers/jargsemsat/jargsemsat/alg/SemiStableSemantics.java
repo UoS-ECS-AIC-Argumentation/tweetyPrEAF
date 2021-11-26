@@ -1,11 +1,11 @@
 package org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.alg;
 
-import java.util.Iterator;
-import java.util.Vector;
-
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.DungAF;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.Encoding;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures.Labelling;
+
+import java.util.Iterator;
+import java.util.Vector;
 
 public class SemiStableSemantics extends CompleteSemantics {
 

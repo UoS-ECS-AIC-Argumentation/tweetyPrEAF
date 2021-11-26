@@ -3,12 +3,9 @@ package org.tweetyproject.arg.peaf.examples;
 import org.tweetyproject.arg.peaf.analysis.AnalysisResult;
 import org.tweetyproject.arg.peaf.analysis.ApproxAnalysis;
 import org.tweetyproject.arg.peaf.analysis.ExactAnalysis;
-import org.tweetyproject.arg.peaf.inducers.ApproxPEAFInducer;
-import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
-import org.tweetyproject.commons.util.Pair;
 
 import java.util.HashSet;
 import java.util.List;

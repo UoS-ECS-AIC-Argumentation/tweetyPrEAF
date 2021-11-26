@@ -3,10 +3,7 @@ package org.tweetyproject.arg.peaf.io.cis;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import org.tweetyproject.arg.peaf.io.aif.AIFCISReader;
-import org.tweetyproject.arg.peaf.io.aif.AIFtoPEEAFConverter;
-import org.tweetyproject.arg.peaf.syntax.PEEAFTheory;
 import org.tweetyproject.arg.peaf.syntax.aif.AIFJSONTheory;
 import org.tweetyproject.arg.peaf.syntax.aif.AIFTheory;
 

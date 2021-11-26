@@ -24,12 +24,8 @@
 
 package org.tweetyproject.arg.peaf.inducers.jargsemsat.jargsemsat.datastructures;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 public class Labelling {
 	public static final String lab_in = "in";

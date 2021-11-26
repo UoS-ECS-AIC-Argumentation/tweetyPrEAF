@@ -17,7 +17,6 @@ import org.tweetyproject.arg.peaf.syntax.aif.AIFTheory;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Set;
 
 public class AIFRunner {
