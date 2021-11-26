@@ -26,7 +26,7 @@ public class PEEAFToPEAFConverter {
         int noArgs = 0;
         Map<PEEAFTheory.Argument, Integer> argToInt = Maps.newHashMap();
         for (PEEAFTheory.Argument argument : peeafTheory.getArguments()) {
-            peafTheory.addArgument(noArgs, argument.getName());
+            peafTheory.addArgument(noArgs, argument.getName(), argument.getIdentifier());
             argToInt.put(argument, noArgs);
             noArgs++;
         }
@@ -34,7 +34,7 @@ public class PEEAFToPEAFConverter {
         // Line 2-7
         for (PEEAFTheory.Support support : peeafTheory.getSupports()) {
             // virtual argument for support line 3
-            peafTheory.addArgument(noArgs, "virtual" + noArgs);
+            peafTheory.addArgument(noArgs, "virtual" + noArgs, "virtual" + noArgs);
             int virtualArgumentIndex = noArgs;
             noArgs++;
 
@@ -54,7 +54,7 @@ public class PEEAFToPEAFConverter {
             PEEAFTheory.Element element = attack.getTo();
             if (element instanceof PEEAFTheory.Argument) {
                 // virtual argument for support line 9 and 16
-                peafTheory.addArgument(noArgs, "virtual" + noArgs);
+                peafTheory.addArgument(noArgs, "virtual" + noArgs, "virtual" + noArgs);
                 int virtualArgumentIndex = noArgs;
                 noArgs++;
 
@@ -75,7 +75,7 @@ public class PEEAFToPEAFConverter {
             PEEAFTheory.Element element = attack.getTo();
             if (!(element instanceof PEEAFTheory.Argument)) {
                 // virtual argument for support line 9 and 16
-                peafTheory.addArgument(noArgs, "virtual" + noArgs);
+                peafTheory.addArgument(noArgs, "virtual" + noArgs,  "virtual" + noArgs);
                 int virtualArgumentIndex = noArgs;
                 noArgs++;
 

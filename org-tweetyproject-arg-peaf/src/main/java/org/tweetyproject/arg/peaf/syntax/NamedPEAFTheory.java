@@ -11,6 +11,7 @@ public class NamedPEAFTheory extends PEAFTheory {
 
     private Map<EArgument, String> namesMap = Maps.newHashMap();
     private Map<String, EArgument> reverseNamesMap = Maps.newHashMap();
+    private Map<String, EArgument> reverseAIFIdentifierMap = Maps.newHashMap();
 
     public static Set<String> giveNames(Map<EArgument, String> names, Set<EArgument> args) {
         Set<String> argumentNames = Sets.newHashSet();
@@ -20,14 +21,23 @@ public class NamedPEAFTheory extends PEAFTheory {
         return argumentNames;
     }
 
-    public EArgument getArgument(String name) {
+    public String getArgumentNameFromIdentifier(String identifier) {
+        return namesMap.get(getArgumentByIdentifier(identifier));
+    }
+
+    public EArgument getArgumentByName(String name) {
         return reverseNamesMap.get(name);
     }
 
-    public EArgument addArgument(int identifier, String name) {
+    public EArgument getArgumentByIdentifier(String identifier) {
+        return reverseAIFIdentifierMap.get(identifier);
+    }
+
+    public EArgument addArgument(int identifier, String name, String aifIdentifier) {
         EArgument argument = super.addArgument(identifier);
         namesMap.put(argument, name);
         reverseNamesMap.put(name, argument);
+        reverseAIFIdentifierMap.put(aifIdentifier, argument);
         return argument;
     }
 

@@ -84,18 +84,16 @@ public class AIFtoPEEAFConverter {
                 candidateArguments.remove((PEEAFTheory.Argument) attack.getTo());
             }
         }
-        PEEAFTheory.Argument argument = null;
-
-        for (PEEAFTheory.Argument candidateArgument : candidateArguments) {
-            argument = candidateArgument;
-            break;
-        }
-
         if (candidateArguments.size() == 0) {
             throw new RuntimeException("There is not a node that does not receive any attack in this AIF.");
         }
 
-        peeafTheory.addSupport(""+supportCount, new String[]{"eta"}, argument.getIdentifier(), 1.0);
+        for (PEEAFTheory.Argument candidateArgument : candidateArguments) {
+            peeafTheory.addSupport(""+supportCount, new String[]{"eta"}, candidateArgument.getIdentifier(), 1.0);
+            supportCount++;
+        }
+
+
 
         return peeafTheory;
     }

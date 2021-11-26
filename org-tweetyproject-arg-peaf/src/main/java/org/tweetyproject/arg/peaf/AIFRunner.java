@@ -24,11 +24,14 @@ public class AIFRunner {
     public static void main(String[] args) throws IOException {
         System.out.println("Working Directory: " + System.getProperty("user.dir"));
         Options options = new Options();
-        Option input = new Option("i", "input", true, "AIF file path (required)");
+        Option input = new Option("i", "input", true, "AIF file path (.json) (required)");
         input.setRequired(true);
         options.addOption(input);
 
-        Option queryOption = new Option("q", "query", true, "Query file path (required)");
+        Option uncertaintyOption = new Option("u", "uncertainty", true, "Uncertainty table file path (.json) (optional, otherwise probabilities will be 0.5.)");
+        options.addOption(uncertaintyOption);
+
+        Option queryOption = new Option("q", "query", true, "Query file path (.json) (required)");
         queryOption.setRequired(true);
         options.addOption(queryOption);
 
@@ -56,9 +59,15 @@ public class AIFRunner {
 
         String inputFilePath = cmd.getOptionValue("input");
         String queryFilePath = cmd.getOptionValue("query");
+        String uncertaintyPath = cmd.getOptionValue("uncertainty");
+
+        System.out.println("Given AIF file path: " + inputFilePath);
+        System.out.println("Query file path: " + queryFilePath);
+        System.out.println("Uncertainty table file path: " + uncertaintyPath);
 
         AIFCISReader reader = new AIFCISReader(inputFilePath);
         AIFTheory aifTheory = reader.read();
+        aifTheory.annotateEdges(uncertaintyPath);
         AIFtoPEEAFConverter aifConverter = new AIFtoPEEAFConverter();
         PEEAFTheory peeafTheory = aifConverter.convert(aifTheory);
         PEEAFToPEAFConverter peeafConverter = new PEEAFToPEAFConverter();
@@ -75,7 +84,7 @@ public class AIFRunner {
 
         Set<EArgument> query = Sets.newHashSet();
         for (String iNodeID : queryObject.iNodeIDs) {
-            EArgument eArgument = peaf.getArgument(iNodeID);
+            EArgument eArgument = peaf.getArgumentByIdentifier(iNodeID);
             if (eArgument == null) {
                 throw new RuntimeException("The given nodeID as `" + iNodeID + "` does not exist in the given AIF.");
             }
@@ -83,7 +92,11 @@ public class AIFRunner {
         }
 
         System.out.println("Given AIF file path: " + inputFilePath);
-        System.out.println("The query: " + Arrays.toString(queryObject.iNodeIDs));
+        System.out.println("The query (in text):");
+        for (String nodeID : queryObject.iNodeIDs) {
+            System.out.println("`"+ nodeID + "`: " + peaf.getArgumentNameFromIdentifier(nodeID));
+        }
+        System.out.println("The query (in internal format): " + query);
 
         String errorLevelString = cmd.getOptionValue("errorLevel", "0.01");
         double errorLevel = Double.parseDouble(errorLevelString);

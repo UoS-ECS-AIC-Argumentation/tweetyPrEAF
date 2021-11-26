@@ -10,7 +10,7 @@ public class AIFNode {
     public final String nodeID;
     public final AIFNodeType nodeType;
     public final String text;
-    public final double probability;
+    public double probability;
 
     public AIFNode(String nodeID, AIFNodeType nodeType, String text, double probability) {
         this.nodeID = nodeID;
@@ -35,6 +35,10 @@ public class AIFNode {
                 ", text='" + text + '\'' +
                 ", prob=" + probability +
                 '}';
+    }
+
+    public void setProbability(double probability) {
+        this.probability = probability;
     }
 }
 

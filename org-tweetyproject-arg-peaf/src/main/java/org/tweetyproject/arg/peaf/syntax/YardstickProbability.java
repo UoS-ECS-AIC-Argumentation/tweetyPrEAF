@@ -45,4 +45,8 @@ public enum YardstickProbability {
     public static YardstickProbability get(String name) {
         return ENUM_MAP.get(name.toLowerCase());
     }
+
+    public Double toDouble() {
+        return this.probability;
+    }
 }
