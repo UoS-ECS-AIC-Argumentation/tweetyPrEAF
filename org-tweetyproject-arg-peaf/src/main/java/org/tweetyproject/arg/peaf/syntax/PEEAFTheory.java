@@ -7,6 +7,7 @@ import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class PEEAFTheory {
 
@@ -174,11 +175,11 @@ public class PEEAFTheory {
     private Argument checkAndGetArgument(String identifier) {
         Object obj = this.identifierElementMap.get(identifier);
         if (!(obj instanceof Argument)) {
-            throw new RuntimeException("The given argument `"+ obj +"` is not instance of Argument.");
+            throw new NotAnArgumentException("The given argument `" + obj + "` is not instance of Argument.");
         }
         Argument to = (Argument) this.identifierElementMap.get(identifier);
         if (to == null) {
-            throw new RuntimeException("The argument with id=`" + identifier + "` was not found.");
+            throw new NotAnArgumentException("The argument with id=`" + identifier + "` was not found.");
         }
         return to;
     }
@@ -186,7 +187,7 @@ public class PEEAFTheory {
     private Element checkAndGetElement(String identifier) {
         Element to = this.identifierElementMap.get(identifier);
         if (to == null) {
-            throw new RuntimeException("The element with id=`" + identifier + "` was not found.");
+            throw new ElementNotFoundException("The element with id=`" + identifier + "` was not found.");
         }
         return to;
     }
@@ -231,4 +232,38 @@ public class PEEAFTheory {
         System.out.println("\n");
     }
 
+    public static class NotAnArgumentException extends RuntimeException {
+        private static AtomicLong atomicLong = new AtomicLong(0);
+        public NotAnArgumentException(String message) {
+            super(message);
+            atomicLong.getAndIncrement();
+        }
+        public static long getOccurrenceCount() {
+            return atomicLong.get();
+        }
+    }
+
+    public static class ElementNotFoundException extends RuntimeException {
+        private static AtomicLong atomicLong = new AtomicLong(0);
+        public ElementNotFoundException(String message) {
+            super(message);
+            atomicLong.getAndIncrement();
+        }
+
+        public static long getOccurrenceCount() {
+            return atomicLong.get();
+        }
+    }
+
+    public static class Exceptions {
+
+        public static long describe() {
+            long count = 0;
+            System.out.println("PEEAF.NotAnArgumentException count: " + NotAnArgumentException.getOccurrenceCount());
+            count += NotAnArgumentException.getOccurrenceCount();
+            System.out.println("PEEAF.ElementNotFoundException count: " + ElementNotFoundException.getOccurrenceCount());
+            count += ElementNotFoundException.getOccurrenceCount();
+            return count;
+        }
+    }
 }

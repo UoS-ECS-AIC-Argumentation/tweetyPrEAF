@@ -1,6 +1,8 @@
 package org.tweetyproject.arg.peaf.io;
 
 import com.google.common.collect.Lists;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -22,6 +24,19 @@ import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class AIFCISReaderCompatibilityTest {
+    @BeforeClass
+    public static void setup() {
+
+    }
+
+    @AfterClass
+    public static void finish() {
+        long exceptionCount = 0;
+        exceptionCount += PEEAFTheory.Exceptions.describe();
+        exceptionCount += AIFtoPEEAFConverter.Exceptions.describe();
+        exceptionCount += AIFCISReader.Exceptions.describe();
+        System.out.println("Exception count: " + exceptionCount);
+    }
 
     @Parameters
     public static Collection<Object[]> getFiles() {

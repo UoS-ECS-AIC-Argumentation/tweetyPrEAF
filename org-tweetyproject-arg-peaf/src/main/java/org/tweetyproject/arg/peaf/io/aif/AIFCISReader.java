@@ -9,6 +9,7 @@ import org.tweetyproject.arg.peaf.syntax.aif.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * AIFCISReader can also read .cis files, since the field names in edges is the only
@@ -39,11 +40,11 @@ public class AIFCISReader {
                     illocutionaryNodeIDs.add(aifjsonNode.nodeID);
                     continue;
                 }
-                throw new RuntimeException("The given AIF has an unsupported node type: "
+                throw new UnsupportedNodeTypeException("The given AIF has an unsupported node type: "
                         + aifjsonNode.type + " nodeID: " + aifjsonNode.nodeID + " text: " + aifjsonNode.text + "\n in " + pathString);
             }
             if (aif.nodeMap.containsKey(aifjsonNode.nodeID)) {
-                throw new RuntimeException("The node ID: " + aifjsonNode.nodeID + " is a duplicate." + "\n in " + pathString);
+                throw new DuplicateNodeIDException("The node ID: " + aifjsonNode.nodeID + " is a duplicate." + "\n in " + pathString);
             }
 
             // FIXME: Assume the probability is 0.5 if the field does not exists in JSON.
@@ -102,6 +103,41 @@ public class AIFCISReader {
 
     private boolean isValid(AIFNode node1, AIFNode node2) {
         return node1.nodeType == AIFNodeType.I && (node2.nodeType == AIFNodeType.CA || node2.nodeType == AIFNodeType.RA);
+    }
+
+    public static class UnsupportedNodeTypeException extends RuntimeException {
+        private static AtomicLong atomicLong = new AtomicLong(0);
+        public UnsupportedNodeTypeException(String message) {
+            super(message);
+            atomicLong.getAndIncrement();
+        }
+        public static long getOccurrenceCount() {
+            return atomicLong.get();
+        }
+    }
+
+    public static class DuplicateNodeIDException extends RuntimeException {
+        private static AtomicLong atomicLong = new AtomicLong(0);
+        public DuplicateNodeIDException(String message) {
+            super(message);
+            atomicLong.getAndIncrement();
+        }
+
+        public static long getOccurrenceCount() {
+            return atomicLong.get();
+        }
+    }
+
+    public static class Exceptions {
+
+        public static long describe() {
+            long count = 0;
+            System.out.println("AIFCISReader.UnsupportedNodeTypeException count: " + AIFCISReader.UnsupportedNodeTypeException.getOccurrenceCount());
+            count += AIFCISReader.UnsupportedNodeTypeException.getOccurrenceCount();
+            System.out.println("AIFCISReader.DuplicateNodeIDException count: " + AIFCISReader.DuplicateNodeIDException.getOccurrenceCount());
+            count += AIFCISReader.DuplicateNodeIDException.getOccurrenceCount();
+            return count;
+        }
     }
 
     public static void main(String[] args) throws FileNotFoundException {

@@ -12,6 +12,7 @@ import org.tweetyproject.arg.peaf.syntax.aif.AIFTheory;
 import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class AIFtoPEEAFConverter {
     private static final ClassLoader loader = PEEAFTheoryReader.class.getClassLoader();
@@ -33,7 +34,10 @@ public class AIFtoPEEAFConverter {
             AIFNode node = entry.getValue();
             // FIXME: node.probability is not considered here for iNodes
             // FIXME: some preprocessing (perhaps not necessary)
-            String text = node.text.replaceAll("\\r|\\n", "");
+            String text = "";
+            if (node.text != null) {
+                text = node.text.replaceAll("\\r|\\n", "");
+            }
             peeafTheory.addArgument(nodeID, text);
         }
 
@@ -47,7 +51,7 @@ public class AIFtoPEEAFConverter {
             if (node.nodeType == AIFNodeType.RA) {
                 for (AIFNode to : node.getTos()) {
                     if (node.getFroms().size() == 0) {
-                        throw new RuntimeException("The I-node that originates this RA node (`" + node + "`) does not exist.");
+                        throw new INodeForRANodeNotFoundException("The I-node that originates this RA node (`" + node + "`) does not exist.");
                     }
 
                     String[] fromIdentifiers = new String[node.getFroms().size()];
@@ -85,7 +89,7 @@ public class AIFtoPEEAFConverter {
             }
         }
         if (candidateArguments.size() == 0) {
-            throw new RuntimeException("There is not a node that does not receive any attack in this AIF.");
+            throw new NoNotAttackedINodeException("There is not a node that does not receive any attack in this AIF.");
         }
 
         for (PEEAFTheory.Argument candidateArgument : candidateArguments) {
@@ -109,5 +113,40 @@ public class AIFtoPEEAFConverter {
         PEEAFToPEAFConverter peeafConverter = new PEEAFToPEAFConverter();
         PEAFTheory peafTheory = peeafConverter.convert(peeafTheory);
         peafTheory.prettyPrint();
+    }
+
+    public static class INodeForRANodeNotFoundException extends RuntimeException {
+        private static AtomicLong atomicLong = new AtomicLong(0);
+        public INodeForRANodeNotFoundException(String message) {
+            super(message);
+            atomicLong.getAndIncrement();
+        }
+        public static long getOccurrenceCount() {
+            return atomicLong.get();
+        }
+    }
+
+    public static class NoNotAttackedINodeException extends RuntimeException {
+        private static AtomicLong atomicLong = new AtomicLong(0);
+        public NoNotAttackedINodeException(String message) {
+            super(message);
+            atomicLong.getAndIncrement();
+        }
+
+        public static long getOccurrenceCount() {
+            return atomicLong.get();
+        }
+    }
+
+    public static class Exceptions {
+
+        public static long describe() {
+            long count = 0;
+            System.out.println("AIFtoPEEAF.INodeForRANodeNotFoundException count: " + INodeForRANodeNotFoundException.getOccurrenceCount());
+            count += INodeForRANodeNotFoundException.getOccurrenceCount();
+            System.out.println("AIFtoPEEAF.NoNotAttackedINodeException count: " + NoNotAttackedINodeException.getOccurrenceCount());
+            count += NoNotAttackedINodeException.getOccurrenceCount();
+            return count;
+        }
     }
 }
