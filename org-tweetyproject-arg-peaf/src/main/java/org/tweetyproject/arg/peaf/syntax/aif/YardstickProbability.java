@@ -1,4 +1,4 @@
-package org.tweetyproject.arg.peaf.syntax;
+package org.tweetyproject.arg.peaf.syntax.aif;
 
 import java.util.Collections;
 import java.util.Map;
@@ -38,15 +38,17 @@ public enum YardstickProbability {
         return this.name;
     }
 
-    private double getProbability() {
-        return probability;
-    }
-
     public static YardstickProbability get(String name) {
         return ENUM_MAP.get(name.toLowerCase());
     }
 
     public Double toDouble() {
         return this.probability;
+    }
+
+    public static void main(String[] args) {
+        for (Map.Entry<String, YardstickProbability> entry : ENUM_MAP.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue().probability);
+        }
     }
 }

@@ -8,7 +8,7 @@ import org.tweetyproject.arg.peaf.analysis.*;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.io.aif.AIFCISReader;
 import org.tweetyproject.arg.peaf.io.aif.AIFtoPEEAFConverter;
-import org.tweetyproject.arg.peaf.io.aif.Query;
+import org.tweetyproject.arg.peaf.syntax.aif.Query;
 import org.tweetyproject.arg.peaf.io.preeaf.PEEAFToPEAFConverter;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.NamedPEAFTheory;
@@ -75,27 +75,9 @@ public class AIFRunner {
         peeafTheory.prettyPrint();
         peaf.prettyPrint();
 
-
         Gson gson = new Gson();
         JsonReader jsonReader = new JsonReader(new FileReader(queryFilePath));
 
-        Query queryObject = gson.fromJson(jsonReader, Query.class);
-
-        Set<EArgument> query = Sets.newHashSet();
-        for (String iNodeID : queryObject.iNodeIDs) {
-            EArgument eArgument = peaf.getArgumentByIdentifier(iNodeID);
-            if (eArgument == null) {
-                throw new RuntimeException("The given nodeID as `" + iNodeID + "` does not exist in the given AIF.");
-            }
-            query.add(eArgument);
-        }
-
-        System.out.println("Given AIF file path: " + inputFilePath);
-        System.out.println("The query (in text):");
-        for (String nodeID : queryObject.iNodeIDs) {
-            System.out.println("`"+ nodeID + "`: " + peaf.getArgumentNameFromIdentifier(nodeID));
-        }
-        System.out.println("The query (in internal format): " + query);
 
         String errorLevelString = cmd.getOptionValue("errorLevel", "0.01");
         double errorLevel = Double.parseDouble(errorLevelString);
@@ -103,8 +85,11 @@ public class AIFRunner {
         if (errorLevel <= 0 || errorLevel >= 1.0) {
             throw new RuntimeException("Error level must be in the range of (0.0, 1.0).");
         }
-
         System.out.println("The error level is: " + errorLevel);
+
+
+        Query queryObject = gson.fromJson(jsonReader, Query.class);
+        System.out.println("Given AIF file path: " + inputFilePath);
 
         String noThreadsString = cmd.getOptionValue("noThreads", "1");
         int noThreads = Integer.parseInt(noThreadsString);
@@ -114,8 +99,45 @@ public class AIFRunner {
         }
 
         System.out.println("No threads: " + noThreads);
-
+        System.out.println("type,time(ms),justification,peafNodes,iteration,attacks,supports,aifNodes");
         String type = cmd.getOptionValue("type", "approx");
+
+        for (String[] iNodeIDs : queryObject.queries) {
+            Set<EArgument> query = Sets.newHashSet();
+            System.out.println("The query (in text):");
+            for (String iNodeID : iNodeIDs) {
+                EArgument eArgument = peaf.getArgumentByIdentifier(iNodeID);
+                if (eArgument == null) {
+                    throw new RuntimeException("The given nodeID as `" + iNodeID + "` does not exist in the given AIF.");
+                }
+                query.add(eArgument);
+                System.out.println("`"+ iNodeID + "`: " + peaf.getArgumentNameFromIdentifier(iNodeID));
+            }
+            System.out.println("The query (in internal format): " + query);
+            AbstractAnalysis analysis = initialiseAnalysis(peaf, errorLevel, noThreads, type);
+
+            long startTime = System.currentTimeMillis();
+            AnalysisResult result = analysis.query(query);
+
+            double justification = result.getProbability();
+            double iterations = result.getNoIterations();
+            long estimatedTime = System.currentTimeMillis() - startTime;
+
+
+            System.out.println(
+                    type + "," +
+                            estimatedTime + "," +
+                            justification + "," +
+                            peaf.getNumberOfNodes() + "," +
+                            iterations + "," +
+                            peaf.getAttacks().size() + "," +
+                            peaf.getSupports().size() + "," +
+                            aifTheory.nodeMap.size()
+            );
+        }
+    }
+
+    private static AbstractAnalysis initialiseAnalysis(NamedPEAFTheory peaf, double errorLevel, int noThreads, String type) {
         AnalysisType analysisType = AnalysisType.get(type);
 
         AbstractAnalysis analysis;
@@ -135,26 +157,7 @@ public class AIFRunner {
             default:
                 throw new RuntimeException("The analysis type that is named as '" + type + "' does not exist.");
         }
-
-        long startTime = System.currentTimeMillis();
-        AnalysisResult result = analysis.query(query);
-
-        double justification = result.getProbability();
-        double iterations = result.getNoIterations();
-        long estimatedTime = System.currentTimeMillis() - startTime;
-
-        System.out.println("type,time(ms),justification,peafNodes,iteration,attacks,supports,aifNodes");
-        System.out.println(
-                type + "," +
-                        estimatedTime + "," +
-                        justification + "," +
-                        peaf.getNumberOfNodes() + "," +
-                        iterations + "," +
-                        peaf.getAttacks().size() + "," +
-                        peaf.getSupports().size() + "," +
-                        aifTheory.nodeMap.size()
-            );
-
+        return analysis;
     }
 
 }

@@ -1,7 +1,6 @@
 package org.tweetyproject.arg.peaf.syntax.aif;
 
 import com.google.common.collect.Maps;
-import org.tweetyproject.arg.peaf.syntax.YardstickProbability;
 
 import java.util.Map;
 
