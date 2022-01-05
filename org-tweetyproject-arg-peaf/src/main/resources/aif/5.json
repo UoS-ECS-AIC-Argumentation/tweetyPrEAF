@@ -139,5 +139,37 @@
       "end": null,
       "source": null
     }
+  ],
+  "probabilistic_justifications" : [
+    {
+      "query": [ ],
+      "result": ,
+      "reasoner": {
+        "parameters":,
+        "method":,
+        "error": ,
+        "noThreads": ,
+      }
+    },
+    {
+      "query": [ ],
+      "result":,
+      "reasoner": {
+        "parameters":,
+        "method":,
+        "error": ,
+        "noThreads": ,
+      }
+    }
+    {
+      "query": [ ],
+      "result": ,
+      "reasoner": {
+        "parameters":,
+        "method":,
+        "error": ,
+        "noThreads": ,
+      }
+    }
   ]
 }

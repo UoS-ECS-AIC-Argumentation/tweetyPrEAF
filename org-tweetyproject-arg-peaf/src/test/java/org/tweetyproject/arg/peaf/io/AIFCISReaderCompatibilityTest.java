@@ -42,7 +42,7 @@ public class AIFCISReaderCompatibilityTest {
     public static Collection<Object[]> getFiles() {
         Collection<Object[]> params = Lists.newArrayList();
         params.add(new Object[]{""});
-        Path rootDirectory = Paths.get("/Users/tdgunes/Projects/AIFDirectory/json/");
+        Path rootDirectory = Paths.get("/Users/tdgunes/Projects/Serapis/aif/json/");
         File[] aifs = rootDirectory.toFile().listFiles(new FilenameFilter() {
             public boolean accept(File dir, String filename) {
                 return filename.endsWith(".json.gz");

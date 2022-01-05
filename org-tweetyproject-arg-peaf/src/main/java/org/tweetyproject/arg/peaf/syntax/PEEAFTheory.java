@@ -172,7 +172,7 @@ public class PEEAFTheory {
         identifierElementMap.put(identifier, attack);
     }
 
-    private Argument checkAndGetArgument(String identifier) {
+    public Argument checkAndGetArgument(String identifier) {
         Object obj = this.identifierElementMap.get(identifier);
         if (!(obj instanceof Argument)) {
             throw new NotAnArgumentException("The given argument `" + obj + "` is not instance of Argument.");

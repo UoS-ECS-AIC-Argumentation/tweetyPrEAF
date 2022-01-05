@@ -102,7 +102,7 @@ public class AIFCISReader {
     }
 
     private boolean isValid(AIFNode node1, AIFNode node2) {
-        return node1.nodeType == AIFNodeType.I && (node2.nodeType == AIFNodeType.CA || node2.nodeType == AIFNodeType.RA);
+        return node1.nodeType == AIFNodeType.I && (node2.nodeType == AIFNodeType.CA || node2.nodeType == AIFNodeType.RA || node2.nodeType == AIFNodeType.MA);
     }
 
     public static class UnsupportedNodeTypeException extends RuntimeException {

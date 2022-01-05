@@ -181,6 +181,26 @@
       "type": "I"
     },
     {
+      "nodeID": "6f491666-6029-45ae-94b6-848094c81eb1",
+      "text": "remote_chance",
+      "type": "I"
+    },
+    {
+      "nodeID": "6f491666-6029-45ae-94b6-848094c81eb2",
+      "text": "almost_certain",
+      "type": "I"
+    },
+    {
+      "nodeID": "6f491666-6029-45ae-94b6-848094c81ea1",
+      "text": "Restatement",
+      "type": "MA"
+    },
+    {
+      "nodeID": "6f491666-6029-45ae-94b6-848094c81ea2",
+      "text": "Restatement",
+      "type": "MA"
+    },
+    {
       "nodeID": "6f491666-6029-45ae-94b6-848094c81ea3",
       "text": "There is a toxic non-waterborne bacteria in the Kish water supply",
       "type": "I"
@@ -426,6 +446,26 @@
       "edgeID": "8a2377e1-5d2e-41a1-9d12-f20cd6221634",
       "fromID": "cd7b4b91-c10c-495b-ac39-52c1ef3fbce6",
       "toID": "f7822900-96b1-4056-82f2-b2af8b468435"
+    },
+    {
+      "edgeID": "8a2377e1-5d2e-41a1-9d12-f20cd6221635",
+      "fromID": "6f491666-6029-45ae-94b6-848094c81ea1",
+      "toID": "6f491666-6029-45ae-94b6-848094c81ea3"
+    },
+    {
+      "edgeID": "8a2377e1-5d2e-41a1-9d12-f20cd6221636",
+      "fromID": "6f491666-6029-45ae-94b6-848094c81ea2",
+      "toID": "6f491666-6029-45ae-94b6-848094c81ea3"
+    },
+    {
+      "edgeID": "8a2377e1-5d2e-41a1-9d12-f20cd622163a",
+      "fromID": "6f491666-6029-45ae-94b6-848094c81eb1",
+      "toID": "6f491666-6029-45ae-94b6-848094c81ea1"
+    },
+    {
+      "edgeID": "8a2377e1-5d2e-41a1-9d12-f20cd622163b",
+      "fromID": "6f491666-6029-45ae-94b6-848094c81eb2",
+      "toID": "6f491666-6029-45ae-94b6-848094c81ea2"
     }
   ]
 }

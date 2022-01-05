@@ -10,7 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public enum AIFNodeType {
     RA("RA"), // RA Node (is a S node) (considered as a support link)
     CA("CA"), // CA Node (is a S node) (considered as a attack link)
-    I("I");  // Information Node
+    I("I"),  // Information Node
+    MA("MA"); // MA Node, Restatement Node (i.e. reframe)
 
     private static final Map<String, AIFNodeType> ENUM_MAP;
     private final String text;
@@ -20,8 +21,8 @@ public enum AIFNodeType {
     }
 
     // Table 1, also details the types and sub-types https://aclanthology.org/W17-5114.pdf
-    // MA("MA") // MA node is for reframe (again this is for dialogues)
-    private static final Set<String> ignoredNodeTypes = Sets.newHashSet("L", "YA", "TA", "MA");
+    // MA("MA") // MA node is for reframe (again this is for dialogues), i.e. restatements
+    private static final Set<String> ignoredNodeTypes = Sets.newHashSet("L", "YA", "TA");
     public static boolean isAnIgnoredNodeType(String type) {
         // Based on the sections and Figure 3 retrieved from here:
         // https://books.google.com/books?hl=en&lr=&id=U5rWx0Kh4vMC&oi=fnd&pg=PA311&dq=aif+dialogic+argumentation&ots=KvG2SgCksa&sig=sPX0nlXCTR0S4SdTIhlWzVWPXfs

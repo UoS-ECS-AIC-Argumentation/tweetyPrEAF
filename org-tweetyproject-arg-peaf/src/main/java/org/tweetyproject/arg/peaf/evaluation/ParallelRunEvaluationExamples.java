@@ -26,14 +26,14 @@ public class ParallelRunEvaluationExamples {
 
 //        String inducer = "approx"; // Approximate Solution
 //      String inducer = "exact"; // Exact Solution
-        String inducer = "con_exact"; // Concurrent Exact Solution
-//        String inducer = "con_approx"; // Concurrent Approximate Solution
+//        String inducer = "con_exact"; // Concurrent Exact Solution
+        String inducer = "con_approx"; // Concurrent Approximate Solution
 
 //        int sizeLimiter = Integer.MAX_VALUE;
         int sizeLimiter = 8;
 
         double errorLevel = 0.005;
-        int nThreads = 1;
+        int nThreads = 10;
         /* End Inputs */
 
         ExecutorService threadPoolExecutor = Executors.newFixedThreadPool(nThreads);

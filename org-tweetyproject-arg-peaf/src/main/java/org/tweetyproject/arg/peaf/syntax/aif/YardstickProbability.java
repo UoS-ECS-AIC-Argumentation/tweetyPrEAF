@@ -42,6 +42,10 @@ public enum YardstickProbability {
         return ENUM_MAP.get(name.toLowerCase());
     }
 
+    public static boolean contains(String name) {
+        return ENUM_MAP.containsKey(name);
+    }
+
     public Double toDouble() {
         return this.probability;
     }
