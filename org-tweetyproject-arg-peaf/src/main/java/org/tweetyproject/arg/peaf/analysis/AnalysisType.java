@@ -9,7 +9,8 @@ public enum AnalysisType {
     LI_EXACT("li_exact"),
     APPROX("approx"),
     CONCURRENT_APPROX("con_approx"),
-    CONCURRENT_EXACT("con_exact");
+    CONCURRENT_EXACT("con_exact"),
+    PREFERRED("preferred");
 
     private static final Map<String, AnalysisType> ENUM_MAP;
     private final String text;

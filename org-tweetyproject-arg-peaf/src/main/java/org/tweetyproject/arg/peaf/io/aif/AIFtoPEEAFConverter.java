@@ -47,6 +47,8 @@ public class AIFtoPEEAFConverter {
         // MA - Condition #3: [I* Node - A] -> [MA Node] -> [I node - C] <- [MA Node] <- [I* Node - B]
         //  to <- MA <- froms
         Map<AIFNode, Set<AIFNode>> maNodeTosMap = Maps.newHashMap();
+        Set<String> restatedNodes = Sets.newHashSet();
+
         // attack map (For ignoring MA from nodes)
         Map<AIFNode, AIFNode> attackMap = Maps.newHashMap();
 
@@ -131,6 +133,7 @@ public class AIFtoPEEAFConverter {
                 else {
                     maNodeTosMap.get(to).add(from);
                 }
+                restatedNodes.add(to.nodeID);
             }
         }
 
@@ -166,18 +169,26 @@ public class AIFtoPEEAFConverter {
         encodes such evidential notions, then this last step is not necessary."
          */
         Set<PEEAFTheory.Argument> candidateArguments = Sets.newHashSet(peeafTheory.getArguments().subList(1, peeafTheory.getArguments().size()));
-        for (PEEAFTheory.Attack attack : peeafTheory.getAttacks()) {
-            if (attack.getTo() instanceof PEEAFTheory.Argument) {
-                candidateArguments.remove((PEEAFTheory.Argument) attack.getTo());
+        // In contrast to the paper, we follow a different approach. We make a link from eta to any node that has not
+        // supported by any support links. The candidate arguments here denote the ones that will get a support link
+        // from eta to such arguments.
+        for (PEEAFTheory.Support support : peeafTheory.getSupports()) {
+            if (support.getTo() != null) {
+                candidateArguments.remove(support.getTo());
             }
         }
+
+
         if (candidateArguments.size() == 0) {
             throw new NoNotAttackedINodeException("There is not a node that does not receive any attack in this AIF.");
         }
 
         for (PEEAFTheory.Argument candidateArgument : candidateArguments) {
-            peeafTheory.addSupport(""+supportCount, new String[]{"eta"}, candidateArgument.getIdentifier(), 1.0);
-            supportCount++;
+            // MA - Condition #3: [I* Node - A] -> [MA Node] -> [I node - C] <- [MA Node] <- [I* Node - B]
+            if (!restatedNodes.contains(candidateArgument.getIdentifier())) {
+                peeafTheory.addSupport(""+supportCount, new String[]{"eta"}, candidateArgument.getIdentifier(), 1.0);
+                supportCount++;
+            }
         }
 
 

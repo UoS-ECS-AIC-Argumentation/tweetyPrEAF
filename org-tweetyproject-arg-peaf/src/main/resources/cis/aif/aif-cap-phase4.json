@@ -187,7 +187,7 @@
     },
     {
       "nodeID": "6f491666-6029-45ae-94b6-848094c81eb2",
-      "text": "almost_certain",
+      "text": "unlikely",
       "type": "I"
     },
     {
@@ -466,6 +466,51 @@
       "edgeID": "8a2377e1-5d2e-41a1-9d12-f20cd622163b",
       "fromID": "6f491666-6029-45ae-94b6-848094c81eb2",
       "toID": "6f491666-6029-45ae-94b6-848094c81ea2"
+    }
+  ],
+  "analyses": [
+    {
+      "query" : ["6f491666-6029-45ae-94b6-848094c81ea3"],
+      "result" : {
+        "datetime" : "",
+        "outcome": "",
+        "status": "",
+        "elapsedTimeMS" : ""
+      },
+      "reasoner" : {
+        "type": "approx",
+        "parameters": {
+          "noThreads": "10",
+          "errorLevel": "0.01"
+        }
+      }
+    },
+    {
+      "query" : ["6f491666-6029-45ae-94b6-848094c81ea3"],
+      "result" : {
+        "datetime" : "",
+        "outcome": "",
+        "status": "",
+        "elapsedTimeMS" : ""
+      },
+      "reasoner" : {
+        "type": "approx",
+        "parameters": {
+          "noThreads": "10",
+          "errorLevel": "0.1"
+        }
+      }
+    },
+    {
+      "query" : [],
+      "result" : {
+        "datetime" : "",
+        "outcome": "",
+        "status": ""
+      },
+      "reasoner" : {
+        "type": "preferred"
+      }
     }
   ]
 }

@@ -23,11 +23,7 @@ public class AIFCISReader {
         this.pathString = pathString;
     }
 
-    public AIFTheory read() throws FileNotFoundException {
-        Gson gson = new Gson();
-        JsonReader reader = new JsonReader(new FileReader(pathString));
-
-        AIFJSONTheory aifJSON = gson.fromJson(reader, AIFJSONTheory.class);
+    public AIFTheory read(AIFJSONTheory aifJSON) {
         AIFTheory aif = new AIFTheory();
 
         Set<String> illocutionaryNodeIDs = Sets.newHashSet();
@@ -99,6 +95,14 @@ public class AIFCISReader {
         }
 
         return aif;
+    }
+
+    public AIFTheory read() throws FileNotFoundException {
+        Gson gson = new Gson();
+        JsonReader reader = new JsonReader(new FileReader(pathString));
+
+        AIFJSONTheory aifJSON = gson.fromJson(reader, AIFJSONTheory.class);
+        return this.read(aifJSON);
     }
 
     private boolean isValid(AIFNode node1, AIFNode node2) {
