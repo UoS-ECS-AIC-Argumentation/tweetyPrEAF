@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class AbstractEAFTheory<S, A> {
+public abstract class AbstractEAFTheory<S> {
 
     protected EArgument eta;
     protected Set<EArgument> argumentsSet = Sets.newHashSet();
@@ -14,7 +14,7 @@ public abstract class AbstractEAFTheory<S, A> {
 
     protected ArrayList<EArgument> arguments = new ArrayList<>();
     protected ArrayList<S> supports = new ArrayList<>();
-    protected ArrayList<A> attacks = new ArrayList<>();
+    protected ArrayList<EAttack> attacks = new ArrayList<>();
 
     protected void addArgument(EArgument argument) {
         if (arguments.size() == 0) {
@@ -25,7 +25,7 @@ public abstract class AbstractEAFTheory<S, A> {
     }
 
 
-    protected boolean addAttack(A attack) {
+    protected boolean addAttack(EAttack attack) {
         return attacks.add(attack);
     }
 
@@ -35,6 +35,37 @@ public abstract class AbstractEAFTheory<S, A> {
 
     protected EArgument createArgument(String name) {
         return new EArgument(name);
+    }
+
+    public void addAttack(int[] fromIndices, int[] toIndices) {
+        Set<EArgument> froms = createEmptyArgSet(fromIndices);
+        Set<EArgument> tos = createEmptyArgSet(toIndices);
+
+        int identifier = attacks.size();
+        EAttack attack = this.createAttack(Integer.toString(identifier), froms, tos);
+        this.addAttack(attack);
+    }
+
+    /**
+     * Creates an attack object (does not add to the internal abstract object)
+     *
+     * @param name  the name of the attack
+     * @param froms the set of arguments that the attack originates from
+     * @param tos   the set of arguments that the attack targets
+     * @return EAttack object
+     */
+    protected EAttack createAttack(String name, Set<EArgument> froms, Set<EArgument> tos) {
+        if (tos.contains(eta)) {
+            throw new RuntimeException("Argument eta can't be attacked.");
+        }
+        EAttack attack = new EAttack(name, froms, tos);
+        for (EArgument from : froms) {
+            from.addAttack(attack);
+        }
+        for (EArgument to : tos) {
+            to.addAttackedBy(attack);
+        }
+        return attack;
     }
 
     protected Set<EArgument> createEmptyArgSet(int[] fromIndices) {
@@ -65,7 +96,7 @@ public abstract class AbstractEAFTheory<S, A> {
         return supports;
     }
 
-    public ArrayList<A> getAttacks() {
+    public ArrayList<EAttack> getAttacks() {
         return attacks;
     }
 
@@ -88,7 +119,7 @@ public abstract class AbstractEAFTheory<S, A> {
         System.out.println("");
         System.out.println("-- Attacks --");
         i = 0;
-        for (A attack : this.getAttacks()) {
+        for (EAttack attack : this.getAttacks()) {
             System.out.println(i + ". " + attack);
             i++;
         }

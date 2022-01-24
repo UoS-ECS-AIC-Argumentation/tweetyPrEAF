@@ -9,24 +9,78 @@ import org.tweetyproject.commons.util.Pair;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
+/**
+ * This class implements an abstract argumentation theory in the sense of Evidential Argumentation Frameworks (EAF).
+ * </br>
+ * </br>See
+ * </br>
+ * </br> Li, Hengfei. Probabilistic argumentation. 2015. PhD Thesis. Aberdeen University.
+ *
+ * @author Taha Dogan Gunes
+ */
+public class EAFTheory extends AbstractEAFTheory<ESupport> {
 
-
-
+    /**
+     * Default constructor; initializes an empty EAFTheory
+     */
     public EAFTheory() {
     }
 
+    /**
+     * Optional constructor; initializes an EAFTheory with arguments
+     *
+     * @param noArguments the number of arguments
+     */
     public EAFTheory(int noArguments) {
         for (int i = 0; i < noArguments; i++) {
             this.addArgument(i);
         }
     }
 
+    /**
+     * Creates a new EAFTheory from an PEAFTheory (the probabilities are eliminated)
+     *
+     * @param peafTheory PEAFTheory object
+     * @return
+     */
+    public static EAFTheory newEAFTheory(PEAFTheory peafTheory) {
+        EAFTheory eafTheory = new EAFTheory();
+        for (EArgument argument : peafTheory.getArguments()) {
+            eafTheory.addArgument(argument);
+        }
 
+        for (EAttack attack : peafTheory.getAttacks()) {
+            EAttack attack2 = eafTheory.createAttack(attack.name, attack.getFroms(), attack.getTos());
+            eafTheory.addAttack(attack2);
+        }
+
+        for (PSupport support : peafTheory.getSupports()) {
+            ESupport support2 = eafTheory.createSupport(support.name, support.getFroms(), support.getTos());
+            eafTheory.addSupport(support2);
+        }
+
+        return eafTheory;
+    }
+
+
+    /**
+     * Creates an arguments with a name
+     *
+     * @param name the name of the argument
+     * @return EArgument object
+     */
     protected EArgument createArgument(String name) {
         return new EArgument(name);
     }
 
+    /**
+     * Internal method to create a support object
+     *
+     * @param name  the name of the support
+     * @param froms the set of arguments that the support originates from
+     * @param tos   the set of arguments that the support targets
+     * @return ESupport object
+     */
     private ESupport createSupport(String name, Set<EArgument> froms, Set<EArgument> tos) {
         ESupport support = new ESupport(name, froms, tos);
         for (EArgument to : tos) {
@@ -39,35 +93,25 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
     }
 
 
+    /**
+     * Add an argument with an integer identifier
+     *
+     * @param identifier the identifier of the argument
+     * @return EArgument object
+     */
     public EArgument addArgument(int identifier) {
         EArgument argument = this.createArgument(Integer.toString(identifier));
         this.addArgument(argument);
         return argument;
     }
 
-    protected EAttack createAttack(String name, Set<EArgument> froms, Set<EArgument> tos) {
-        if (tos.contains(eta)) {
-            throw new RuntimeException("Argument eta can't be attacked.");
-        }
-        EAttack attack = new EAttack(name, froms, tos);
-        for (EArgument from : froms) {
-            from.addAttack(attack);
-        }
-        for (EArgument to : tos) {
-            to.addAttackedBy(attack);
-        }
-        return attack;
-    }
 
-    public void addAttack(int[] fromIndices, int[] toIndices) {
-        Set<EArgument> froms = createEmptyArgSet(fromIndices);
-        Set<EArgument> tos = createEmptyArgSet(toIndices);
-
-        int identifier = attacks.size();
-        EAttack attack = this.createAttack(Integer.toString(identifier), froms, tos);
-        this.addAttack(attack);
-    }
-
+    /**
+     * Add a support with index arrays (froms and tos)
+     *
+     * @param fromIndices integer array with argument, represents indices of arguments
+     * @param toIndices   integer array with argument, represents indices of arguments
+     */
     public void addSupport(int[] fromIndices, int[] toIndices) {
         Set<EArgument> froms = createEmptyArgSet(fromIndices);
         Set<EArgument> tos = createEmptyArgSet(toIndices);
@@ -77,87 +121,39 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
         this.addSupport(support);
     }
 
+    /**
+     * Gets arguments of the EAF
+     *
+     * @return list of arguments inside the EAF (insert ordered)
+     */
     public ArrayList<EArgument> getArguments() {
         return arguments;
     }
 
+    /**
+     * Gets supports of the EAF
+     *
+     * @return list of supports inside the EAF (insert ordered)
+     */
     public ArrayList<ESupport> getSupports() {
         return supports;
     }
 
+    /**
+     * Gets attacks of the EAF
+     *
+     * @return list of attacks inside the EAF (insert ordered)
+     */
     public ArrayList<EAttack> getAttacks() {
         return attacks;
     }
 
-    public Set<Set<EArgument>> convertToDAFWithMaximalSSAS() {
-        // This method is using Algorithm 5 from Oren et. al. 2010 "Moving Between Argumentation Frameworks"
-        // SSAS = Self-Supporting Argument Sets
-        // Maximal part is for reducing redundant arguments that gets generated in the naive version of the conversion.
-
-
-        Set<Set<EArgument>> Answer = new HashSet<>();
-
-        for (EArgument a : arguments) {
-            System.out.println("> Start " + a);
-            Answer.addAll(computeBackSet(a, new HashSet<>()));
-            System.out.println("> Stop " + a);
-        }
-
-        for (Iterator<Set<EArgument>> it = Answer.iterator(); it.hasNext(); ) {
-            Set<EArgument> AS = it.next();
-            if (!AS.contains(eta)) {
-                it.remove();
-            }
-
-//            // Does answer has a duplicate or a superset of AS
-//
-            for (Iterator<Set<EArgument>> it2 = Answer.iterator(); it.hasNext(); ) {
-                Set<EArgument> AS_PRIME = it.next();
-                if (AS_PRIME.containsAll(AS)) {
-                    it2.remove();
-                }
-            }
-
-        }
-        return Answer;
-    }
-
-    private Set<Set<EArgument>> computeBackSet(EArgument a, Set<Pair<Set<EArgument>, EArgument>> visited) {
-        System.out.println("Visited: " + Arrays.toString(visited.toArray()));
-        Set<Set<EArgument>> ans = new HashSet<>();
-        for (ESupport support : a.getSupportedBy()) {
-            Set<EArgument> X = support.getFroms();
-            Pair<Set<EArgument>, EArgument> pair = new Pair<>(X, a);
-
-            List<Set<EArgument>> B = new ArrayList<>();
-            if (!visited.contains(pair)) {
-                int i = 0;
-                for (EArgument x_i : X) {
-//                    Set<Pair<Set<EArgument>, EArgument>> newVisited = new HashSet<>(visited);
-                    visited.add(pair);
-
-                    if (i >= B.size()) {
-                        B.add(new HashSet<>());
-                    }
-                    Set<EArgument> b = B.get(i);
-                    b.add(x_i);
-
-
-                    B.addAll(computeBackSet(x_i, visited));
-
-                    i++;
-                }
-            }
-            for (Set<EArgument> b : B) {
-                b.add(a);
-            }
-            ans.addAll(B);
-        }
-
-        System.out.println("ans: " + ans);
-        return ans;
-    }
-
+    /**
+     * This method converts this EAF to a DAF with using Algorithm 1 from
+     * Oren et. al. 2010 "Moving Between Argumentation Frameworks"
+     *
+     * @return DungTheory object
+     */
     public DungTheory convertToDAFNaively() {
         // This method is using Algorithm 1 from Oren et. al. 2010 "Moving Between Argumentation Frameworks"
         Set<Set<EArgument>> dungArguments = new HashSet<>(); // Line 1
@@ -222,9 +218,16 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
         return dungTheory;
     }
 
+    /**
+     * Checks if a set of arguments whether they are self-supporting or not
+     * This is used for conversion from EAF to DAF.
+     * A set of arguments A is self-supporting if and only if for all a in A, A e-supports a
+     *
+     * @param A a set of arguments
+     * @return true if the set of arguments are self-supporting or not.
+     */
     public boolean checkIsSelfSupporting(Set<EArgument> A) {
         // Check if the subset is self-supporting (Line 4, if A is self-supporting)
-        // A set of arguments A is self-supporting if and only if for all a in A, A e-supports a
         boolean isSelfSupporting = true;
         for (EArgument a : A) { // for all a in A
             if (a == eta) {
@@ -241,7 +244,6 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
 
             boolean supports = false;
 
-
             for (Set<EArgument> T : Sets.powerSet(A_copy)) {
                 for (EArgument x : T) {
                     if (a.isSupportedBy(x)) {
@@ -253,12 +255,14 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
                 }
             }
 
-
             isSelfSupporting = isSelfSupporting && supports;
         }
         return isSelfSupporting;
     }
 
+    /**
+     * Pretty print of the EAFTheory
+     */
     public void prettyPrint() {
         System.out.println("-- Arguments --");
         int i = 0;
@@ -282,7 +286,5 @@ public class EAFTheory extends AbstractEAFTheory<ESupport, EAttack> {
             System.out.println(i + ". " + attack);
             i++;
         }
-
-
     }
 }

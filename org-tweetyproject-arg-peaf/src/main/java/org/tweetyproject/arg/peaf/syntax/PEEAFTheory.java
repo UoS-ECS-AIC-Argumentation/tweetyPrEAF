@@ -9,8 +9,21 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * This class implements an abstract argumentation theory
+ * in the sense of Probabilistic Extended Evidential Argumentation Frameworks (PrEEAF).
+ * </br>
+ * </br>See
+ * </br>
+ * </br> Li, Hengfei. Probabilistic argumentation. 2015. PhD Thesis. Aberdeen University.
+ *
+ * @author Taha Dogan Gunes
+ */
 public class PEEAFTheory {
 
+    /**
+     *  Element is the parent of PEEAFTheory.Argument, PEEAFTheory.Support and PEEAFTheory.Attack
+     */
     public abstract class Element {
         protected final String identifier;
 
@@ -23,6 +36,9 @@ public class PEEAFTheory {
         }
     }
 
+    /**
+     *
+     */
     public class Argument extends Element {
         private final String name;
 
@@ -44,6 +60,9 @@ public class PEEAFTheory {
         }
     }
 
+    /**
+     *
+     */
     public class Support extends Element {
         private Set<Argument> froms = Sets.newHashSet();
         private Argument to;

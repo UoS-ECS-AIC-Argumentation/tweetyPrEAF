@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public abstract class AbstractAnalysis  implements JustificationAnalysis {
 
     protected final PEAFTheory peafTheory;
-    private final AbstractExtensionReasoner extensionReasoner;
+    protected final AbstractExtensionReasoner extensionReasoner;
     protected final AnalysisType analysisType;
 
     public AbstractAnalysis(PEAFTheory peafTheory, AbstractExtensionReasoner extensionReasoner, AnalysisType analysisType) {
@@ -94,10 +94,10 @@ public abstract class AbstractAnalysis  implements JustificationAnalysis {
         return Q_prime;
     }
 
-    private DungTheory createDAF(EAFTheory eafTheory) {
+    protected DungTheory createDAF(EAFTheory eafTheory) {
         Map<String, Argument> argumentsInAttack = Maps.newHashMap();
         DungTheory dungTheory = new DungTheory();
-        for (EAttack attack : peafTheory.getAttacks()) {
+        for (EAttack attack : eafTheory.getAttacks()) {
             String from = this.convertEArgumentsToDAFArgumentName(attack.getFroms());
 
             if (!argumentsInAttack.containsKey(from)) {

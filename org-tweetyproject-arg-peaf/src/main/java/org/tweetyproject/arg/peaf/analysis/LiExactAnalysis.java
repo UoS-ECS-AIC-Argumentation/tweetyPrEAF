@@ -2,6 +2,7 @@ package org.tweetyproject.arg.peaf.analysis;
 
 import org.tweetyproject.arg.dung.reasoner.AbstractExtensionReasoner;
 import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
+import org.tweetyproject.arg.peaf.io.preaf.EdgeListWriter;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 
@@ -37,10 +38,10 @@ public class LiExactAnalysis extends AbstractAnalysis {
         LiExactPEAFInducer exactPEAFInducer = new LiExactPEAFInducer(this.peafTheory);
         exactPEAFInducer.induce(iEAF -> {
             System.out.println(iEAF);
-//            String probability = String.format("%.04f", iEAF.getInducePro());
-//            probability = probability.replace(".", "_");
-//            EdgeListWriter.write("/home/tdgunes/Projects/DrawPrEAF/input/" + this.analysisType.toString() + "_" + i[0] + "" + "_" + probability + ".eaf", iEAF.toNewEAFTheory());
-//            i[0] += 1;
+            String probability = String.format("%.04f", iEAF.getInducePro());
+            probability = probability.replace(".", "_");
+            EdgeListWriter.write("/home/tdgunes/Projects/DrawPrEAF/input/" + this.analysisType.toString() + "_" + i[0] + "" + "_" + probability + ".eaf", iEAF.toNewEAFTheory());
+            i[0] += 1;
         });
     }
 }

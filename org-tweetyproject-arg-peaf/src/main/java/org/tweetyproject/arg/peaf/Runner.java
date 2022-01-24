@@ -21,6 +21,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Arrays;
 import java.util.Set;
 
 public class Runner {
@@ -94,9 +95,6 @@ public class Runner {
                 }
             }
 
-            System.out.println("The error level is: " + errorLevel);
-            System.out.println("No threads: " + noThreads);
-
             boolean isQueryExpected = true;
             AbstractAnalysis abstractAnalysis = null;
             switch (type) {
@@ -114,7 +112,7 @@ public class Runner {
                     break;
                 case PREFERRED:
                     // Convert peaf -> eaf -> daf, then run jargsemsat
-                    builder.append("Error: DAF Solver with preferred extensions is not implemented yet.\n");
+                    abstractAnalysis = new PreferredAnalysis(peaf);
                     isQueryExpected = false;
                     break;
                 default:
@@ -137,36 +135,42 @@ public class Runner {
                 System.exit(1);
             }
 
-            analysis.result.status = builder.toString();
-            if (abstractAnalysis == null) {
-                analysis.result.status = builder.toString();
-                break;
-            }
-
-            Set<EArgument> query = Sets.newHashSet();
-            System.out.println("The query (in text):");
-            for (String iNodeID : queries) {
-                EArgument eArgument = peaf.getArgumentByIdentifier(iNodeID);
-                if (eArgument == null) {
-                    builder.append("The given nodeID as `" + iNodeID + "` does not exist in the given AIF.");
-                    System.err.println("The given nodeID as `" + iNodeID + "` does not exist in the given AIF.");
-                    break;
-                }
-                query.add(eArgument);
-                System.out.println("`"+ iNodeID + "`: " + peaf.getArgumentNameFromIdentifier(iNodeID));
-            }
-            System.out.println("The query (in internal format): " + query);
-
             long startTime = System.currentTimeMillis();
-            AnalysisResult result = abstractAnalysis.query(query);
+            analysis.result.status = builder.toString();
+            if (type == AnalysisType.PREFERRED) {
+                analysis.result.status = builder.toString();
+                PreferredAnalysis preferredAnalysis = (PreferredAnalysis) abstractAnalysis;
+                analysis.result.outcome = Arrays.toString(preferredAnalysis.getExtensions().toArray());
+            } else {
+                System.out.println("The error level is: " + errorLevel);
+                System.out.println("No threads: " + noThreads);
 
-            double justification = result.getProbability();
+                Set<EArgument> query = Sets.newHashSet();
+                System.out.println("The query (in text):");
+                for (String iNodeID : queries) {
+                    EArgument eArgument = peaf.getArgumentByIdentifier(iNodeID);
+                    if (eArgument == null) {
+                        builder.append("The given nodeID as `" + iNodeID + "` does not exist in the given AIF.");
+                        System.err.println("The given nodeID as `" + iNodeID + "` does not exist in the given AIF.");
+                        break;
+                    }
+                    query.add(eArgument);
+                    System.out.println("`"+ iNodeID + "`: " + peaf.getArgumentNameFromIdentifier(iNodeID));
+                }
+                System.out.println("The query (in internal format): " + query);
+
+                AnalysisResult result = abstractAnalysis.query(query);
+                double justification = result.getProbability();
+                analysis.result.outcome = "" + justification;
+
+            }
             long elapsedTime = System.currentTimeMillis() - startTime;
+            System.out.println("Completed in " + elapsedTime + " ms, the result is: " + analysis.result.outcome + ".");
 
             builder.append("Success");
-            analysis.result.outcome = "" + justification;
+
             analysis.result.elapsedTimeMS = "" + elapsedTime;
-            System.out.println("Completed in " + elapsedTime + " ms, the result is: " + justification + ".");
+
             analysis.result.status = builder.toString();
         }
 
