@@ -20,7 +20,6 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport> {
      * Default constructor; initializes an empty PEAFTheory
      */
     public PEAFTheory() {
-
     }
 
     /**
@@ -34,15 +33,14 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport> {
         }
     }
 
-
     /**
      * Internal method to create a support object
      *
      * @param name  the name of the support
      * @param froms the set of arguments that the support originates from
      * @param tos   the set of arguments that the support targets
-     * @param cp    the probability assigned to the support link
-     * @return
+     * @param cp    the probability assigned to the support link (must be in range [0.0, 1.0])
+     * @return PSupport object that is created but not stored
      */
     private PSupport createSupport(String name, Set<EArgument> froms, Set<EArgument> tos, double cp) {
         PSupport support = new PSupport(name, froms, tos, cp);
@@ -71,20 +69,19 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport> {
      * Add a support with indices for one to one mapping (fromIndex and toIndex)
      *
      * @param fromIndex the index of the argument originates the support
-     * @param toIndex the index of the argument getting supported
-     * @param cp the probability assigned to the support link
+     * @param toIndex   the index of the argument getting supported
+     * @param cp        the probability assigned to the support link (must be in range [0.0, 1.0])
      */
     public void addSupport(int fromIndex, int toIndex, double cp) {
         this.addSupport(new int[]{fromIndex}, new int[]{toIndex}, cp);
     }
 
-
     /**
+     * Add a support with indices for many to many mapping
      *
-     *
-     * @param fromIndices  integer array with argument, represents indices of arguments
-     * @param toIndices integer array with argument, represents indices of arguments
-     * @param cp the probability assigned to the support link
+     * @param fromIndices integer array with argument, represents indices of arguments
+     * @param toIndices   integer array with argument, represents indices of arguments
+     * @param cp          the probability assigned to the support link (must be in range [0.0, 1.0])
      */
     public void addSupport(int[] fromIndices, int[] toIndices, double cp) {
         Set<EArgument> froms = createEmptyArgSet(fromIndices);

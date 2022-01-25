@@ -33,6 +33,10 @@ public class NamedPEAFTheory extends PEAFTheory {
         return reverseAIFIdentifierMap.get(identifier);
     }
 
+    public String getNameOfArgument(EArgument argument) {
+        return namesMap.get(argument);
+    }
+
     public EArgument addArgument(int identifier, String name, String aifIdentifier) {
         EArgument argument = super.addArgument(identifier);
         namesMap.put(argument, name);
