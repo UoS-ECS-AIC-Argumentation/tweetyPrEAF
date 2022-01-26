@@ -83,11 +83,8 @@ public class EAFTheory extends AbstractEAFTheory<ESupport> {
      */
     private ESupport createSupport(String name, Set<EArgument> froms, Set<EArgument> tos) {
         ESupport support = new ESupport(name, froms, tos);
-        for (EArgument to : tos) {
-            to.setSupportedBy(support);
-        }
         for (EArgument from : froms) {
-            from.setSupports(support);
+            from.addSupport(support);
         }
         return support;
     }

@@ -27,7 +27,7 @@ public class LiExactPEAFInducer extends AbstractPEAFInducer {
 
             InducibleEAF toExpand = expansion.remove(0);
             // Before accepting explore all the attacks and add these links (traverse all the tree)
-            addAttackLinks(toExpand);
+            toExpand.addAttackLinks();
             consumer.accept(toExpand);
 
 
@@ -92,23 +92,6 @@ public class LiExactPEAFInducer extends AbstractPEAFInducer {
                 z++;
             }
 
-        }
-
-    }
-
-    public static void addAttackLinks(InducibleEAF toExpand) {
-        toExpand.attacks.clear();
-        Set<EArgument> args = Sets.newHashSet(toExpand.getArguments());
-
-        for (EArgument arg : args) {
-            for (EAttack attack : arg.getAttacks()) {
-                Set<EArgument> froms = attack.getFroms();
-                Set<EArgument> tos = attack.getTos();
-
-                if (args.containsAll(froms) && args.containsAll(tos)) {
-                    toExpand.attacks.add(attack);
-                }
-            }
         }
 
     }

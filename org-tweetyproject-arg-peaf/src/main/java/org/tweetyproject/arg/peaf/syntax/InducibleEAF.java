@@ -8,14 +8,47 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * This class is an intermediate representation of EAFs that are induced from a PEAF.
+ * This is used for making analysis and storing intermediate values while making probabilistic justification
+ * of some arguments.
+ *
+ * @author Taha Dogan Gunes
+ */
 public class InducibleEAF {
+    /**
+     * A subset of arguments from PEAF
+     */
     public final Set<EArgument> arguments;
+    /**
+     * A subset of supports from PEAF
+     */
     public final Set<PSupport> supports;
+    /**
+     * A subset of attacks from PEAF
+     */
     public final Set<EAttack> attacks;
+    /**
+     * A subset of arguments from PEAF that can be used to create a new EAF (connected to InducibleEAF)
+     */
     public final Set<EArgument> newArguments;
+    /**
+     *
+     */
     public final double pInside;
+    /**
+     *
+     */
     public final double inducePro;
 
+    /**
+     * @param arguments
+     * @param supports
+     * @param attacks
+     * @param newArguments
+     * @param pInside
+     * @param inducePro
+     */
     public InducibleEAF(Set<EArgument> arguments,
                         Set<PSupport> supports,
                         Set<EAttack> attacks,
@@ -42,7 +75,6 @@ public class InducibleEAF {
         return newArguments;
     }
 
-
     public double getpInside() {
         return pInside;
     }
@@ -59,18 +91,10 @@ public class InducibleEAF {
 
         for (PSupport support : supports) {
             eafTheory.addSupport(support);
-//            arguments.addAll(support.getTos().stream().filter(this.arguments::contains).collect(Collectors.toSet()));
-//            arguments.addAll(support.getFroms().stream().filter(this.arguments::contains).collect(Collectors.toSet()));
-//            arguments.addAll(support.getTos());
-//            arguments.addAll(support.getFroms());
         }
 
         for (EAttack attack : attacks) {
             eafTheory.addAttack(attack);
-//            arguments.addAll(attack.getTos().stream().filter(this.arguments::contains).collect(Collectors.toSet()));
-//            arguments.addAll(attack.getFroms().stream().filter(this.arguments::contains).collect(Collectors.toSet()));
-//            arguments.addAll(attack.getTos());
-//            arguments.addAll(attack.getFroms());
         }
 
         List<EArgument> argsSorted = Lists.newArrayList();
@@ -158,5 +182,21 @@ public class InducibleEAF {
         all.addAll(attacks.stream().map(EAttack::getName).toList());
 
         return Objects.hash(all.toArray());
+    }
+
+    public void addAttackLinks() {
+        this.attacks.clear();
+        Set<EArgument> args = Sets.newHashSet(this.getArguments());
+
+        for (EArgument arg : args) {
+            for (EAttack attack : arg.getAttacks()) {
+                Set<EArgument> froms = attack.getFroms();
+                Set<EArgument> tos = attack.getTos();
+
+                if (args.containsAll(froms) && args.containsAll(tos)) {
+                    this.attacks.add(attack);
+                }
+            }
+        }
     }
 }

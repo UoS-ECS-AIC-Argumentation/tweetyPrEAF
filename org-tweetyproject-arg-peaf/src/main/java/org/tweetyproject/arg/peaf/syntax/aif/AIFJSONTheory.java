@@ -1,22 +1,24 @@
 package org.tweetyproject.arg.peaf.syntax.aif;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import org.tweetyproject.arg.peaf.syntax.aif.analysis.AIFJSONAnalysis;
 
+/**
+ * The AIFJSONTheory, utility class for reading aif json files with GSON
+ *
+ * @author Taha Dogan Gunes
+ */
 public class AIFJSONTheory {
-    public final AIFJSONNode[] nodes;
-    public final AIFJSONEdge[] edges;
-    public final AIFJSONAnalysis[] analyses;
-
-    public AIFJSONTheory(AIFJSONNode[] nodes, AIFJSONEdge[] edges, AIFJSONAnalysis[] analyses) {
-        this.nodes = nodes;
-        this.edges = edges;
-        this.analyses = analyses;
-    }
-
-    public String getJSONString() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(this);
-    }
+    /**
+     * All the nodes in the aif
+     */
+    public AIFJSONNode[] nodes;
+    /**
+     * All the edges in the aif
+     */
+    public AIFJSONEdge[] edges;
+    /**
+     * All analyses in the aif (this is an extra addition)
+     */
+    public AIFJSONAnalysis[] analyses;
 }

@@ -7,12 +7,30 @@ import com.google.common.collect.Sets;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * This class inherits PEAFTheory to store additional information regarding the arguments inserted
+ *
+ * @author Taha Dogan Gunes
+ */
 public class NamedPEAFTheory extends PEAFTheory {
 
-    private Map<EArgument, String> namesMap = Maps.newHashMap();
-    private Map<String, EArgument> reverseNamesMap = Maps.newHashMap();
-    private Map<String, EArgument> reverseAIFIdentifierMap = Maps.newHashMap();
+    /**
+     * Internal map for getting names of the arguments given their reference
+     */
+    private final Map<EArgument, String> namesMap = Maps.newHashMap();
+    /**
+     * Internal map for getting arguments given the AIF identifier
+     */
+    private final Map<String, EArgument> reverseAIFMap = Maps.newHashMap();
 
+    /**
+     * Helper function to give the names of a set of arguments
+     * Static such that it can work with PEAFTheory nodes (EArgument, EAttack and PSupport)
+     *
+     * @param names the map that has arguments as keys and the names of arguments as string
+     * @param args  the arguments that are queried
+     * @return the set of names
+     */
     public static Set<String> giveNames(Map<EArgument, String> names, Set<EArgument> args) {
         Set<String> argumentNames = Sets.newHashSet();
         for (EArgument arg : args) {
@@ -21,30 +39,54 @@ public class NamedPEAFTheory extends PEAFTheory {
         return argumentNames;
     }
 
+    /**
+     * Returns the argument's name give its identifier
+     *
+     * @param identifier the identifier of the argument
+     * @return the argument's name
+     */
     public String getArgumentNameFromIdentifier(String identifier) {
         return namesMap.get(getArgumentByIdentifier(identifier));
     }
 
-    public EArgument getArgumentByName(String name) {
-        return reverseNamesMap.get(name);
-    }
-
+    /**
+     * Returns the EArgument object given its identifier
+     *
+     * @param identifier the identifier of the argument
+     * @return corresponding EArgument object
+     */
     public EArgument getArgumentByIdentifier(String identifier) {
-        return reverseAIFIdentifierMap.get(identifier);
+        return reverseAIFMap.get(identifier);
     }
 
+    /**
+     * Returns the name of the argument given EArgument object's reference
+     *
+     * @param argument EArgument reference
+     * @return the name in string
+     */
     public String getNameOfArgument(EArgument argument) {
         return namesMap.get(argument);
     }
 
-    public EArgument addArgument(int identifier, String name, String aifIdentifier) {
+    /**
+     * Add argument with names
+     *
+     * @param identifier        PEAF identifier as an integer value (index of the argument for efficiency reasons)
+     * @param name              The given name of the argument
+     * @param aifNodeIdentifier The aif node identifier
+     * @return EArgument object given
+     */
+    public EArgument addArgument(int identifier, String name, String aifNodeIdentifier) {
         EArgument argument = super.addArgument(identifier);
         namesMap.put(argument, name);
-        reverseNamesMap.put(name, argument);
-        reverseAIFIdentifierMap.put(aifIdentifier, argument);
+        reverseAIFMap.put(aifNodeIdentifier, argument);
         return argument;
     }
 
+    /**
+     * Print the NamedPEAFTheory for debugging purposes
+     */
     public void prettyPrint() {
         System.out.println("NamedPEAF:");
         System.out.println("-- Arguments --");

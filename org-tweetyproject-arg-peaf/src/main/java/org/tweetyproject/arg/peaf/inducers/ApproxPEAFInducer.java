@@ -40,7 +40,7 @@ public class ApproxPEAFInducer extends AbstractPEAFInducer {
 //            inducibleEAF.supports.sort(Comparator.comparing(ESupport::getName));
 //            inducibleEAF.attacks.sort(Comparator.comparing(EAttack::getName));
 
-            LiExactPEAFInducer.addAttackLinks(inducibleEAF);
+            inducibleEAF.addAttackLinks();
 
             return inducibleEAF;
         }

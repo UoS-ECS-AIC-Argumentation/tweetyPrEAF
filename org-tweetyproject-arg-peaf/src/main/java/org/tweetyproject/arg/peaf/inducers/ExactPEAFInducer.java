@@ -47,7 +47,7 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
                     0, Math.log(this.pi));
 
 
-            LiExactPEAFInducer.addAttackLinks(inducibleEAF);
+            inducibleEAF.addAttackLinks();
 
             return inducibleEAF;
         }

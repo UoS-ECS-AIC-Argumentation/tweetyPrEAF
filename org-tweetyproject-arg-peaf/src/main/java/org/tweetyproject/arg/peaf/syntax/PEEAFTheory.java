@@ -392,7 +392,7 @@ public class PEEAFTheory {
     }
 
     /**
-     * Get the insert ordered list of arguments
+     * Get the insert ordered list of arguments.
      *
      * @return array list of the arguments
      */
@@ -401,7 +401,7 @@ public class PEEAFTheory {
     }
 
     /**
-     * Get the insert ordered list of supports
+     * Get the insert ordered list of supports.
      *
      * @return array list of the supports
      */
@@ -410,7 +410,7 @@ public class PEEAFTheory {
     }
 
     /**
-     * Get the insert ordered list of attacks
+     * Get the insert ordered list of attacks.
      *
      * @return array list of the attacks
      */
@@ -419,7 +419,7 @@ public class PEEAFTheory {
     }
 
     /**
-     * Print the PEEAF for debugging purposes
+     * Print the PEEAF for debugging purposes.
      */
     public void prettyPrint() {
         System.out.println("\nPEEAF:");
@@ -471,7 +471,7 @@ public class PEEAFTheory {
         }
 
         /**
-         * Get the occurrence count of exception thrown
+         * Get the occurrence count of exception thrown.
          *
          * @return the count
          */
@@ -500,7 +500,7 @@ public class PEEAFTheory {
         }
 
         /**
-         * Get the occurrence count of exception thrown
+         * Get the occurrence count of exception thrown.
          *
          * @return the count
          */
@@ -515,7 +515,7 @@ public class PEEAFTheory {
     public static class Exceptions {
 
         /**
-         * Outputs the occurrence of PEEAF exceptions
+         * Outputs the occurrence of PEEAF exceptions.
          *
          * @return the count of the total occurrence of exceptions
          */

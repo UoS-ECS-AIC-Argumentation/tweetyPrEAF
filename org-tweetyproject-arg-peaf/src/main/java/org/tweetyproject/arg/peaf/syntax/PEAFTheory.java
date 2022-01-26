@@ -44,11 +44,8 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport> {
      */
     private PSupport createSupport(String name, Set<EArgument> froms, Set<EArgument> tos, double cp) {
         PSupport support = new PSupport(name, froms, tos, cp);
-        for (EArgument to : tos) {
-            to.setSupportedBy(support);
-        }
         for (EArgument from : froms) {
-            from.setSupports(support);
+            from.addSupport(support);
         }
         return support;
     }
@@ -92,10 +89,21 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport> {
         this.addSupport(support);
     }
 
+    /**
+     * Add attack between arguments with indices
+     *
+     * @param fromIndex the index of the EArgument that originates the attack
+     * @param toIndex the index of the EArgument that receieves the attack
+     */
     public void addAttack(int fromIndex, int toIndex) {
         this.addAttack(new int[]{fromIndex}, new int[]{toIndex});
     }
 
+    /**
+     * Returns an ascii tree for debug purposes.
+     * This is usually used in the unit tests.
+     * @return the ascii tree in string
+     */
     public String getASCIITree() {
         StringBuilder builder = new StringBuilder();
         for (PSupport support : supports) {
@@ -109,6 +117,9 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport> {
         return builder.toString();
     }
 
+    /**
+     * Helper function to print the ascii tree
+     */
     public void printASCIITree() {
         System.out.println(this.getASCIITree());
     }

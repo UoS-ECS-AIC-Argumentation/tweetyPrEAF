@@ -62,9 +62,6 @@ public abstract class AbstractEAFTheory<S> {
         for (EArgument from : froms) {
             from.addAttack(attack);
         }
-        for (EArgument to : tos) {
-            to.addAttackedBy(attack);
-        }
         return attack;
     }
 

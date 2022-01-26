@@ -1,20 +1,28 @@
 package org.tweetyproject.arg.peaf.syntax.aif;
 
+/**
+ * The AIFJSONTheory, utility class for reading aif json files with GSON
+ * Intermediate json node representation
+ *
+ * @author Taha Dogan Gunes
+ */
 public class AIFJSONNode {
-    public final String nodeID;
-    public final String text;
-    public final String type;
-    public final String timestamp;
+    /**
+     * The unique id of the node
+     */
+    public String nodeID;
+    /**
+     * The text of the node
+     */
+    public String text;
+    /**
+     * The type of the node
+     */
+    public String type;
 
-    public transient final double probability;
-    public transient final String uncert;
-
-    public AIFJSONNode(String nodeID, String text, String type, String timestamp, double probability, String uncert) {
-        this.nodeID = nodeID;
-        this.text = text;
-        this.type = type;
-        this.timestamp = timestamp;
-        this.probability = probability;
-        this.uncert = uncert;
-    }
+    /**
+     * The optional probability field assigned to the node
+     * (TODO: given the AIF specification is not finalised yet, this may be removed in future.)
+     */
+    public transient double probability;
 }
