@@ -20,7 +20,6 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class AIFtoPEEAFConverter {
 
-
     /**
      * Converts an AIFTheory (intermediate format) to PEEAFTheory
      *

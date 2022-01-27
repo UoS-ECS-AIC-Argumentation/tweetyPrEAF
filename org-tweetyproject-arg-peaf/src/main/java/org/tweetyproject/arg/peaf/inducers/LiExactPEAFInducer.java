@@ -6,12 +6,39 @@ import org.tweetyproject.arg.peaf.syntax.*;
 import java.util.*;
 import java.util.function.Consumer;
 
+/**
+ * This is a direct re-implementation of the Hengfei Li's ruby code in Java.
+ * </br>
+ * </br>See
+ * </br>
+ * </br> Li, Hengfei. Probabilistic argumentation. 2015. PhD Thesis. Aberdeen University.
+ *
+ * The comments also have the ruby code equivalent.
+ * LiExactPEAFInducer generates all possible EAFs that can be generated from a PEAF.
+ *
+ * FIXME: This is to be used in @see Runner of the module. It is a great reference implementation.
+ *
+ * @author Taha Dogan Gunes
+ */
+@Deprecated
 public class LiExactPEAFInducer extends AbstractPEAFInducer {
 
+    /**
+     * The default constructor for the inducer
+     *
+     * @param peafTheory a PEAFObject reference
+     */
+    @Deprecated
     public LiExactPEAFInducer(PEAFTheory peafTheory) {
         super(peafTheory);
     }
 
+    /**
+     * Inducer induces inducibleEAFs and gives to a consumer function
+     *
+     * @param consumer the function that consumes InducibleEAFs
+     */
+    @Deprecated
     public void induce(Consumer<InducibleEAF> consumer) {
         InducibleEAF f = new InducibleEAF(Sets.newHashSet(),
                                           Sets.newHashSet(),
@@ -96,6 +123,12 @@ public class LiExactPEAFInducer extends AbstractPEAFInducer {
 
     }
 
+    /**
+     * Internal function to expand the InducibleEAF
+     *
+     * @param indu an InducibleEAF object
+     * @return a map of all possible ways that the InducibleEAF can be expanded
+     */
     private Map<Set<EArgument>, Map<String, Object>> expand(InducibleEAF indu) {
         Map<Set<EArgument>, Map<String, Object>> expandable = new HashMap<>();
 

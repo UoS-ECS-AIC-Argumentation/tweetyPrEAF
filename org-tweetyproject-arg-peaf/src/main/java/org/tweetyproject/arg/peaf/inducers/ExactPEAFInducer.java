@@ -9,22 +9,63 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.function.Consumer;
 
+/**
+ * ExactPEAFInducer generates all possible EAFs that can be generated from a PEAF.
+ * Computationally, this implementation is not great since the all variations of EAFs increase by the number of
+ * arguments and links exponentially. It is good to use for small PEAFs.
+ *
+ * @author Taha Dogan Gunes
+ */
 public class ExactPEAFInducer extends AbstractPEAFInducer{
 
-    private final boolean INTERNAL_DEBUG_MESSAGES = false;
+    /**
+     * Used internally for debugging the inducer
+     *
+     * TODO: Could be removed and migrated to a proper logging module.
+     *
+     * @param message a string
+     */
     private void debugPrint(Object message) {
+        boolean INTERNAL_DEBUG_MESSAGES = false;
         if (INTERNAL_DEBUG_MESSAGES) {
             System.out.println(message);
         }
     }
 
+    /**
+     * Simpler re-implementation of InducibleEAF (It is a temporary data structure that helps to expand an induced
+     * EAF.
+     */
     class EAF_F {
+        /**
+         * Arguments of the EAF
+         */
         Set<EArgument> eArguments;
+        /**
+         * Supports of the EAF
+         */
         Set<ESupport> eSupports;
+        /**
+         * The next arguments to add to the EAF
+         */
         Set<EArgument> newEArguments;
+        /**
+         * Reference to EAFs that originate this EAF
+         */
         List<EAF_F> createdFrom = Lists.newArrayList();
+        /**
+         * The probability value of the EAF (notation from the thesis)
+         */
         double pi;
 
+        /**
+         * The default constructor for the EAF_F
+         *
+         * @param eArguments the set of arguments
+         * @param eSupports the set of supports
+         * @param newEArguments the new arguments after this EAF
+         * @param pi the probability value
+         */
         public EAF_F(Set<EArgument> eArguments,
                      Set<ESupport> eSupports,
                      Set<EArgument> newEArguments, double pi) {
@@ -34,6 +75,11 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
             this.pi = pi;
         }
 
+        /**
+         * For compatibility this re-implementation maps to InducibleEAF
+         * @see InducibleEAF
+         * @return an InducibleEAF
+         */
         public InducibleEAF convertToInducible() {
             List<PSupport> supportList = Lists.newArrayList();
             for (ESupport eSupport : eSupports) {
@@ -52,6 +98,11 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
             return inducibleEAF;
         }
 
+        /**
+         * Makes a direct copy of this EAF_F
+         *
+         * @return a copied EAF_F
+         */
         public EAF_F copy() {
             EAF_F i = new EAF_F(Sets.newHashSet(this.eArguments), Sets.newHashSet(this.eSupports), Sets.newHashSet(this.newEArguments), this.pi);
             i.createdFrom.add(this);
@@ -59,10 +110,20 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
         }
     }
 
+    /**
+     * The default constructor for the ExactPEAFInducer
+     *
+     * @param peafTheory
+     */
     public ExactPEAFInducer(PEAFTheory peafTheory) {
         super(peafTheory);
     }
 
+    /**
+     * Inducer induces inducibleEAFs and gives to a consumer function
+     *
+     * @param consumer the function that consumes InducibleEAFs
+     */
     @Override
     public void induce(Consumer<InducibleEAF> consumer) {
         Stack<EAF_F> stack = new Stack<>();
@@ -127,19 +188,9 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
             eaf.eArguments.addAll(eaf.newEArguments);
             eaf.newEArguments.clear();
 
-//            consumer.accept(eaf.convertToInducible());
-
             consumer.accept(eaf.convertToInducible());
 
-//            for (EAF_F eaf_f : eaf.createdFrom) {
-//                System.out.println(" > " + eaf_f.convertToInducible());
-//            }
             debugPrint(eaf.convertToInducible());
-
-
-//            System.out.println("--------------------------------");
-//            System.out.println("EXPANDING SUPPORTS:");
-//            System.out.println(expandingSupports);
 
             for (Set<ESupport> eSupports : Sets.powerSet(expandingSupports)) {
 
@@ -161,14 +212,6 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
                 if (!eSupports.isEmpty()) {
                     eaf_c.pi = xpi;
                     debugPrint(eSupports);
-//                    debugPrint(">>>> NOT COMPLETE: " + eaf_c.convertToInducible());
-//                    System.out.println();
-//                    System.out.println("Created from:");
-//                    System.out.println(eSupports);
-//                    for (EAF_F eaf_f : eaf.createdFrom) {
-//                        System.out.println(" > " + eaf_f.convertToInducible());
-//                    }
-
                     stack.push(eaf_c);
 
                 }

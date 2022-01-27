@@ -10,12 +10,37 @@ import java.util.Stack;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 
+/**
+ * ApproxPEAFInducer induces a set of random EAFs from a PEAF
+ *
+ * @author Taha Dogan Gunes
+ */
 public class ApproxPEAFInducer extends AbstractPEAFInducer {
+    /**
+     * Internal intermediate data structure to expand an EAF in the inducer
+     *
+     * @see ExactPEAFInducer.EAF_F
+     *
+     */
     class EAF_F {
+        /**
+         * Arguments of the EAF
+         */
         Set<EArgument> eArguments;
+        /**
+         * Supports of the EAF
+         */
         Set<ESupport> eSupports;
+        /**
+         * The next arguments to add to the EAF
+         */
         Set<EArgument> newEArguments;
 
+        /**
+         * @param eArguments
+         * @param eSupports
+         * @param newEArguments
+         */
         public EAF_F(Set<EArgument> eArguments,
                      Set<ESupport> eSupports,
                      Set<EArgument> newEArguments) {
@@ -24,6 +49,11 @@ public class ApproxPEAFInducer extends AbstractPEAFInducer {
             this.newEArguments = newEArguments;
         }
 
+        /**
+         * For compatibility this re-implementation maps to InducibleEAF
+         * @see InducibleEAF
+         * @return an InducibleEAF
+         */
         public InducibleEAF convertToInducible() {
             List<PSupport> supportList = Lists.newArrayList();
             for (ESupport eSupport : eSupports) {
@@ -35,27 +65,36 @@ public class ApproxPEAFInducer extends AbstractPEAFInducer {
                                                 Sets.newHashSet(),
                                                 Sets.newHashSet(),
                                          0, 0);
-            // FIXME: This should be disabled.
-//            inducibleEAF.arguments.sort(Comparator.comparing(EArgument::getName));
-//            inducibleEAF.supports.sort(Comparator.comparing(ESupport::getName));
-//            inducibleEAF.attacks.sort(Comparator.comparing(EAttack::getName));
 
             inducibleEAF.addAttackLinks();
 
             return inducibleEAF;
         }
 
-
-
+        /**
+         * Makes a direct copy of this EAF_F
+         *
+         * @return a copied EAF_F
+         */
         public EAF_F copy() {
             return new EAF_F(this.eArguments, this.eSupports, this.newEArguments);
         }
     }
 
+    /**
+     * The default constructor for the ApproxPEAFInducer
+     *
+     * @param peafTheory
+     */
     public ApproxPEAFInducer(PEAFTheory peafTheory) {
         super(peafTheory);
     }
 
+    /**
+     * Inducer induces inducibleEAFs and gives to a consumer function
+     *
+     * @param consumer the function that consumes InducibleEAFs
+     */
     @Override
     public void induce(Consumer<InducibleEAF> consumer) {
         Stack<EAF_F> stack = new Stack<>();
