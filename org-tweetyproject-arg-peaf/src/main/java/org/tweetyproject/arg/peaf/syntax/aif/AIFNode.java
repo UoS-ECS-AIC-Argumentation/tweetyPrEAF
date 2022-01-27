@@ -46,13 +46,11 @@ public class AIFNode {
      * @param nodeID the id of the node
      * @param nodeType the node type
      * @param text the text content
-     * @param probability the probability value (TODO: given the AIF specification is not finalised yet, this may be removed in future.)
      */
-    public AIFNode(String nodeID, AIFNodeType nodeType, String text, double probability) {
+    public AIFNode(String nodeID, AIFNodeType nodeType, String text) {
         this.nodeID = nodeID;
         this.nodeType = nodeType;
         this.text = text;
-        this.probability = probability;
     }
 
     /**
@@ -71,15 +69,6 @@ public class AIFNode {
      */
     public Set<AIFNode> getTos() {
         return tos;
-    }
-
-    /**
-     * The probability value assigned to the node (TODO: given the AIF specification is not finalised yet, this may be removed in future.)
-     *
-     * @param probability
-     */
-    public void setProbability(double probability) {
-        this.probability = probability;
     }
 
     @Override

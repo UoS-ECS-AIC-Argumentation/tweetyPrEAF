@@ -2,24 +2,43 @@ package org.tweetyproject.arg.peaf.io.aif;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import org.tweetyproject.arg.peaf.io.preeaf.PEEAFTheoryReader;
-import org.tweetyproject.arg.peaf.io.preeaf.PEEAFToPEAFConverter;
-import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 import org.tweetyproject.arg.peaf.syntax.PEEAFTheory;
 import org.tweetyproject.arg.peaf.syntax.aif.AIFNode;
 import org.tweetyproject.arg.peaf.syntax.aif.AIFNodeType;
 import org.tweetyproject.arg.peaf.syntax.aif.AIFTheory;
 import org.tweetyproject.arg.peaf.syntax.aif.YardstickProbability;
 
-import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * AIFtoPEEAFConverter converts AIFs to PEEAF format
+ *
+ * @author Taha Dogan Gunes
+ */
 public class AIFtoPEEAFConverter {
-    private static final ClassLoader loader = PEEAFTheoryReader.class.getClassLoader();
 
+
+    /**
+     * Converts an AIFTheory (intermediate format) to PEEAFTheory
+     *
+     * The conversion method is heavily based on:
+     * -  https://www.researchgate.net/publication/49466088_Moving_Between_Argumentation_Frameworks
+     *
+     * There are key differences in terms of the conversion method. These are added to the comments in this function.
+     * However, briefly these are:
+     * 1. Handling of conflicting restatement node (if one I-node receives two MA nodes)
+     * 2. The probabilities are assigned according to @see ProbabilityYardstick
+     * 3. Eta to I-Node connection is done via heuristic that adds a support link to all arguments from eta that are not
+     *  supported by any other arguments.
+     * 4. If the probability value given with the restatement (MA) node does not comply to ProbabilityYardstick
+     *  definition, we assume that the probability is 1.0. FIXME: This behaviour can be parameterised.
+     *
+     * @param aifTheory an AIFTheory object (intermediate format)
+     * @return a PEEAFTheory object
+     */
     public PEEAFTheory convert(AIFTheory aifTheory) {
         PEEAFTheory peeafTheory = new PEEAFTheory();
         peeafTheory.addArgument("eta", "eta");
@@ -35,8 +54,6 @@ public class AIFtoPEEAFConverter {
         for (Map.Entry<String, AIFNode> entry : aifTheory.iNodeMap.entrySet()) {
             String nodeID = entry.getKey();
             AIFNode node = entry.getValue();
-            // FIXME: node.probability is not considered here for iNodes
-            // FIXME: some preprocessing (perhaps not necessary)
             String text = "";
             if (node.text != null) {
                 text = node.text.replaceAll("\\r|\\n", "");
@@ -178,7 +195,7 @@ public class AIFtoPEEAFConverter {
             }
         }
 
-
+        // FIXME: if this is the case, eta can support all the i-nodes (this can be explored further.)
         if (candidateArguments.size() == 0) {
             throw new NoNotAttackedINodeException("There is not a node that does not receive any attack in this AIF.");
         }
@@ -191,24 +208,12 @@ public class AIFtoPEEAFConverter {
             }
         }
 
-
-
         return peeafTheory;
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        System.out.println("Working Directory: " + System.getProperty("user.dir"));
-        AIFCISReader reader = new AIFCISReader(loader.getResource("cis/aif/aif-cap-phase4.json").getPath());
-        AIFTheory aifTheory = reader.read();
-        AIFtoPEEAFConverter aifConverter = new AIFtoPEEAFConverter();
-        PEEAFTheory peeafTheory = aifConverter.convert(aifTheory);
-        peeafTheory.prettyPrint();
-
-        PEEAFToPEAFConverter peeafConverter = new PEEAFToPEAFConverter();
-        PEAFTheory peafTheory = peeafConverter.convert(peeafTheory);
-        peafTheory.prettyPrint();
-    }
-
+    /**
+     * This exception is for cases where the I-node that originates the RA node does not exist.
+     */
     public static class INodeForRANodeNotFoundException extends RuntimeException {
         private static AtomicLong atomicLong = new AtomicLong(0);
         public INodeForRANodeNotFoundException(String message) {
@@ -220,6 +225,9 @@ public class AIFtoPEEAFConverter {
         }
     }
 
+    /**
+     * There is not an I-node that does not receive any attack in this AIF.
+     */
     public static class NoNotAttackedINodeException extends RuntimeException {
         private static AtomicLong atomicLong = new AtomicLong(0);
         public NoNotAttackedINodeException(String message) {
@@ -232,6 +240,11 @@ public class AIFtoPEEAFConverter {
         }
     }
 
+    /**
+     * This exception is for cases where there can not be multiple nodes directed to this MA node.
+     *
+     * Condition #1: from: [I* node] -> [MA Node] -> [I node] is not satisfied.
+     */
     public static class MultipleNodesToMANodeException extends RuntimeException {
         private static AtomicLong atomicLong = new AtomicLong(0);
         public MultipleNodesToMANodeException(String message) {
@@ -244,6 +257,11 @@ public class AIFtoPEEAFConverter {
         }
     }
 
+    /**
+     * This exception is for cases where there can not be multiple nodes directed from MA node.
+     *
+     * Condition #1: from: [I* node] -> [MA Node] -> [I node] is not satisfied.
+     */
     public static class MultipleNodesFromMANodeException extends RuntimeException {
         private static AtomicLong atomicLong = new AtomicLong(0);
         public MultipleNodesFromMANodeException(String message) {
@@ -256,6 +274,11 @@ public class AIFtoPEEAFConverter {
         }
     }
 
+    /**
+     * This exception is for cases where From node of MA node's type is not I.
+     *
+     * Condition #1: from: [I* node] -> [MA Node] -> [I node] is not satisfied.
+     */
     public static class FromMANodeNotINodeException extends RuntimeException {
         private static AtomicLong atomicLong = new AtomicLong(0);
         public FromMANodeNotINodeException(String message) {
@@ -268,6 +291,12 @@ public class AIFtoPEEAFConverter {
         }
     }
 
+    /**
+     * This exception is for cases where To node of MA node's type is different from I.
+     *
+     * MA node has an edge to a node with a type that is not I-Node.
+     * Condition #1: [I* node] -> [MA Node] -> to: [I node] is not satisfied.
+     */
     public static class ToMANodeNotINodeException extends RuntimeException {
         private static AtomicLong atomicLong = new AtomicLong(0);
         public ToMANodeNotINodeException(String message) {
@@ -280,8 +309,16 @@ public class AIFtoPEEAFConverter {
         }
     }
 
+    /**
+     * Helper class for displaying associated exceptions' occurrence
+     */
     public static class Exceptions {
 
+        /**
+         * Outputs the occurrence of AIFtoPEEAFConverter exceptions.
+         *
+         * @return the count of the total occurrence of exceptions
+         */
         public static long describe() {
             long count = 0;
             System.out.println("AIFtoPEEAF.INodeForRANodeNotFoundException count: " + INodeForRANodeNotFoundException.getOccurrenceCount());

@@ -2,18 +2,26 @@ package org.tweetyproject.arg.peaf.syntax.aif;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * AIFJSONEdge represents edge of the aif json or cis file format (CISpaces)
+ *
+ * @author Taha Dogan Gunes
+ */
 public class AIFJSONEdge {
-    public final String edgeID;
+    /**
+     * Edge identifier
+     */
+    public String edgeID;
 
+    /**
+     * Corresponds to the identifier of the node that originates this edge
+     */
     @SerializedName(value = "fromID", alternate = {"source"})
-    public final String fromID;
+    public String fromID;
 
+    /**
+     * Corresponds to the identifier of the node that is targeted by this edge
+     */
     @SerializedName(value = "toID", alternate = {"target"})
-    public final String toID;
-
-    public AIFJSONEdge(String edgeID, String fromID, String toID) {
-        this.edgeID = edgeID;
-        this.fromID = fromID;
-        this.toID = toID;
-    }
+    public String toID;
 }

@@ -13,15 +13,35 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
+/**
+ * CIStoAIFWriter, converts CISpaces json files to AIF file format
+ *
+ * This only changes source and target of CISpaces to fromID to toID.
+ *
+ * @author Taha Dogan Gunes
+ */
 public class CIStoAIFWriter {
 
     private static final ClassLoader loader = CIStoAIFWriter.class.getClassLoader();
+    /**
+     * The path of the CISpaces file to be written.
+     */
     private final String inputPath;
 
+    /**
+     * CIStoAIFWriter's default constructor that takes inputPath
+     * @param inputPath the path of the cis file
+     */
     public CIStoAIFWriter(String inputPath) {
         this.inputPath = inputPath;
     }
 
+    /**
+     * Writes the CIS file into AIF format
+     *
+     * @param outputPath string
+     * @throws IOException if writing to a file fails
+     */
     public void write(String outputPath) throws IOException {
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader(inputPath));
@@ -34,6 +54,11 @@ public class CIStoAIFWriter {
         writer.close();
     }
 
+    /**
+     * @param pathString the path of the cis file
+     * @return AIFTheory object
+     * @throws FileNotFoundException if given cis file is not found
+     */
     public AIFTheory convert(String pathString) throws FileNotFoundException {
         AIFCISReader aifAndCISReader = new AIFCISReader(pathString);
         return aifAndCISReader.read();

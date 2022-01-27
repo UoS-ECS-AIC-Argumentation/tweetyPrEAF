@@ -1,26 +1,26 @@
 package org.tweetyproject.arg.peaf.syntax.aif.analysis;
 
-/*
-{
-          "query" : ["6f491666-6029-45ae-94b6-848094c81ea3"],
-          "result" : {
-          "datetime" : "",
-          "outcome": ""
-          },
-          "reasoner" : {
-          "type": "approx",
-          "parameters": {
-          "noThreads": "4",
-          "errorLevel": "0.1"
-          }
+/**
+ * AIFJSONAnalysisReasonerParameters is utility class used with Google's GSON
+ *
+ * The corresponding JSON in the aif is:
+ * ```
+ * {
+ *     "noThreads": "4",
+ *     "errorLevel": "0.1"
+ * }
+ * ```
+ *
+ * @author Taha Dogan Gunes
  */
-
 public class AIFJSONAnalysisReasonerParameters {
-    public final int noThreads;
-    public final double errorLevel;
+    /**
+     * This must be larger than 1 and typically lower or equal to the maximum available logical cores.
+     */
+    public int noThreads;
 
-    public AIFJSONAnalysisReasonerParameters(int noThreads, double errorLevel) {
-        this.noThreads = noThreads;
-        this.errorLevel = errorLevel;
-    }
+    /**
+     * This is used for the accuracy of the approximate reasoners (i.e. approx and con_approx)
+     */
+    public double errorLevel;
 }

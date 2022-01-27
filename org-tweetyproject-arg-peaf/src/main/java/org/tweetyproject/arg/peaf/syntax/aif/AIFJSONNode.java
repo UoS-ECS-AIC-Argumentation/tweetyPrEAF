@@ -20,9 +20,4 @@ public class AIFJSONNode {
      */
     public String type;
 
-    /**
-     * The optional probability field assigned to the node
-     * (TODO: given the AIF specification is not finalised yet, this may be removed in future.)
-     */
-    public transient double probability;
 }

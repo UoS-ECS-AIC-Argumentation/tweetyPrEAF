@@ -19,13 +19,51 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+/**
+ * EdgeListReader is a utility class for testing purposes to read networkx compatible EdgeList file format.
+ *
+ * The more details can be found here: https://networkx.org/documentation/stable/reference/readwrite/edgelist.html
+ *
+ * The only addition is the first commented line that has the queried arguments of the given custom graph, PEAF.
+ * Examples of this file format can be found in the `resources` folder. The file extension is `.peaf`.
+ *
+ * An example of a PEAF file without a query is:
+ *
+ * ```
+ *  0 1 { 'color': 'green', 'weight': 0.8148851406241553 }
+ *  0 2 { 'color': 'green', 'weight': 0.9428105506184434 }
+ *  0 3 { 'color': 'green', 'weight': 0.8569966496275188 }
+ *  1 2 { 'color': 'red'}
+ *  1 6 { 'color': 'red'}
+ *  1 7 { 'color': 'red'}
+ *  ```
+ *
+ *  Color green denotes the support link and the weight is the probability given to PSupport.
+ *  Color red denotes the attack link.
+ *  This is useful to get plots of the PEAF directly from networkx library.
+ */
 public class EdgeListReader {
     private static final String QUERY_LINE = "# Query: ";
 
+    /**
+     * Utility method to read a PEAF in edgelist file format (.peaf) which does not print the read lines
+     *
+     * @param filePath the file path of the edgelist file
+     * @return a PEAFTheory object
+     * @throws IOException if the file was not read properly
+     */
     public static PEAFTheory readPEAF(String filePath) throws IOException {
         return EdgeListReader.readPEAF(filePath, false);
     }
 
+    /**
+     * Read a PEAF in edgelist file format that has a query (.peaf)
+     *
+     * @param filePath the file path of the edgelist file
+     * @param printLines true if the user wants to see the read lines
+     * @return a pair that contains the PEAFTheory object and the set of arguments
+     * @throws IOException if the file was not read properly
+     */
     public static Pair<PEAFTheory, Set<EArgument>> readPEAFWithQuery(String filePath, boolean printLines) throws IOException {
         // FIXME: We assume first line is the query line commented as in an EdgeList comment with #
         FileInputStream fs = new FileInputStream(filePath);
@@ -70,6 +108,14 @@ public class EdgeListReader {
         return new Pair<>(peafTheory, eArguments);
     }
 
+    /**
+     * Reads a PEAFTheory in edgelist format (.peaf) and prints the lines if desired
+     *
+     * @param filePath the file path of the edgelist file
+     * @param printLines true if the user wants to see the read lines
+     * @return a PEAFTheory object
+     * @throws IOException if the file was not read properly
+     */
     public static PEAFTheory readPEAF(String filePath, boolean printLines) throws IOException {
         // FIXME: This regex pattern requires the json attachment to be in same order as the writer
         // FIXME: This can be avoided by having a proper JSON parser for the last part of each line
@@ -155,6 +201,13 @@ public class EdgeListReader {
         return peaf;
     }
 
+    /**
+     * Utility function to parse the grouped indices to represent a set of arguments support or attack
+     * another set of arguments
+     *
+     * @param indicesString indices in string format (e.g. 1_0_1)
+     * @return integer array of the indices
+     */
     private static int[] parseIndices(String indicesString) {
         String[] parts = indicesString.split("-");
         int[] indices = new int[parts.length];
@@ -167,11 +220,5 @@ public class EdgeListReader {
         }
 
         return indices;
-    }
-
-    public static void main(String[] args) throws IOException {
-        PEAFTheory peafTheory = EdgeListReader.readPEAF("./evaluation/barabasi/5/5.peaf", true);
-
-        peafTheory.prettyPrint();
     }
 }

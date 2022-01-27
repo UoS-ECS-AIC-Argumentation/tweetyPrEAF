@@ -3,7 +3,6 @@ package org.tweetyproject.arg.peaf.io.aif;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import org.tweetyproject.arg.peaf.io.preeaf.PEEAFTheoryReader;
 import org.tweetyproject.arg.peaf.syntax.aif.*;
 
 import java.io.FileNotFoundException;
@@ -14,15 +13,31 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * AIFCISReader can also read .cis files, since the field names in edges is the only
  * difference. This is handled by GSON's alternative argument in @SerializedName.
+ *
+ * @author Taha Dogan Gunes
  */
 public class AIFCISReader {
+    /**
+     * The path of the aif or cis file path
+     */
     private final String pathString;
-    private static final ClassLoader loader = PEEAFTheoryReader.class.getClassLoader();
 
+    /**
+     * Default constructor for AIFCISReader
+     * @param pathString aif or cis file path
+     */
     public AIFCISReader(String pathString) {
         this.pathString = pathString;
     }
 
+    /**
+     * Reads (and converts) aifJSON to an intermediate format AIFTheory
+     *
+     * During the conversion unsupported edges and errors are reported.
+     *
+     * @param aifJSON the raw aif in json format
+     * @return AIFTheory object
+     */
     public AIFTheory read(AIFJSONTheory aifJSON) {
         AIFTheory aif = new AIFTheory();
 
@@ -43,14 +58,7 @@ public class AIFCISReader {
                 throw new DuplicateNodeIDException("The node ID: " + aifjsonNode.nodeID + " is a duplicate." + "\n in " + pathString);
             }
 
-            // FIXME: Assume the probability is 0.5 if the field does not exists in JSON.
-            // FIXME: The probabilities will be changed with categorical data.
-            double probability = aifjsonNode.probability;
-            if (probability == 0.0) {
-                probability = 0.5;
-            }
-
-            AIFNode aifNode = new AIFNode(aifjsonNode.nodeID, type, aifjsonNode.text, probability);
+            AIFNode aifNode = new AIFNode(aifjsonNode.nodeID, type, aifjsonNode.text);
             if (type == AIFNodeType.I) {
                 aif.iNodeMap.put(aifjsonNode.nodeID, aifNode);
             }
@@ -97,6 +105,12 @@ public class AIFCISReader {
         return aif;
     }
 
+    /**
+     * Read and convert an aif or cis file from given file path
+     *
+     * @return AIFTheory object
+     * @throws FileNotFoundException if the file is not found in the given file path
+     */
     public AIFTheory read() throws FileNotFoundException {
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader(pathString));
@@ -105,10 +119,23 @@ public class AIFCISReader {
         return this.read(aifJSON);
     }
 
+    /**
+     * This function checks the validity of the connection between nodes.
+     *
+     * Return true only if node1 is I-node and node2 is either CA, RA or MA node.
+     * This means that we only allow I-node to have an edge to CA, RA or MA, not to an I-node.
+     *
+     * @param node1 a node in aif
+     * @param node2 a node in aif
+     * @return true if the connection is valid
+     */
     private boolean isValid(AIFNode node1, AIFNode node2) {
         return node1.nodeType == AIFNodeType.I && (node2.nodeType == AIFNodeType.CA || node2.nodeType == AIFNodeType.RA || node2.nodeType == AIFNodeType.MA);
     }
 
+    /**
+     * This exception is thrown in the cases where the aif node's type is not supported by AIFCISReader.
+     */
     public static class UnsupportedNodeTypeException extends RuntimeException {
         private static AtomicLong atomicLong = new AtomicLong(0);
         public UnsupportedNodeTypeException(String message) {
@@ -120,6 +147,9 @@ public class AIFCISReader {
         }
     }
 
+    /**
+     * This exception is thrown in the cases where the node id was defined previously in the aif.
+     */
     public static class DuplicateNodeIDException extends RuntimeException {
         private static AtomicLong atomicLong = new AtomicLong(0);
         public DuplicateNodeIDException(String message) {
@@ -132,8 +162,16 @@ public class AIFCISReader {
         }
     }
 
+    /**
+     * Helper class for displaying associated exceptions' occurrence
+     */
     public static class Exceptions {
 
+        /**
+         * Outputs the occurrence of AIFCISReader exceptions.
+         *
+         * @return the count of the total occurrence of exceptions
+         */
         public static long describe() {
             long count = 0;
             System.out.println("AIFCISReader.UnsupportedNodeTypeException count: " + AIFCISReader.UnsupportedNodeTypeException.getOccurrenceCount());
@@ -142,12 +180,5 @@ public class AIFCISReader {
             count += AIFCISReader.DuplicateNodeIDException.getOccurrenceCount();
             return count;
         }
-    }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        System.out.println("Working Directory: " + System.getProperty("user.dir"));
-        AIFCISReader reader = new AIFCISReader(loader.getResource("aif/5.json").getPath());
-        AIFTheory aifTheory = reader.read();
-        System.out.println(aifTheory.toString());
     }
 }

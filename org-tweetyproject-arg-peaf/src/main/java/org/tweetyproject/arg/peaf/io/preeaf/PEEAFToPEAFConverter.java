@@ -9,8 +9,24 @@ import org.tweetyproject.arg.peaf.syntax.PEEAFTheory;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * PEAAFToPEAFConverter converts PEEAFTheory to PEAFTheory
+ * The conversion is based on
+ * </br>
+ * </br>See
+ * </br>
+ * </br> Li, Hengfei. Probabilistic argumentation. 2015. PhD Thesis. Aberdeen University.
+ *
+ * @author Taha Dogan Gunes
+ */
 public class PEEAFToPEAFConverter {
-
+    /**
+     * The conversion uses Algorithm 11 from Li's Thesis in page 105.
+     * The general idea is to add virtual arguments on relations that are not supported by PEAFTheory.
+     *
+     * @param peeafTheory the PEEAFTheory object
+     * @return NamedPEAFTheory object
+     */
     public NamedPEAFTheory convert(PEEAFTheory peeafTheory) {
         // Li's Thesis Page 105 - Algorithm 11
         NamedPEAFTheory peafTheory = new NamedPEAFTheory();
@@ -93,10 +109,16 @@ public class PEEAFToPEAFConverter {
             }
         }
 
-
         return peafTheory;
     }
 
+    /**
+     * Utility function to fetch and argument with an error check.
+     *
+     * @param argToInt PEEAFTheory.Argument to identifier map
+     * @param argument queried PEEAFTheory.Argument
+     * @return the corresponding identifier
+     */
     private Integer checkAndGetArgument(Map<PEEAFTheory.Argument, Integer> argToInt, PEEAFTheory.Argument argument) {
         Integer index = argToInt.get(argument);
         if (index == null) {
@@ -105,6 +127,13 @@ public class PEEAFToPEAFConverter {
         return index;
     }
 
+    /**
+     * Utility function to fetch a set of arguments with an error check.
+     *
+     * @param argToInt PEEAFTheory.Argument to identifier map
+     * @param arguments a set of queried PEEAFTheory.Argument
+     * @return the corresponding identifiers
+     */
     private int[] checkAndGetArguments(Map<PEEAFTheory.Argument, Integer> argToInt, Set<PEEAFTheory.Argument> arguments) {
         if (arguments.size() == 0) {
             throw new RuntimeException("The number of arguments are zero.");

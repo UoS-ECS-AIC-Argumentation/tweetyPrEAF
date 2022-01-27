@@ -19,8 +19,8 @@
 package org.tweetyproject.commons;
 
 import java.util.*;
-
-import org.apache.log4j.*;
+//
+//import org.apache.log4j.*;
 
 /**
  * This class handles the global logging configuration.
@@ -42,17 +42,17 @@ public abstract class TweetyLogging {
 	 * Initialize the logging system.
 	 */
 	public static void initLogging(){
-		// TODO customize the following
-		Properties properties = new Properties();
-		properties.put("log4j.rootLogger", logLevel.toString() + ",mainlogger");
-		properties.put("log4j.appender.mainlogger.layout","org.apache.log4j.PatternLayout");
-		properties.put("log4j.appender.mainlogger.layout.ConversionPattern","%5p [%t] %C{1}.%M%n      %m%n");
-
-		if(logFile != null){
-			properties.put("log4j.appender.mainlogger","org.apache.log4j.RollingFileAppender");
-			properties.put("log4j.appender.mainlogger.File",logFile);
-		}else
-			properties.put("log4j.appender.mainlogger","org.apache.log4j.ConsoleAppender");
-		PropertyConfigurator.configure(properties);
+//		// TODO customize the following
+//		Properties properties = new Properties();
+//		properties.put("log4j.rootLogger", logLevel.toString() + ",mainlogger");
+//		properties.put("log4j.appender.mainlogger.layout","org.apache.log4j.PatternLayout");
+//		properties.put("log4j.appender.mainlogger.layout.ConversionPattern","%5p [%t] %C{1}.%M%n      %m%n");
+//
+//		if(logFile != null){
+//			properties.put("log4j.appender.mainlogger","org.apache.log4j.RollingFileAppender");
+//			properties.put("log4j.appender.mainlogger.File",logFile);
+//		}else
+//			properties.put("log4j.appender.mainlogger","org.apache.log4j.ConsoleAppender");
+//		PropertyConfigurator.configure(properties);
 	}
 }
