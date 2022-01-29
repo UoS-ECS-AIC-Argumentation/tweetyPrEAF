@@ -9,12 +9,24 @@ import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
 
 /**
+ * Generates random graphs based on Barabasi-Albert model. The generated graphs are undirected.
+ * This class add new edges to existing edges with some probability. The edges then converted to
+ * attacks in DAF.
+ *
  * Adapted from Federico Cerutti's Java version AFBenchGen2
  * https://sourceforge.net/projects/afbenchgen/
+ *
+ * @author Taha Dogan Gunes
  */
 public class BarabasiAlbertDAF extends SyntheticDAF {
+    /**
+     * Default constructor for BarabasiAlbertDAF
+     *
+     * @param noArguments      the number of arguments (i.e. nodes)
+     * @param probabilityCycle the probability of edges creating a cycle
+     */
     public BarabasiAlbertDAF(int noArguments, double probabilityCycle) {
-        super(GraphType.BARABASI, noArguments);
+        super(noArguments);
 
         this.validateProbabilities(probabilityCycle);
 
@@ -39,6 +51,6 @@ public class BarabasiAlbertDAF extends SyntheticDAF {
             graph.addEdge("" + graph.getEdgeCount(), (Node) ex.getNode1(), ex.getNode0(), true);
         }
 
-        addEdges(graph);
+        convertGraphEdgesToAttacks(graph);
     }
 }

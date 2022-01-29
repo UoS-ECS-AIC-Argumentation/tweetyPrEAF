@@ -6,12 +6,23 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.MultiGraph;
 
 /**
+ * Uses graphstream's RandomGenerator to create random graphs
+ * and converts the structure DungTheory attack and arguments
+ *
  * Adapted from Federico Cerutti's Java version AFBenchGen2
  * https://sourceforge.net/projects/afbenchgen/
+ *
+ * @author Taha Dogan Gunes
  */
 public class RandomDAF extends SyntheticDAF {
+    /**
+     * The default constructor for RandomDAF
+     *
+     * @param noArguments the number of arguments (i.e nodes)
+     * @param probability a double value (this is multiplied with noArguments to for setting average degree)
+     */
     public RandomDAF(int noArguments, double probability) {
-        super(GraphType.RANDOM, noArguments);
+        super(noArguments);
 
         this.validateProbabilities(probability);
 
@@ -25,6 +36,6 @@ public class RandomDAF extends SyntheticDAF {
         } while (graph.getNodeCount() < noArguments);
 
         generator.end();
-        addEdges(graph);
+        convertGraphEdgesToAttacks(graph);
     }
 }
