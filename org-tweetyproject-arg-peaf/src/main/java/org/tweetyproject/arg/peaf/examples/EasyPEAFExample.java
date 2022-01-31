@@ -1,10 +1,7 @@
 package org.tweetyproject.arg.peaf.examples;
 
 import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
-import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
-
-import java.util.function.Consumer;
 
 public class EasyPEAFExample {
     public static void main(String[] args) {
@@ -18,7 +15,7 @@ public class EasyPEAFExample {
         peafTheory.prettyPrint();
         LiExactPEAFInducer inducer = new LiExactPEAFInducer(peafTheory);
 
-        inducer.induce((Consumer<InducibleEAF>) ind -> {
+        inducer.induce(ind -> {
             System.out.println(ind);
 
 

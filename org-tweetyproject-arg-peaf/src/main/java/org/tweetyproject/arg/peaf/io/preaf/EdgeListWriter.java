@@ -10,7 +10,7 @@ import java.util.StringJoiner;
 
 /**
  * The EdgeList writer is a utility class for testing purposes to write networkx compatible EdgeList file format.
- *
+ * <p>
  * More details are at @see EdgeListReader.
  *
  * @author Taha Dogan Gunes
@@ -20,7 +20,7 @@ public class EdgeListWriter {
     /**
      * Writes a PEAFTheory in EdgeList format
      *
-     * @param path the path in string
+     * @param path       the path in string
      * @param peafTheory the PEAFTheory object
      */
     public static void write(String path, PEAFTheory peafTheory) {
@@ -39,9 +39,9 @@ public class EdgeListWriter {
     /**
      * Writes a PEAFTheory and the query to a EdgeList format given the path
      *
-     * @param path the path in string
+     * @param path       the path in string
      * @param peafTheory the PEAFTheory object
-     * @param query a set of arguments for query
+     * @param query      a set of arguments for query
      */
     public static void write(String path, PEAFTheory peafTheory, Set<EArgument> query) {
         try {
@@ -70,7 +70,7 @@ public class EdgeListWriter {
     /**
      * Write EAFTheory to EdgeList file format
      *
-     * @param path the path in string
+     * @param path      the path in string
      * @param eafTheory the EAFTheory object
      */
     public static void write(String path, EAFTheory eafTheory) {
@@ -105,8 +105,8 @@ public class EdgeListWriter {
     /**
      * Combines arguments and builds the first line
      *
-     * @param froms a set of arguments that originate the link
-     * @param tos a set of arguments that gets targeted
+     * @param froms           a set of arguments that originate the link
+     * @param tos             a set of arguments that gets targeted
      * @param fromToDelimiter the delimiter for froms argument to tos argument
      * @return StringBuilder object
      */
@@ -134,7 +134,7 @@ public class EdgeListWriter {
      * Utility method for getStringBuilder
      *
      * @param froms a set of arguments that originate the link
-     * @param tos a set of arguments that gets targets
+     * @param tos   a set of arguments that gets targets
      * @return StringBuilder object
      */
     public static StringBuilder getStringBuilder(Set<EArgument> froms, Set<EArgument> tos) {
@@ -145,14 +145,14 @@ public class EdgeListWriter {
      * Utility method for writing PEAFTheory to a file
      *
      * @param peafTheory PEAFTheory object
-     * @param writer writes to a file
+     * @param writer     writes to a file
      * @throws IOException when writing to a file fails, this exception is thrown.
      */
     private static void write(PEAFTheory peafTheory, FileWriter writer) throws IOException {
         for (PSupport o : peafTheory.getSupports()) {
             StringBuilder builder = getStringBuilder(o.getFroms(), o.getTos());
             if (builder != null) {
-                builder.append(" {'color': 'green', 'weight': " + o.getConditionalProbability() + "  }");
+                builder.append(" {'color': 'green', 'weight': ").append(o.getConditionalProbability()).append("  }");
                 writer.write(builder.toString());
                 writer.write(System.lineSeparator());
             }

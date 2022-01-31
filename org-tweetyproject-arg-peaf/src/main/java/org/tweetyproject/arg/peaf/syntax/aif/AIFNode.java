@@ -13,12 +13,12 @@ public class AIFNode {
     /**
      * The set of aif nodes that target to this aif node.
      */
-    private Set<AIFNode> froms = Sets.newHashSet();
+    private final Set<AIFNode> froms = Sets.newHashSet();
 
     /**
      * The set of aif nodes that originated (has an edge) by this aif node.
      */
-    private Set<AIFNode> tos = Sets.newHashSet();
+    private final Set<AIFNode> tos = Sets.newHashSet();
 
     /**
      * The id of the node
@@ -43,9 +43,9 @@ public class AIFNode {
     /**
      * The default constructor that creates an AIFNode
      *
-     * @param nodeID the id of the node
+     * @param nodeID   the id of the node
      * @param nodeType the node type
-     * @param text the text content
+     * @param text     the text content
      */
     public AIFNode(String nodeID, AIFNodeType nodeType, String text) {
         this.nodeID = nodeID;

@@ -8,7 +8,7 @@ import org.graphstream.graph.implementations.MultiGraph;
 /**
  * Uses graphstream's RandomGenerator to create random graphs
  * and converts the structure DungTheory attack and arguments
- *
+ * <p>
  * Adapted from Federico Cerutti's Java version AFBenchGen2
  * https://sourceforge.net/projects/afbenchgen/
  *

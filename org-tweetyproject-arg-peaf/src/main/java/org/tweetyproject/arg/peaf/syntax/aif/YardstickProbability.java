@@ -38,14 +38,14 @@ public enum YardstickProbability {
     private final double probability;
 
     /**
-     *  The name of the class of the probability
+     * The name of the class of the probability
      */
     private final String name;
 
     /**
      * The default constructor
      *
-     * @param name the class name of the probability
+     * @param name        the class name of the probability
      * @param probability the probability value
      */
     YardstickProbability(String name, final double probability) {

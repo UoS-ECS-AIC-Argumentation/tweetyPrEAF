@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * AIFNodeType corresponds the category of the node.
  * These can be RA, CA, I, MA, however this package is not supporting L, YA, and TA nodes.
  * More details are given here:
- *
+ * <p>
  * - https://aclanthology.org/W17-5114.pdf (Table 1, also details the types and sub-types)
  * - https://books.google.com/books?hl=en&lr=&id=U5rWx0Kh4vMC&oi=fnd&pg=PA311&dq=aif+dialogic+argumentation&ots=KvG2SgCksa&sig=sPX0nlXCTR0S4SdTIhlWzVWPXfs
  * - http://www.simonwells.org/assets/papers/reed_2008_aif.plus.pdf
@@ -67,7 +67,7 @@ public enum AIFNodeType {
 
     /**
      * The ignored node types for the AIFCISReader
-     *
+     * <p>
      * Table 1, also details the types and sub-types https://aclanthology.org/W17-5114.pdf
      * MA("MA") // MA node is for reframe (again this is for dialogues), i.e. restatements
      */

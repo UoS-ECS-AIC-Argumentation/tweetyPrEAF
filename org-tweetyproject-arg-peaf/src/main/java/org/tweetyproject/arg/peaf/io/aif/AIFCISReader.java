@@ -24,6 +24,7 @@ public class AIFCISReader {
 
     /**
      * Default constructor for AIFCISReader
+     *
      * @param pathString aif or cis file path
      */
     public AIFCISReader(String pathString) {
@@ -32,7 +33,7 @@ public class AIFCISReader {
 
     /**
      * Reads (and converts) aifJSON to an intermediate format AIFTheory
-     *
+     * <p>
      * During the conversion unsupported edges and errors are reported.
      *
      * @param aifJSON the raw aif in json format
@@ -61,8 +62,7 @@ public class AIFCISReader {
             AIFNode aifNode = new AIFNode(aifjsonNode.nodeID, type, aifjsonNode.text);
             if (type == AIFNodeType.I) {
                 aif.iNodeMap.put(aifjsonNode.nodeID, aifNode);
-            }
-            else { // S Nodes
+            } else { // S Nodes
                 aif.sNodeMap.put(aifjsonNode.nodeID, aifNode);
             }
 
@@ -121,7 +121,7 @@ public class AIFCISReader {
 
     /**
      * This function checks the validity of the connection between nodes.
-     *
+     * <p>
      * Return true only if node1 is I-node and node2 is either CA, RA or MA node.
      * This means that we only allow I-node to have an edge to CA, RA or MA, not to an I-node.
      *
@@ -137,11 +137,13 @@ public class AIFCISReader {
      * This exception is thrown in the cases where the aif node's type is not supported by AIFCISReader.
      */
     public static class UnsupportedNodeTypeException extends RuntimeException {
-        private static AtomicLong atomicLong = new AtomicLong(0);
+        private static final AtomicLong atomicLong = new AtomicLong(0);
+
         public UnsupportedNodeTypeException(String message) {
             super(message);
             atomicLong.getAndIncrement();
         }
+
         public static long getOccurrenceCount() {
             return atomicLong.get();
         }
@@ -151,7 +153,8 @@ public class AIFCISReader {
      * This exception is thrown in the cases where the node id was defined previously in the aif.
      */
     public static class DuplicateNodeIDException extends RuntimeException {
-        private static AtomicLong atomicLong = new AtomicLong(0);
+        private static final AtomicLong atomicLong = new AtomicLong(0);
+
         public DuplicateNodeIDException(String message) {
             super(message);
             atomicLong.getAndIncrement();

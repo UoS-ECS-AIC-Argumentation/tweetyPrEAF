@@ -20,7 +20,6 @@ public class ApproxPEAFInducer extends AbstractPEAFInducer {
      * Internal intermediate data structure to expand an EAF in the inducer
      *
      * @see ExactPEAFInducer.EAF_F
-     *
      */
     class EAF_F {
         /**
@@ -51,8 +50,9 @@ public class ApproxPEAFInducer extends AbstractPEAFInducer {
 
         /**
          * For compatibility this re-implementation maps to InducibleEAF
-         * @see InducibleEAF
+         *
          * @return an InducibleEAF
+         * @see InducibleEAF
          */
         public InducibleEAF convertToInducible() {
             List<PSupport> supportList = Lists.newArrayList();
@@ -61,10 +61,10 @@ public class ApproxPEAFInducer extends AbstractPEAFInducer {
             }
 
             InducibleEAF inducibleEAF = new InducibleEAF(Sets.newHashSet(eArguments),
-                                                Sets.newHashSet(supportList),
-                                                Sets.newHashSet(),
-                                                Sets.newHashSet(),
-                                         0, 0);
+                    Sets.newHashSet(supportList),
+                    Sets.newHashSet(),
+                    Sets.newHashSet(),
+                    0, 0);
 
             inducibleEAF.addAttackLinks();
 

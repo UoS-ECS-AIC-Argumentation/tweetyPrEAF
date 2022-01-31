@@ -37,7 +37,6 @@ public class ApproximateJustificationAnalysisExample {
         query.add(args.get(0));
 
 
-
         ExactAnalysis analysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = analysis.query(query);
         result.print();

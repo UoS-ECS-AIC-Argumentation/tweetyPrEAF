@@ -22,7 +22,7 @@ public abstract class AbstractPEAFInducer implements PEAFInducer {
 
     /**
      * Default constructor (checks if the given PEAF is cyclic or not.)
-     *
+     * <p>
      * Cyclic in PEAF support links is forbidden in PEAF specification.
      *
      * @param peafTheory a PEAFTheory object
@@ -30,7 +30,7 @@ public abstract class AbstractPEAFInducer implements PEAFInducer {
     public AbstractPEAFInducer(PEAFTheory peafTheory) {
         this.peafTheory = peafTheory;
 
-        if (isSupportLinksCyclic()){
+        if (isSupportLinksCyclic()) {
             throw new CyclicException("This PEAF can not be induced, because a cyclic was found.");
         }
     }
@@ -46,7 +46,7 @@ public abstract class AbstractPEAFInducer implements PEAFInducer {
         // not part of recursion stack
 
         Map<EArgument, Boolean> visited = Maps.newHashMap();
-        Map<EArgument, Boolean>  recStack = Maps.newHashMap();
+        Map<EArgument, Boolean> recStack = Maps.newHashMap();
         for (EArgument argument : peafTheory.getArguments()) {
             visited.put(argument, false);
             recStack.put(argument, false);
@@ -63,7 +63,7 @@ public abstract class AbstractPEAFInducer implements PEAFInducer {
     }
 
     public void induceNTimes(Consumer<InducibleEAF> consumer, int n) {
-        while (n > 0 ) {
+        while (n > 0) {
             this.induce(consumer);
             n--;
         }
@@ -80,18 +80,17 @@ public abstract class AbstractPEAFInducer implements PEAFInducer {
 
     /**
      * Recursive DFS to find some cyclics in the PEAF
-     *
+     * <p>
      * This function is a variation of DFSUtil() in
      * https://www.geeksforgeeks.org/archives/18212
      *
-     * @param arg starting EArgument to explore
-     * @param visited the map stores if the argument is explored or not
+     * @param arg      starting EArgument to explore
+     * @param visited  the map stores if the argument is explored or not
      * @param recStack recursion stack
      * @return return true if it is a cyclic
      */
     private boolean isCyclicUtil(EArgument arg, Map<EArgument, Boolean> visited,
-                                 Map<EArgument, Boolean> recStack)
-    {
+                                 Map<EArgument, Boolean> recStack) {
         // Mark the current node as visited and
         // part of recursion stack
         if (recStack.get(arg))

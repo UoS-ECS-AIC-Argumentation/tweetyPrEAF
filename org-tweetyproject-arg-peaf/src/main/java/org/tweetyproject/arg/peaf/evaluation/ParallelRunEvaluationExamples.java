@@ -188,10 +188,10 @@ public class ParallelRunEvaluationExamples {
         double justification = result.getProbability();
         double iterations = result.getNoIterations();
 
-        long estimatedTime = System.currentTimeMillis()- startTime;
+        long estimatedTime = System.currentTimeMillis() - startTime;
 
         lock.lock();
-        try{
+        try {
             String output = "[RESULT] " + repetitionFilePath + ": " + estimatedTime + " justification: " + justification + " iter: " + iterations + " ind: " + inducer;
             System.out.println(output);
             writer.write(graphType + "," +

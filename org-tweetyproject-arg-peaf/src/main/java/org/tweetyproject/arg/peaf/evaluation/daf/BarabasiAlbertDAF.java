@@ -12,7 +12,7 @@ import org.graphstream.graph.implementations.MultiGraph;
  * Generates random graphs based on Barabasi-Albert model. The generated graphs are undirected.
  * This class add new edges to existing edges with some probability. The edges then converted to
  * attacks in DAF.
- *
+ * <p>
  * Adapted from Federico Cerutti's Java version AFBenchGen2
  * https://sourceforge.net/projects/afbenchgen/
  *

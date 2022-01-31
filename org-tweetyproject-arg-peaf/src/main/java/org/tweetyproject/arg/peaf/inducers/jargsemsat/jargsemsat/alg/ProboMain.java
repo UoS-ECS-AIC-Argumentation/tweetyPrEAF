@@ -1,18 +1,18 @@
 /**
  * This file is part of jArgSemSAT
- * 
+ * <p>
  * Copyright (c) 2015 Federico Cerutti <federico.cerutti@acm.org>
- * 
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -81,7 +81,7 @@ public class ProboMain {
 
 	public static String argumentDecision = null;
 
-	static void printArray(String arr[]) {
+	static void printArray(String[] arr) {
 		int i = 0;
 		System.out.print("[");
 		for (i = 0; i < arr.length; i++) {
@@ -92,7 +92,7 @@ public class ProboMain {
 		System.out.println("]");
 	}
 
-	static boolean isInArray(String el, String arr[]) {
+	static boolean isInArray(String el, String[] arr) {
 		int i = 0;
 		for (i = 0; i < arr.length; i++) {
 			if (arr[i].compareTo(el) == 0)
@@ -155,25 +155,25 @@ public class ProboMain {
 		}
 
 		for (int k = 0; k < args.length; k++) {
-			if (new String("--formats").compareTo(args[k]) == 0) {
+			if ("--formats".compareTo(args[k]) == 0) {
 				printArray(acceptedformats);
 				return PARSE_EXIT;
-			} else if (new String("--problems").compareTo(args[k]) == 0) {
+			} else if ("--problems".compareTo(args[k]) == 0) {
 				printArray(acceptedproblems);
 				return PARSE_EXIT;
-			} else if (new String("--help").compareTo(args[k]) == 0) {
+			} else if ("--help".compareTo(args[k]) == 0) {
 				showHelp();
 				return PARSE_EXIT;
-			} else if (new String("-f").compareTo(args[k]) == 0) {
+			} else if ("-f".compareTo(args[k]) == 0) {
 				inputfile = args[++k];
 
-			} else if (new String("-a").compareTo(args[k]) == 0) {
+			} else if ("-a".compareTo(args[k]) == 0) {
 				argumentDecision = args[++k];
-			} else if (new String("-fo").compareTo(args[k]) == 0) {
+			} else if ("-fo".compareTo(args[k]) == 0) {
 				if (!isInArray(args[++k], acceptedformats)) {
 					return PARSE_UNABLE;
 				}
-			} else if (new String("-p").compareTo(args[k]) == 0) {
+			} else if ("-p".compareTo(args[k]) == 0) {
 				String p = args[++k];
 				if (!isInArray(p, acceptedproblems)) {
 					return PARSE_UNABLE;
@@ -185,14 +185,14 @@ public class ProboMain {
 				}
 				problem = p.substring(0, dash);
 				semantics = p.substring(dash + 1);
-			} else if (new String("--ExtEnc").compareTo(args[k]) == 0) {
+			} else if ("--ExtEnc".compareTo(args[k]) == 0) {
 				try {
 					global_enc = new Encoding(args[++k]);
 				} catch (Exception e) {
 					e.printStackTrace();
 					return PARSE_ERROR;
 				}
-			} else if (new String("--sat").compareTo(args[k]) == 0) {
+			} else if ("--sat".compareTo(args[k]) == 0) {
 				sat = args[++k];
 				if (sat.charAt(0) == '"') {
 					sat = sat.substring(1);
@@ -271,7 +271,7 @@ public class ProboMain {
 			} else if (problem.compareToIgnoreCase(enumeratesome) == 0) {
 				Labelling ret = new Labelling();
 				CompleteSemantics.someExtension(ret, framework, global_enc);
-				System.out.println(ret.toString());
+				System.out.println(ret);
 			}
 
 		} else if (semantics.compareToIgnoreCase(preferred_string_const) == 0) {
@@ -288,7 +288,7 @@ public class ProboMain {
 			} else if (problem.compareToIgnoreCase(enumeratesome) == 0) {
 				Labelling ret = new Labelling();
 				PreferredSemantics.someExtension(ret, framework, global_enc);
-				System.out.println(ret.toString());
+				System.out.println(ret);
 			}
 		} else if (semantics.compareToIgnoreCase(grounded_string_const) == 0) {
 			if (problem.compareToIgnoreCase(enumerateall) == 0) {
@@ -304,7 +304,7 @@ public class ProboMain {
 			} else if (problem.compareToIgnoreCase(enumeratesome) == 0) {
 				Labelling ret = new Labelling();
 				GroundedSemantics.someExtension(ret, framework, global_enc);
-				System.out.println(ret.toString());
+				System.out.println(ret);
 			}
 		} else if (semantics.compareToIgnoreCase(stable_string_const) == 0) {
 			if (problem.compareToIgnoreCase(enumerateall) == 0) {
@@ -324,22 +324,22 @@ public class ProboMain {
 				if (ret.empty())
 					printbooleanprobo(false);
 				else
-					System.out.println(ret.toString());
+					System.out.println(ret);
 			}
 		}
 
 		// this does not consider the encoding
 		/*
 		 * HashSet<HashSet<String>> exts = framework.getPreferredExts();
-		 * 
+		 *
 		 * System.out.print("["); Iterator<HashSet<String>> it =
 		 * exts.iterator(); while (it.hasNext()) { System.out.print("[");
 		 * Iterator<String>ar = it.next().iterator(); while (ar.hasNext()) {
 		 * System.out.print(ar.next()); if (ar.hasNext()) {
 		 * System.out.print(","); } } System.out.print("]");
-		 * 
+		 *
 		 * if(it.hasNext()) System.out.print(",");
-		 * 
+		 *
 		 * } System.out.print("]");
 		 */
 	}

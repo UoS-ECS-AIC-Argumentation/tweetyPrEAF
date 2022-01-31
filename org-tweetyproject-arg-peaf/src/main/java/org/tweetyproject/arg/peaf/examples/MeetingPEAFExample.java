@@ -3,12 +3,10 @@ package org.tweetyproject.arg.peaf.examples;
 import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
-import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 
 public class MeetingPEAFExample {
     static double total = 0;
@@ -37,7 +35,6 @@ public class MeetingPEAFExample {
         peafTheory.addAttack(new int[]{1}, new int[]{6});
 
 
-
         List<EArgument> args = peafTheory.getArguments();
         args.get(0).setName("eta");
         args.get(1).setName("b");
@@ -53,7 +50,7 @@ public class MeetingPEAFExample {
         AtomicInteger i = new AtomicInteger();
         LiExactPEAFInducer inducer = new LiExactPEAFInducer(peafTheory);
         total = 0;
-        inducer.induce((Consumer<InducibleEAF>) ind -> {
+        inducer.induce(ind -> {
             int n = i.getAndIncrement();
             System.out.println(n + ". " + ind);
             String probability = String.format("%.04f", ind.getInducePro());
@@ -69,7 +66,7 @@ public class MeetingPEAFExample {
         AtomicInteger i1 = new AtomicInteger();
         ExactPEAFInducer inducer2 = new ExactPEAFInducer(peafTheory);
         total = 0;
-        inducer2.induce((Consumer<InducibleEAF>) ind -> {
+        inducer2.induce(ind -> {
             int n = i1.getAndIncrement();
             System.out.println(n + ". " + ind);
             String probability = String.format("%.04f", ind.getInducePro());

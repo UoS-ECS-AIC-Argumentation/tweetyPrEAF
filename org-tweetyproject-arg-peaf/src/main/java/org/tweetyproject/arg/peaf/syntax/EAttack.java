@@ -30,9 +30,9 @@ public class EAttack {
     /**
      * The default constructor that creates EAttack object
      *
-     * @param name the name of the attack
+     * @param name  the name of the attack
      * @param froms the arguments that originate this attack
-     * @param tos the arguments that receive this attack
+     * @param tos   the arguments that receive this attack
      */
     public EAttack(String name, Set<EArgument> froms, Set<EArgument> tos) {
         this.name = name;

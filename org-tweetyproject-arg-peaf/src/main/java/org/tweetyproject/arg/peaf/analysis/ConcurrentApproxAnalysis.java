@@ -121,7 +121,7 @@ public class ConcurrentApproxAnalysis extends AbstractAnalysis {
 
             // Make sure all the batch is completed.
             ListIterator<Future<Double>> iter = futures.listIterator();
-            while(iter.hasNext()) {
+            while (iter.hasNext()) {
                 Future<Double> future = iter.next();
 
                 double contribution = 0;

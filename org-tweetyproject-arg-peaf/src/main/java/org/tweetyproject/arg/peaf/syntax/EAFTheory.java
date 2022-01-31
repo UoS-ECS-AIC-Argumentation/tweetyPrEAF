@@ -268,7 +268,7 @@ public class EAFTheory extends AbstractEAFTheory<ESupport> {
             i++;
         }
 
-        System.out.println("");
+        System.out.println();
         System.out.println("-- Supports --");
         i = 0;
         for (ESupport support : this.getSupports()) {
@@ -276,7 +276,7 @@ public class EAFTheory extends AbstractEAFTheory<ESupport> {
             i++;
         }
 
-        System.out.println("");
+        System.out.println();
         System.out.println("-- Attacks --");
         i = 0;
         for (EAttack attack : this.getAttacks()) {

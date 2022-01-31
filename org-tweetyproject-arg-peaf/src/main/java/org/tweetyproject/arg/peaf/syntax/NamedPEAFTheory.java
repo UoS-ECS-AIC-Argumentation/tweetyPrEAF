@@ -96,7 +96,7 @@ public class NamedPEAFTheory extends PEAFTheory {
             i++;
         }
 
-        System.out.println("");
+        System.out.println();
         System.out.println("-- Supports --");
         i = 0;
         for (PSupport support : this.getSupports()) {
@@ -104,7 +104,7 @@ public class NamedPEAFTheory extends PEAFTheory {
             i++;
         }
 
-        System.out.println("");
+        System.out.println();
         System.out.println("-- Attacks --");
         i = 0;
         for (EAttack attack : this.getAttacks()) {

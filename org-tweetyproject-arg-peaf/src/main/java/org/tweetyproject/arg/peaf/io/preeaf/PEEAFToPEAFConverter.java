@@ -91,7 +91,7 @@ public class PEEAFToPEAFConverter {
             PEEAFTheory.Element element = attack.getTo();
             if (!(element instanceof PEEAFTheory.Argument)) {
                 // virtual argument for support line 9 and 16
-                peafTheory.addArgument(noArgs, "virtual" + noArgs,  "virtual" + noArgs);
+                peafTheory.addArgument(noArgs, "virtual" + noArgs, "virtual" + noArgs);
                 int virtualArgumentIndex = noArgs;
                 noArgs++;
 
@@ -130,7 +130,7 @@ public class PEEAFToPEAFConverter {
     /**
      * Utility function to fetch a set of arguments with an error check.
      *
-     * @param argToInt PEEAFTheory.Argument to identifier map
+     * @param argToInt  PEEAFTheory.Argument to identifier map
      * @param arguments a set of queried PEEAFTheory.Argument
      * @return the corresponding identifiers
      */

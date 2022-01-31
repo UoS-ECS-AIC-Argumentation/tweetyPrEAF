@@ -84,7 +84,7 @@ public class Runner {
         int count = 0;
         for (AIFJSONAnalysis analysis : aifJSON.analyses) {
             StringBuilder builder = new StringBuilder();
-            System.out.println("\n > Starting #" + ++count + " analysis with: "+ analysis.reasoner.type + "\n");
+            System.out.println("\n > Starting #" + ++count + " analysis with: " + analysis.reasoner.type + "\n");
 
             AnalysisType type = AnalysisType.get(analysis.reasoner.type);
             analysis.result.datetime = "" + java.util.Calendar.getInstance().getTime();
@@ -158,7 +158,7 @@ public class Runner {
                         break;
                     }
                     query.add(eArgument);
-                    System.out.println("`"+ iNodeID + "`: " + peaf.getArgumentNameFromIdentifier(iNodeID));
+                    System.out.println("`" + iNodeID + "`: " + peaf.getArgumentNameFromIdentifier(iNodeID));
                 }
                 System.out.println("The query (in internal format): " + query);
 

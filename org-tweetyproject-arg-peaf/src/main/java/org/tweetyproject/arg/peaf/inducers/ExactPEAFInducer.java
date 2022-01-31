@@ -16,11 +16,11 @@ import java.util.function.Consumer;
  *
  * @author Taha Dogan Gunes
  */
-public class ExactPEAFInducer extends AbstractPEAFInducer{
+public class ExactPEAFInducer extends AbstractPEAFInducer {
 
     /**
      * Used internally for debugging the inducer
-     *
+     * <p>
      * TODO: Could be removed and migrated to a proper logging module.
      *
      * @param message a string
@@ -30,93 +30,6 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
         if (INTERNAL_DEBUG_MESSAGES) {
             System.out.println(message);
         }
-    }
-
-    /**
-     * Simpler re-implementation of InducibleEAF (It is a temporary data structure that helps to expand an induced
-     * EAF.
-     */
-    class EAF_F {
-        /**
-         * Arguments of the EAF
-         */
-        Set<EArgument> eArguments;
-        /**
-         * Supports of the EAF
-         */
-        Set<ESupport> eSupports;
-        /**
-         * The next arguments to add to the EAF
-         */
-        Set<EArgument> newEArguments;
-        /**
-         * Reference to EAFs that originate this EAF
-         */
-        List<EAF_F> createdFrom = Lists.newArrayList();
-        /**
-         * The probability value of the EAF (notation from the thesis)
-         */
-        double pi;
-
-        /**
-         * The default constructor for the EAF_F
-         *
-         * @param eArguments the set of arguments
-         * @param eSupports the set of supports
-         * @param newEArguments the new arguments after this EAF
-         * @param pi the probability value
-         */
-        public EAF_F(Set<EArgument> eArguments,
-                     Set<ESupport> eSupports,
-                     Set<EArgument> newEArguments, double pi) {
-            this.eArguments = eArguments;
-            this.eSupports = eSupports;
-            this.newEArguments = newEArguments;
-            this.pi = pi;
-        }
-
-        /**
-         * For compatibility this re-implementation maps to InducibleEAF
-         * @see InducibleEAF
-         * @return an InducibleEAF
-         */
-        public InducibleEAF convertToInducible() {
-            List<PSupport> supportList = Lists.newArrayList();
-            for (ESupport eSupport : eSupports) {
-                supportList.add((PSupport) eSupport);
-            }
-
-            InducibleEAF inducibleEAF = new InducibleEAF(Sets.newHashSet(eArguments),
-                    Sets.newHashSet(supportList),
-                    Sets.newHashSet(),
-                    Sets.newHashSet(),
-                    0, Math.log(this.pi));
-
-
-            inducibleEAF.addAttackLinks();
-
-            return inducibleEAF;
-        }
-
-        /**
-         * Makes a direct copy of this EAF_F
-         *
-         * @return a copied EAF_F
-         */
-        public EAF_F copy() {
-            EAF_F i = new EAF_F(Sets.newHashSet(this.eArguments), Sets.newHashSet(this.eSupports), Sets.newHashSet(this.newEArguments), this.pi);
-            i.createdFrom.add(this);
-            return i;
-        }
-    }
-
-    /**
-     * The default constructor for the ExactPEAFInducer
-     *
-     * @param peafTheory
-     */
-    public ExactPEAFInducer(PEAFTheory peafTheory) {
-        super(peafTheory);
     }
 
     /**
@@ -155,7 +68,7 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
 
                 for (EArgument from : support.getFroms()) {
                     // R_S - R_S^F
-                    if (!args.contains(from) ) {
+                    if (!args.contains(from)) {
                         notIn = from;
                         break;
                     }
@@ -217,6 +130,94 @@ public class ExactPEAFInducer extends AbstractPEAFInducer{
                 }
             }
 
+        }
+    }
+
+    /**
+     * The default constructor for the ExactPEAFInducer
+     *
+     * @param peafTheory
+     */
+    public ExactPEAFInducer(PEAFTheory peafTheory) {
+        super(peafTheory);
+    }
+
+    /**
+     * Simpler re-implementation of InducibleEAF (It is a temporary data structure that helps to expand an induced
+     * EAF.
+     */
+    class EAF_F {
+        /**
+         * Arguments of the EAF
+         */
+        Set<EArgument> eArguments;
+        /**
+         * Supports of the EAF
+         */
+        Set<ESupport> eSupports;
+        /**
+         * The next arguments to add to the EAF
+         */
+        Set<EArgument> newEArguments;
+        /**
+         * Reference to EAFs that originate this EAF
+         */
+        List<EAF_F> createdFrom = Lists.newArrayList();
+        /**
+         * The probability value of the EAF (notation from the thesis)
+         */
+        double pi;
+
+        /**
+         * The default constructor for the EAF_F
+         *
+         * @param eArguments    the set of arguments
+         * @param eSupports     the set of supports
+         * @param newEArguments the new arguments after this EAF
+         * @param pi            the probability value
+         */
+        public EAF_F(Set<EArgument> eArguments,
+                     Set<ESupport> eSupports,
+                     Set<EArgument> newEArguments, double pi) {
+            this.eArguments = eArguments;
+            this.eSupports = eSupports;
+            this.newEArguments = newEArguments;
+            this.pi = pi;
+        }
+
+        /**
+         * For compatibility this re-implementation maps to InducibleEAF
+         *
+         * @return an InducibleEAF
+         * @see InducibleEAF
+         */
+        public InducibleEAF convertToInducible() {
+            List<PSupport> supportList = Lists.newArrayList();
+            for (ESupport eSupport : eSupports) {
+                supportList.add((PSupport) eSupport);
+            }
+
+            InducibleEAF inducibleEAF = new InducibleEAF(Sets.newHashSet(eArguments),
+                    Sets.newHashSet(supportList),
+                    Sets.newHashSet(),
+                    Sets.newHashSet(),
+                    0, Math.log(this.pi));
+
+
+            inducibleEAF.addAttackLinks();
+
+            return inducibleEAF;
+        }
+
+        /**
+         * Makes a direct copy of this EAF_F
+         *
+         * @return a copied EAF_F
+         */
+        public EAF_F copy() {
+            EAF_F i = new EAF_F(Sets.newHashSet(this.eArguments), Sets.newHashSet(this.eSupports), Sets.newHashSet(this.newEArguments), this.pi);
+            i.createdFrom.add(this);
+            return i;
         }
     }
 

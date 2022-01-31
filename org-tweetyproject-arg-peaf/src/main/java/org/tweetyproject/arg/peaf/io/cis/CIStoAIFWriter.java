@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  * CIStoAIFWriter, converts CISpaces json files to AIF file format
- *
+ * <p>
  * This only changes source and target of CISpaces to fromID to toID.
  *
  * @author Taha Dogan Gunes
@@ -30,6 +30,7 @@ public class CIStoAIFWriter {
 
     /**
      * CIStoAIFWriter's default constructor that takes inputPath
+     *
      * @param inputPath the path of the cis file
      */
     public CIStoAIFWriter(String inputPath) {
@@ -70,7 +71,7 @@ public class CIStoAIFWriter {
         String path = loader.getResource("cis/" + name).getPath();
 
         CIStoAIFWriter writer = new CIStoAIFWriter(path);
-        writer.write("aif-"+name);
+        writer.write("aif-" + name);
 
     }
 }

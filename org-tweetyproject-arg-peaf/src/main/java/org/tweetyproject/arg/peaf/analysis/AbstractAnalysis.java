@@ -74,7 +74,7 @@ public abstract class AbstractAnalysis implements JustificationAnalysis {
         EAFTheory eafTheory = inducibleEAF.toNewEAFTheory();
 
         // If Q is not a subset of A, the contribution is zero
-        if (!eafTheory.getArgumentsSet().containsAll(args)) {
+        if (!eafTheory.getArgumentsAsSet().containsAll(args)) {
             return 0.0;
         }
 

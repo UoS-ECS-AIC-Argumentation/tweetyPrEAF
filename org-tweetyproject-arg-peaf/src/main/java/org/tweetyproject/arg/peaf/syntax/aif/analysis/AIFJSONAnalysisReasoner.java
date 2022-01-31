@@ -2,15 +2,15 @@ package org.tweetyproject.arg.peaf.syntax.aif.analysis;
 
 /**
  * AIFJSONAnalysisReasoner is utility class used with Google's GSON
- *
+ * <p>
  * The corresponding JSON in the aif is:
  * ```
- *  {
- *   "type": "approx",
- *   "parameters": {"noThreads": "4", "errorLevel": "0.1"}
- *  }
+ * {
+ * "type": "approx",
+ * "parameters": {"noThreads": "4", "errorLevel": "0.1"}
+ * }
  * ```
- *  The query is used for all reasoners except `preferred`.
+ * The query is used for all reasoners except `preferred`.
  *
  * @author Taha Dogan Gunes
  */

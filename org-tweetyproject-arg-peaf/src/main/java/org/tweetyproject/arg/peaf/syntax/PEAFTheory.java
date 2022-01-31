@@ -93,7 +93,7 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport> {
      * Add attack between arguments with indices
      *
      * @param fromIndex the index of the EArgument that originates the attack
-     * @param toIndex the index of the EArgument that receieves the attack
+     * @param toIndex   the index of the EArgument that receieves the attack
      */
     public void addAttack(int fromIndex, int toIndex) {
         this.addAttack(new int[]{fromIndex}, new int[]{toIndex});
@@ -102,6 +102,7 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport> {
     /**
      * Returns an ascii tree for debug purposes.
      * This is usually used in the unit tests.
+     *
      * @return the ascii tree in string
      */
     public String getASCIITree() {

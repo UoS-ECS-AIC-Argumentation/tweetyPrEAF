@@ -2,12 +2,12 @@ package org.tweetyproject.arg.peaf.syntax.aif.analysis;
 
 /**
  * AIFJSONAnalysisReasonerParameters is utility class used with Google's GSON
- *
+ * <p>
  * The corresponding JSON in the aif is:
  * ```
  * {
- *     "noThreads": "4",
- *     "errorLevel": "0.1"
+ * "noThreads": "4",
+ * "errorLevel": "0.1"
  * }
  * ```
  *

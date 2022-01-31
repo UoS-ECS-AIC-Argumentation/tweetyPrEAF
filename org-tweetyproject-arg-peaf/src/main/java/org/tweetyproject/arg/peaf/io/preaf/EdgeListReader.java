@@ -21,26 +21,26 @@ import java.util.stream.Stream;
 
 /**
  * EdgeListReader is a utility class for testing purposes to read networkx compatible EdgeList file format.
- *
+ * <p>
  * The more details can be found here: https://networkx.org/documentation/stable/reference/readwrite/edgelist.html
- *
+ * <p>
  * The only addition is the first commented line that has the queried arguments of the given custom graph, PEAF.
  * Examples of this file format can be found in the `resources` folder. The file extension is `.peaf`.
- *
+ * <p>
  * An example of a PEAF file without a query is:
- *
+ * <p>
  * ```
- *  0 1 { 'color': 'green', 'weight': 0.8148851406241553 }
- *  0 2 { 'color': 'green', 'weight': 0.9428105506184434 }
- *  0 3 { 'color': 'green', 'weight': 0.8569966496275188 }
- *  1 2 { 'color': 'red'}
- *  1 6 { 'color': 'red'}
- *  1 7 { 'color': 'red'}
- *  ```
- *
- *  Color green denotes the support link and the weight is the probability given to PSupport.
- *  Color red denotes the attack link.
- *  This is useful to get plots of the PEAF directly from networkx library.
+ * 0 1 { 'color': 'green', 'weight': 0.8148851406241553 }
+ * 0 2 { 'color': 'green', 'weight': 0.9428105506184434 }
+ * 0 3 { 'color': 'green', 'weight': 0.8569966496275188 }
+ * 1 2 { 'color': 'red'}
+ * 1 6 { 'color': 'red'}
+ * 1 7 { 'color': 'red'}
+ * ```
+ * <p>
+ * Color green denotes the support link and the weight is the probability given to PSupport.
+ * Color red denotes the attack link.
+ * This is useful to get plots of the PEAF directly from networkx library.
  */
 public class EdgeListReader {
     private static final String QUERY_LINE = "# Query: ";
@@ -59,7 +59,7 @@ public class EdgeListReader {
     /**
      * Read a PEAF in edgelist file format that has a query (.peaf)
      *
-     * @param filePath the file path of the edgelist file
+     * @param filePath   the file path of the edgelist file
      * @param printLines true if the user wants to see the read lines
      * @return a pair that contains the PEAFTheory object and the set of arguments
      * @throws IOException if the file was not read properly
@@ -74,7 +74,7 @@ public class EdgeListReader {
         }
         Set<String> stringQueryArgs = new HashSet<>();
         if (firstLine.startsWith(QUERY_LINE)) {
-            String tokens = firstLine.substring(QUERY_LINE.length(), firstLine.length());
+            String tokens = firstLine.substring(QUERY_LINE.length());
             StringTokenizer tokenizer = new StringTokenizer(tokens, " ");
 
             while (tokenizer.hasMoreTokens()) {
@@ -111,7 +111,7 @@ public class EdgeListReader {
     /**
      * Reads a PEAFTheory in edgelist format (.peaf) and prints the lines if desired
      *
-     * @param filePath the file path of the edgelist file
+     * @param filePath   the file path of the edgelist file
      * @param printLines true if the user wants to see the read lines
      * @return a PEAFTheory object
      * @throws IOException if the file was not read properly

@@ -1,7 +1,10 @@
 package org.tweetyproject.arg.peaf.inducers;
 
 import com.google.common.collect.Sets;
-import org.tweetyproject.arg.peaf.syntax.*;
+import org.tweetyproject.arg.peaf.syntax.EArgument;
+import org.tweetyproject.arg.peaf.syntax.InducibleEAF;
+import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
+import org.tweetyproject.arg.peaf.syntax.PSupport;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -12,10 +15,10 @@ import java.util.function.Consumer;
  * </br>See
  * </br>
  * </br> Li, Hengfei. Probabilistic argumentation. 2015. PhD Thesis. Aberdeen University.
- *
+ * <p>
  * The comments also have the ruby code equivalent.
  * LiExactPEAFInducer generates all possible EAFs that can be generated from a PEAF.
- *
+ * <p>
  * FIXME: This is to be used in @see Runner of the module. It is a great reference implementation.
  *
  * @author Taha Dogan Gunes
@@ -41,9 +44,9 @@ public class LiExactPEAFInducer extends AbstractPEAFInducer {
     @Deprecated
     public void induce(Consumer<InducibleEAF> consumer) {
         InducibleEAF f = new InducibleEAF(Sets.newHashSet(),
-                                          Sets.newHashSet(),
-                                          Sets.newHashSet(),
-                                          Sets.newHashSet(), Math.log(1.0), Math.log(1.0));
+                Sets.newHashSet(),
+                Sets.newHashSet(),
+                Sets.newHashSet(), Math.log(1.0), Math.log(1.0));
 
         // Store inducible that need to expand
         List<InducibleEAF> expansion = new ArrayList<>();

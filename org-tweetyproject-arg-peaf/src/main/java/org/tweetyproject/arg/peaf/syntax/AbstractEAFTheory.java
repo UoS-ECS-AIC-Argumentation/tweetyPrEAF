@@ -115,6 +115,12 @@ public abstract class AbstractEAFTheory<S extends ESupport> {
         return attack;
     }
 
+    /**
+     * Create a set of arguments from the given indices
+     *
+     * @param fromIndices the indices of arguments requested
+     * @return the set of arguments
+     */
     protected Set<EArgument> createEmptyArgSet(int[] fromIndices) {
         Set<EArgument> froms = new HashSet<>(fromIndices.length);
         for (int fromIndex : fromIndices) {
@@ -123,30 +129,55 @@ public abstract class AbstractEAFTheory<S extends ESupport> {
         return froms;
     }
 
+    /**
+     * Create and add a new argument with identifier
+     *
+     * @param identifier integer identifier for the argument
+     * @return the created argument
+     */
     public EArgument addArgument(int identifier) {
         EArgument argument = this.createArgument(Integer.toString(identifier));
         this.addArgument(argument);
         return argument;
     }
 
+    /**
+     * Get all arguments
+     *
+     * @return a set of arguments
+     */
     public Set<EArgument> getArgumentsAsSet() {
         return this.argumentsSet;
     }
 
+    /**
+     * @return a list of arguments
+     */
     public ArrayList<EArgument> getArguments() {
         return arguments;
     }
 
-    public Set<EArgument> getArgumentsSet() { return argumentsSet; }
-
+    /**
+     * Get all supports
+     *
+     * @return a list of supports
+     */
     public ArrayList<S> getSupports() {
         return supports;
     }
 
+    /**
+     * Get all attacks
+     *
+     * @return a list of attacks
+     */
     public ArrayList<EAttack> getAttacks() {
         return attacks;
     }
 
+    /**
+     * Pretty print of the EAFTheory
+     */
     public void prettyPrint() {
         System.out.println("-- Arguments --");
         int i = 0;
@@ -174,10 +205,20 @@ public abstract class AbstractEAFTheory<S extends ESupport> {
         System.out.println("\n");
     }
 
+    /**
+     * Get all the number of arguments
+     *
+     * @return the number of arguments
+     */
     public int getNumberOfArguments() {
         return arguments.size();
     }
 
+    /**
+     * Get the eta (the root) argument
+     *
+     * @return eta argument
+     */
     public EArgument getEta() {
         return eta;
     }

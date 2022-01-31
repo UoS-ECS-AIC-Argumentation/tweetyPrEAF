@@ -45,7 +45,7 @@ public class GenerateEvaluationExamples {
 
         for (int z = 0; z < graphs.length; z++) {
             GraphType graph = graphs[z];
-            System.out.println("Graph type is: " + graph.toString());
+            System.out.println("Graph type is: " + graph);
             Path graphFolder = Paths.get(folder.toString(), graph.toString());
             Files.createDirectory(graphFolder);
 
@@ -56,26 +56,18 @@ public class GenerateEvaluationExamples {
                 for (int j = 1; j <= repetition; j++) {
                     SyntheticDAF daf;
                     switch (graph) {
-                        case WATTS:
+                        case WATTS -> {
                             System.out.println(i);
-                            int k = ((int) Math.ceil((double) i /  (double) 2));
+                            int k = ((int) Math.ceil((double) i / (double) 2));
                             if ((k % 2) != 0) {
                                 k -= 1;
                             }
                             System.out.println("k = " + k);
                             daf = new WattsStrogatzDAF(i, k, 0.5, someProbability);
-                            break;
-
-                        case RANDOM:
-                            daf = new RandomDAF(i, someProbability);
-                            break;
-
-                        case BARABASI:
-                            daf = new BarabasiAlbertDAF(i, someProbability);
-                            break;
-
-                        default:
-                            throw new IllegalStateException("Unexpected value: " + graph);
+                        }
+                        case RANDOM -> daf = new RandomDAF(i, someProbability);
+                        case BARABASI -> daf = new BarabasiAlbertDAF(i, someProbability);
+                        default -> throw new IllegalStateException("Unexpected value: " + graph);
                     }
 
                     EAFTheory eafTheory;
@@ -85,10 +77,9 @@ public class GenerateEvaluationExamples {
                     } else if (etaConnectionMode.equalsIgnoreCase("etaToTree")) {
                         EtaToTreeConverter eafConverter = new EtaToTreeConverter();
                         eafTheory = eafConverter.convert(daf, true, 0.5);
-                    }
-                    else {
+                    } else {
                         throw new RuntimeException("Given etaConnectionMode '" +
-                                etaConnectionMode +"' is not implemented.");
+                                etaConnectionMode + "' is not implemented.");
                     }
 
 
@@ -111,7 +102,7 @@ public class GenerateEvaluationExamples {
                         }
                         Set<EArgument> query = new HashSet<>();
                         for (Argument argument : queryExtension) {
-                            System.out.println("Arg: "+argument.getName());
+                            System.out.println("Arg: " + argument.getName());
                             // Important: Plus one here because DAF arguments are in range of [0, n], EAF args [1, n + 1]
                             try {
                                 query.add(peaf.getArguments().get(Integer.parseInt(argument.getName()) + 1));
@@ -127,7 +118,7 @@ public class GenerateEvaluationExamples {
                         }
 
                         Path peafFile = Paths.get(nodeFolder.toString(), "" + j + ".peaf");
-                        System.out.println("Creating: " + peafFile.toString());
+                        System.out.println("Creating: " + peafFile);
                         EdgeListWriter.write(peafFile.toString(), peaf, query);
                     }
 
