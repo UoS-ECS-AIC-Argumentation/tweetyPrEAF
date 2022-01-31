@@ -22,29 +22,15 @@ import java.util.concurrent.atomic.AtomicLong;
 public class PEEAFTheory {
 
     /**
-     * Element is the parent of PEEAFTheory.Argument, PEEAFTheory.Support and PEEAFTheory.Attack
+     * Creates an argument with identifier and textContent and adds the argument
+     *
+     * @param identifier  the identifier of the argument
+     * @param textContent explanation of the argument
      */
-    public abstract class Element {
-        /**
-         * Identifier is used internally during conversion to PEEAF
-         */
-        protected final String identifier;
-
-        /**
-         * Default constructor of Element
-         *
-         * @param identifier identifier denotes the Element
-         */
-        Element(String identifier) {
-            this.identifier = identifier;
-        }
-
-        /**
-         * @return identifier as string
-         */
-        public String getIdentifier() {
-            return identifier;
-        }
+    public void addArgument(String identifier, String textContent) {
+        Argument arg = new Argument(identifier, textContent);
+        this.arguments.add(arg);
+        identifierElementMap.put(identifier, arg);
     }
 
     /**
@@ -89,95 +75,24 @@ public class PEEAFTheory {
     }
 
     /**
-     * Support is a class, that is used for PEEAFTheory
-     * <p>
-     * The difference between support links of PEAFTheory and EAFTheory
-     * is that, each link has many-to-one relationship with some probability.
+     * Adds attack from the identifier of an argument to the identifier of the argument, support or attack.
+     *
+     * @param identifier     the name of the attack
+     * @param fromIdentifier the identifier of argument that originate the attack
+     * @param toIdentifier   the identifier of the targeted argument
+     * @param probability    the uncertainty regarding the attack link (must be in range [0.0, 1.0])
      */
-    public class Support extends Element {
+    public void addAttack(String identifier, String fromIdentifier, String toIdentifier, double probability) {
+        Attack attack = new Attack(identifier, probability);
 
-        /**
-         * A set of arguments that the support originates from
-         */
-        private final Set<Argument> froms = Sets.newHashSet();
+        Argument from = checkAndGetArgument(fromIdentifier);
+        Element to = checkAndGetElement(toIdentifier);
 
-        /**
-         * The argument that originates the support
-         */
-        private Argument to;
+        attack.setFrom(from);
+        attack.setTo(to);
 
-        /**
-         * The probability assigned to the support link
-         */
-        private final double probability;
-
-        /**
-         * The default constructor of Support
-         *
-         * @param identifier  identifier as string
-         * @param probability the probability assigned to the support link
-         */
-        Support(String identifier, double probability) {
-            super(identifier);
-            this.probability = probability;
-        }
-
-        /**
-         * Adds the argument into the set of arguments that originates the support
-         *
-         * @param from the argument that originates the support
-         */
-        public void addFrom(Argument from) {
-            this.froms.add(from);
-        }
-
-        /**
-         * Set the argument that the support link targets
-         *
-         * @param to the argument that is targeted
-         */
-        public void setTo(Argument to) {
-            this.to = to;
-        }
-
-        /**
-         * Return the set of arguments that originates the support
-         *
-         * @return the set of the arguments
-         */
-        public Set<Argument> getFroms() {
-            return froms;
-        }
-
-        /**
-         * Return the argument that is targeted
-         *
-         * @return
-         */
-        public Argument getTo() {
-            return to;
-        }
-
-        /**
-         * Returns Argument as a string (good for debugging)
-         *
-         * @return a verbose string output of stored variables
-         */
-        @Override
-        public String toString() {
-            return "Supp{" + identifier + ", " +
-                    "froms=" + froms +
-                    ", to=" + to +
-                    ", probability=" + probability +
-                    '}';
-        }
-
-        /**
-         * @return the probability assigned to the support link
-         */
-        public double getProbability() {
-            return probability;
-        }
+        attacks.add(attack);
+        identifierElementMap.put(identifier, attack);
     }
 
     /**
@@ -304,15 +219,30 @@ public class PEEAFTheory {
     }
 
     /**
-     * Creates an argument with identifier and textContent and adds the argument
-     *
-     * @param identifier
-     * @param textContent explanation of the argument
+     * Element is the parent of PEEAFTheory.Argument, PEEAFTheory.Support and PEEAFTheory.Attack
      */
-    public void addArgument(String identifier, String textContent) {
-        Argument arg = new Argument(identifier, textContent);
-        this.arguments.add(arg);
-        identifierElementMap.put(identifier, arg);
+    @SuppressWarnings("InnerClassMayBeStatic")
+    public abstract class Element {
+        /**
+         * Identifier is used internally during conversion to PEEAF
+         */
+        protected final String identifier;
+
+        /**
+         * Default constructor of Element
+         *
+         * @param identifier identifier denotes the Element
+         */
+        Element(String identifier) {
+            this.identifier = identifier;
+        }
+
+        /**
+         * @return identifier as string
+         */
+        public String getIdentifier() {
+            return identifier;
+        }
     }
 
     /**
@@ -339,24 +269,93 @@ public class PEEAFTheory {
     }
 
     /**
-     * Adds attack from the identifier of an argument to the identifier of the argument, support or attack.
-     *
-     * @param identifier
-     * @param fromIdentifier
-     * @param toIdentifier
-     * @param probability    the uncertainty regarding the attack link (must be in range [0.0, 1.0])
+     * Support is a class, that is used for PEEAFTheory
+     * <p>
+     * The difference between support links of PEAFTheory and EAFTheory
+     * is that, each link has many-to-one relationship with some probability.
      */
-    public void addAttack(String identifier, String fromIdentifier, String toIdentifier, double probability) {
-        Attack attack = new Attack(identifier, probability);
+    public class Support extends Element {
 
-        Argument from = checkAndGetArgument(fromIdentifier);
-        Element to = checkAndGetElement(toIdentifier);
+        /**
+         * A set of arguments that the support originates from
+         */
+        private final Set<Argument> froms = Sets.newHashSet();
+        /**
+         * The probability assigned to the support link
+         */
+        private final double probability;
+        /**
+         * The argument that originates the support
+         */
+        private Argument to;
 
-        attack.setFrom(from);
-        attack.setTo(to);
+        /**
+         * The default constructor of Support
+         *
+         * @param identifier  identifier as string
+         * @param probability the probability assigned to the support link
+         */
+        Support(String identifier, double probability) {
+            super(identifier);
+            this.probability = probability;
+        }
 
-        attacks.add(attack);
-        identifierElementMap.put(identifier, attack);
+        /**
+         * Adds the argument into the set of arguments that originates the support
+         *
+         * @param from the argument that originates the support
+         */
+        public void addFrom(Argument from) {
+            this.froms.add(from);
+        }
+
+        /**
+         * Return the set of arguments that originates the support
+         *
+         * @return the set of the arguments
+         */
+        public Set<Argument> getFroms() {
+            return froms;
+        }
+
+        /**
+         * Return the argument that is targeted
+         *
+         * @return the argument that is targeted
+         */
+        public Argument getTo() {
+            return to;
+        }
+
+        /**
+         * Set the argument that the support link targets
+         *
+         * @param to the argument that is targeted
+         */
+        public void setTo(Argument to) {
+            this.to = to;
+        }
+
+        /**
+         * Returns Argument as a string (good for debugging)
+         *
+         * @return a verbose string output of stored variables
+         */
+        @Override
+        public String toString() {
+            return "Supp{" + identifier + ", " +
+                    "froms=" + froms +
+                    ", to=" + to +
+                    ", probability=" + probability +
+                    '}';
+        }
+
+        /**
+         * @return the probability assigned to the support link
+         */
+        public double getProbability() {
+            return probability;
+        }
     }
 
     /**

@@ -7,16 +7,44 @@ import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 
 import java.util.Set;
 
+/**
+ * This class implements approximate probabilistic justification of a set of queries using Monte Carlo Sampling of
+ * induced EAFs from a PEAF.
+ * </br>
+ * </br>See
+ * </br>
+ * </br> Li, Hengfei. Probabilistic argumentation. 2015. PhD Thesis. Aberdeen University.
+ *
+ * @author Taha Dogan Gunes
+ */
+public class ApproxAnalysis extends AbstractAnalysis {
 
-public class ApproxAnalysis extends AbstractAnalysis  {
-
+    /**
+     * The error level defines how much the computed probability is tolerated for deviation.
+     * <p>
+     * Example: If errorLevel is 0.1, then the probability will be in the range [x - 0.1, x + 0.1].
+     */
     private final double errorLevel;
 
+    /**
+     * Creates an ApproxAnalysis object
+     *
+     * @param peafTheory        The PEAFTheory object
+     * @param extensionReasoner An extension reasoner object
+     * @param errorLevel        the error level in double
+     */
     public ApproxAnalysis(PEAFTheory peafTheory, AbstractExtensionReasoner extensionReasoner, double errorLevel) {
         super(peafTheory, extensionReasoner, AnalysisType.APPROX);
         this.errorLevel = errorLevel;
     }
 
+    /**
+     * Computes approximately what is probabilistic justification of the given set of arguments in the PEAF given error
+     * level
+     *
+     * @param args the set of arguments necessary for the query
+     * @return the result of the analysis
+     */
     @Override
     public AnalysisResult query(Set<EArgument> args) {
         final double[] M = {0.0};

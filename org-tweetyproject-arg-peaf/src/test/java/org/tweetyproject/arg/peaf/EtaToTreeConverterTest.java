@@ -5,8 +5,8 @@ import org.junit.Test;
 import org.tweetyproject.arg.dung.syntax.Argument;
 import org.tweetyproject.arg.dung.syntax.DungTheory;
 import org.tweetyproject.arg.peaf.evaluation.converters.EtaToTreeConverter;
-import org.tweetyproject.arg.peaf.syntax.EAFTheory;
 import org.tweetyproject.arg.peaf.io.preaf.EdgeListWriter;
+import org.tweetyproject.arg.peaf.syntax.EAFTheory;
 
 public class EtaToTreeConverterTest {
 
@@ -31,7 +31,7 @@ public class EtaToTreeConverterTest {
 
 
         eafTheory.prettyPrint();
-        Assert.assertEquals(4, eafTheory.getNumberOfNodes());
+        Assert.assertEquals(4, eafTheory.getNumberOfArguments());
         EdgeListWriter.write("2.eaf", eafTheory);
     }
 
@@ -57,7 +57,7 @@ public class EtaToTreeConverterTest {
 
 
         eafTheory.prettyPrint();
-        Assert.assertEquals(4, eafTheory.getNumberOfNodes());
+        Assert.assertEquals(4, eafTheory.getNumberOfArguments());
         EdgeListWriter.write("2_all.eaf", eafTheory);
     }
 
@@ -106,6 +106,7 @@ public class EtaToTreeConverterTest {
 
         EtaToTreeConverter eafConverter = new EtaToTreeConverter();
         EAFTheory eafTheory = eafConverter.convert(dungTheory, true, 1.0);
+        eafTheory.prettyPrint();
         EdgeListWriter.write("3_all.eaf", eafTheory);
     }
 

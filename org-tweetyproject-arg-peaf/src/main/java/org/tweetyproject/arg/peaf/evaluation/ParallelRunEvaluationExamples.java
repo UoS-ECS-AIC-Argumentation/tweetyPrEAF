@@ -7,7 +7,10 @@ import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 import org.tweetyproject.commons.util.Pair;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -45,12 +48,16 @@ public class ParallelRunEvaluationExamples {
             throw new RuntimeException("The given path '" + evaluateFolder + "' does not exist.");
         }
 
-        String filePath = Paths.get(evaluationFolderPath.toString(), "results_" + inducer + ".txt").toString();
+        String filePath = Paths.get(evaluationFolderPath, "results_" + inducer + ".txt").toString();
         System.out.println("Results will be saved in: " + filePath);
-        BufferedWriter writer = new BufferedWriter( new FileWriter(filePath));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
         writer.write("type,dafNodes,repetition,time,justification,peafNodes,iteration,attacks,supports\n");
 
         String[] graphTypes = evaluateFolder.toFile().list((dir, name) -> new File(dir, name).isDirectory());
+
+        if (graphTypes == null) {
+            throw new NullPointerException("Graph types are null.");
+        }
 
         if (graphTypes.length == 0) {
             throw new RuntimeException("There are not any graph type folder(s).");
@@ -61,10 +68,15 @@ public class ParallelRunEvaluationExamples {
 
         for (String graphType : graphTypes) {
             Path graphTypePath = Paths.get(evaluationFolderPath, graphType);
-            System.out.println("GraphType path: " + graphTypePath.toString());
+            System.out.println("GraphType path: " + graphTypePath);
             String[] nodeSizesString = graphTypePath.toFile().list((dir, name) -> new File(dir, name).isDirectory());
+
+            if (nodeSizesString == null) {
+                throw new NullPointerException("nodeSizesString is null.");
+            }
+
             if (nodeSizesString.length == 0) {
-                throw new RuntimeException("There are not any sub folders in " + graphTypePath.toString());
+                throw new RuntimeException("There are not any sub folders in " + graphTypePath);
             }
             Integer[] nodeSizes = Arrays.stream(nodeSizesString).map(Integer::parseInt).toArray(Integer[]::new);
             Arrays.sort(nodeSizes);
@@ -78,11 +90,11 @@ public class ParallelRunEvaluationExamples {
 
                 Path nodeSizePath = Paths.get(graphTypePath.toString(), "" + nodeSize);
                 System.out.println("Node size path: " + nodeSizePath);
-                File[] repetitionFiles = nodeSizePath.toFile().listFiles(new FilenameFilter() {
-                    public boolean accept(File dir, String filename) {
-                        return filename.endsWith(".peaf");
-                    }
-                });
+                File[] repetitionFiles = nodeSizePath.toFile().listFiles((dir, filename) -> filename.endsWith(".peaf"));
+
+                if (repetitionFiles == null) {
+                    throw new NullPointerException("repetitionFiles are null.");
+                }
 
                 if (repetitionFiles.length == 0) {
                     throw new RuntimeException("There are not any peaf files in this path: " + nodeSizePath);
@@ -96,11 +108,11 @@ public class ParallelRunEvaluationExamples {
                 System.out.println(Arrays.toString(repetitionFileNames));
 
                 for (Integer repetitionFileName : repetitionFileNames) {
-                    if (nThreads != 1) {
-                        submitTask(inducer, writer, graphType, nodeSize, nodeSizePath, repetitionFileName, threadPoolExecutor, lock, errorLevel);
-                    } else {
-                        extracted(nodeSizePath, repetitionFileName, lock, inducer, errorLevel, writer, graphType, nodeSize);
-                    }
+//                    if (nThreads != 1) {
+                    submitTask(inducer, writer, graphType, nodeSize, nodeSizePath, repetitionFileName, threadPoolExecutor, lock, errorLevel);
+//                    } else {
+//                        extracted(nodeSizePath, repetitionFileName, lock, inducer, errorLevel, writer, graphType, nodeSize);
+//                    }
 
                 }
             }
@@ -112,6 +124,7 @@ public class ParallelRunEvaluationExamples {
             threadPoolExecutor.shutdown();
         } finally {
             System.out.println("Awaiting termination...");
+            //noinspection ResultOfMethodCallIgnored
             threadPoolExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
         }
 
@@ -119,21 +132,15 @@ public class ParallelRunEvaluationExamples {
 
     }
 
-    private static void submitTask(String inducer, BufferedWriter writer, String graphType, Integer nodeSize, Path nodeSizePath, Integer repetitionFileName, ExecutorService threadPoolExecutor, ReentrantLock lock, double errorLevel) throws IOException {
-        threadPoolExecutor.submit(new Runnable() {
-            @Override
-            public void run() {
-                extracted(nodeSizePath, repetitionFileName, lock, inducer, errorLevel, writer, graphType, nodeSize);
-
-            }
-        });
+    private static void submitTask(String inducer, BufferedWriter writer, String graphType, Integer nodeSize, Path nodeSizePath, Integer repetitionFileName, ExecutorService threadPoolExecutor, ReentrantLock lock, double errorLevel) {
+        threadPoolExecutor.submit(() -> extracted(nodeSizePath, repetitionFileName, lock, inducer, errorLevel, writer, graphType, nodeSize));
     }
 
     private static void extracted(Path nodeSizePath, Integer repetitionFileName, ReentrantLock lock, String inducer, double errorLevel, BufferedWriter writer, String graphType, Integer nodeSize) {
         String repetitionFilePath = Paths.get(nodeSizePath.toString(), ("" + repetitionFileName + ".peaf")).toString();
 
         lock.lock();
-        try{
+        try {
             System.out.println("Started: " + repetitionFilePath);
         } finally {
             lock.unlock();
@@ -146,6 +153,8 @@ public class ParallelRunEvaluationExamples {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        assert pair != null;
         PEAFTheory peafTheory = pair.getFirst();
 //        peafTheory.prettyPrint();
         Set<EArgument> query = pair.getSecond();
@@ -154,7 +163,7 @@ public class ParallelRunEvaluationExamples {
 
         // AllInducer
         lock.lock();
-        try{
+        try {
             System.out.println(query.toString());
         } finally {
             lock.unlock();
@@ -190,7 +199,7 @@ public class ParallelRunEvaluationExamples {
                     repetitionFileName + "," +
                     estimatedTime + "," +
                     justification + "," +
-                    peafTheory.getNumberOfNodes() + "," +
+                    peafTheory.getNumberOfArguments() + "," +
                     iterations + "," +
                     peafTheory.getAttacks().size() + "," +
                     peafTheory.getSupports().size() + "\n");

@@ -14,16 +14,23 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Computes the preferred extension of the given PEAF
+ * <p>
+ * Uses `jargsemsat` for computing extensions.
+ *
+ * @author Taha Dogan Gunes
+ */
 public class PreferredAnalysis extends AbstractAnalysis {
     public PreferredAnalysis(NamedPEAFTheory peaf) {
         super(peaf, new PreferredReasoner(), AnalysisType.PREFERRED);
     }
 
-    @Override
-    public AnalysisResult query(Set<EArgument> args) {
-        return null;
-    }
-
+    /**
+     * Return the extensions of the graph
+     *
+     * @return a list of extensions (each extension is a set of arguments)
+     */
     public List<Set<String>> getExtensions() {
         // Convert peaf -> eaf -> daf, then run jargsemsat
         EAFTheory eafTheory = EAFTheory.newEAFTheory(peafTheory);
@@ -46,4 +53,4 @@ public class PreferredAnalysis extends AbstractAnalysis {
 
         return results;
     }
- }
+}

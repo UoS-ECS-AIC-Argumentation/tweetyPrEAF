@@ -16,7 +16,7 @@ public class EAFToPEAFConverter {
         PEAFTheory peafTheory = new PEAFTheory();
 
         Map<EArgument, Integer> argumentIndexMap = new HashMap<>();
-        for (int i = 0; i < eafTheory.getNumberOfNodes(); i++) {
+        for (int i = 0; i < eafTheory.getNumberOfArguments(); i++) {
             EArgument argument = peafTheory.addArgument(i);
             argumentIndexMap.put(argument, i);
         }
@@ -54,9 +54,9 @@ public class EAFToPEAFConverter {
     /**
      * Generates a PEAF from an EAF where all relations have the same probability
      *
-     * @param eafTheory
-     * @param probability
-     * @return
+     * @param eafTheory   an EAFTheory object
+     * @param probability the probability of having an edge (i.e. link)
+     * @return a PEAFTheory object
      */
     public static PEAFTheory convert(EAFTheory eafTheory, double probability) {
         Supplier<Double> supplier = () -> probability;
@@ -69,10 +69,10 @@ public class EAFToPEAFConverter {
      * `att` is the probability of each attack relation.
      * `Beta` is the Beta distribution.
      *
-     * @param eafTheory
-     * @param alphaSupp
-     * @param betaSupp
-     * @return
+     * @param eafTheory an EAFTheory object
+     * @param alphaSupp alpha parameter
+     * @param betaSupp  beta parameter
+     * @return an PEAFTheory object
      */
     public static PEAFTheory convert(EAFTheory eafTheory, int alphaSupp, int betaSupp) {
         class BetaSupplier implements Supplier<Double> {

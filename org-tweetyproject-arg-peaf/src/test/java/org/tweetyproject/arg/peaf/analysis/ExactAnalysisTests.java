@@ -3,6 +3,7 @@ package org.tweetyproject.arg.peaf.analysis;
 import com.google.common.collect.Sets;
 import org.junit.Assert;
 import org.junit.Test;
+import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.io.preaf.EdgeListReader;
 import org.tweetyproject.arg.peaf.syntax.CyclicException;
@@ -14,6 +15,11 @@ import java.io.IOException;
 import java.util.Set;
 
 public class ExactAnalysisTests {
+
+    private void printAlliEAFs(PEAFTheory peafTheory) {
+        ExactPEAFInducer exactPEAFInducer = new ExactPEAFInducer(peafTheory);
+        exactPEAFInducer.induce(System.out::println);
+    }
 
     @Test
     public void computeSimple() {
@@ -266,9 +272,13 @@ public class ExactAnalysisTests {
         double p = result.getProbability();
         result.print();
 
-        exactAnalysis.saveEAFs();
+
+        printAlliEAFs(peafTheory);
+
+
         Assert.assertEquals("Attacked arguments #1 #3 are queried.", 0.34, p, 0.01);
     }
+
 
     @Test
     public void computeTree() {
@@ -291,10 +301,9 @@ public class ExactAnalysisTests {
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
         double p = result.getProbability();
-
-        exactAnalysis.saveEAFs();
         result.print();
 
+        printAlliEAFs(peafTheory);
         Assert.assertEquals("Attacked argument #2 is queried.", 1.0, p, 0.01);
     }
 
@@ -322,7 +331,7 @@ public class ExactAnalysisTests {
         AnalysisResult result = exactAnalysis.query(query);
         double p = result.getProbability();
 
-        exactAnalysis.saveEAFs();
+        printAlliEAFs(peafTheory);
         result.print();
 
         Assert.assertEquals("Attacked argument #3 is queried.", 1.0, p, 0.01);
@@ -355,7 +364,7 @@ public class ExactAnalysisTests {
         AnalysisResult result = exactAnalysis.query(query);
         double p = result.getProbability();
 
-        exactAnalysis.saveEAFs();
+        printAlliEAFs(peafTheory);
         result.print();
 
         Assert.assertEquals("Attacked argument #3 is queried.", 1.0, p, 0.01);
@@ -378,11 +387,8 @@ public class ExactAnalysisTests {
         peafTheory.prettyPrint();
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
 
-        exactAnalysis.saveEAFs();
+        printAlliEAFs(peafTheory);
         result.print();
-
-//        Assert.assertEquals("Attacked argument #3 is queried.", 1.0, p, 0.01);
     }
 }

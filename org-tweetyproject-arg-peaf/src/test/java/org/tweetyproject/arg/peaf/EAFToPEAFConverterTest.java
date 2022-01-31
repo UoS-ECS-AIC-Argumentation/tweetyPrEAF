@@ -31,7 +31,7 @@ public class EAFToPEAFConverterTest {
         EAFTheory eafTheory = eafConverter.convert(dungTheory);
 
         eafTheory.prettyPrint();
-        Assert.assertEquals(3, eafTheory.getNumberOfNodes());
+        Assert.assertEquals(3, eafTheory.getNumberOfArguments());
 
         PEAFTheory peafTheory = EAFToPEAFConverter.convert(eafTheory, 0.5);
 

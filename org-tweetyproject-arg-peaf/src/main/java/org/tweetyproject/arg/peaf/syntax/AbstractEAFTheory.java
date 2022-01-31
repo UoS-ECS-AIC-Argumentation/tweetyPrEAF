@@ -6,16 +6,42 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class AbstractEAFTheory<S> {
 
+/**
+ * A base class for implementing PEAFTheory and EAFTheory.
+ *
+ * @param <S> the support link (ESupport or PSupport)
+ * @author Taha Dogan Gunes
+ */
+public abstract class AbstractEAFTheory<S extends ESupport> {
+
+    /**
+     * The root node of the EAFTheory
+     */
     protected EArgument eta;
+    /**
+     * Arguments stored in a set
+     */
     protected Set<EArgument> argumentsSet = Sets.newHashSet();
 
-
+    /**
+     * Arguments stored in a list
+     */
     protected ArrayList<EArgument> arguments = new ArrayList<>();
+    /**
+     * Supports stored in a list
+     */
     protected ArrayList<S> supports = new ArrayList<>();
+    /**
+     * Attacks stored in a list
+     */
     protected ArrayList<EAttack> attacks = new ArrayList<>();
 
+    /**
+     * Add an argument
+     *
+     * @param argument an EArgument objects
+     */
     protected void addArgument(EArgument argument) {
         if (arguments.size() == 0) {
             eta = argument;
@@ -25,18 +51,42 @@ public abstract class AbstractEAFTheory<S> {
     }
 
 
+    /**
+     * Add an attack
+     *
+     * @param attack an EAttack object
+     * @return true if successful
+     */
     protected boolean addAttack(EAttack attack) {
         return attacks.add(attack);
     }
 
+    /**
+     * Add a support
+     *
+     * @param support a T-Support object
+     * @return true if successful
+     */
     protected boolean addSupport(S support) {
         return supports.add(support);
     }
 
+    /**
+     * Creates an argument with a name
+     *
+     * @param name the name of the argument in string
+     * @return the created EArgument object
+     */
     protected EArgument createArgument(String name) {
         return new EArgument(name);
     }
 
+    /**
+     * Add an attack with indices
+     *
+     * @param fromIndices indices of arguments that originates the attack
+     * @param toIndices   indices of arguments that receive the attack
+     */
     public void addAttack(int[] fromIndices, int[] toIndices) {
         Set<EArgument> froms = createEmptyArgSet(fromIndices);
         Set<EArgument> tos = createEmptyArgSet(toIndices);
@@ -105,7 +155,7 @@ public abstract class AbstractEAFTheory<S> {
             i++;
         }
 
-        System.out.println("");
+        System.out.println();
         System.out.println("-- Supports --");
         i = 0;
         for (S support : this.getSupports()) {
@@ -113,7 +163,7 @@ public abstract class AbstractEAFTheory<S> {
             i++;
         }
 
-        System.out.println("");
+        System.out.println();
         System.out.println("-- Attacks --");
         i = 0;
         for (EAttack attack : this.getAttacks()) {
@@ -124,7 +174,7 @@ public abstract class AbstractEAFTheory<S> {
         System.out.println("\n");
     }
 
-    public int getNumberOfNodes() {
+    public int getNumberOfArguments() {
         return arguments.size();
     }
 

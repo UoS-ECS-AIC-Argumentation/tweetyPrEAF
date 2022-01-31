@@ -24,7 +24,20 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.Set;
 
+/**
+ * The main runner of the arg.peaf package
+ * - Takes an aif file as an input
+ * - Generates a new aif file as an output with `analysis` field
+ *
+ * @author Taha Dogan Gunes
+ */
 public class Runner {
+    /**
+     * Run justification analysis with an aif file
+     *
+     * @param args the given arguments
+     * @throws IOException can be thrown while reading and/or writing aif files
+     */
     public static void main(String[] args) throws IOException {
         System.out.println("Working Directory: " + System.getProperty("user.dir"));
         Options options = new Options();
@@ -65,7 +78,6 @@ public class Runner {
         NamedPEAFTheory peaf = peeafConverter.convert(peeafTheory);
 
 
-
         peeafTheory.prettyPrint();
         peaf.prettyPrint();
 
@@ -96,27 +108,18 @@ public class Runner {
             }
 
             boolean isQueryExpected = true;
-            AbstractAnalysis abstractAnalysis = null;
+            AbstractAnalysis abstractAnalysis;
             switch (type) {
-                case EXACT:
-                    abstractAnalysis = new ExactAnalysis(peaf, new PreferredReasoner());
-                    break;
-                case APPROX:
-                    abstractAnalysis = new ApproxAnalysis(peaf, new PreferredReasoner(), errorLevel);
-                    break;
-                case CONCURRENT_EXACT:
-                    abstractAnalysis = new ConcurrentExactAnalysis(peaf, new PreferredReasoner(), noThreads);
-                    break;
-                case CONCURRENT_APPROX:
-                    abstractAnalysis = new ConcurrentApproxAnalysis(peaf, new PreferredReasoner(), errorLevel, noThreads);
-                    break;
-                case PREFERRED:
+                case EXACT -> abstractAnalysis = new ExactAnalysis(peaf, new PreferredReasoner());
+                case APPROX -> abstractAnalysis = new ApproxAnalysis(peaf, new PreferredReasoner(), errorLevel);
+                case CONCURRENT_EXACT -> abstractAnalysis = new ConcurrentExactAnalysis(peaf, new PreferredReasoner(), noThreads);
+                case CONCURRENT_APPROX -> abstractAnalysis = new ConcurrentApproxAnalysis(peaf, new PreferredReasoner(), errorLevel, noThreads);
+                case PREFERRED -> {
                     // Convert peaf -> eaf -> daf, then run jargsemsat
                     abstractAnalysis = new PreferredAnalysis(peaf);
                     isQueryExpected = false;
-                    break;
-                default:
-                    throw new RuntimeException("The analysis type that is named as '" + type + "' does not exist.");
+                }
+                default -> throw new RuntimeException("The analysis type that is named as '" + type + "' does not exist.");
             }
 
             String[] queries = analysis.query;
@@ -150,7 +153,7 @@ public class Runner {
                 for (String iNodeID : queries) {
                     EArgument eArgument = peaf.getArgumentByIdentifier(iNodeID);
                     if (eArgument == null) {
-                        builder.append("The given nodeID as `" + iNodeID + "` does not exist in the given AIF.");
+                        builder.append("The given nodeID as `").append(iNodeID).append("` does not exist in the given AIF.");
                         System.err.println("The given nodeID as `" + iNodeID + "` does not exist in the given AIF.");
                         break;
                     }
