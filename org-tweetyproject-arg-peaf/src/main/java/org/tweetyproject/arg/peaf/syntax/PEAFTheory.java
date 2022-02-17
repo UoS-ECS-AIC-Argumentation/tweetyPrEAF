@@ -39,7 +39,7 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport> {
      * @param name  the name of the support
      * @param froms the set of arguments that the support originates from
      * @param tos   the set of arguments that the support targets
-     * @param cp    the probability assigned to the support link (must be in range [0.0, 1.0])
+     * @param cp    the result assigned to the support link (must be in range [0.0, 1.0])
      * @return PSupport object that is created but not stored
      */
     private PSupport createSupport(String name, Set<EArgument> froms, Set<EArgument> tos, double cp) {
@@ -67,7 +67,7 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport> {
      *
      * @param fromIndex the index of the argument originates the support
      * @param toIndex   the index of the argument getting supported
-     * @param cp        the probability assigned to the support link (must be in range [0.0, 1.0])
+     * @param cp        the result assigned to the support link (must be in range [0.0, 1.0])
      */
     public void addSupport(int fromIndex, int toIndex, double cp) {
         this.addSupport(new int[]{fromIndex}, new int[]{toIndex}, cp);
@@ -78,7 +78,7 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport> {
      *
      * @param fromIndices integer array with argument, represents indices of arguments
      * @param toIndices   integer array with argument, represents indices of arguments
-     * @param cp          the probability assigned to the support link (must be in range [0.0, 1.0])
+     * @param cp          the result assigned to the support link (must be in range [0.0, 1.0])
      */
     public void addSupport(int[] fromIndices, int[] toIndices, double cp) {
         Set<EArgument> froms = createEmptyArgSet(fromIndices);
@@ -125,5 +125,28 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport> {
         System.out.println(this.getASCIITree());
     }
 
+    public PEAFTheory createCopyWithoutArgument(EArgument e) {
+        PEAFTheory peafTheory = new PEAFTheory();
+        for (EArgument argument : peafTheory.arguments) {
+            if (argument != e || e == null) {
+                peafTheory.addArgument(argument);
+            }
+        }
 
+        for (EAttack attack : attacks) {
+            boolean attackHasE = attack.getFroms().contains(e) || attack.getTos().contains(e);
+            if (!attackHasE || e == null) {
+                peafTheory.addAttack(attack);
+            }
+        }
+
+        for (PSupport support : supports) {
+            boolean supportHasE = support.getFroms().contains(e) || support.getTos().contains(e);
+            if (!supportHasE || e == null) {
+                peafTheory.addSupport(support);
+            }
+        }
+
+        return peafTheory;
+    }
 }

@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @author Taha Dogan Gunes
  */
-public class ConcurrentExactAnalysis extends AbstractAnalysis {
+public class ConcurrentExactAnalysis extends AbstractAnalysis implements ProbabilisticJustificationAnalysis {
     /**
      * The fixed thread pool to run the contributions in parallel
      */

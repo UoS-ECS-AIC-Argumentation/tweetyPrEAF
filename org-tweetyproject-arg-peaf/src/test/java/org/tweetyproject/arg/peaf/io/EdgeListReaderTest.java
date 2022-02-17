@@ -79,7 +79,7 @@ public class EdgeListReaderTest {
 
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
         result.print();
 
     }
@@ -101,7 +101,7 @@ public class EdgeListReaderTest {
 
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
         result.print();
     }
 }

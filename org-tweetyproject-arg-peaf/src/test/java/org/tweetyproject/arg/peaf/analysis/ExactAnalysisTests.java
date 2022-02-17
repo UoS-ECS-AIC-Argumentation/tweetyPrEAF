@@ -34,7 +34,7 @@ public class ExactAnalysisTests {
 
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Argument #1 is queried.", 0.9, p, 0.001);
@@ -54,7 +54,7 @@ public class ExactAnalysisTests {
 
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         peafTheory.prettyPrint();
@@ -75,7 +75,7 @@ public class ExactAnalysisTests {
 
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0, p, 0.0001);
@@ -96,7 +96,7 @@ public class ExactAnalysisTests {
 
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #3 is queried.", 0.080, p, 0.01);
@@ -117,7 +117,7 @@ public class ExactAnalysisTests {
 
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p, 0.01);
@@ -140,7 +140,7 @@ public class ExactAnalysisTests {
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
         result.print();
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
 
@@ -166,7 +166,7 @@ public class ExactAnalysisTests {
 
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #4 is queried.", 0.0081, p, 0.0001);
@@ -190,7 +190,7 @@ public class ExactAnalysisTests {
 
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p, 0.01);
@@ -219,7 +219,7 @@ public class ExactAnalysisTests {
         peafTheory.prettyPrint();
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #2 is queried.", 1.0, p, 0.01);
@@ -236,7 +236,7 @@ public class ExactAnalysisTests {
 
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
         result.print();
 
         Assert.assertEquals("Attacked arguments #2 #4 are queried.", 0.047, p, 0.01);
@@ -252,7 +252,7 @@ public class ExactAnalysisTests {
 
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
         result.print();
 
 
@@ -269,7 +269,7 @@ public class ExactAnalysisTests {
         peafTheory.prettyPrint();
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
         result.print();
 
 
@@ -300,7 +300,7 @@ public class ExactAnalysisTests {
         peafTheory.prettyPrint();
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
         result.print();
 
         printAlliEAFs(peafTheory);
@@ -329,7 +329,7 @@ public class ExactAnalysisTests {
         peafTheory.prettyPrint();
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
         printAlliEAFs(peafTheory);
         result.print();
@@ -362,7 +362,7 @@ public class ExactAnalysisTests {
         peafTheory.prettyPrint();
         ExactAnalysis exactAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
         printAlliEAFs(peafTheory);
         result.print();

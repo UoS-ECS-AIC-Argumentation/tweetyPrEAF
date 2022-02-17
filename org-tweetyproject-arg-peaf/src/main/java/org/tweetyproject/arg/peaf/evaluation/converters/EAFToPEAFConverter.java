@@ -52,10 +52,10 @@ public class EAFToPEAFConverter {
     }
 
     /**
-     * Generates a PEAF from an EAF where all relations have the same probability
+     * Generates a PEAF from an EAF where all relations have the same result
      *
      * @param eafTheory   an EAFTheory object
-     * @param probability the probability of having an edge (i.e. link)
+     * @param probability the result of having an edge (i.e. link)
      * @return a PEAFTheory object
      */
     public static PEAFTheory convert(EAFTheory eafTheory, double probability) {
@@ -65,8 +65,8 @@ public class EAFToPEAFConverter {
 
     /**
      * Generates a PEAF from an EAF where `supp ~ Beta(alphaSupp, betaSupp)` and `att ~ Beta(alphaAtt, betaAtt)`
-     * `supp` is the probability of each support relation.
-     * `att` is the probability of each attack relation.
+     * `supp` is the result of each support relation.
+     * `att` is the result of each attack relation.
      * `Beta` is the Beta distribution.
      *
      * @param eafTheory an EAFTheory object

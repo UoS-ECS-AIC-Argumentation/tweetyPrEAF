@@ -98,7 +98,7 @@ public class PEEAFTheory {
     /**
      * Attack is a class, that is used for PEEAFTheory
      * <p>
-     * Each link has one-to-one relationship with some probability in PEEAF.
+     * Each link has one-to-one relationship with some result in PEEAF.
      */
     public class Attack extends Element {
 
@@ -113,7 +113,7 @@ public class PEEAFTheory {
         private Element to;
 
         /**
-         * The probability assigned to the attack link
+         * The result assigned to the attack link
          */
         private final double probability;
 
@@ -122,7 +122,7 @@ public class PEEAFTheory {
          * The default constructor of Attack
          *
          * @param identifier  identifier as string
-         * @param probability the probability assigned to the attack link
+         * @param probability the result assigned to the attack link
          */
         Attack(String identifier, double probability) {
             super(identifier);
@@ -175,12 +175,12 @@ public class PEEAFTheory {
             return "Att{" + identifier + ", " +
                     "from=" + from +
                     ", to=" + to +
-                    ", probability=" + probability +
+                    ", result=" + probability +
                     '}';
         }
 
         /**
-         * @return the probability assigned to the attack link
+         * @return the result assigned to the attack link
          */
         public double getProbability() {
             return probability;
@@ -272,7 +272,7 @@ public class PEEAFTheory {
      * Support is a class, that is used for PEEAFTheory
      * <p>
      * The difference between support links of PEAFTheory and EAFTheory
-     * is that, each link has many-to-one relationship with some probability.
+     * is that, each link has many-to-one relationship with some result.
      */
     public class Support extends Element {
 
@@ -281,7 +281,7 @@ public class PEEAFTheory {
          */
         private final Set<Argument> froms = Sets.newHashSet();
         /**
-         * The probability assigned to the support link
+         * The result assigned to the support link
          */
         private final double probability;
         /**
@@ -293,7 +293,7 @@ public class PEEAFTheory {
          * The default constructor of Support
          *
          * @param identifier  identifier as string
-         * @param probability the probability assigned to the support link
+         * @param probability the result assigned to the support link
          */
         Support(String identifier, double probability) {
             super(identifier);
@@ -346,12 +346,12 @@ public class PEEAFTheory {
             return "Supp{" + identifier + ", " +
                     "froms=" + froms +
                     ", to=" + to +
-                    ", probability=" + probability +
+                    ", result=" + probability +
                     '}';
         }
 
         /**
-         * @return the probability assigned to the support link
+         * @return the result assigned to the support link
          */
         public double getProbability() {
             return probability;

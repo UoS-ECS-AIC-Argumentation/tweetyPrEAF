@@ -470,34 +470,66 @@
   ],
   "analyses": [
     {
-      "query" : ["6f491666-6029-45ae-94b6-848094c81ea3"],
-      "result" : {
-        "datetime" : "",
+      "query": [
+        "6f491666-6029-45ae-94b6-848094c81ea3"
+      ],
+      "result": {
+        "datetime": "",
         "outcome": "",
         "status": "",
-        "elapsedTimeMS" : ""
+        "elapsedTimeMS": ""
       },
-      "reasoner" : {
+      "reasoner": {
         "type": "approx",
         "parameters": {
-          "noThreads": "10",
-          "errorLevel": "0.01"
+          "noThreads": 10,
+          "errorLevel": 0.01
         }
       }
     },
     {
-      "query" : ["6f491666-6029-45ae-94b6-848094c81ea3"],
-      "result" : {
-        "datetime" : "",
+      "query": [
+        "6f491666-6029-45ae-94b6-848094c81ea3"
+      ],
+      "result": {
+        "datetime": "",
         "outcome": "",
         "status": "",
-        "elapsedTimeMS" : ""
+        "elapsedTimeMS": ""
+      },
+      "reasoner": {
+        "type": "voi_target_output",
+        "parameters": {
+          "noThreads": 10,
+          "errorLevel": 0.01,
+          "objective": [
+            "559a9884-90c3-4782-a06b-a720cb5ed1ba",
+            "082fc899-3c9e-43ac-be47-6e7c8428b3a6"
+          ],
+          "target": [
+            "559a9884-90c3-4782-a06b-a720cb5ed1ba"
+          ]
+        }
+      }
+    },
+    {
+      "query": [
+        "6f491666-6029-45ae-94b6-848094c81ea3"
+      ],
+      "result": {
+        "datetime": "",
+        "outcome": "",
+        "status": "",
+        "elapsedTimeMS": ""
       },
       "reasoner" : {
-        "type": "approx",
+        "type": "voi_min_entropy",
         "parameters": {
-          "noThreads": "10",
-          "errorLevel": "0.1"
+          "noThreads": 10,
+          "errorLevel": 0.01,
+          "objective": [
+            "6f491666-6029-45ae-94b6-848094c81ea3"
+          ]
         }
       }
     },

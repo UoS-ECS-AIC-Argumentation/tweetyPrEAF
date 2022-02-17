@@ -23,11 +23,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author Taha Dogan Gunes
  */
-public class ConcurrentApproxAnalysis extends AbstractAnalysis {
+public class ConcurrentApproxAnalysis extends AbstractAnalysis implements ProbabilisticJustificationAnalysis {
     /**
-     * The error level defines how much the computed probability is tolerated for deviation.
+     * The error level defines how much the computed result is tolerated for deviation.
      * <p>
-     * Example: If errorLevel is 0.1, then the probability will be in the range [x - 0.1, x + 0.1].
+     * Example: If errorLevel is 0.1, then the result will be in the range [x - 0.1, x + 0.1].
      */
     private final double errorLevel;
     /**

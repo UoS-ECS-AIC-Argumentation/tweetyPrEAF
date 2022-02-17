@@ -169,7 +169,7 @@ public class ParallelRunEvaluationExamples {
             lock.unlock();
         }
 
-        JustificationAnalysis analysis;
+        Analysis analysis;
 
         if (inducer.equalsIgnoreCase("exact")) {
             analysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
@@ -185,7 +185,7 @@ public class ParallelRunEvaluationExamples {
 
         AnalysisResult result = analysis.query(query);
 
-        double justification = result.getProbability();
+        double justification = result.getResult();
         double iterations = result.getNoIterations();
 
         long estimatedTime = System.currentTimeMillis() - startTime;

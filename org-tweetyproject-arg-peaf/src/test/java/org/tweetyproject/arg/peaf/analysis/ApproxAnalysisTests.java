@@ -28,7 +28,7 @@ public class ApproxAnalysisTests {
 
         ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.01);
         AnalysisResult result = approxAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Argument #1 is queried.", 0.9, p, 0.015);
@@ -48,7 +48,7 @@ public class ApproxAnalysisTests {
 
         ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.01);
         AnalysisResult result = approxAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         peafTheory.prettyPrint();
@@ -69,7 +69,7 @@ public class ApproxAnalysisTests {
 
         ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.01);
         AnalysisResult result = approxAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0, p, 0.01);
@@ -90,7 +90,7 @@ public class ApproxAnalysisTests {
 
         ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.01);
         AnalysisResult result = approxAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #3 is queried.", 0.080, p, 0.01);
@@ -111,7 +111,7 @@ public class ApproxAnalysisTests {
 
         ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.01);
         AnalysisResult result = approxAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p, 0.02);
@@ -133,7 +133,7 @@ public class ApproxAnalysisTests {
 
         ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.01);
         AnalysisResult result = approxAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p, 0.015);
     }
@@ -157,7 +157,7 @@ public class ApproxAnalysisTests {
 
         ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.001);
         AnalysisResult result = approxAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #4 is queried.", 0.0081, p, 0.001);
@@ -181,7 +181,7 @@ public class ApproxAnalysisTests {
 
         ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.01);
         AnalysisResult result = approxAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p, 0.01);
@@ -210,7 +210,7 @@ public class ApproxAnalysisTests {
         peafTheory.prettyPrint();
         ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.01);
         AnalysisResult result = approxAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #2 is queried.", 1.0, p, 0.01);
@@ -226,7 +226,7 @@ public class ApproxAnalysisTests {
 
         ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.001);
         AnalysisResult result = approxAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
         result.print();
 
         Assert.assertEquals("Attacked arguments #2 #3 #4 are queried.", 0.074, p, 0.01);
@@ -242,7 +242,7 @@ public class ApproxAnalysisTests {
 
         ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.01);
         AnalysisResult result = approxAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
         result.print();
 
 
@@ -269,7 +269,7 @@ public class ApproxAnalysisTests {
         peafTheory.prettyPrint();
         ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.001);
         AnalysisResult result = approxAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
         result.print();
 
@@ -298,7 +298,7 @@ public class ApproxAnalysisTests {
         peafTheory.prettyPrint();
         ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.001);
         AnalysisResult result = approxAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
         result.print();
 
@@ -330,7 +330,7 @@ public class ApproxAnalysisTests {
         peafTheory.prettyPrint();
         ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.001);
         AnalysisResult result = approxAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
         result.print();
         Assert.assertEquals("Attacked argument #3 is queried.", 1.0, p, 0.01);

@@ -27,7 +27,7 @@ public class ConcurrentExactTests {
 
         ConcurrentExactAnalysis exactAnalysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Argument #1 is queried.", 0.9, p, 0.001);
@@ -47,7 +47,7 @@ public class ConcurrentExactTests {
 
         ConcurrentExactAnalysis exactAnalysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         peafTheory.prettyPrint();
@@ -68,7 +68,7 @@ public class ConcurrentExactTests {
 
         ConcurrentExactAnalysis exactAnalysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0, p, 0.0001);
@@ -89,7 +89,7 @@ public class ConcurrentExactTests {
 
         ConcurrentExactAnalysis exactAnalysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #3 is queried.", 0.080, p, 0.01);
@@ -110,7 +110,7 @@ public class ConcurrentExactTests {
 
         ConcurrentExactAnalysis exactAnalysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p, 0.01);
@@ -132,7 +132,7 @@ public class ConcurrentExactTests {
 
         ConcurrentExactAnalysis exactAnalysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p, 0.01);
     }
@@ -156,7 +156,7 @@ public class ConcurrentExactTests {
 
         ConcurrentExactAnalysis exactAnalysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #4 is queried.", 0.0081, p, 0.0001);
@@ -180,7 +180,7 @@ public class ConcurrentExactTests {
 
         ConcurrentExactAnalysis exactAnalysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #2 is queried.", 0.81, p, 0.01);
@@ -209,7 +209,7 @@ public class ConcurrentExactTests {
         peafTheory.prettyPrint();
         ConcurrentExactAnalysis exactAnalysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
 
         Assert.assertEquals("Attacked argument #2 is queried.", 1.0, p, 0.01);
@@ -225,7 +225,7 @@ public class ConcurrentExactTests {
 
         ConcurrentExactAnalysis exactAnalysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
         result.print();
 
 
@@ -242,7 +242,7 @@ public class ConcurrentExactTests {
         peafTheory.prettyPrint();
         ConcurrentExactAnalysis exactAnalysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
         result.print();
 
 
@@ -269,7 +269,7 @@ public class ConcurrentExactTests {
         peafTheory.prettyPrint();
         ConcurrentExactAnalysis exactAnalysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
         result.print();
 
@@ -298,7 +298,7 @@ public class ConcurrentExactTests {
         peafTheory.prettyPrint();
         ConcurrentExactAnalysis exactAnalysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
         result.print();
 
@@ -330,7 +330,7 @@ public class ConcurrentExactTests {
         peafTheory.prettyPrint();
         ConcurrentExactAnalysis exactAnalysis = new ConcurrentExactAnalysis(peafTheory, new PreferredReasoner());
         AnalysisResult result = exactAnalysis.query(query);
-        double p = result.getProbability();
+        double p = result.getResult();
 
         result.print();
         Assert.assertEquals("Attacked argument #3 is queried.", 1.0, p, 0.01);

@@ -5,15 +5,15 @@ package org.tweetyproject.arg.peaf.analysis;
  *
  * @author Taha Dogan Gunes
  */
-public record AnalysisResult(double probability, long noIterations, AnalysisType type, double totalProbability) {
+public record AnalysisResult(double result, long noIterations, AnalysisType type, double totalProbability) {
 
     /**
-     * Returns the probability of the analysis
+     * Returns the result of the analysis
      *
-     * @return the probability
+     * @return the result
      */
-    public double getProbability() {
-        return probability;
+    public double getResult() {
+        return result;
     }
 
     /**
@@ -29,7 +29,7 @@ public record AnalysisResult(double probability, long noIterations, AnalysisType
      * For debugging purposes, prints the analysis result.
      */
     public void print() {
-        System.out.println("Type: " + this.type + " prob: " + this.getProbability() + " iterations: " + this.getNoIterations() + " totalProbability: " + this.totalProbability);
+        System.out.println("Type: " + this.type + " result: " + this.getResult() + " iterations: " + this.getNoIterations() + " totalProbability: " + this.totalProbability);
     }
 
 }

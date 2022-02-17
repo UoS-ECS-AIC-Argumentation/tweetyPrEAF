@@ -23,4 +23,9 @@ public class AIFJSONAnalysisReasonerParameters {
      * This is used for the accuracy of the approximate reasoners (i.e. approx and con_approx)
      */
     public double errorLevel;
+
+    /**
+     * The list for target arguments
+     */
+    public String[] target;
 }

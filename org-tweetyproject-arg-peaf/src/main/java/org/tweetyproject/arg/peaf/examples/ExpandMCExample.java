@@ -24,7 +24,7 @@ public class ExpandMCExample {
             p[0] += inducibleEAF.getInducePro();
         });
 
-        System.out.println("The probability is: " + p[0]);
+        System.out.println("The result is: " + p[0]);
         p[0] = 0.0;
 
         System.out.println();
@@ -36,6 +36,6 @@ public class ExpandMCExample {
             p[0] += inducibleEAF.getInducePro();
         });
 
-        System.out.println("The probability is: " + p[0]);
+        System.out.println("The result is: " + p[0]);
     }
 }

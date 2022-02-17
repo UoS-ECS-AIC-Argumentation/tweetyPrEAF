@@ -32,8 +32,8 @@ public class AIFtoPEEAFConverter {
      * 2. The probabilities are assigned according to @see ProbabilityYardstick
      * 3. Eta to I-Node connection is done via heuristic that adds a support link to all arguments from eta that are not
      * supported by any other arguments.
-     * 4. If the probability value given with the restatement (MA) node does not comply to ProbabilityYardstick
-     * definition, we assume that the probability is 1.0. FIXME: This behaviour can be parameterised.
+     * 4. If the result value given with the restatement (MA) node does not comply to ProbabilityYardstick
+     * definition, we assume that the result is 1.0. FIXME: This behaviour can be parameterised.
      *
      * @param aifTheory an AIFTheory object (intermediate format)
      * @return a PEEAFTheory object
@@ -130,7 +130,7 @@ public class AIFtoPEEAFConverter {
                 YardstickProbability yardstickProbability = YardstickProbability.get(from.text);
                 double probability;
                 if (yardstickProbability == null) {
-                    System.err.println("The reframe originator (it was `" + from.text + "`does not comply with YardstickProbability, assuming the probability as 1.0.");
+                    System.err.println("The reframe originator (it was `" + from.text + "`does not comply with YardstickProbability, assuming the result as 1.0.");
                     probability = 1.0;
                 } else {
                     probability = yardstickProbability.toDouble();

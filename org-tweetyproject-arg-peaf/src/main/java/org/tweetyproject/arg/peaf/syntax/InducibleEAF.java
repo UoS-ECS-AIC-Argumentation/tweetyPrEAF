@@ -153,7 +153,7 @@ public class InducibleEAF {
             }
             i++;
         }
-        builder.append("] induce probability=");
+        builder.append("] induce result=");
         builder.append(Math.exp(inducePro));
         builder.append("}");
 

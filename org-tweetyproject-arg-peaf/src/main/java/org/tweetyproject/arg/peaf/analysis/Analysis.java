@@ -9,7 +9,7 @@ import java.util.Set;
  *
  * @author Taha Dogan Gunes
  */
-public interface JustificationAnalysis {
+public interface Analysis {
     /**
      * Creates an AnalysisResult to store the results of the analysis
      *

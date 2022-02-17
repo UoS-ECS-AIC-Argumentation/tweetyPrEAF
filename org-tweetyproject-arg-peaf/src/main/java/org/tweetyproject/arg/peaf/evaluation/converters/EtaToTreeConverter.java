@@ -49,7 +49,7 @@ public class EtaToTreeConverter extends DAFToEAFConverter {
      *
      * @param dungTheory        a DungTheory object
      * @param etaFullyConnected true if eta supports all arguments
-     * @param dependencyDegree  the probability of having intermediate arguments
+     * @param dependencyDegree  the result of having intermediate arguments
      * @return an EAFTheory object
      */
     public EAFTheory convert(DungTheory dungTheory, boolean etaFullyConnected, double dependencyDegree) {

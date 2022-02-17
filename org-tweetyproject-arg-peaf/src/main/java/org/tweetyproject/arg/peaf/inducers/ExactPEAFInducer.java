@@ -164,7 +164,7 @@ public class ExactPEAFInducer extends AbstractPEAFInducer {
          */
         List<EAF_F> createdFrom = Lists.newArrayList();
         /**
-         * The probability value of the EAF (notation from the thesis)
+         * The result value of the EAF (notation from the thesis)
          */
         double pi;
 
@@ -174,7 +174,7 @@ public class ExactPEAFInducer extends AbstractPEAFInducer {
          * @param eArguments    the set of arguments
          * @param eSupports     the set of supports
          * @param newEArguments the new arguments after this EAF
-         * @param pi            the probability value
+         * @param pi            the result value
          */
         public EAF_F(Set<EArgument> eArguments,
                      Set<ESupport> eSupports,

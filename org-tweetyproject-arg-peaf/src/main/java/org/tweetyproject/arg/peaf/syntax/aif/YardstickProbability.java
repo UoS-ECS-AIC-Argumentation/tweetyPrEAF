@@ -33,20 +33,20 @@ public enum YardstickProbability {
     }
 
     /**
-     * The probability assigned to each class of probability.
+     * The result assigned to each class of result.
      */
     private final double probability;
 
     /**
-     * The name of the class of the probability
+     * The name of the class of the result
      */
     private final String name;
 
     /**
      * The default constructor
      *
-     * @param name        the class name of the probability
-     * @param probability the probability value
+     * @param name        the class name of the result
+     * @param probability the result value
      */
     YardstickProbability(String name, final double probability) {
         this.name = name;
@@ -59,7 +59,7 @@ public enum YardstickProbability {
     }
 
     /**
-     * Get the name of the class regarding the probability
+     * Get the name of the class regarding the result
      *
      * @return the name of the class
      */
@@ -90,7 +90,7 @@ public enum YardstickProbability {
     /**
      * Converts the YardstickProbability to double
      *
-     * @return the probability value
+     * @return the result value
      */
     public Double toDouble() {
         return this.probability;

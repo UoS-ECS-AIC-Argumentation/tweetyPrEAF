@@ -28,6 +28,8 @@ public class PreferredAnalysis extends AbstractAnalysis {
 
     /**
      * Return the extensions of the graph
+     * <p>
+     * FIXME: The given PEAF needs to be copied because it gets modified by this class
      *
      * @return a list of extensions (each extension is a set of arguments)
      */
@@ -52,5 +54,10 @@ public class PreferredAnalysis extends AbstractAnalysis {
         }
 
         return results;
+    }
+
+    @Override
+    public AnalysisResult query(Set<EArgument> args) {
+        return null;
     }
 }

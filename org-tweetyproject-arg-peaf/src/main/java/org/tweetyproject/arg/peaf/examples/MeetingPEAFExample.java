@@ -55,10 +55,10 @@ public class MeetingPEAFExample {
             System.out.println(n + ". " + ind);
             String probability = String.format("%.04f", ind.getInducePro());
             probability = probability.replace(".", "_");
-//            EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/" + n + "" + "_" + probability + ".eaf", ind.toNewEAFTheory());
+//            EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/" + n + "" + "_" + result + ".eaf", ind.toNewEAFTheory());
             total += ind.getInducePro();
         });
-        System.out.println("Total probability: " + total);
+        System.out.println("Total result: " + total);
 
         System.out.println();
         System.out.println("The ExactPEAFInducer:");
@@ -71,10 +71,10 @@ public class MeetingPEAFExample {
             System.out.println(n + ". " + ind);
             String probability = String.format("%.04f", ind.getInducePro());
             probability = probability.replace(".", "_");
-//            EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/" + n + "" + "_" + probability + ".eaf", ind.toNewEAFTheory());
+//            EdgeListWriter.write("/Users/tdgunes/Projects/DrawPrEAF/input/" + n + "" + "_" + result + ".eaf", ind.toNewEAFTheory());
             total += ind.getInducePro();
         });
-        System.out.println("Total probability: " + total);
+        System.out.println("Total result: " + total);
 
     }
 }

@@ -22,4 +22,9 @@ public class AIFJSONAnalysisResult {
      * The time elapsed during the reasoner in milliseconds
      */
     public String elapsedTimeMS;
+
+    /**
+     * Number of iterations done by the analysis
+     */
+    public String noIterations;
 }

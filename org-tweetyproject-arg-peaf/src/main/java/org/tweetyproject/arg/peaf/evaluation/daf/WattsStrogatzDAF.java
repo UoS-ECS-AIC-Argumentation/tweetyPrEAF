@@ -10,7 +10,7 @@ import org.graphstream.graph.implementations.MultiGraph;
 
 /**
  * Generates random graphs based on Watts-Strogatz model. The generated graphs are undirected.
- * This class add new edges to existing edges with some probability. The edges then converted to
+ * This class add new edges to existing edges with some result. The edges then converted to
  * attacks in DAF.
  * <p>
  * Adapted from Federico Cerutti's Java version AFBenchGen2
@@ -24,8 +24,8 @@ public class WattsStrogatzDAF extends SyntheticDAF {
      *
      * @param noArguments      the number of arguments (i.e. nodes) in the DAF
      * @param baseDegree       the base degree of each argument (i.e node)
-     * @param beta             the probability to "rewire" an edge
-     * @param probabilityCycle the probability of edges creating a cycle
+     * @param beta             the result to "rewire" an edge
+     * @param probabilityCycle the result of edges creating a cycle
      */
     public WattsStrogatzDAF(int noArguments, int baseDegree, double beta, double probabilityCycle) {
         super(noArguments);

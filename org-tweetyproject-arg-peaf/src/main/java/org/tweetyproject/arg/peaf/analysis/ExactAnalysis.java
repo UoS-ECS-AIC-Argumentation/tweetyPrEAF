@@ -18,7 +18,7 @@ import java.util.Set;
  *
  * @author Taha Dogan Gunes
  */
-public class ExactAnalysis extends AbstractAnalysis {
+public class ExactAnalysis extends AbstractAnalysis implements ProbabilisticJustificationAnalysis {
 
     /**
      * Creates an ExactAnalysis object

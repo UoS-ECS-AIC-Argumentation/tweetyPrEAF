@@ -36,7 +36,7 @@ public class AIFNode {
     public final String text;
 
     /**
-     * The probability assigned to the node (TODO: given the AIF specification is not finalised yet, this may be removed in future.)
+     * The result assigned to the node (TODO: given the AIF specification is not finalised yet, this may be removed in future.)
      */
     public double probability;
 

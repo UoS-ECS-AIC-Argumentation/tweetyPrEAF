@@ -6,6 +6,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import org.apache.commons.cli.*;
 import org.tweetyproject.arg.peaf.analysis.*;
+import org.tweetyproject.arg.peaf.analysis.voi.KLDivergenceAnalysis;
+import org.tweetyproject.arg.peaf.analysis.voi.MaximiseChangeAnalysis;
+import org.tweetyproject.arg.peaf.analysis.voi.MinimiseEntropyAnalysis;
+import org.tweetyproject.arg.peaf.analysis.voi.TargetOutputAnalysis;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.io.aif.AIFCISReader;
 import org.tweetyproject.arg.peaf.io.aif.AIFtoPEEAFConverter;
@@ -91,6 +95,8 @@ public class Runner {
 
             double errorLevel = 0.1;
             int noThreads = 1;
+            Set<EArgument> target = Sets.newHashSet();
+
             if (analysis.reasoner.parameters != null) {
                 errorLevel = analysis.reasoner.parameters.errorLevel;
                 if (errorLevel <= 0 || errorLevel >= 1.0) {
@@ -105,7 +111,13 @@ public class Runner {
                     System.err.println("Warning: The number of threads must be higher than 0. Using default noThreads, which is 1.\n");
                     noThreads = 1;
                 }
+
+                if (analysis.reasoner.parameters.target != null) {
+                    fillTheSetWithArgs(target, analysis.reasoner.parameters.target, peaf, builder);
+                }
+
             }
+
 
             boolean isQueryExpected = true;
             AbstractAnalysis abstractAnalysis;
@@ -119,6 +131,19 @@ public class Runner {
                     abstractAnalysis = new PreferredAnalysis(peaf);
                     isQueryExpected = false;
                 }
+                case VOI_TARGET_OUTPUT -> abstractAnalysis = new TargetOutputAnalysis<>(peaf,
+                        new PreferredReasoner(),
+                        target,
+                        new ApproxAnalysis(peaf, new PreferredReasoner(), errorLevel));
+                case VOI_MAXIMISE_CHANGE -> abstractAnalysis = new MaximiseChangeAnalysis<>(peaf,
+                        new PreferredReasoner(),
+                        new ApproxAnalysis(peaf, new PreferredReasoner(), errorLevel));
+                case VOI_MINIMISE_ENTROPY -> abstractAnalysis = new MinimiseEntropyAnalysis<>(peaf,
+                        new PreferredReasoner(),
+                        new ApproxAnalysis(peaf, new PreferredReasoner(), errorLevel));
+                case VOI_KL_DIVERGENCE -> abstractAnalysis = new KLDivergenceAnalysis<>(peaf,
+                        new PreferredReasoner(),
+                        new ApproxAnalysis(peaf, new PreferredReasoner(), errorLevel));
                 default -> throw new RuntimeException("The analysis type that is named as '" + type + "' does not exist.");
             }
 
@@ -150,22 +175,14 @@ public class Runner {
 
                 Set<EArgument> query = Sets.newHashSet();
                 System.out.println("The query (in text):");
-                for (String iNodeID : queries) {
-                    EArgument eArgument = peaf.getArgumentByIdentifier(iNodeID);
-                    if (eArgument == null) {
-                        builder.append("The given nodeID as `").append(iNodeID).append("` does not exist in the given AIF.");
-                        System.err.println("The given nodeID as `" + iNodeID + "` does not exist in the given AIF.");
-                        break;
-                    }
-                    query.add(eArgument);
-                    System.out.println("`" + iNodeID + "`: " + peaf.getArgumentNameFromIdentifier(iNodeID));
-                }
+
+                fillTheSetWithArgs(query, queries, peaf, builder);
                 System.out.println("The query (in internal format): " + query);
 
                 AnalysisResult result = abstractAnalysis.query(query);
-                double justification = result.getProbability();
+                double justification = result.getResult();
                 analysis.result.outcome = "" + justification;
-
+                analysis.result.noIterations = "" + result.getNoIterations();
             }
             long elapsedTime = System.currentTimeMillis() - startTime;
             System.out.println("Completed in " + elapsedTime + " ms, the result is: " + analysis.result.outcome + ".");
@@ -180,6 +197,19 @@ public class Runner {
         try (Writer writer = new FileWriter(outputFilePath)) {
             Gson gsonPretty = new GsonBuilder().setPrettyPrinting().create();
             gsonPretty.toJson(aifJSON, writer);
+        }
+    }
+
+    private static void fillTheSetWithArgs(Set<EArgument> target, String[] target1, NamedPEAFTheory peaf, StringBuilder builder) {
+        for (String iNodeID : target1) {
+            EArgument eArgument = peaf.getArgumentByIdentifier(iNodeID);
+            if (eArgument == null) {
+                builder.append("The given nodeID as `").append(iNodeID).append("` does not exist in the given AIF.");
+                System.err.println("The given nodeID as `" + iNodeID + "` does not exist in the given AIF.");
+                break;
+            }
+            target.add(eArgument);
+            System.out.println("`" + iNodeID + "`: " + peaf.getArgumentNameFromIdentifier(iNodeID));
         }
     }
 

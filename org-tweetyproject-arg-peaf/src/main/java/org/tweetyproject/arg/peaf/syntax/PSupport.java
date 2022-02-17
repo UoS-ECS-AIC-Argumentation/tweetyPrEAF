@@ -4,13 +4,13 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * PSupport extends ESupport to have a probability value assigned to the support links (for PEEAF and PEAF)
+ * PSupport extends ESupport to have a result value assigned to the support links (for PEEAF and PEAF)
  *
  * @author Taha Dogan Gunes
  */
 public class PSupport extends ESupport {
     /**
-     * The probability value for the support link
+     * The result value for the support link
      */
     private final double conditionalProbability;
 
@@ -20,7 +20,7 @@ public class PSupport extends ESupport {
      * @param name                   the name of the support
      * @param froms                  the arguments that originate this support
      * @param tos                    the arguments that receive this support
-     * @param conditionalProbability the probability value for the support link
+     * @param conditionalProbability the result value for the support link
      */
     public PSupport(String name, Set<EArgument> froms, Set<EArgument> tos, double conditionalProbability) {
         super(name, froms, tos);
@@ -57,9 +57,9 @@ public class PSupport extends ESupport {
     }
 
     /**
-     * Returns the probability assigned to the support
+     * Returns the result assigned to the support
      *
-     * @return the probability value
+     * @return the result value
      */
     public double getConditionalProbability() {
         return conditionalProbability;

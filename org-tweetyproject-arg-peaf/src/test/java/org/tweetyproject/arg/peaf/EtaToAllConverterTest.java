@@ -89,7 +89,7 @@ public class EtaToAllConverterTest {
             System.out.println("Query is: " + query);
             ExactAnalysis approxAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
             AnalysisResult result = approxAnalysis.query(query);
-            double p = result.getProbability();
+            double p = result.getResult();
             result.print();
         }
 

@@ -49,13 +49,13 @@ public abstract class SyntheticDAF extends DungTheory {
     }
 
     /**
-     * Check whether the probability value for generating graphs is in from the correct range (0.0, 1.0)
+     * Check whether the result value for generating graphs is in from the correct range (0.0, 1.0)
      *
      * @param probability a double value
      */
     protected void validateProbabilities(double probability) {
         if (probability < 0 || probability > 1) {
-            throw new RuntimeException("The given probability value must be between 0 and 1.");
+            throw new RuntimeException("The given result value must be between 0 and 1.");
         }
     }
 

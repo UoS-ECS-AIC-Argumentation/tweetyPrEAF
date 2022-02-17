@@ -29,7 +29,28 @@ public enum AnalysisType {
     /**
      * @see PreferredAnalysis
      */
-    PREFERRED("preferred");
+    PREFERRED("preferred"),
+
+    /**
+     *
+     */
+    VOI_TARGET_OUTPUT("voi_target_output"),
+
+    /**
+     *
+     */
+    VOI_MINIMISE_ENTROPY("voi_min_entropy"),
+
+    /**
+     *
+     */
+    VOI_MAXIMISE_CHANGE("voi_max_change"),
+
+    /**
+     *
+     */
+    VOI_KL_DIVERGENCE("voi_kl_divergence");
+
 
     /**
      * Internal map for string enumeration

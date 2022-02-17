@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  *
  * @author Taha Dogan Gunes
  */
-public abstract class AbstractAnalysis implements JustificationAnalysis {
+public abstract class AbstractAnalysis implements Analysis {
 
     /**
      * The PEAF theory to be analyzed
@@ -47,7 +47,7 @@ public abstract class AbstractAnalysis implements JustificationAnalysis {
     /**
      * It's called when the analysis is complete.
      *
-     * @param probability      the probability value found as a result
+     * @param probability      the result value found as a result
      * @param noIterations     the number of iterations done for the analysis
      * @param totalProbability computed for correctness (in exact analysis)
      * @return an Analysis object
@@ -188,13 +188,4 @@ public abstract class AbstractAnalysis implements JustificationAnalysis {
                 .collect(Collectors.joining("_"));
     }
 
-    /**
-     * The default method return null
-     *
-     * @param args the set of arguments necessary for the query
-     * @return null
-     */
-    public AnalysisResult query(Set<EArgument> args) {
-        return null;
-    }
 }

@@ -38,7 +38,7 @@ import java.util.stream.Stream;
  * 1 7 { 'color': 'red'}
  * ```
  * <p>
- * Color green denotes the support link and the weight is the probability given to PSupport.
+ * Color green denotes the support link and the weight is the result given to PSupport.
  * Color red denotes the attack link.
  * This is useful to get plots of the PEAF directly from networkx library.
  */
