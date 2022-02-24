@@ -5,7 +5,7 @@ import com.google.common.collect.Sets;
 import org.tweetyproject.arg.dung.semantics.Extension;
 import org.tweetyproject.arg.dung.syntax.Argument;
 import org.tweetyproject.arg.dung.syntax.DungTheory;
-import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
+import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.GroundReasoner;
 import org.tweetyproject.arg.peaf.syntax.EAFTheory;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.NamedPEAFTheory;
@@ -21,9 +21,9 @@ import java.util.Set;
  *
  * @author Taha Dogan Gunes
  */
-public class PreferredAnalysis extends AbstractAnalysis implements ExtensionAnalysis {
-    public PreferredAnalysis(NamedPEAFTheory peaf) {
-        super(peaf, new PreferredReasoner(), AnalysisType.PREFERRED);
+public class GroundedAnalysis extends AbstractAnalysis implements ExtensionAnalysis {
+    public GroundedAnalysis(NamedPEAFTheory peaf) {
+        super(peaf, new GroundReasoner(), AnalysisType.GROUNDED);
     }
 
     /**

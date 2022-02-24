@@ -21,6 +21,12 @@ import java.util.concurrent.atomic.AtomicLong;
 public class AIFtoPEEAFConverter {
 
     /**
+     * During the conversion we assume a default probability for values without MA nodes
+     * FIXME: When this is 1.0, the reasoners does not work properly.
+     */
+    private static final double DEFAULT_PROBABILITY = 0.99;
+
+    /**
      * Converts an AIFTheory (intermediate format) to PEEAFTheory
      * <p>
      * The conversion method is heavily based on:
@@ -33,7 +39,7 @@ public class AIFtoPEEAFConverter {
      * 3. Eta to I-Node connection is done via heuristic that adds a support link to all arguments from eta that are not
      * supported by any other arguments.
      * 4. If the result value given with the restatement (MA) node does not comply to ProbabilityYardstick
-     * definition, we assume that the result is 1.0. FIXME: This behaviour can be parameterised.
+     * definition, we assume that the result is `DEFAULT_PROBABILITY`. FIXME: This behaviour can be parameterised.
      *
      * @param aifTheory an AIFTheory object (intermediate format)
      * @return a PEEAFTheory object
@@ -87,7 +93,7 @@ public class AIFtoPEEAFConverter {
                         fromIdentifiers[i] = from.nodeID;
                         i++;
                     }
-                    peeafTheory.addSupport("" + supportCount, fromIdentifiers, to.nodeID, node.probability);
+                    peeafTheory.addSupport("" + supportCount, fromIdentifiers, to.nodeID, DEFAULT_PROBABILITY);
                     supportCount++;
                 }
             }
@@ -95,7 +101,7 @@ public class AIFtoPEEAFConverter {
             else if (node.nodeType == AIFNodeType.CA) {
                 for (AIFNode to : node.getTos()) {
                     for (AIFNode from : node.getFroms()) {
-                        peeafTheory.addAttack("" + attackCount, from.nodeID, to.nodeID, node.probability);
+                        peeafTheory.addAttack("" + attackCount, from.nodeID, to.nodeID, DEFAULT_PROBABILITY);
                         attackCount++;
                         // MA - Condition #3: [I* Node - A] -> [MA Node] -> [I node - C] <- [MA Node] <- [I* Node - B]
                         attackMap.put(from, to);
@@ -163,12 +169,12 @@ public class AIFtoPEEAFConverter {
                     AIFNode toB = iterator.next();
 
                     if (attackMap.get(fromA) != toB) {
-                        peeafTheory.addAttack("" + attackCount, fromA.nodeID, toB.nodeID, 1.0);
+                        peeafTheory.addAttack("" + attackCount, fromA.nodeID, toB.nodeID, DEFAULT_PROBABILITY);
                         attackCount++;
                     }
 
                     if (attackMap.get(toB) != fromA) {
-                        peeafTheory.addAttack("" + attackCount, toB.nodeID, fromA.nodeID, 1.0);
+                        peeafTheory.addAttack("" + attackCount, toB.nodeID, fromA.nodeID, DEFAULT_PROBABILITY);
                         attackCount++;
                     }
                 }
@@ -200,7 +206,7 @@ public class AIFtoPEEAFConverter {
         for (PEEAFTheory.Argument candidateArgument : candidateArguments) {
             // MA - Condition #3: [I* Node - A] -> [MA Node] -> [I node - C] <- [MA Node] <- [I* Node - B]
             if (!restatedNodes.contains(candidateArgument.getIdentifier())) {
-                peeafTheory.addSupport("" + supportCount, new String[]{"eta"}, candidateArgument.getIdentifier(), 1.0);
+                peeafTheory.addSupport("" + supportCount, new String[]{"eta"}, candidateArgument.getIdentifier(), DEFAULT_PROBABILITY);
                 supportCount++;
             }
         }

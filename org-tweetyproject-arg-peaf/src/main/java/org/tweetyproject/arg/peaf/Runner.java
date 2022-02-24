@@ -5,11 +5,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import org.apache.commons.cli.*;
+import org.tweetyproject.arg.dung.reasoner.AbstractExtensionReasoner;
 import org.tweetyproject.arg.peaf.analysis.*;
 import org.tweetyproject.arg.peaf.analysis.voi.KLDivergenceAnalysis;
 import org.tweetyproject.arg.peaf.analysis.voi.MaximiseChangeAnalysis;
 import org.tweetyproject.arg.peaf.analysis.voi.MinimiseEntropyAnalysis;
 import org.tweetyproject.arg.peaf.analysis.voi.TargetOutputAnalysis;
+import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.GroundReasoner;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.io.aif.AIFCISReader;
 import org.tweetyproject.arg.peaf.io.aif.AIFtoPEEAFConverter;
@@ -97,18 +99,19 @@ public class Runner {
             int noThreads = 1;
             Set<EArgument> target = Sets.newHashSet();
 
+            AbstractExtensionReasoner reasoner = new PreferredReasoner();
+
+
             if (analysis.reasoner.parameters != null) {
                 errorLevel = analysis.reasoner.parameters.errorLevel;
                 if (errorLevel <= 0 || errorLevel >= 1.0) {
-                    builder.append("Warning: Error level must be in the range of (0.0, 1.0). Using default error level, which is 0.1.\n");
-                    System.err.println("Warning: Error level must be in the range of (0.0, 1.0). Using default error level, which is 0.1.\n");
+                    printLogWarning(builder, "Warning: Error level must be in the range of (0.0, 1.0). Using default error level, which is 0.1.\n");
                     errorLevel = 0.1;
                 }
 
                 noThreads = analysis.reasoner.parameters.noThreads;
                 if (noThreads <= 0) {
-                    builder.append("Warning: The number of threads must be higher than 0. Using default noThreads, which is 1.\n");
-                    System.err.println("Warning: The number of threads must be higher than 0. Using default noThreads, which is 1.\n");
+                    printLogWarning(builder, "Warning: The number of threads must be higher than 0. Using default noThreads, which is 1.\n");
                     noThreads = 1;
                 }
 
@@ -116,34 +119,50 @@ public class Runner {
                     fillTheSetWithArgs(target, analysis.reasoner.parameters.target, peaf, builder);
                 }
 
+                if (analysis.reasoner.parameters.semantics != null) {
+                    switch (analysis.reasoner.parameters.semantics) {
+                        case "preferred" -> reasoner = new PreferredReasoner();
+                        case "grounded" -> reasoner = new GroundReasoner();
+                    }
+                } else {
+                    printLogWarning(builder, "Warning: The semantics were not specified. Using default semantics, which is preferred.\n");
+                }
             }
 
 
             boolean isQueryExpected = true;
             AbstractAnalysis abstractAnalysis;
+            if (type == null) {
+                throw new RuntimeException("The analysis type does not exist. The analysis types are: " + Arrays.toString(AnalysisType.values()));
+            }
             switch (type) {
-                case EXACT -> abstractAnalysis = new ExactAnalysis(peaf, new PreferredReasoner());
-                case APPROX -> abstractAnalysis = new ApproxAnalysis(peaf, new PreferredReasoner(), errorLevel);
-                case CONCURRENT_EXACT -> abstractAnalysis = new ConcurrentExactAnalysis(peaf, new PreferredReasoner(), noThreads);
-                case CONCURRENT_APPROX -> abstractAnalysis = new ConcurrentApproxAnalysis(peaf, new PreferredReasoner(), errorLevel, noThreads);
+                case EXACT -> abstractAnalysis = new ExactAnalysis(peaf, reasoner);
+                case APPROX -> abstractAnalysis = new ApproxAnalysis(peaf, reasoner, errorLevel);
+                case CONCURRENT_EXACT -> abstractAnalysis = new ConcurrentExactAnalysis(peaf, reasoner, noThreads);
+                case CONCURRENT_APPROX -> abstractAnalysis = new ConcurrentApproxAnalysis(peaf, reasoner, errorLevel, noThreads);
                 case PREFERRED -> {
                     // Convert peaf -> eaf -> daf, then run jargsemsat
                     abstractAnalysis = new PreferredAnalysis(peaf);
                     isQueryExpected = false;
                 }
+                case GROUNDED -> {
+                    // Convert peaf -> eaf -> daf, then run jargsemsat
+                    abstractAnalysis = new GroundedAnalysis(peaf);
+                    isQueryExpected = false;
+                }
                 case VOI_TARGET_OUTPUT -> abstractAnalysis = new TargetOutputAnalysis<>(peaf,
-                        new PreferredReasoner(),
+                        reasoner,
                         target,
-                        new ApproxAnalysis(peaf, new PreferredReasoner(), errorLevel));
+                        new ApproxAnalysis(peaf, reasoner, errorLevel));
                 case VOI_MAXIMISE_CHANGE -> abstractAnalysis = new MaximiseChangeAnalysis<>(peaf,
-                        new PreferredReasoner(),
-                        new ApproxAnalysis(peaf, new PreferredReasoner(), errorLevel));
+                        reasoner,
+                        new ApproxAnalysis(peaf, reasoner, errorLevel));
                 case VOI_MINIMISE_ENTROPY -> abstractAnalysis = new MinimiseEntropyAnalysis<>(peaf,
-                        new PreferredReasoner(),
-                        new ApproxAnalysis(peaf, new PreferredReasoner(), errorLevel));
+                        reasoner,
+                        new ApproxAnalysis(peaf, reasoner, errorLevel));
                 case VOI_KL_DIVERGENCE -> abstractAnalysis = new KLDivergenceAnalysis<>(peaf,
-                        new PreferredReasoner(),
-                        new ApproxAnalysis(peaf, new PreferredReasoner(), errorLevel));
+                        reasoner,
+                        new ApproxAnalysis(peaf, reasoner, errorLevel));
                 default -> throw new RuntimeException("The analysis type that is named as '" + type + "' does not exist.");
             }
 
@@ -165,9 +184,9 @@ public class Runner {
 
             long startTime = System.currentTimeMillis();
             analysis.result.status = builder.toString();
-            if (type == AnalysisType.PREFERRED) {
+            if (type == AnalysisType.PREFERRED || type == AnalysisType.GROUNDED) {
                 analysis.result.status = builder.toString();
-                PreferredAnalysis preferredAnalysis = (PreferredAnalysis) abstractAnalysis;
+                ExtensionAnalysis preferredAnalysis = (ExtensionAnalysis) abstractAnalysis;
                 analysis.result.outcome = Arrays.toString(preferredAnalysis.getExtensions().toArray());
             } else {
                 System.out.println("The error level is: " + errorLevel);
@@ -198,6 +217,11 @@ public class Runner {
             Gson gsonPretty = new GsonBuilder().setPrettyPrinting().create();
             gsonPretty.toJson(aifJSON, writer);
         }
+    }
+
+    private static void printLogWarning(StringBuilder builder, String message) {
+        builder.append(message);
+        System.err.println(message);
     }
 
     private static void fillTheSetWithArgs(Set<EArgument> target, String[] target1, NamedPEAFTheory peaf, StringBuilder builder) {

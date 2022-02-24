@@ -3,16 +3,19 @@ package org.tweetyproject.arg.peaf.analysis.voi;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.junit.Test;
+import org.tweetyproject.arg.peaf.Runner;
 import org.tweetyproject.arg.peaf.analysis.AnalysisResult;
 import org.tweetyproject.arg.peaf.analysis.ApproxAnalysis;
+import org.tweetyproject.arg.peaf.analysis.ExactAnalysis;
 import org.tweetyproject.arg.peaf.inducers.jargsemsat.tweety.PreferredReasoner;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.NamedPEAFTheory;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-public class TargetOutputAnalysisTests {
+public class VOIAnalysisTests {
 
     /**
      *
@@ -48,6 +51,7 @@ public class TargetOutputAnalysisTests {
         peafTheory.addAttack(2, 4);
         peafTheory.addAttack(4, 3);
 
+        // eta supports all
         // 1 -> 2 -> 3 <- |
         //      | -> 4 -> |
 
@@ -55,6 +59,12 @@ public class TargetOutputAnalysisTests {
 
         for (EArgument argument : list) {
             ApproxAnalysis approxAnalysis = new ApproxAnalysis(peafTheory, new PreferredReasoner(), 0.01);
+            AnalysisResult result = approxAnalysis.query(Sets.newHashSet(argument));
+            System.out.println(argument + ": " + result.getResult());
+        }
+
+        for (EArgument argument : list) {
+            ExactAnalysis approxAnalysis = new ExactAnalysis(peafTheory, new PreferredReasoner());
             AnalysisResult result = approxAnalysis.query(Sets.newHashSet(argument));
             System.out.println(argument + ": " + result.getResult());
         }
@@ -114,4 +124,21 @@ public class TargetOutputAnalysisTests {
             System.out.println("V(" + argument + "): " + result.getResult());
         }
     }
+
+    /**
+     *
+     */
+    @Test
+    public void testACHMatrix() {
+        String[] args = {"-i", "./org-tweetyproject-arg-peaf/src/main/resources/aif/hijacking_of_aegean_second.json",
+                "-o", "./org-tweetyproject-arg-peaf/src/main/resources/aif/hijacking_of_aegean_second-output.json"};
+        try {
+            Runner.main(args);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 }

@@ -28,4 +28,9 @@ public class AIFJSONAnalysisReasonerParameters {
      * The list for target arguments
      */
     public String[] target;
+
+    /**
+     * Semantics can be "preferred" or "grounded"
+     */
+    public String semantics;
 }

@@ -21,6 +21,12 @@ import java.util.Set;
  */
 public class PEEAFToPEAFConverter {
     /**
+     * During the conversion we assume a default probability for the virtual nodes that gets added.
+     * FIXME: When this is 1.0, the reasoners does not work properly.
+     */
+    private static final double DEFAULT_PROBABILITY = 0.99;
+
+    /**
      * The conversion uses Algorithm 11 from Li's Thesis in page 105.
      * The general idea is to add virtual arguments on relations that are not supported by PEAFTheory.
      *
@@ -58,7 +64,7 @@ public class PEEAFToPEAFConverter {
             Integer toIndex = checkAndGetArgument(argToInt, support.getTo());
 
             peafTheory.addSupport(fromIndices, new int[]{virtualArgumentIndex}, support.getProbability());
-            peafTheory.addSupport(new int[]{virtualArgumentIndex}, new int[]{toIndex}, 1.0);
+            peafTheory.addSupport(new int[]{virtualArgumentIndex}, new int[]{toIndex}, DEFAULT_PROBABILITY);
 
             // Line 6
             virtualMap.put(support, virtualArgumentIndex);

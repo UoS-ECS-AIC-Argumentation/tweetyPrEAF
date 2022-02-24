@@ -32,22 +32,27 @@ public enum AnalysisType {
     PREFERRED("preferred"),
 
     /**
-     *
+     * @see GroundedAnalysis
+     */
+    GROUNDED("grounded"),
+
+    /**
+     * @see org.tweetyproject.arg.peaf.analysis.voi.TargetOutputAnalysis
      */
     VOI_TARGET_OUTPUT("voi_target_output"),
 
     /**
-     *
+     * @see org.tweetyproject.arg.peaf.analysis.voi.MinimiseEntropyAnalysis
      */
     VOI_MINIMISE_ENTROPY("voi_min_entropy"),
 
     /**
-     *
+     * @see org.tweetyproject.arg.peaf.analysis.voi.MaximiseChangeAnalysis
      */
     VOI_MAXIMISE_CHANGE("voi_max_change"),
 
     /**
-     *
+     * @see org.tweetyproject.arg.peaf.analysis.voi.KLDivergenceAnalysis
      */
     VOI_KL_DIVERGENCE("voi_kl_divergence");
 

@@ -131,9 +131,6 @@ public class ApproxPEAFInducer extends AbstractPEAFInducer {
             // Line 8-14
             for (ESupport eSupport : expandingSupports) {
                 double r = ThreadLocalRandom.current().nextDouble();
-                if (!(eSupport instanceof PSupport)) {
-                    System.out.println("WHAT");
-                }
                 if (r <= ((PSupport) eSupport).getConditionalProbability()) {
                     eaf_c.eSupports.add(eSupport);
 

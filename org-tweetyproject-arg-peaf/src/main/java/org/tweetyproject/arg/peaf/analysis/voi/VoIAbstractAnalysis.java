@@ -38,10 +38,13 @@ public abstract class VoIAbstractAnalysis<T extends AbstractAnalysis & Probabili
     }
 
     /**
-     * Generates value of observed
+     * Generates "value of observed"
+     * <p>
+     * This metric is computed by the sum of difference between the utility of having the arguments in question
+     * versus the utility of not having such arguments (their associated supports and attacks including froms and tos).
      *
      * @param args the set of arguments necessary for the query
-     * @return
+     * @return an AnalysisResult object
      */
     @Override
     public AnalysisResult query(Set<EArgument> args) {

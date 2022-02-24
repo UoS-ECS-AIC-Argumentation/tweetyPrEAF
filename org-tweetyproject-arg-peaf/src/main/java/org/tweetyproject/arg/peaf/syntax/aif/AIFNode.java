@@ -35,10 +35,6 @@ public class AIFNode {
      */
     public final String text;
 
-    /**
-     * The result assigned to the node (TODO: given the AIF specification is not finalised yet, this may be removed in future.)
-     */
-    public double probability;
 
     /**
      * The default constructor that creates an AIFNode
@@ -77,7 +73,6 @@ public class AIFNode {
                 "id='" + nodeID + '\'' +
                 ", type=" + nodeType +
                 ", text='" + text + '\'' +
-                ", prob=" + probability +
                 '}';
     }
 }
