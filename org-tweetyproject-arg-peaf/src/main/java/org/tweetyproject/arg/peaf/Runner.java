@@ -7,6 +7,9 @@ import com.google.gson.stream.JsonReader;
 import org.apache.commons.cli.*;
 import org.tweetyproject.arg.dung.reasoner.AbstractExtensionReasoner;
 import org.tweetyproject.arg.peaf.analysis.*;
+import org.tweetyproject.arg.peaf.analysis.extensions.ExtensionAnalysis;
+import org.tweetyproject.arg.peaf.analysis.extensions.GroundedAnalysis;
+import org.tweetyproject.arg.peaf.analysis.extensions.PreferredAnalysis;
 import org.tweetyproject.arg.peaf.analysis.voi.KLDivergenceAnalysis;
 import org.tweetyproject.arg.peaf.analysis.voi.MaximiseChangeAnalysis;
 import org.tweetyproject.arg.peaf.analysis.voi.MinimiseEntropyAnalysis;
@@ -22,6 +25,7 @@ import org.tweetyproject.arg.peaf.syntax.PEEAFTheory;
 import org.tweetyproject.arg.peaf.syntax.aif.AIFJSONTheory;
 import org.tweetyproject.arg.peaf.syntax.aif.AIFTheory;
 import org.tweetyproject.arg.peaf.syntax.aif.analysis.AIFJSONAnalysis;
+import org.tweetyproject.arg.peaf.syntax.aif.analysis.AIFJSONAnalysisResult;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -81,42 +85,66 @@ public class Runner {
         AIFtoPEEAFConverter aifConverter = new AIFtoPEEAFConverter();
         PEEAFTheory peeafTheory = aifConverter.convert(aifTheory);
         PEEAFToPEAFConverter peeafConverter = new PEEAFToPEAFConverter();
-        NamedPEAFTheory peaf = peeafConverter.convert(peeafTheory);
-
-
         peeafTheory.prettyPrint();
-        peaf.prettyPrint();
 
+        NamedPEAFTheory peaf = peeafConverter.convert(peeafTheory);
+        peaf.prettyPrint();
+        peaf.prettyPrintWithoutNames();
+
+        if (aifJSON.analyses != null) {
+            runAnalyses(outputFilePath, aifJSON, peeafTheory, peeafConverter);
+        } else {
+            System.err.println("Analyses field in the given aif json was not found.");
+        }
+
+
+        try (Writer writer = new FileWriter(outputFilePath)) {
+            Gson gsonPretty = new GsonBuilder().setPrettyPrinting().create();
+            gsonPretty.toJson(aifJSON, writer);
+        }
+    }
+
+    private static void runAnalyses(String outputFilePath, AIFJSONTheory aifJSON, PEEAFTheory peeafTheory, PEEAFToPEAFConverter peeafConverter) throws IOException {
+        NamedPEAFTheory peaf;
         int count = 0;
         for (AIFJSONAnalysis analysis : aifJSON.analyses) {
             StringBuilder builder = new StringBuilder();
             System.out.println("\n > Starting #" + ++count + " analysis with: " + analysis.reasoner.type + "\n");
 
             AnalysisType type = AnalysisType.get(analysis.reasoner.type);
+            if (analysis.result == null) {
+                analysis.result = new AIFJSONAnalysisResult();
+            }
             analysis.result.datetime = "" + java.util.Calendar.getInstance().getTime();
 
             double errorLevel = 0.1;
             int noThreads = 1;
             Set<EArgument> target = Sets.newHashSet();
+            Set<EArgument> objective = Sets.newHashSet();
 
             AbstractExtensionReasoner reasoner = new PreferredReasoner();
-
+            peaf = peeafConverter.convert(peeafTheory);
 
             if (analysis.reasoner.parameters != null) {
                 errorLevel = analysis.reasoner.parameters.errorLevel;
-                if (errorLevel <= 0 || errorLevel >= 1.0) {
+                if ((errorLevel <= 0 || errorLevel >= 1.0) && (type == AnalysisType.APPROX || type == AnalysisType.CONCURRENT_APPROX)) {
                     printLogWarning(builder, "Warning: Error level must be in the range of (0.0, 1.0). Using default error level, which is 0.1.\n");
                     errorLevel = 0.1;
                 }
 
                 noThreads = analysis.reasoner.parameters.noThreads;
-                if (noThreads <= 0) {
+                if (noThreads <= 0 && (type == AnalysisType.APPROX || type == AnalysisType.CONCURRENT_APPROX)) {
                     printLogWarning(builder, "Warning: The number of threads must be higher than 0. Using default noThreads, which is 1.\n");
                     noThreads = 1;
                 }
 
                 if (analysis.reasoner.parameters.target != null) {
                     fillTheSetWithArgs(target, analysis.reasoner.parameters.target, peaf, builder);
+                }
+
+                if (analysis.reasoner.parameters.objective != null) {
+                    System.out.println("Objective is given as: ");
+                    fillTheSetWithArgs(objective, analysis.reasoner.parameters.objective, peaf, builder);
                 }
 
                 if (analysis.reasoner.parameters.semantics != null) {
@@ -153,16 +181,16 @@ public class Runner {
                 case VOI_TARGET_OUTPUT -> abstractAnalysis = new TargetOutputAnalysis<>(peaf,
                         reasoner,
                         target,
-                        new ApproxAnalysis(peaf, reasoner, errorLevel));
+                        new ExactAnalysis(peaf, reasoner), objective);
                 case VOI_MAXIMISE_CHANGE -> abstractAnalysis = new MaximiseChangeAnalysis<>(peaf,
                         reasoner,
-                        new ApproxAnalysis(peaf, reasoner, errorLevel));
+                        new ExactAnalysis(peaf, reasoner), objective);
                 case VOI_MINIMISE_ENTROPY -> abstractAnalysis = new MinimiseEntropyAnalysis<>(peaf,
                         reasoner,
-                        new ApproxAnalysis(peaf, reasoner, errorLevel));
+                        new ExactAnalysis(peaf, reasoner), objective);
                 case VOI_KL_DIVERGENCE -> abstractAnalysis = new KLDivergenceAnalysis<>(peaf,
                         reasoner,
-                        new ApproxAnalysis(peaf, reasoner, errorLevel));
+                        new ExactAnalysis(peaf, reasoner), objective);
                 default -> throw new RuntimeException("The analysis type that is named as '" + type + "' does not exist.");
             }
 
@@ -189,8 +217,11 @@ public class Runner {
                 ExtensionAnalysis preferredAnalysis = (ExtensionAnalysis) abstractAnalysis;
                 analysis.result.outcome = Arrays.toString(preferredAnalysis.getExtensions().toArray());
             } else {
-                System.out.println("The error level is: " + errorLevel);
-                System.out.println("No threads: " + noThreads);
+                if ((type == AnalysisType.APPROX || type == AnalysisType.CONCURRENT_APPROX)) {
+                    System.out.println("The error level is: " + errorLevel);
+                    System.out.println("No threads: " + noThreads);
+                }
+
 
                 Set<EArgument> query = Sets.newHashSet();
                 System.out.println("The query (in text):");
@@ -211,11 +242,6 @@ public class Runner {
             analysis.result.elapsedTimeMS = "" + elapsedTime;
 
             analysis.result.status = builder.toString();
-        }
-
-        try (Writer writer = new FileWriter(outputFilePath)) {
-            Gson gsonPretty = new GsonBuilder().setPrettyPrinting().create();
-            gsonPretty.toJson(aifJSON, writer);
         }
     }
 

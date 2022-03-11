@@ -1,5 +1,8 @@
 package org.tweetyproject.arg.peaf.analysis;
 
+import org.tweetyproject.arg.peaf.analysis.extensions.GroundedAnalysis;
+import org.tweetyproject.arg.peaf.analysis.extensions.PreferredAnalysis;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

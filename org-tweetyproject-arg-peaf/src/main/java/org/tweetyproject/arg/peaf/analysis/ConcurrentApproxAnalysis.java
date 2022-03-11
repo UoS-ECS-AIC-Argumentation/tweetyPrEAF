@@ -112,6 +112,7 @@ public class ConcurrentApproxAnalysis extends AbstractAnalysis implements Probab
                     ApproxPEAFInducer approxPEAFInducer = new ApproxPEAFInducer(peafTheory);
                     approxPEAFInducer.induce(iEAF -> {
                         contribution[0] = computeContributionOfAniEAF(args, iEAF);
+
                         total.addAndGet(contribution[0]);
                     });
                     return contribution[0];

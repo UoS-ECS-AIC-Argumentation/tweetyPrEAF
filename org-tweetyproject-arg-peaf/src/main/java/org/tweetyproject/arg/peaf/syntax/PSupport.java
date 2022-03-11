@@ -64,4 +64,5 @@ public class PSupport extends ESupport {
     public double getConditionalProbability() {
         return conditionalProbability;
     }
+
 }

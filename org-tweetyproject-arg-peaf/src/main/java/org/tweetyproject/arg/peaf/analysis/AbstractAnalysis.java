@@ -6,6 +6,7 @@ import org.tweetyproject.arg.dung.reasoner.AbstractExtensionReasoner;
 import org.tweetyproject.arg.dung.semantics.Extension;
 import org.tweetyproject.arg.dung.syntax.Argument;
 import org.tweetyproject.arg.dung.syntax.DungTheory;
+import org.tweetyproject.arg.peaf.io.eaf.EAFToDAFConverter;
 import org.tweetyproject.arg.peaf.syntax.*;
 
 import java.util.*;
@@ -18,10 +19,11 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractAnalysis implements Analysis {
 
+
     /**
      * The PEAF theory to be analyzed
      */
-    protected final PEAFTheory peafTheory;
+    protected PEAFTheory peafTheory;
     /**
      * The extension reasoner that analysis will be based on
      */
@@ -42,6 +44,11 @@ public abstract class AbstractAnalysis implements Analysis {
         this.peafTheory = peafTheory;
         this.extensionReasoner = extensionReasoner;
         this.analysisType = analysisType;
+    }
+
+
+    public void setPEAFTheory(PEAFTheory peafTheory) {
+        this.peafTheory = peafTheory;
     }
 
     /**
@@ -92,7 +99,7 @@ public abstract class AbstractAnalysis implements Analysis {
         }
 
         // Create a DAF from arguments that are involved in an attack
-        DungTheory dungTheory = this.createDAF(eafTheory);
+        DungTheory dungTheory = EAFToDAFConverter.convert(eafTheory);
 
         // Solve (<A^F, R^F_a>)
         Collection<Extension> extensions = extensionReasoner.getModels(dungTheory);
@@ -110,7 +117,6 @@ public abstract class AbstractAnalysis implements Analysis {
                     extensionArgs.add(mainArgName);
                 }
             }
-
 
             if (extensionArgs.containsAll(Q_prime) && !extension.isEmpty()) {
                 return 1.0;
@@ -147,10 +153,13 @@ public abstract class AbstractAnalysis implements Analysis {
     /**
      * Creates a virtual DAF from EAFTheory without including the support links
      * This is not a great conversion method, however works good for queries.
+     * <p>
+     * FIXME: this assumes that the internal structure when attacks exist does not have a support link inside the subgraph
      *
      * @param eafTheory an EAFTheory object
      * @return a DungTheory object
      */
+    @Deprecated
     protected DungTheory createDAF(EAFTheory eafTheory) {
         Map<String, Argument> argumentsInAttack = Maps.newHashMap();
         DungTheory dungTheory = new DungTheory();
@@ -187,5 +196,6 @@ public abstract class AbstractAnalysis implements Analysis {
                 .sorted()
                 .collect(Collectors.joining("_"));
     }
+
 
 }

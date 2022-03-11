@@ -22,11 +22,11 @@ public class MeetingPEAFExample {
         }
 
         peafTheory.addSupport(new int[]{}, new int[]{0}, 1.0);
-        peafTheory.addSupport(new int[]{0}, new int[]{2}, 0.6);
-        peafTheory.addSupport(new int[]{0}, new int[]{1}, 0.7);
-        peafTheory.addSupport(new int[]{0}, new int[]{3}, 0.9);
-        peafTheory.addSupport(new int[]{0}, new int[]{4}, 0.3);
-        peafTheory.addSupport(new int[]{3}, new int[]{5}, 0.5);
+        peafTheory.addSupport(new int[]{0}, new int[]{2}, 1.0);
+        peafTheory.addSupport(new int[]{0}, new int[]{1}, 1.0);
+        peafTheory.addSupport(new int[]{0}, new int[]{3}, 1.0);
+        peafTheory.addSupport(new int[]{0}, new int[]{4}, 1.0);
+        peafTheory.addSupport(new int[]{3}, new int[]{5}, 1.0);
 //        peafTheory.addSupport(new int[]{3, 4}, new int[]{6}, 0.9);
 
         peafTheory.addAttack(new int[]{5}, new int[]{2});

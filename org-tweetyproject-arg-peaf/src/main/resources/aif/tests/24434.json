@@ -1,0 +1,123 @@
+{
+  "nodes": [
+    {
+      "nodeID": "95932",
+      "text": "e1",
+      "type": "I",
+      "timestamp": "2015-09-03 14:01:01"
+    },
+    {
+      "nodeID": "913851",
+      "text": "likely",
+      "type": "I",
+      "timestamp": "2022-02-23 22:52:01"
+    },
+    {
+      "nodeID": "923543",
+      "text": "e2",
+      "type": "I",
+      "timestamp": "2022-03-03 19:03:23"
+    },
+    {
+      "nodeID": "923545",
+      "text": "e3",
+      "type": "I",
+      "timestamp": "2022-03-03 19:03:24"
+    },
+    {
+      "nodeID": "926232",
+      "text": "e4",
+      "type": "I",
+      "timestamp": "2022-03-09 15:12:21"
+    },
+    {
+      "nodeID": "926233",
+      "text": "Default Rephrase",
+      "type": "MA",
+      "timestamp": "2022-03-09 15:12:22",
+      "scheme": "Default Rephrase",
+      "schemeID": "144"
+    },
+    {
+      "nodeID": "926234",
+      "text": "Default Conflict",
+      "type": "CA",
+      "timestamp": "2022-03-09 15:12:22",
+      "scheme": "Default Conflict",
+      "schemeID": "71"
+    },
+    {
+      "nodeID": "926235",
+      "text": "Default Conflict",
+      "type": "CA",
+      "timestamp": "2022-03-09 15:12:22",
+      "scheme": "Default Conflict",
+      "schemeID": "71"
+    },
+    {
+      "nodeID": "926236",
+      "text": "Default Inference",
+      "type": "RA",
+      "timestamp": "2022-03-09 15:12:22",
+      "scheme": "Default Inference",
+      "schemeID": "72"
+    }
+  ],
+  "edges": [
+    {
+      "edgeID": "1166026",
+      "fromID": "913851",
+      "toID": "926233",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166027",
+      "fromID": "926233",
+      "toID": "923543",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166028",
+      "fromID": "926232",
+      "toID": "926234",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166029",
+      "fromID": "926234",
+      "toID": "923545",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166030",
+      "fromID": "923545",
+      "toID": "926235",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166031",
+      "fromID": "926235",
+      "toID": "926232",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166032",
+      "fromID": "923543",
+      "toID": "926236",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166033",
+      "fromID": "926236",
+      "toID": "923545",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166034",
+      "fromID": "95932",
+      "toID": "926236",
+      "formEdgeID": null
+    }
+  ],
+  "locutions": []
+}

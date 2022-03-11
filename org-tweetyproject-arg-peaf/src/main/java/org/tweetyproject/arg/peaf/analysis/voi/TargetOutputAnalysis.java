@@ -7,11 +7,12 @@ import org.tweetyproject.arg.peaf.analysis.AnalysisResult;
 import org.tweetyproject.arg.peaf.analysis.AnalysisType;
 import org.tweetyproject.arg.peaf.analysis.ProbabilisticJustificationAnalysis;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
+import org.tweetyproject.arg.peaf.syntax.NamedPEAFTheory;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 
 import java.util.Set;
 
-public class TargetOutputAnalysis<T extends AbstractAnalysis & ProbabilisticJustificationAnalysis> extends VoIAbstractAnalysis<T> {
+public class TargetOutputAnalysis<T extends AbstractAnalysis & ProbabilisticJustificationAnalysis> extends VOIAbstractAnalysis<T> {
 
     private final Set<EArgument> targetOutput;
 
@@ -23,17 +24,20 @@ public class TargetOutputAnalysis<T extends AbstractAnalysis & ProbabilisticJust
      * @param targetOutput                       the objective O'
      * @param probabilisticJustificationAnalysis underlying analysis used for VoL
      */
-    public TargetOutputAnalysis(PEAFTheory peafTheory,
+    public TargetOutputAnalysis(NamedPEAFTheory peafTheory,
                                 AbstractExtensionReasoner extensionReasoner,
                                 Set<EArgument> targetOutput,
-                                T probabilisticJustificationAnalysis) {
-        super(peafTheory, extensionReasoner, AnalysisType.VOI_TARGET_OUTPUT, probabilisticJustificationAnalysis);
+                                T probabilisticJustificationAnalysis,
+                                Set<EArgument> objective) {
+        super(peafTheory, extensionReasoner, AnalysisType.VOI_TARGET_OUTPUT, probabilisticJustificationAnalysis, objective);
 
         this.targetOutput = targetOutput;
     }
 
     @Override
     public double computeUtility(EArgument e, PEAFTheory peafTheory, long[] iterations) {
+        probabilisticJustificationAnalysis.setPEAFTheory(peafTheory);
+
         // args is O'
         AnalysisResult result = probabilisticJustificationAnalysis.query(Sets.newHashSet(e));
         iterations[0] += result.getNoIterations();

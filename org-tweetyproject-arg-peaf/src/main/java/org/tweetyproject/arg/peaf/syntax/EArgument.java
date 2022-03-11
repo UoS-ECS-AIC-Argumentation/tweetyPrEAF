@@ -21,6 +21,12 @@ public class EArgument {
      */
     private final Set<EAttack> attacks;
 
+
+    /**
+     * The set of attacks that this argument receives
+     */
+    private final Set<EAttack> incomingAttacks;
+
     /**
      * The set of supports that this argument originates
      */
@@ -35,6 +41,7 @@ public class EArgument {
         this.name = name;
         attacks = new HashSet<>();
         supports = new HashSet<>();
+        incomingAttacks = new HashSet<>();
     }
 
     /**
@@ -128,5 +135,13 @@ public class EArgument {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    public void addIncomingAttack(EAttack attack) {
+        this.incomingAttacks.add(attack);
+    }
+
+    public Set<EAttack> getIncomingAttacks() {
+        return incomingAttacks;
     }
 }

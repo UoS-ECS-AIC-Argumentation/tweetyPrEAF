@@ -6,7 +6,7 @@ import org.tweetyproject.arg.peaf.analysis.AnalysisResult;
 import org.tweetyproject.arg.peaf.analysis.AnalysisType;
 import org.tweetyproject.arg.peaf.analysis.ProbabilisticJustificationAnalysis;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
-import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
+import org.tweetyproject.arg.peaf.syntax.NamedPEAFTheory;
 
 import java.util.Set;
 
@@ -16,9 +16,10 @@ import java.util.Set;
  * For more:
  * Robinson, T. (2021). Value of information for argumentation based intelligence analysis.
  */
-public abstract class VoIAbstractAnalysis<T extends AbstractAnalysis & ProbabilisticJustificationAnalysis> extends AbstractAnalysis implements VOIAnalysis {
+public abstract class VOIAbstractAnalysis<T extends AbstractAnalysis & ProbabilisticJustificationAnalysis> extends AbstractAnalysis implements VOIAnalysis {
 
     protected final T probabilisticJustificationAnalysis;
+    private final Set<EArgument> objective;
 
     /**
      * The default constructor
@@ -28,13 +29,15 @@ public abstract class VoIAbstractAnalysis<T extends AbstractAnalysis & Probabili
      * @param analysisType                       The type of the analysis
      * @param probabilisticJustificationAnalysis underlying analysis used for VoL
      */
-    public VoIAbstractAnalysis(PEAFTheory peafTheory,
+    public VOIAbstractAnalysis(NamedPEAFTheory peafTheory,
                                AbstractExtensionReasoner extensionReasoner,
                                AnalysisType analysisType,
-                               T probabilisticJustificationAnalysis) {
+                               T probabilisticJustificationAnalysis,
+                               Set<EArgument> objective) {
         super(peafTheory, extensionReasoner, analysisType);
 
         this.probabilisticJustificationAnalysis = probabilisticJustificationAnalysis;
+        this.objective = objective;
     }
 
     /**
@@ -55,13 +58,30 @@ public abstract class VoIAbstractAnalysis<T extends AbstractAnalysis & Probabili
         long[] noIterations = {0};
 
         // sum all differences on the objectives
-        for (EArgument e : args) {
-            PEAFTheory copy = this.peafTheory.createCopyWithoutArgument(e);
+        for (EArgument e : objective) {
+            NamedPEAFTheory original = (NamedPEAFTheory) this.peafTheory;
+
+
+            NamedPEAFTheory copy = original.createCopyWithoutArguments(args);
+            EArgument e_copy = copy.getArgumentByIdentifier(original.getIdentifier(e));
+//            System.out.println();
+//            System.out.println("JUSTIFICATION ANALYSIS: " + copy.getNameOfArgument(e_copy));
+//            for (EArgument arg : args) {
+//                System.out.println("VALUE OF INFORMATION: "+ original.getNameOfArgument(arg));
+//            }
+//            System.out.println();
+
+//            copy.prettyPrint();
+
 
             double utility1 = this.computeUtility(e, peafTheory, noIterations);
-            double utility2 = this.computeUtility(e, copy, noIterations);
+//            System.out.println("utility1: " + utility1);
+            double utility2 = this.computeUtility(e_copy, copy, noIterations);
+//            System.out.println("utility2: " + utility2);
 
-            valueOfInformation += this.computeDifference(utility1, utility2);
+            double v = this.computeDifference(utility1, utility2);
+//            System.out.println("v: " + v);
+            valueOfInformation += v;
         }
 
         return new AnalysisResult(valueOfInformation, noIterations[0], this.analysisType, 0);

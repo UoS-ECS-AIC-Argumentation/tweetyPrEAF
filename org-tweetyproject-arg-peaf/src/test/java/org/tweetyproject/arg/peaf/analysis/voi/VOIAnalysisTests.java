@@ -80,7 +80,7 @@ public class VOIAnalysisTests {
                 Sets.newHashSet(list.get(3)),
                 new ApproxAnalysis(peafTheory,
                         new PreferredReasoner(),
-                        0.01));
+                        0.01), Sets.newHashSet());
 
         for (EArgument argument : list) {
             AnalysisResult result = analysis.query(Sets.newHashSet(argument));
@@ -92,7 +92,7 @@ public class VOIAnalysisTests {
                 new PreferredReasoner(),
                 new ApproxAnalysis(peafTheory,
                         new PreferredReasoner(),
-                        0.01));
+                        0.01), Sets.newHashSet());
 
         for (EArgument argument : list) {
             AnalysisResult result = analysis2.query(Sets.newHashSet(argument));
@@ -104,7 +104,7 @@ public class VOIAnalysisTests {
                 new PreferredReasoner(),
                 new ApproxAnalysis(peafTheory,
                         new PreferredReasoner(),
-                        0.01));
+                        0.01), Sets.newHashSet());
 
         for (EArgument argument : list) {
             AnalysisResult result = analysis3.query(Sets.newHashSet(argument));
@@ -117,7 +117,7 @@ public class VOIAnalysisTests {
                 new PreferredReasoner(),
                 new ApproxAnalysis(peafTheory,
                         new PreferredReasoner(),
-                        0.01));
+                        0.01), Sets.newHashSet());
 
         for (EArgument argument : list) {
             AnalysisResult result = analysis4.query(Sets.newHashSet(argument));
@@ -129,9 +129,37 @@ public class VOIAnalysisTests {
      *
      */
     @Test
-    public void testACHMatrix() {
+    public void testACHMatrix2() {
         String[] args = {"-i", "./org-tweetyproject-arg-peaf/src/main/resources/aif/hijacking_of_aegean_second.json",
                 "-o", "./org-tweetyproject-arg-peaf/src/main/resources/aif/hijacking_of_aegean_second-output.json"};
+        try {
+            Runner.main(args);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testACHMatrix3() {
+        String[] args = {"-i", "./org-tweetyproject-arg-peaf/src/main/resources/aif/hijacking_of_aegean_third.json",
+                "-o", "./org-tweetyproject-arg-peaf/src/main/resources/aif/hijacking_of_aegean_third-output.json"};
+        try {
+            Runner.main(args);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testACHMatrix4() {
+        String[] args = {"-i", "./org-tweetyproject-arg-peaf/src/main/resources/aif/hijacking_of_aegean_fourth.json",
+                "-o", "./org-tweetyproject-arg-peaf/src/main/resources/aif/hijacking_of_aegean_fourth-output.json"};
         try {
             Runner.main(args);
         } catch (IOException e) {

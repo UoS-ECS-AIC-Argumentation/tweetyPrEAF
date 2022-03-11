@@ -272,7 +272,7 @@
       "reasoner": {
         "type": "exact",
         "parameters": {
-          "semantics": "preferred"
+          "semantics": "grounded"
         }
       }
     },
@@ -290,9 +290,7 @@
       "reasoner": {
         "type": "exact",
         "parameters": {
-          "semantics": "preferred",
-          "noThreads": 10,
-          "errorLevel": 0.01
+          "semantics": "grounded"
         }
       }
     },
@@ -312,7 +310,7 @@
         "parameters": {
           "semantics": "preferred",
           "noThreads": 10,
-          "errorLevel": 0.01
+          "errorLevel": 0.001
         }
       }
     },
@@ -332,7 +330,7 @@
         "parameters": {
           "semantics": "preferred",
           "noThreads": 10,
-          "errorLevel": 0.01
+          "errorLevel": 0.001
         }
       }
     },
@@ -352,7 +350,7 @@
         "parameters": {
           "semantics": "preferred",
           "noThreads": 10,
-          "errorLevel": 0.01
+          "errorLevel": 0.001
         }
       }
     },

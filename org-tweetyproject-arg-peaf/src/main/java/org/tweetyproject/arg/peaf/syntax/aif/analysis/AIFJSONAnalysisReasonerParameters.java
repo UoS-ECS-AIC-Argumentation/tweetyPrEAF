@@ -33,4 +33,9 @@ public class AIFJSONAnalysisReasonerParameters {
      * Semantics can be "preferred" or "grounded"
      */
     public String semantics;
+
+    /**
+     * Objectives for value of information
+     */
+    public String[] objective;
 }

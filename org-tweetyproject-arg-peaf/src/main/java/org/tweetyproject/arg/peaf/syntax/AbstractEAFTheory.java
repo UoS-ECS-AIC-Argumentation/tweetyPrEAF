@@ -42,7 +42,7 @@ public abstract class AbstractEAFTheory<S extends ESupport> {
      *
      * @param argument an EArgument objects
      */
-    protected void addArgument(EArgument argument) {
+    public void addArgument(EArgument argument) {
         if (arguments.size() == 0) {
             eta = argument;
         }
@@ -57,7 +57,7 @@ public abstract class AbstractEAFTheory<S extends ESupport> {
      * @param attack an EAttack object
      * @return true if successful
      */
-    protected boolean addAttack(EAttack attack) {
+    public boolean addAttack(EAttack attack) {
         return attacks.add(attack);
     }
 
@@ -67,7 +67,7 @@ public abstract class AbstractEAFTheory<S extends ESupport> {
      * @param support a T-Support object
      * @return true if successful
      */
-    protected boolean addSupport(S support) {
+    public boolean addSupport(S support) {
         return supports.add(support);
     }
 
@@ -97,6 +97,18 @@ public abstract class AbstractEAFTheory<S extends ESupport> {
     }
 
     /**
+     * Add an attack with sets
+     *
+     * @param froms arguments that originates the attack
+     * @param tos   arguments that receive the attack
+     */
+    public void addAttack(Set<EArgument> froms, Set<EArgument> tos) {
+        int identifier = attacks.size();
+        EAttack attack = this.createAttack(Integer.toString(identifier), froms, tos);
+        this.addAttack(attack);
+    }
+
+    /**
      * Creates an attack object (does not add to the internal abstract object)
      *
      * @param name  the name of the attack
@@ -111,6 +123,9 @@ public abstract class AbstractEAFTheory<S extends ESupport> {
         EAttack attack = new EAttack(name, froms, tos);
         for (EArgument from : froms) {
             from.addAttack(attack);
+        }
+        for (EArgument to : tos) {
+            to.addIncomingAttack(attack);
         }
         return attack;
     }

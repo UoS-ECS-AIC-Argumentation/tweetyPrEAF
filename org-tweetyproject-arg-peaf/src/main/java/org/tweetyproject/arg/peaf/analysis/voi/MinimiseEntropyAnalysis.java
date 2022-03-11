@@ -7,9 +7,12 @@ import org.tweetyproject.arg.peaf.analysis.AnalysisResult;
 import org.tweetyproject.arg.peaf.analysis.AnalysisType;
 import org.tweetyproject.arg.peaf.analysis.ProbabilisticJustificationAnalysis;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
+import org.tweetyproject.arg.peaf.syntax.NamedPEAFTheory;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 
-public class MinimiseEntropyAnalysis<T extends AbstractAnalysis & ProbabilisticJustificationAnalysis> extends VoIAbstractAnalysis<T> {
+import java.util.Set;
+
+public class MinimiseEntropyAnalysis<T extends AbstractAnalysis & ProbabilisticJustificationAnalysis> extends VOIAbstractAnalysis<T> {
     /**
      * The default constructor
      *
@@ -17,12 +20,13 @@ public class MinimiseEntropyAnalysis<T extends AbstractAnalysis & ProbabilisticJ
      * @param extensionReasoner                  The extension reasoner
      * @param probabilisticJustificationAnalysis underlying analysis used for VoL
      */
-    public MinimiseEntropyAnalysis(PEAFTheory peafTheory, AbstractExtensionReasoner extensionReasoner, T probabilisticJustificationAnalysis) {
-        super(peafTheory, extensionReasoner, AnalysisType.VOI_MINIMISE_ENTROPY, probabilisticJustificationAnalysis);
+    public MinimiseEntropyAnalysis(NamedPEAFTheory peafTheory, AbstractExtensionReasoner extensionReasoner, T probabilisticJustificationAnalysis, Set<EArgument> objective) {
+        super(peafTheory, extensionReasoner, AnalysisType.VOI_MINIMISE_ENTROPY, probabilisticJustificationAnalysis, objective);
     }
 
     @Override
     public double computeUtility(EArgument e, PEAFTheory peafTheory, long[] iterations) {
+        probabilisticJustificationAnalysis.setPEAFTheory(peafTheory);
         AnalysisResult result = probabilisticJustificationAnalysis.query(Sets.newHashSet(e));
         iterations[0] += result.getNoIterations();
         double p = result.getResult();

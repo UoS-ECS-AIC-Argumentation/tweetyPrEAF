@@ -1,0 +1,281 @@
+{
+  "nodes": [
+    {
+      "nodeID": "791702",
+      "text": "almost_certain",
+      "type": "I",
+      "timestamp": "2022-01-05 13:48:28"
+    },
+    {
+      "nodeID": "913841",
+      "text": "h1: The Aegean II was hijacked by pirates",
+      "type": "I",
+      "timestamp": "2022-02-23 22:51:57"
+    },
+    {
+      "nodeID": "913842",
+      "text": "h2: The Aegean II was seized by local police\/media",
+      "type": "I",
+      "timestamp": "2022-02-23 22:51:58"
+    },
+    {
+      "nodeID": "913845",
+      "text": "e1: The men boarding the Aegean II were wearing police uniforms (likely)",
+      "type": "I",
+      "timestamp": "2022-02-23 22:51:59"
+    },
+    {
+      "nodeID": "913846",
+      "text": "e2: History of piracy in Somalian waters (certain)",
+      "type": "I",
+      "timestamp": "2022-02-23 22:51:59"
+    },
+    {
+      "nodeID": "913847",
+      "text": "e3: Local media reports the Aegean II was seized by local police\/militia (likely)",
+      "type": "I",
+      "timestamp": "2022-02-23 22:52:00"
+    },
+    {
+      "nodeID": "913851",
+      "text": "likely",
+      "type": "I",
+      "timestamp": "2022-02-23 22:52:01"
+    },
+    {
+      "nodeID": "913853",
+      "text": "virtual",
+      "type": "I",
+      "timestamp": "2022-02-23 22:52:02"
+    },
+    {
+      "nodeID": "913856",
+      "text": "realistic_probability",
+      "type": "I",
+      "timestamp": "2022-02-23 22:52:02"
+    },
+    {
+      "nodeID": "916414",
+      "text": "Default Conflict",
+      "type": "CA",
+      "timestamp": "2022-03-01 20:10:15",
+      "scheme": "Default Conflict",
+      "schemeID": "71"
+    },
+    {
+      "nodeID": "916415",
+      "text": "Default Conflict",
+      "type": "CA",
+      "timestamp": "2022-03-01 20:10:15",
+      "scheme": "Default Conflict",
+      "schemeID": "71"
+    },
+    {
+      "nodeID": "916416",
+      "text": "Default Conflict",
+      "type": "CA",
+      "timestamp": "2022-03-01 20:10:15",
+      "scheme": "Default Conflict",
+      "schemeID": "71"
+    },
+    {
+      "nodeID": "916417",
+      "text": "Default Rephrase",
+      "type": "MA",
+      "timestamp": "2022-03-01 20:10:15",
+      "scheme": "Default Rephrase",
+      "schemeID": "144"
+    },
+    {
+      "nodeID": "916418",
+      "text": "Default Rephrase",
+      "type": "MA",
+      "timestamp": "2022-03-01 20:10:15",
+      "scheme": "Default Rephrase",
+      "schemeID": "144"
+    },
+    {
+      "nodeID": "916419",
+      "text": "Default Rephrase",
+      "type": "MA",
+      "timestamp": "2022-03-01 20:10:15",
+      "scheme": "Default Rephrase",
+      "schemeID": "144"
+    },
+    {
+      "nodeID": "916420",
+      "text": "Default Conflict",
+      "type": "CA",
+      "timestamp": "2022-03-01 20:10:15",
+      "scheme": "Default Conflict",
+      "schemeID": "71"
+    },
+    {
+      "nodeID": "916421",
+      "text": "Default Rephrase",
+      "type": "MA",
+      "timestamp": "2022-03-01 20:10:15",
+      "scheme": "Default Rephrase",
+      "schemeID": "144"
+    },
+    {
+      "nodeID": "916422",
+      "text": "Default Conflict",
+      "type": "CA",
+      "timestamp": "2022-03-01 20:10:15",
+      "scheme": "Default Conflict",
+      "schemeID": "71"
+    },
+    {
+      "nodeID": "916423",
+      "text": "Default Inference",
+      "type": "RA",
+      "timestamp": "2022-03-01 20:10:15",
+      "scheme": "Default Inference",
+      "schemeID": "72"
+    }
+  ],
+  "edges": [
+    {
+      "edgeID": "1156159",
+      "fromID": "916414",
+      "toID": "913841",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156160",
+      "fromID": "913842",
+      "toID": "916414",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156161",
+      "fromID": "913847",
+      "toID": "916415",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156162",
+      "fromID": "916415",
+      "toID": "913841",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156163",
+      "fromID": "913845",
+      "toID": "916416",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156164",
+      "fromID": "916416",
+      "toID": "913841",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156165",
+      "fromID": "916417",
+      "toID": "913846",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156166",
+      "fromID": "791702",
+      "toID": "916417",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156167",
+      "fromID": "913851",
+      "toID": "916418",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156168",
+      "fromID": "916418",
+      "toID": "913845",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156169",
+      "fromID": "913853",
+      "toID": "916420",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156170",
+      "fromID": "916420",
+      "toID": "913842",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156171",
+      "fromID": "913856",
+      "toID": "916419",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156172",
+      "fromID": "916419",
+      "toID": "913853",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156173",
+      "fromID": "916421",
+      "toID": "913847",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156174",
+      "fromID": "913851",
+      "toID": "916421",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156175",
+      "fromID": "913841",
+      "toID": "916422",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156176",
+      "fromID": "916422",
+      "toID": "913842",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156177",
+      "fromID": "913846",
+      "toID": "916423",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1156178",
+      "fromID": "916423",
+      "toID": "913856",
+      "formEdgeID": null
+    }
+  ],
+  "locutions": [],
+  "analyses": [
+    {
+      "query": [
+        "913841"
+      ],
+      "result": {
+        "datetime": "",
+        "outcome": "",
+        "status": "",
+        "elapsedTimeMS": "",
+        "noIterations": ""
+      },
+      "reasoner": {
+        "type": "exact",
+        "parameters": {
+          "semantics": "grounded"
+        }
+      }
+    }
+  ]
+}

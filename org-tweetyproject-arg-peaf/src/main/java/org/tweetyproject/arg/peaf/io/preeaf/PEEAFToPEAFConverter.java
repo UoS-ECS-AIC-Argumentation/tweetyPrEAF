@@ -22,9 +22,8 @@ import java.util.Set;
 public class PEEAFToPEAFConverter {
     /**
      * During the conversion we assume a default probability for the virtual nodes that gets added.
-     * FIXME: When this is 1.0, the reasoners does not work properly.
      */
-    private static final double DEFAULT_PROBABILITY = 0.99;
+    private static final double DEFAULT_PROBABILITY = 1.0;
 
     /**
      * The conversion uses Algorithm 11 from Li's Thesis in page 105.
@@ -41,6 +40,7 @@ public class PEEAFToPEAFConverter {
             return peafTheory;
         }
 
+
         // V4R map
         Map<PEEAFTheory.Element, Integer> virtualMap = Maps.newHashMap();
 
@@ -49,6 +49,12 @@ public class PEEAFToPEAFConverter {
         Map<PEEAFTheory.Argument, Integer> argToInt = Maps.newHashMap();
         for (PEEAFTheory.Argument argument : peeafTheory.getArguments()) {
             peafTheory.addArgument(noArgs, argument.getName(), argument.getIdentifier());
+
+            if (argument.getName().equalsIgnoreCase("eta")) {
+                // This is important for making inducers work properly.
+                peafTheory.addSupport(new int[]{}, new int[]{0}, 1.0);
+            }
+
             argToInt.put(argument, noArgs);
             noArgs++;
         }
@@ -56,12 +62,22 @@ public class PEEAFToPEAFConverter {
         // Line 2-7
         for (PEEAFTheory.Support support : peeafTheory.getSupports()) {
             // virtual argument for support line 3
+            int[] fromIndices = checkAndGetArguments(argToInt, support.getFroms());
+            Integer toIndex = checkAndGetArgument(argToInt, support.getTo());
+
+            // Don't add virtual arguments
+            if (Math.abs(support.getProbability() - 1.0) < 0.0001) {
+                peafTheory.addSupport(fromIndices, new int[]{toIndex}, DEFAULT_PROBABILITY);
+                continue;
+            }
+            if (fromIndices.length == 1) {
+                peafTheory.addSupport(fromIndices, new int[]{toIndex}, support.getProbability());
+                continue;
+            }
+
             peafTheory.addArgument(noArgs, "virtual" + noArgs, "virtual" + noArgs);
             int virtualArgumentIndex = noArgs;
             noArgs++;
-
-            int[] fromIndices = checkAndGetArguments(argToInt, support.getFroms());
-            Integer toIndex = checkAndGetArgument(argToInt, support.getTo());
 
             peafTheory.addSupport(fromIndices, new int[]{virtualArgumentIndex}, support.getProbability());
             peafTheory.addSupport(new int[]{virtualArgumentIndex}, new int[]{toIndex}, DEFAULT_PROBABILITY);
@@ -75,16 +91,22 @@ public class PEEAFToPEAFConverter {
         for (PEEAFTheory.Attack attack : peeafTheory.getAttacks()) {
             PEEAFTheory.Element element = attack.getTo();
             if (element instanceof PEEAFTheory.Argument) {
+                int fromIndex = checkAndGetArgument(argToInt, attack.getFrom());
+                int toIndex = checkAndGetArgument(argToInt, (PEEAFTheory.Argument) attack.getTo());
+
+                // Don't add virtual arguments
+                if (Math.abs(attack.getProbability() - 1.0) < 0.0001) {
+                    peafTheory.addAttack(fromIndex, toIndex);
+                    continue;
+                }
+
                 // virtual argument for support line 9 and 16
                 peafTheory.addArgument(noArgs, "virtual" + noArgs, "virtual" + noArgs);
                 int virtualArgumentIndex = noArgs;
                 noArgs++;
 
-                int fromIndex = checkAndGetArgument(argToInt, attack.getFrom());
+
                 peafTheory.addSupport(fromIndex, virtualArgumentIndex, attack.getProbability());
-
-
-                int toIndex = checkAndGetArgument(argToInt, (PEEAFTheory.Argument) attack.getTo());
                 peafTheory.addAttack(virtualArgumentIndex, toIndex);
 
                 virtualMap.put(attack, virtualArgumentIndex);

@@ -13,6 +13,8 @@ import java.util.function.Consumer;
  * ExactPEAFInducer generates all possible EAFs that can be generated from a PEAF.
  * Computationally, this implementation is not great since the all variations of EAFs increase by the number of
  * arguments and links exponentially. It is good to use for small PEAFs.
+ * <p>
+ * FIXME: In some instances, probabilities are found to be more than 1.
  *
  * @author Taha Dogan Gunes
  */
@@ -41,7 +43,6 @@ public class ExactPEAFInducer extends AbstractPEAFInducer {
     public void induce(Consumer<InducibleEAF> consumer) {
         Stack<EAF_F> stack = new Stack<>();
 
-        // eta is added, Algorithm 8 Line 2 EAF_F <- {eta}, {}, {}
         stack.push(new EAF_F(Sets.newHashSet(), Sets.newHashSet(peafTheory.getSupports().get(0)), Sets.newHashSet(peafTheory.getEta()), 1.0));
 
         while (!stack.isEmpty()) {
@@ -196,6 +197,7 @@ public class ExactPEAFInducer extends AbstractPEAFInducer {
             for (ESupport eSupport : eSupports) {
                 supportList.add((PSupport) eSupport);
             }
+
 
             InducibleEAF inducibleEAF = new InducibleEAF(Sets.newHashSet(eArguments),
                     Sets.newHashSet(supportList),

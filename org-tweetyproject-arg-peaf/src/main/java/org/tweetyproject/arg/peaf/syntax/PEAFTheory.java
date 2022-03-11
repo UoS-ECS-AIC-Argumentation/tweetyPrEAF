@@ -90,6 +90,19 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport> {
     }
 
     /**
+     * Add a support with sets for many to many mapping
+     *
+     * @param froms set with arguments that originate the support
+     * @param tos   set with arguments that receive the support
+     * @param cp    the result assigned to the support link (must be in range [0.0, 1.0])
+     */
+    public void addSupport(Set<EArgument> froms, Set<EArgument> tos, double cp) {
+        int identifier = supports.size();
+        PSupport support = this.createSupport(Integer.toString(identifier), froms, tos, cp);
+        this.addSupport(support);
+    }
+
+    /**
      * Add attack between arguments with indices
      *
      * @param fromIndex the index of the EArgument that originates the attack
@@ -125,28 +138,5 @@ public class PEAFTheory extends AbstractEAFTheory<PSupport> {
         System.out.println(this.getASCIITree());
     }
 
-    public PEAFTheory createCopyWithoutArgument(EArgument e) {
-        PEAFTheory peafTheory = new PEAFTheory();
-        for (EArgument argument : peafTheory.arguments) {
-            if (argument != e || e == null) {
-                peafTheory.addArgument(argument);
-            }
-        }
 
-        for (EAttack attack : attacks) {
-            boolean attackHasE = attack.getFroms().contains(e) || attack.getTos().contains(e);
-            if (!attackHasE || e == null) {
-                peafTheory.addAttack(attack);
-            }
-        }
-
-        for (PSupport support : supports) {
-            boolean supportHasE = support.getFroms().contains(e) || support.getTos().contains(e);
-            if (!supportHasE || e == null) {
-                peafTheory.addSupport(support);
-            }
-        }
-
-        return peafTheory;
-    }
 }

@@ -22,9 +22,8 @@ public class AIFtoPEEAFConverter {
 
     /**
      * During the conversion we assume a default probability for values without MA nodes
-     * FIXME: When this is 1.0, the reasoners does not work properly.
      */
-    private static final double DEFAULT_PROBABILITY = 0.99;
+    private static final double DEFAULT_PROBABILITY = 1.0;
 
     /**
      * Converts an AIFTheory (intermediate format) to PEEAFTheory

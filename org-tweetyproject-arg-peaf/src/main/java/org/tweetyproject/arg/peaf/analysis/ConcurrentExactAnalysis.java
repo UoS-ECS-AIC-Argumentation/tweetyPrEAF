@@ -2,7 +2,7 @@ package org.tweetyproject.arg.peaf.analysis;
 
 import com.google.common.util.concurrent.AtomicDouble;
 import org.tweetyproject.arg.dung.reasoner.AbstractExtensionReasoner;
-import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
+import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 
@@ -58,7 +58,7 @@ public class ConcurrentExactAnalysis extends AbstractAnalysis implements Probabi
      */
     @Override
     public AnalysisResult query(Set<EArgument> args) {
-        ExactPEAFInducer exactPEAFInducer = new ExactPEAFInducer(this.peafTheory);
+        LiExactPEAFInducer exactPEAFInducer = new LiExactPEAFInducer(this.peafTheory);
 
         AtomicLong i = new AtomicLong(0);
         AtomicDouble p = new AtomicDouble(0.0);

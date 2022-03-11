@@ -1,0 +1,186 @@
+{
+  "nodes": [
+    {
+      "nodeID": "07f72fdc-be6c-4b23-b792-b9c42e89800a",
+      "text": "LCE",
+      "type": "RA"
+    },
+    {
+      "nodeID": "acdf8b25-df42-4aa4-9d93-a34c73f13b81",
+      "text": "Unidentified illness affects the local livestock in Kishshire",
+      "type": "I"
+    },
+    {
+      "nodeID": "94fb8d47-7068-4a1e-bd8f-73c5548aff92",
+      "text": "Illness among young and elderly people in Kishshire caused by bacteria",
+      "type": "I"
+    },
+    {
+      "nodeID": "ffebea19-e42a-41a1-a215-bb8acd1aebd2",
+      "text": "Toxic Bacteria contaminated the local water system in Kish",
+      "type": "I"
+    },
+    {
+      "nodeID": "d855f306-be9a-40f7-a0d5-6d71b1a2b5ba",
+      "text": "NGO Lab reports examined the contamination",
+      "type": "I"
+    },
+    {
+      "nodeID": "139a6d45-9576-4066-9907-134f2c429f0b",
+      "text": "There are bacteria in the water supply",
+      "type": "I"
+    },
+    {
+      "nodeID": "417097cc-b0d0-43d5-9c10-cc2e04ca9bcd",
+      "text": "h1: NON-waterborne bacteria contaminate the water supply",
+      "type": "I"
+    },
+    {
+      "nodeID": "fcab8cb9-5b31-4ebf-a202-80d9821746b3",
+      "text": "Non-waterborne bacteria were engineered and released in the water supply",
+      "type": "I"
+    },
+    {
+      "nodeID": "4e83ad0f-3533-42ac-94d3-ad4d7bab015c",
+      "text": "h2: Waterborne bacteria contaminate the water supply",
+      "type": "I"
+    },
+    {
+      "nodeID": "1fdf3463-55fa-452b-ba95-4dcc63fa182f",
+      "text": "Waterborne bacteria have formed by a sewage leakage in the water supply pipes",
+      "type": "I"
+    },
+    {
+      "nodeID": "8f990091-8c10-4a04-a18c-8adf929d7a60",
+      "text": "Con",
+      "type": "CA"
+    },
+    {
+      "nodeID": "6e26817f-998e-41ac-8ada-67b866354041",
+      "text": "Con",
+      "type": "CA"
+    },
+    {
+      "nodeID": "5910be7c-2d53-4692-baf2-2e3d345b939e",
+      "text": "LCE",
+      "type": "RA"
+    },
+    {
+      "nodeID": "86ca0f2d-8d90-4413-a681-562d26c1c611",
+      "text": "LCE",
+      "type": "RA"
+    },
+    {
+      "nodeID": "3886e3da-cbdb-487e-9cf1-8a88c19b0f1d",
+      "text": "LCE",
+      "type": "RA"
+    },
+    {
+      "nodeID": "005a5a82-090e-41a2-a123-e4b3cbac57f4",
+      "text": "LCE",
+      "type": "RA"
+    },
+    {
+      "nodeID": "d0f55def-96ff-4439-97cd-ee13ee525838",
+      "text": "LEO",
+      "type": "RA"
+    }
+  ],
+  "edges": [
+    {
+      "edgeID": "ea57fae6-20cd-473d-9ec6-84997e63777f",
+      "fromID": "417097cc-b0d0-43d5-9c10-cc2e04ca9bcd",
+      "toID": "8f990091-8c10-4a04-a18c-8adf929d7a60"
+    },
+    {
+      "edgeID": "2f20713e-7f68-44d8-856a-a41fa908baf8",
+      "fromID": "8f990091-8c10-4a04-a18c-8adf929d7a60",
+      "toID": "4e83ad0f-3533-42ac-94d3-ad4d7bab015c"
+    },
+    {
+      "edgeID": "9ea6e1b8-e0c7-42fa-8a7f-bed660be4d03",
+      "fromID": "4e83ad0f-3533-42ac-94d3-ad4d7bab015c",
+      "toID": "6e26817f-998e-41ac-8ada-67b866354041"
+    },
+    {
+      "edgeID": "d2e2b042-4575-4240-bb32-6986162b263a",
+      "fromID": "6e26817f-998e-41ac-8ada-67b866354041",
+      "toID": "417097cc-b0d0-43d5-9c10-cc2e04ca9bcd"
+    },
+    {
+      "edgeID": "27d35f37-65b8-4e51-80d4-d1d74e141c97",
+      "fromID": "4e83ad0f-3533-42ac-94d3-ad4d7bab015c",
+      "toID": "5910be7c-2d53-4692-baf2-2e3d345b939e"
+    },
+    {
+      "edgeID": "29a22d94-1e79-49b1-83b0-18da1f80fb8d",
+      "fromID": "5910be7c-2d53-4692-baf2-2e3d345b939e",
+      "toID": "94fb8d47-7068-4a1e-bd8f-73c5548aff92"
+    },
+    {
+      "edgeID": "34aee8d0-b3a9-47fc-9a0a-ef1e31e6834a",
+      "fromID": "417097cc-b0d0-43d5-9c10-cc2e04ca9bcd",
+      "toID": "86ca0f2d-8d90-4413-a681-562d26c1c611"
+    },
+    {
+      "edgeID": "dcaedc86-79ec-4308-8673-a5abcf2b39f0",
+      "fromID": "86ca0f2d-8d90-4413-a681-562d26c1c611",
+      "toID": "94fb8d47-7068-4a1e-bd8f-73c5548aff92"
+    },
+    {
+      "edgeID": "968a6a54-507d-43a1-9ad6-a6bb6e9b481c",
+      "fromID": "1fdf3463-55fa-452b-ba95-4dcc63fa182f",
+      "toID": "3886e3da-cbdb-487e-9cf1-8a88c19b0f1d"
+    },
+    {
+      "edgeID": "22ab9cf9-8907-420d-8b9d-f534d9020898",
+      "fromID": "139a6d45-9576-4066-9907-134f2c429f0b",
+      "toID": "3886e3da-cbdb-487e-9cf1-8a88c19b0f1d"
+    },
+    {
+      "edgeID": "92e05263-1b88-4623-8b21-c7e3d608580b",
+      "fromID": "3886e3da-cbdb-487e-9cf1-8a88c19b0f1d",
+      "toID": "4e83ad0f-3533-42ac-94d3-ad4d7bab015c"
+    },
+    {
+      "edgeID": "09c3a261-d393-4263-af37-f6f3b491c37d",
+      "fromID": "139a6d45-9576-4066-9907-134f2c429f0b",
+      "toID": "005a5a82-090e-41a2-a123-e4b3cbac57f4"
+    },
+    {
+      "edgeID": "7225700a-fd09-484e-b607-ae4e4df659a6",
+      "fromID": "fcab8cb9-5b31-4ebf-a202-80d9821746b3",
+      "toID": "005a5a82-090e-41a2-a123-e4b3cbac57f4"
+    },
+    {
+      "edgeID": "b1b4c89b-e100-4605-814e-74b292c13f8c",
+      "fromID": "005a5a82-090e-41a2-a123-e4b3cbac57f4",
+      "toID": "417097cc-b0d0-43d5-9c10-cc2e04ca9bcd"
+    },
+    {
+      "edgeID": "34a98013-fdc9-4672-9d18-d92cb855f656",
+      "fromID": "d855f306-be9a-40f7-a0d5-6d71b1a2b5ba",
+      "toID": "d0f55def-96ff-4439-97cd-ee13ee525838"
+    },
+    {
+      "edgeID": "23b39544-574b-4c11-ba58-7404abe7a358",
+      "fromID": "ffebea19-e42a-41a1-a215-bb8acd1aebd2",
+      "toID": "d0f55def-96ff-4439-97cd-ee13ee525838"
+    },
+    {
+      "edgeID": "a6d815a3-a0eb-4f68-b3dd-8a54cc6fa896",
+      "fromID": "d0f55def-96ff-4439-97cd-ee13ee525838",
+      "toID": "139a6d45-9576-4066-9907-134f2c429f0b"
+    },
+    {
+      "edgeID": "2bf53cb0-bf43-472e-a843-457209cbb0d8",
+      "fromID": "417097cc-b0d0-43d5-9c10-cc2e04ca9bcd",
+      "toID": "07f72fdc-be6c-4b23-b792-b9c42e89800a"
+    },
+    {
+      "edgeID": "22a0bf3a-b345-4c3a-9fef-5df14907ff53",
+      "fromID": "07f72fdc-be6c-4b23-b792-b9c42e89800a",
+      "toID": "acdf8b25-df42-4aa4-9d93-a34c73f13b81"
+    }
+  ]
+}

@@ -57,7 +57,10 @@ public class ApproxAnalysis extends AbstractAnalysis implements ProbabilisticJus
         do {
             ApproxPEAFInducer approxPEAFInducer = new ApproxPEAFInducer(this.peafTheory);
             approxPEAFInducer.induce(iEAF -> {
-                double contribution = computeContributionOfAniEAF(args, iEAF);
+                double contribution = 0;
+
+                contribution = computeContributionOfAniEAF(args, iEAF);
+
                 total[0] += contribution;
                 M[0] = M[0] + contribution;
                 N[0] = N[0] + 1.0;

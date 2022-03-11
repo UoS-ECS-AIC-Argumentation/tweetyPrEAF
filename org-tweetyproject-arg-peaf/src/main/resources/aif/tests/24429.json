@@ -1,0 +1,85 @@
+{
+  "nodes": [
+    {
+      "nodeID": "95932",
+      "text": "e1",
+      "type": "I",
+      "timestamp": "2015-09-03 14:01:01"
+    },
+    {
+      "nodeID": "923543",
+      "text": "e2",
+      "type": "I",
+      "timestamp": "2022-03-03 19:03:23"
+    },
+    {
+      "nodeID": "923544",
+      "text": "Default Inference",
+      "type": "RA",
+      "timestamp": "2022-03-03 19:03:23",
+      "scheme": "Default Inference",
+      "schemeID": "72"
+    },
+    {
+      "nodeID": "923545",
+      "text": "e3",
+      "type": "I",
+      "timestamp": "2022-03-03 19:03:24"
+    },
+    {
+      "nodeID": "923546",
+      "text": "Default Inference",
+      "type": "RA",
+      "timestamp": "2022-03-03 19:03:24",
+      "scheme": "Default Inference",
+      "schemeID": "72"
+    },
+    {
+      "nodeID": "923547",
+      "text": "Default Conflict",
+      "type": "CA",
+      "timestamp": "2022-03-03 19:03:24",
+      "scheme": "Default Conflict",
+      "schemeID": "71"
+    }
+  ],
+  "edges": [
+    {
+      "edgeID": "1160820",
+      "fromID": "95932",
+      "toID": "923544",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1160821",
+      "fromID": "923544",
+      "toID": "923543",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1160822",
+      "fromID": "95932",
+      "toID": "923546",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1160823",
+      "fromID": "923546",
+      "toID": "923545",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1160824",
+      "fromID": "923545",
+      "toID": "923547",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1160825",
+      "fromID": "923547",
+      "toID": "923543",
+      "formEdgeID": null
+    }
+  ],
+  "locutions": []
+}

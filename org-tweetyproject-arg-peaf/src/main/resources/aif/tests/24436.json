@@ -1,0 +1,189 @@
+{
+  "nodes": [
+    {
+      "nodeID": "95932",
+      "text": "e1",
+      "type": "I",
+      "timestamp": "2015-09-03 14:01:01"
+    },
+    {
+      "nodeID": "791701",
+      "text": "remote_chance",
+      "type": "I",
+      "timestamp": "2022-01-05 13:48:27"
+    },
+    {
+      "nodeID": "885301",
+      "text": "unlikely",
+      "type": "I",
+      "timestamp": "2022-01-31 14:12:30"
+    },
+    {
+      "nodeID": "913851",
+      "text": "likely",
+      "type": "I",
+      "timestamp": "2022-02-23 22:52:01"
+    },
+    {
+      "nodeID": "923543",
+      "text": "e2",
+      "type": "I",
+      "timestamp": "2022-03-03 19:03:23"
+    },
+    {
+      "nodeID": "926232",
+      "text": "e4",
+      "type": "I",
+      "timestamp": "2022-03-09 15:12:21"
+    },
+    {
+      "nodeID": "926244",
+      "text": "e5",
+      "type": "I",
+      "timestamp": "2022-03-09 16:35:06"
+    },
+    {
+      "nodeID": "926245",
+      "text": "Default Conflict",
+      "type": "CA",
+      "timestamp": "2022-03-09 16:35:07",
+      "scheme": "Default Conflict",
+      "schemeID": "71"
+    },
+    {
+      "nodeID": "926246",
+      "text": "Default Conflict",
+      "type": "CA",
+      "timestamp": "2022-03-09 16:35:07",
+      "scheme": "Default Conflict",
+      "schemeID": "71"
+    },
+    {
+      "nodeID": "926247",
+      "text": "Default Rephrase",
+      "type": "MA",
+      "timestamp": "2022-03-09 16:35:07",
+      "scheme": "Default Rephrase",
+      "schemeID": "144"
+    },
+    {
+      "nodeID": "926248",
+      "text": "Default Rephrase",
+      "type": "MA",
+      "timestamp": "2022-03-09 16:35:07",
+      "scheme": "Default Rephrase",
+      "schemeID": "144"
+    },
+    {
+      "nodeID": "926249",
+      "text": "Default Rephrase",
+      "type": "MA",
+      "timestamp": "2022-03-09 16:35:07",
+      "scheme": "Default Rephrase",
+      "schemeID": "144"
+    },
+    {
+      "nodeID": "926250",
+      "text": "Default Inference",
+      "type": "RA",
+      "timestamp": "2022-03-09 16:35:07",
+      "scheme": "Default Inference",
+      "schemeID": "72"
+    },
+    {
+      "nodeID": "926251",
+      "text": "Default Inference",
+      "type": "RA",
+      "timestamp": "2022-03-09 16:35:07",
+      "scheme": "Default Inference",
+      "schemeID": "72"
+    }
+  ],
+  "edges": [
+    {
+      "edgeID": "1166043",
+      "fromID": "95932",
+      "toID": "926245",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166044",
+      "fromID": "926245",
+      "toID": "923543",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166045",
+      "fromID": "923543",
+      "toID": "926246",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166046",
+      "fromID": "926246",
+      "toID": "95932",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166047",
+      "fromID": "913851",
+      "toID": "926247",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166048",
+      "fromID": "926247",
+      "toID": "923543",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166049",
+      "fromID": "791701",
+      "toID": "926248",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166050",
+      "fromID": "926248",
+      "toID": "926244",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166051",
+      "fromID": "885301",
+      "toID": "926249",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166052",
+      "fromID": "926249",
+      "toID": "926232",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166053",
+      "fromID": "926232",
+      "toID": "926250",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166054",
+      "fromID": "926250",
+      "toID": "95932",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166055",
+      "fromID": "926244",
+      "toID": "926251",
+      "formEdgeID": null
+    },
+    {
+      "edgeID": "1166056",
+      "fromID": "926251",
+      "toID": "95932",
+      "formEdgeID": null
+    }
+  ],
+  "locutions": []
+}

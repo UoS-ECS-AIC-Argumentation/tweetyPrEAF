@@ -1,4 +1,4 @@
-package org.tweetyproject.arg.peaf.analysis;
+package org.tweetyproject.arg.peaf.analysis.extensions;
 
 import java.util.List;
 import java.util.Set;

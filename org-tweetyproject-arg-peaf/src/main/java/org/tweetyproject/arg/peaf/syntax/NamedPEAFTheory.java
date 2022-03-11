@@ -22,6 +22,7 @@ public class NamedPEAFTheory extends PEAFTheory {
      * Internal map for getting arguments given the AIF identifier
      */
     private final Map<String, EArgument> reverseAIFMap = Maps.newHashMap();
+    private final Map<EArgument, String> aifMap = Maps.newHashMap();
 
     /**
      * Helper function to give the names of a set of arguments
@@ -81,6 +82,7 @@ public class NamedPEAFTheory extends PEAFTheory {
         EArgument argument = super.addArgument(identifier);
         namesMap.put(argument, name);
         reverseAIFMap.put(aifNodeIdentifier, argument);
+        aifMap.put(argument, aifNodeIdentifier);
         return argument;
     }
 
@@ -113,5 +115,82 @@ public class NamedPEAFTheory extends PEAFTheory {
         }
 
         System.out.println("\n");
+    }
+
+    public void prettyPrintWithoutNames() {
+        super.prettyPrint();
+    }
+
+    public NamedPEAFTheory createCopyWithoutArguments(Set<EArgument> args) {
+        NamedPEAFTheory newPEAFTheory = new NamedPEAFTheory();
+
+        int noArgs = 0;
+
+//        peafTheory.addArgument(noArgs, argument.getName(), argument.getIdentifier());
+        for (EArgument argument : this.arguments) {
+            if (!args.contains(argument)) {
+                newPEAFTheory.addArgument(noArgs++, namesMap.get(argument), this.aifMap.get(argument));
+            }
+        }
+        newPEAFTheory.addSupport(new int[]{}, new int[]{0}, 1.0);
+
+        for (EAttack attack : this.attacks) {
+            Set<EArgument> froms = this.filter(attack.getFroms(), args);
+            Set<EArgument> tos = this.filter(attack.getTos(), args);
+
+            if (froms.isEmpty() || tos.isEmpty()) {
+                continue;
+            }
+
+            Set<EArgument> newFroms = this.convert(froms, newPEAFTheory);
+            Set<EArgument> newTos = this.convert(tos, newPEAFTheory);
+
+            newPEAFTheory.addAttack(newFroms, newTos);
+        }
+
+        for (PSupport support : this.supports) {
+            Set<EArgument> froms = this.filter(support.getFroms(), args);
+            Set<EArgument> tos = this.filter(support.getTos(), args);
+
+            if (froms.isEmpty() || tos.isEmpty()) {
+                continue;
+            }
+
+            Set<EArgument> newFroms = this.convert(froms, newPEAFTheory);
+            Set<EArgument> newTos = this.convert(tos, newPEAFTheory);
+
+            newPEAFTheory.addSupport(newFroms, newTos, support.getConditionalProbability());
+        }
+
+
+        return newPEAFTheory;
+    }
+
+    private Set<EArgument> convert(Set<EArgument> originalArgs, NamedPEAFTheory newPEAFTheory) {
+        Set<EArgument> conversions = Sets.newHashSet();
+
+        for (EArgument originalArg : originalArgs) {
+            String aifIdentifier = this.aifMap.get(originalArg);
+            EArgument newArg = newPEAFTheory.getArgumentByIdentifier(aifIdentifier);
+            conversions.add(newArg);
+        }
+
+        return conversions;
+    }
+
+    private Set<EArgument> filter(Set<EArgument> originalArgs, Set<EArgument> filter) {
+        Set<EArgument> filteredSet = Sets.newHashSet();
+
+        for (EArgument arg : originalArgs) {
+            if (!filter.contains(arg)) {
+                filteredSet.add(arg);
+            }
+        }
+
+        return filteredSet;
+    }
+
+    public String getIdentifier(EArgument e) {
+        return this.aifMap.get(e);
     }
 }

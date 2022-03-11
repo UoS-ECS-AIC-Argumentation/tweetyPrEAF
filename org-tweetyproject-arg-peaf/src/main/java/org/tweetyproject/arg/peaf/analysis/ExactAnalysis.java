@@ -2,7 +2,7 @@ package org.tweetyproject.arg.peaf.analysis;
 
 
 import org.tweetyproject.arg.dung.reasoner.AbstractExtensionReasoner;
-import org.tweetyproject.arg.peaf.inducers.ExactPEAFInducer;
+import org.tweetyproject.arg.peaf.inducers.LiExactPEAFInducer;
 import org.tweetyproject.arg.peaf.syntax.EArgument;
 import org.tweetyproject.arg.peaf.syntax.PEAFTheory;
 
@@ -42,18 +42,29 @@ public class ExactAnalysis extends AbstractAnalysis implements ProbabilisticJust
     @Override
     public AnalysisResult query(Set<EArgument> args) {
 
-        ExactPEAFInducer exactPEAFInducer = new ExactPEAFInducer(this.peafTheory);
+        LiExactPEAFInducer exactPEAFInducer = new LiExactPEAFInducer(this.peafTheory);
 
         final double[] p = {0.0};
         final double[] total = {0.0};
         final long[] i = {0};
 
+
         exactPEAFInducer.induce(iEAF -> {
-            double contribution = computeContributionOfAniEAF(args, iEAF);
+            double contribution = 0;
+
+            contribution = computeContributionOfAniEAF(args, iEAF);
+
+//            if (iEAF.getInducePro() > 0.0 && contribution > 0.0) {
+//                System.out.println(iEAF + " c:" +contribution);
+//            }
+
+
             p[0] += contribution * iEAF.getInducePro();
             total[0] += iEAF.getInducePro();
             i[0] += 1;
+
         });
+//        System.out.println("Total is: "  + total[0]);
 
         return this.createResult(p[0], i[0], total[0]);
     }
